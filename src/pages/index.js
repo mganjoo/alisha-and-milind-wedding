@@ -1,21 +1,44 @@
 import React from "react"
-import { Link } from "gatsby"
-
+import { graphql } from "gatsby"
+import Img from "gatsby-image"
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+    <div className="text-lg leading-tight sm:text-xl md:flex md:px-4 lg:text-2xl">
+      <Img
+        fluid={data.weddingHeroImage.childImageSharp.fluid}
+        alt="Picture of wedding"
+        className="mb-8 shadow-md md:mb-0 md:shadow-none md:w-3/5"
+      />
+      <div className="px-10 flex flex-col items-center md:items-start md:w-2/5">
+        <p>
+          Welcome to our wedding website! We are so excited to celebrate this
+          weekend with you!
+          <br />
+          <br />
+          Love,
+          <br />
+          Alisha & Milind
+        </p>
+        <button className="btn shadow-md mt-12">RSVP</button>
+      </div>
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
   </Layout>
 )
+
+export const query = graphql`
+  query {
+    weddingHeroImage: file(relativePath: { eq: "wedding-hero.jpg" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage
