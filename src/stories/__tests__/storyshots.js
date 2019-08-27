@@ -16,7 +16,7 @@ const devices = {
 }
 
 function createCustomizePage(device) {
-  return deviceName => page.emulate(device)
+  return page => page.emulate(device)
 }
 
 for (const size in devices) {

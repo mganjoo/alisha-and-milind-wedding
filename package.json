@@ -63,7 +63,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "storybook:ui": "start-storybook -p 9009 --ci",
-    "test:ui": "server-test storybook:ui http-get://localhost:9009 jest"
+    "test:ui": "server-test storybook:ui http-get://localhost:9009 jest",
+    "test:ui-update": "server-test storybook:ui http-get://localhost:9009 'jest -u'"
   },
   "repository": {
     "type": "git",
