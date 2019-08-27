@@ -18,7 +18,7 @@ global.___loader = {
   hovering: () => {},
 }
 // mock Gatsby ___navigate method to observe the effect of clicking on nav links
-window.___navigate = pathname => {
+global.___navigate = pathname => {
   action("gatsbyNavigate:")(pathname)
 }
 
