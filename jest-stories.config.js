@@ -13,7 +13,7 @@ module.exports = {
     "<rootDir>/stories/**/__tests__/**/*.[jt]s?(x)",
     "<rootDir>/stories/**/?(*.)+(spec|test).[jt]s?(x)",
   ],
-  testPathIgnorePatterns: [`node_modules`, `.cache`],
+  testPathIgnorePatterns: [`node_modules`, `.cache`, `<rootDir>/cypress`],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   globals: {
     __PATH_PREFIX__: ``,
