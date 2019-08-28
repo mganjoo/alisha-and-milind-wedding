@@ -67,7 +67,7 @@
     "storybook:ui": "start-storybook -p 9009 --ci",
     "test:unit": "jest",
     "test:ui": "server-test storybook:ui http-get://localhost:9009 'jest -c jest-stories.config.js'",
-    "test:ui-update": "server-test storybook:ui http-get://localhost:9009 'jest -c jest-stories.config.js j-u'"
+    "test:ui-update": "server-test storybook:ui http-get://localhost:9009 'jest -c jest-stories.config.js -u'"
   },
   "repository": {
     "type": "git",
