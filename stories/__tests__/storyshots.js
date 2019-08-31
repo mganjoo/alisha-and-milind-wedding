@@ -18,6 +18,9 @@ const devices = {
 function createCustomizePage(device) {
   return page => page.emulate(device)
 }
+function beforeScreenshot(page, {}) {
+  return new Promise(resolve => page.waitFor(300).then(() => resolve()))
+}
 
 for (const size in devices) {
   const device = puppeteer.devices[devices[size]]
@@ -27,6 +30,7 @@ for (const size in devices) {
     test: imageSnapshot({
       storybookUrl: "http://localhost:9009",
       customizePage,
+      beforeScreenshot,
     }),
   })
 }

@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Header from "./header"
+import Header from "./Header"
 import Helmet from "react-helmet"
 
 const Layout = ({ children }) => {
@@ -9,8 +9,16 @@ const Layout = ({ children }) => {
       <Helmet>
         <body className="font-serif bg-orange-100 text-gray-900"></body>
       </Helmet>
-      <Header />
-      <div>
+      <Header
+        links={[
+          { text: "Our Story", to: "/our-story" },
+          { text: "Events", to: "/" },
+          { text: "Travel", to: "/travel" },
+          { text: "FAQ", to: "/faq" },
+          { text: "RSVP", to: "/rsvp" },
+        ]}
+      />
+      <div className="sm:mt-4">
         <main>{children}</main>
       </div>
     </>

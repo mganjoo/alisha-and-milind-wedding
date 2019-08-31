@@ -23,7 +23,7 @@ const IndexPage = ({ data }) => (
           <br />
           Alisha & Milind
         </p>
-        <button className="btn shadow-md mt-12">RSVP</button>
+        <button className="button shadow-md mt-12">RSVP</button>
       </div>
     </div>
   </Layout>
