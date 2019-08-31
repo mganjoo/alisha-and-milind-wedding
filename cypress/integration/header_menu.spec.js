@@ -4,7 +4,7 @@ describe("header menu on mobile", function() {
   beforeEach(() => {
     cy.viewport("iphone-6")
     cy.visit("/")
-    cy.get('button[aria-label="Toggle Menu"]').as("menu_button")
+    cy.getByLabelText(/toggle menu/i).as("menu_button")
   })
 
   it("should not be visible initially", function() {
