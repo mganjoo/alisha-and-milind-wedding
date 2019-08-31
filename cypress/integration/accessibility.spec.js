@@ -14,3 +14,16 @@ describe("application", function() {
     })
   })
 })
+
+describe("header menu on mobile", function() {
+  beforeEach(() => {
+    cy.viewport("iphone-6")
+    cy.visit("/")
+    cy.injectAxe()
+  })
+
+  it("has no detectable a11y violations when open", function() {
+    cy.getByLabelText(/toggle menu/i).click()
+    cy.checkA11y()
+  })
+})
