@@ -68,5 +68,8 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-# Storyshot diffs
+# jest-image-snapshot diffs
 __diff_output__
+
+# Cypress
+cypress/screenshots
