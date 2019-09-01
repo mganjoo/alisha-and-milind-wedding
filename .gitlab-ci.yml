@@ -1,0 +1,39 @@
+stages:
+  - build
+  - test
+
+variables:
+  # Set https://docs.npmjs.com/misc/config#cache - https://docs.npmjs.com/misc/config#environment-variables
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  # https://docs.cypress.io/guides/getting-started/installing-cypress.html#Binary-cache
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+cache:
+  # cache using branch name (https://gitlab.com/help/ci/yaml/README.md#cachekey)
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm
+    - cache/Cypress
+    - node_modules
+
+install:
+  image: cypress/base:10
+  stage: build
+  script:
+    - npm ci
+    - $(npm bin)/cypress verify
+
+tests:
+  image: cypress/base:10
+  stage: test
+  script:
+    - npm run test:ci
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/**/*.mp4
+      - cypress/screenshots/**/*.png
+      - cypress/diffs/**/*.png
+    reports:
+      junit: cypress/results/results-*.xml
+    expire_in: 3 days

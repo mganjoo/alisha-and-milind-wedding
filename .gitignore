@@ -73,3 +73,5 @@ __diff_output__
 
 # Cypress
 cypress/screenshots
+cypress/diffs
+cypress/results
