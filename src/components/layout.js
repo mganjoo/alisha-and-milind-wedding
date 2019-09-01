@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
       <Header
         links={[
           { text: "Our Story", to: "/our-story" },
-          { text: "Events", to: "/" },
+          { text: "Events", to: "/events" },
           { text: "Travel", to: "/travel" },
           { text: "FAQ", to: "/faq" },
           { text: "RSVP", to: "/rsvp" },

@@ -53,7 +53,7 @@ function Header({ links }) {
         </div>
         <div className="py-5 text-center sm:pt-8 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl">
-            Alisha & Milind
+            <Link to="/">Alisha & Milind</Link>
           </h1>
           <h2 className="font-sans uppercase text-sm sm:text-xl lg:text-2xl">
             May 1-3, 2020 &middot; San Mateo, CA
