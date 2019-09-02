@@ -36,6 +36,9 @@ module.exports = {
       options: {
         printRejected: true,
         tailwind: true,
+        purgeOnly: [`src/styles/global.css`],
+        // whitelist <a> which is used indirectly by Gatsby <Link>
+        whitelist: [`a`],
       },
     },
   ],
