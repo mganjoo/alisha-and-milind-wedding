@@ -3,14 +3,16 @@
 const sizes = {
   // 320x568
   mobile: "iphone-5",
+  // Set all heights to a maximum of 720, since that is the height passed to XVFB in headless mode
+  // See https://github.com/cypress-io/cypress/issues/2102#issuecomment-402901382
   // Tailwind "sm"
-  small: [640, 855],
-  // 768x1024 (Tailwind "md")
-  medium: "ipad-2",
+  small: [640, 720],
+  // Tailwind "md"
+  medium: [768, 720],
   // iPad Pro (Tailwind "lg")
-  large: [1024, 1366],
+  large: [1024, 720],
   // Tailwind "xl"
-  xlarge: "macbook-13",
+  xlarge: [1280, 720],
 }
 
 describe("header", function() {

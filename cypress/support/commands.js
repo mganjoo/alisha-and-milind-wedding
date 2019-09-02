@@ -1,25 +1,30 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command"
+
+// See: https://github.com/cypress-io/cypress/issues/2102#issuecomment-521299946
+if (Cypress.browser.name === "electron" && Cypress.browser.isHeaded) {
+  Cypress.Commands.add(
+    "matchImageSnapshot",
+    {
+      prevSubject: ["optional", "element", "window", "document"],
+    },
+    (_, name) => {
+      cy.log(
+        "In non-headless electron we can't control the device scale factor so have made `CypressSubject#matchImageSnapshot` a noop."
+      )
+    }
+  )
+} else {
+  // Allow for relaxed thresholds on CI machines and when Chrome is used (as master snapshots are generated using headless Electron)
+  const relaxThresholds =
+    Cypress.env("relaxThresholds") ||
+    Cypress.browser.name === "chrome" ||
+    Cypress.browser.name === "chromium" ||
+    false
+  addMatchImageSnapshotCommand({
+    capture: "viewport",
+    customDiffDir: "cypress/diffs",
+    customDiffConfig: { threshold: relaxThresholds ? 0.1 : 0.2 }, // reduce sensitivity of comparison from default 0.1
+    failureThreshold: relaxThresholds ? 0.02 : 0, // 2% difference triggers failure with relaxed thresholds
+    failureThresholdType: "percent",
+  })
+}
