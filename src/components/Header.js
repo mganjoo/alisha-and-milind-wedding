@@ -75,11 +75,11 @@ function Header({ links }) {
               <Link
                 onClick={closeDropdown}
                 to={link.to}
-                getProps={({ isCurrent }) => ({
-                  className: `inline-block px-1 pt-4 pb-1 border-b-4 border-transparent hover:border-orange-300 sm:px-2 sm:py-3 sm:border-b-4${
-                    isCurrent || link.forceActive
-                      ? " border-orange-500 hover:border-orange-500"
-                      : ""
+                getProps={({ isCurrent, isPartiallyCurrent }) => ({
+                  className: `inline-block px-1 pt-4 pb-1 border-b-4 sm:px-2 sm:py-3 sm:border-b-4${
+                    isCurrent || isPartiallyCurrent || link.forceActive
+                      ? " border-orange-500"
+                      : " border-transparent hover:border-orange-300"
                   }`,
                 })}
               >
