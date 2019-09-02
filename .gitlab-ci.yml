@@ -10,6 +10,17 @@ cache:
     - cache/Cypress
 
 test:
+  only:
+    refs:
+      - develop
+      - triggers
+  except:
+    changes:
+      - "*.md"
+      - LICENSE
+      - ".prettier*"
+      - .gitignore
+      - .vscode/*
   image: cypress/base:10
   stage: test
   script:
