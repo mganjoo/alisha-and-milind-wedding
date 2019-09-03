@@ -67,7 +67,6 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:ci": "npm run test:unit && npm run test:e2e:ci",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook",
     "test:unit": "jest",
     "test:e2e": "server-test develop http://localhost:8000 cy:run",
     "pretest:e2e": "npm run cy:clean",
