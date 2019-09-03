@@ -1,0 +1,12 @@
+[build]
+
+# Enable "save the date" mode for production only
+
+[context.production.environment]
+  SAVE_THE_DATE = "1"
+
+[context.develop.environment]
+  SAVE_THE_DATE = "0"
+
+[context.deploy-preview.environment]
+  SAVE_THE_DATE = "0"
