@@ -1,5 +1,6 @@
 {
   "files.associations": {
-    "global.css": "postcss"
+    "global.css": "postcss",
+    "netlify.toml": "ini"
   }
 }

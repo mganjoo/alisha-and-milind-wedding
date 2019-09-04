@@ -20,6 +20,14 @@
 
     The site will be running at _`http://localhost:8000`_, and the GraphiQL tool will be at \_`http://localhost:8000/___graphql`\_.
 
+## Build environment variables
+
+These options control how the Gatsby site gets generated.
+
+- `GUARD_PAGE_ONLY`: When set to `"1"`, builds a single page ("save the date" or "coming soon")
+  and deletes all other pages. This can be useful to allow development on the full website while the "public"
+  website is still protected. (default: `"0"`)
+
 ## 🧪 Testing
 
 This project has [Jest](https://jestjs.io/) configured for unit tests and [Cypress](https://www.cypress.io) for end-to-end tests.

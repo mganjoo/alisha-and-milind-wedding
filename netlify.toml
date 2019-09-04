@@ -1,12 +1,17 @@
 [build]
+  environment = { CYPRESS_INSTALL_BINARY = "0" }
 
-# Enable "save the date" mode for production only
+# Set up environment-specific build options
+# Show guard page in production and staging environments
 
 [context.production.environment]
-  SAVE_THE_DATE = "1"
+  GUARD_PAGE_ONLY = "1"
+
+[context.staging.environment]
+  GUARD_PAGE_ONLY = "1"
 
 [context.develop.environment]
-  SAVE_THE_DATE = "0"
+  GUARD_PAGE_ONLY = "0"
 
 [context.deploy-preview.environment]
-  SAVE_THE_DATE = "0"
+  GUARD_PAGE_ONLY = "0"
