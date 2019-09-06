@@ -14,13 +14,7 @@ test:
     refs:
       - develop
       - triggers
-  except:
-    changes:
-      - "*.md"
-      - LICENSE
-      - ".prettier*"
-      - .gitignore
-      - .vscode/*
+      - web
   image: cypress/base:10
   stage: test
   script:
