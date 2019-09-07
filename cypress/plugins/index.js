@@ -1,12 +1,7 @@
 const { addMatchImageSnapshotPlugin } = require("cypress-image-snapshot/plugin")
-
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
+const yn = require("yn")
 
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-
   on("before:browser:launch", (browser = {}, args) => {
     if (browser.name === "chrome" || browser.name === "chromium") {
       // In headless mode, Cypress fixes the scale factor to 1, and this forces
@@ -30,4 +25,10 @@ module.exports = (on, config) => {
   })
 
   addMatchImageSnapshotPlugin(on, config)
+
+  if (yn(process.env.GUARD_PAGE_ONLY)) {
+    // Run special tests for guard page-only environment
+    config.integrationFolder = "cypress/guard-page-integration"
+    return config
+  }
 }

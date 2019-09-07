@@ -1,14 +1,20 @@
-[build]
-  environment = { CYPRESS_INSTALL_BINARY = "0" }
+[build.environment]
+  # Disable Cypress binary download since it takes too much time
+  CYPRESS_INSTALL_BINARY = "0"
 
-# Set up environment-specific build options
-# Show guard page in production and staging environments
+## Set up environment-specific build options
 
 [context.production.environment]
+  # Show guard page in production environment
   GUARD_PAGE_ONLY = "1"
 
+[context.staging]
+  # Run production tests in staging environment
+  command = "npm run build && ./trigger-gitlab.sh"
 [context.staging.environment]
+  # Show guard page in staging environment
   GUARD_PAGE_ONLY = "1"
+  EXTRA_GITLAB_CURL_FLAGS = "-F variables[GUARD_PAGE_ONLY]=1"
 
 [context.develop.environment]
   GUARD_PAGE_ONLY = "0"

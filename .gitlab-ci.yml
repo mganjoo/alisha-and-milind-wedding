@@ -20,11 +20,18 @@ test:
   script:
     - npm ci
     - $(npm bin)/cypress verify
-    - npm run test:ci
+    - |
+      if [[ -v CYPRESS_baseUrl ]]; then
+        echo "Testing external url $CYPRESS_baseUrl"
+        npm run cy:run:ci
+      else
+        echo "Running local server and testing"
+        npm run test:ci
+      fi
   artifacts:
     when: always
     paths:
-      - cypress/videos/**/*.mp4
+      - cypress/videos/*.mp4
       - cypress/screenshots/**/*.png
       - cypress/diffs/**/*.png
     reports:
