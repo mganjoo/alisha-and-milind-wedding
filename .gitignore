@@ -75,3 +75,4 @@ __diff_output__
 cypress/screenshots
 cypress/diffs
 cypress/results
+cypress/videos
