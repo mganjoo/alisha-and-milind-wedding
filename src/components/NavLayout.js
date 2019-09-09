@@ -1,14 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Header from "./Header"
-import Helmet from "react-helmet"
+import BaseLayout from "./BaseLayout"
 
-const Layout = ({ children }) => {
+const NavLayout = ({ children }) => {
   return (
-    <>
-      <Helmet>
-        <body className="font-serif bg-orange-100 text-gray-900"></body>
-      </Helmet>
+    <BaseLayout>
       <Header
         links={[
           { text: "Our Story", to: "/our-story" },
@@ -21,12 +18,12 @@ const Layout = ({ children }) => {
       <div className="sm:mt-4">
         <main>{children}</main>
       </div>
-    </>
+    </BaseLayout>
   )
 }
 
-Layout.propTypes = {
+NavLayout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout
+export default NavLayout

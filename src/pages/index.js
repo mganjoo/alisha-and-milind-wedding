@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
-import Layout from "../components/layout"
+import NavLayout from "../components/NavLayout"
 import SEO from "../components/seo"
 
 const IndexPage = ({ data }) => {
@@ -19,7 +19,7 @@ const IndexPage = ({ data }) => {
     `
   )
   return (
-    <Layout>
+    <NavLayout>
       <SEO title="Home" />
       <div className="text-lg leading-tight sm:text-xl md:flex md:px-4 lg:text-2xl">
         <Img
@@ -40,7 +40,7 @@ const IndexPage = ({ data }) => {
           <button className="button shadow-md mt-12">RSVP</button>
         </div>
       </div>
-    </Layout>
+    </NavLayout>
   )
 }
 export default IndexPage

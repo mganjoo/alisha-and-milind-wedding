@@ -31,17 +31,17 @@ module.exports = {
         },
         icons: [
           {
-            src: `/am-logo-96x96.png`,
+            src: `/am-square-96x96.png`,
             sizes: `96x96`,
             type: `image/png`,
           },
           {
-            src: `/am-logo-192x192.png`,
+            src: `/am-square-192x192.png`,
             sizes: `192x192`,
             type: `image/png`,
           },
           {
-            src: `/am-logo-512x512.png`,
+            src: `/am-square-512x512.png`,
             sizes: `512x512`,
             type: `image/png`,
           },
@@ -61,5 +61,6 @@ module.exports = {
         whitelist: [`a`],
       },
     },
+    `gatsby-plugin-remove-fingerprints`,
   ],
 }

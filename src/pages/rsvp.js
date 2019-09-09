@@ -1,12 +1,12 @@
 import React from "react"
-import Layout from "../components/layout"
+import NavLayout from "../components/NavLayout"
 import SEO from "../components/seo"
 
-const IndexPage = ({ data }) => (
-  <Layout>
+const RsvpPage = ({ data }) => (
+  <NavLayout>
     <SEO title="RSVP" />
     <p>TODO</p>
-  </Layout>
+  </NavLayout>
 )
 
-export default IndexPage
+export default RsvpPage
