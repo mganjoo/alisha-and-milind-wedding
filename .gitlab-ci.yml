@@ -12,9 +12,6 @@ cache:
 test:
   only:
     refs:
-      - develop
-      # For auto pull requests created by dependabot (https://dependabot.com/)
-      - /^dependabot.*$/
       - triggers
       - web
   image: cypress/base:10
