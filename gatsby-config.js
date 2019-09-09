@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `A & M Wedding`,
-    description: `Welcome to Alisha Saxena and Milind Ganjoo's wedding website! We're excited to celebrate with you.`,
+    title: `Alisha & Milind Wedding`,
+    description: `Welcome to Alisha and Milind's wedding website! We're excited to celebrate with you.`,
     author: `@mganjoo`,
   },
   plugins: [
