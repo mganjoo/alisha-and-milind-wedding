@@ -15,8 +15,7 @@ on:
       - '!.gitignore'
       - '!.vscode/*'
 jobs:
-  build-and-test:
-    name: Build and test
+  test:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
