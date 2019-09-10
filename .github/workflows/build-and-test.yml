@@ -1,7 +1,22 @@
 name: Build and test
-on: [push]
+on:
+  push:
+    branches:
+      # Match all branches except staging and master (since we test it before develop anyway)
+      - '*'
+      - '!staging'
+      - '!master'
+    paths:
+      - '*'
+      - '!README.md'
+      - '!LICENSE'
+      - '!.prettierrc'
+      - '!.prettierignore'
+      - '!.gitignore'
+      - '!.vscode/*'
 jobs:
-  build:
+  build-and-test:
+    name: Build and test
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
@@ -10,10 +25,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
-    - name: Install and test
+    - name: Install packages
       run: |
         npm ci
         $(npm bin)/cypress verify
+      env:
+        CI: true
+    - name: Run tests
+      run: |
         npm run test:ci
       env:
         CI: true
