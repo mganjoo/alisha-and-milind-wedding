@@ -4,10 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        orange: {
-          ...defaultTheme.colors.orange,
-          "100": "#FFFCF7",
-        },
+        "off-white": "#fffcf7",
       },
       fontFamily: {
         sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
