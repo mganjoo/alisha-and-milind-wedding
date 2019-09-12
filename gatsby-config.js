@@ -49,7 +49,7 @@ module.exports = {
         crossOrigin: `use-credentials`,
       },
     },
-    `gatsby-plugin-offline`,
+    `gatsby-plugin-remove-console`,
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-purgecss`,
@@ -61,6 +61,6 @@ module.exports = {
         whitelist: [`a`],
       },
     },
-    `gatsby-plugin-remove-fingerprints`,
+    `gatsby-plugin-offline`,
   ],
 }

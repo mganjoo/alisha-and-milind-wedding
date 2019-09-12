@@ -10,6 +10,18 @@
     npm install
     ```
 
+1.  **Add Firebase credentials.**
+
+    Go to Firebase Console > Project Settings and scroll down to find the section listing key
+    app credentials. Create files `.env.development` and `.env.production` (they will be
+    ignored by Git) in the root directory of the project, with the following contents:
+
+    ```sh
+    GATSBY_FIREBASE_API_KEY=<apiKey from Firebase>
+    GATSBY_FIREBASE_AUTH_DOMAIN=<authDomain from Firebase>
+    GATSBY_FIREBASE_PROJECT_ID=<projectId from Firebase>
+    ```
+
 1.  **Start developing.**
 
     ```sh
