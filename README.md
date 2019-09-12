@@ -17,9 +17,9 @@
     ignored by Git) in the root directory of the project, with the following contents:
 
     ```sh
-    GATSBY_FIREBASE_API_KEY=<apiKey from Firebase>
-    GATSBY_FIREBASE_AUTH_DOMAIN=<authDomain from Firebase>
-    GATSBY_FIREBASE_PROJECT_ID=<projectId from Firebase>
+    GATSBY_FIREBASE_API_KEY="<apiKey from Firebase>"
+    GATSBY_FIREBASE_AUTH_DOMAIN="<authDomain from Firebase>"
+    GATSBY_FIREBASE_PROJECT_ID="<projectId from Firebase>"
     ```
 
 1.  **Start developing.**
@@ -30,7 +30,7 @@
 
 1.  **Start editing.**
 
-    The site will be running at _`http://localhost:8000`_, and the GraphiQL tool will be at \_`http://localhost:8000/___graphql`\_.
+    The site will be running at `http://localhost:8000`, and the GraphiQL tool will be at `http://localhost:8000/___graphql`.
 
 ## Build environment variables
 
