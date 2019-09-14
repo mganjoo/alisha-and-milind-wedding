@@ -77,3 +77,4 @@ cypress/screenshots
 cypress/diffs
 cypress/results
 cypress/videos
+cypress.env.json

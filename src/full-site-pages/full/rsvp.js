@@ -1,6 +1,6 @@
 import React from "react"
-import NavLayout from "../components/NavLayout"
-import SEO from "../components/seo"
+import NavLayout from "../../components/NavLayout"
+import SEO from "../../components/seo"
 
 const RsvpPage = ({ data }) => (
   <NavLayout>

@@ -34,4 +34,7 @@ jobs:
       run: |
         npm run test:ci
       env:
+        # Enable full site tests for all tests during development
+        ENABLE_FULL_SITE: 1
+        CYPRESS_ENABLE_FULL_SITE: 1
         CI: true

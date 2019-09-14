@@ -26,9 +26,9 @@ module.exports = (on, config) => {
 
   addMatchImageSnapshotPlugin(on, config)
 
-  if (yn(process.env.GUARD_PAGE_ONLY)) {
-    // Run special tests for guard page-only environment
-    config.integrationFolder = "cypress/guard-page-integration"
+  if (yn(config.env.ENABLE_FULL_SITE)) {
+    // Run full test suite when full site is enabled (default is to run "small-site" tests only)
+    config.ignoreTestFiles = ""
     return config
   }
 }

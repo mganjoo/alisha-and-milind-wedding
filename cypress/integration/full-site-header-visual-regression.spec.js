@@ -24,7 +24,7 @@ describe("header", function() {
       } else {
         cy.viewport(size)
       }
-      cy.visit("/our-story") // so we can get an "active" underline
+      cy.visit("/full/our-story") // so we can get an "active" underline
       cy.get("h1").should("be.visible")
       cy.matchImageSnapshot({ blackout: ["main"] }) // we only care about <header>
     })
@@ -32,7 +32,7 @@ describe("header", function() {
 
   it("should match previous screenshot at mobile size when menu is open", function() {
     cy.viewport("iphone-5")
-    cy.visit("/our-story")
+    cy.visit("/full/our-story")
     cy.getByLabelText(/toggle menu/i)
       .as("menu_button")
       .click()
