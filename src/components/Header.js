@@ -3,34 +3,33 @@ import React, { useEffect, useRef, useState } from "react"
 import { Link } from "gatsby"
 
 function Header({ links }) {
-  const [showDropdown, setShowDropdown] = useState(false)
-  function toggleDropdown() {
-    setShowDropdown(!showDropdown)
-  }
+  const [dropdownVisible, setDropdownVisible] = useState(false)
   function closeDropdown() {
-    setShowDropdown(false)
+    setDropdownVisible(false)
   }
   const menuButtonRef = useRef()
   const navRef = useRef()
   useEffect(() => {
-    function handleClickOutside(event) {
-      // Close if click is inside neither menu nor nav
-      if (
-        menuButtonRef.current &&
-        navRef.current &&
-        !menuButtonRef.current.contains(event.target) &&
-        !navRef.current.contains(event.target)
-      ) {
-        closeDropdown()
+    if (dropdownVisible) {
+      function handleClickOutside(event) {
+        // Close if click is inside neither menu nor nav
+        if (
+          menuButtonRef.current &&
+          navRef.current &&
+          !menuButtonRef.current.contains(event.target) &&
+          !navRef.current.contains(event.target)
+        ) {
+          closeDropdown()
+        }
+      }
+      document.addEventListener("touchstart", handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside)
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside)
+        document.removeEventListener("touchstart", handleClickOutside)
       }
     }
-    document.addEventListener("touchstart", handleClickOutside)
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("touchstart", handleClickOutside)
-    }
-  }, [showDropdown, menuButtonRef, navRef])
+  }, [dropdownVisible, menuButtonRef, navRef])
 
   return (
     <header className="border-b border-gray-400">
@@ -39,7 +38,7 @@ function Header({ links }) {
           <button
             className="p-2"
             ref={menuButtonRef}
-            onClick={toggleDropdown}
+            onClick={() => setDropdownVisible(!dropdownVisible)}
             aria-label="Toggle Menu"
           >
             <svg
@@ -63,7 +62,7 @@ function Header({ links }) {
       <nav
         ref={navRef}
         className={`${
-          showDropdown ? "block " : "hidden "
+          dropdownVisible ? "block " : "hidden "
         }py-3 border-t border-gray-400 font-sans font-semibold text-gray-900 text-sm sm:block sm:py-0 sm:border-t-0 sm:text-base lg:text-lg`}
       >
         <ul className="sm:flex sm:flex-row sm:justify-center sm:items-center">
