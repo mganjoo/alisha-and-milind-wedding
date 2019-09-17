@@ -3,6 +3,6 @@
 describe("save the date website", function() {
   it("should load correctly when visiting /", function() {
     cy.visit("/")
-    cy.get("h1").should("contain", "Stay Tuned")
+    cy.get("h1").should("contain", "Save the Date")
   })
 })

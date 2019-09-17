@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Milind Ganjoo <milind.ganjoo@gmail.com>",
   "dependencies": {
+    "email-validator": "^2.0.4",
     "firebase": "^6.6.0",
     "gatsby": "^2.15.11",
     "gatsby-image": "^2.2.17",
@@ -23,6 +24,7 @@
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
     "tailwindcss": "^1.1.2",
+    "typeface-arizonia": "0.0.72",
     "typeface-eb-garamond": "0.0.72",
     "typeface-montserrat": "0.0.75",
     "typeface-playfair-display": "0.0.72"
@@ -34,6 +36,7 @@
     "@storybook/addon-viewport": "^5.1.11",
     "@storybook/addons": "^5.1.11",
     "@storybook/react": "^5.1.11",
+    "@tailwindcss/custom-forms": "^0.2.1",
     "@testing-library/cypress": "^4.2.0",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",

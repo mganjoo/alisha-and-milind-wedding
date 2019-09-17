@@ -19,7 +19,7 @@ const BaseLayout = ({ children }) => {
           href="/favicon-16x16.png"
         />
         <link rel="mask-icon" href="/favicon-outline.svg" color="#1a202c" />
-        <body className="font-serif bg-off-white text-gray-900"></body>
+        <body className="bg-off-white font-serif text-gray-900"></body>
       </Helmet>
       {children}
     </>
