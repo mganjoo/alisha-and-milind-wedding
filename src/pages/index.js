@@ -3,20 +3,14 @@ import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import SEO from "../components/seo"
 import BaseLayout from "../components/BaseLayout"
-import Form, { EmailValidator, RequiredValidator } from "../components/Form"
+import { useForm, EmailValidator, RequiredValidator } from "../components/Form"
 import { useFirebase } from "../services/firebase"
 
-const saveTheDateFieldConfigs = [
-  { name: "name", label: "Name", type: "text", validator: RequiredValidator },
-  { name: "email", label: "Email", type: "email", validator: EmailValidator },
-  {
-    name: "mailingAddress",
-    label: "Mailing address",
-    type: "textarea",
-    validator: RequiredValidator,
-    rows: 3,
-  },
-]
+const validators = {
+  name: [RequiredValidator],
+  email: [RequiredValidator, EmailValidator],
+  mailingAddress: [RequiredValidator],
+}
 
 export default () => {
   const imageData = useStaticQuery(
@@ -52,6 +46,15 @@ export default () => {
         console.error("Error adding document: ", error)
       })
   }
+  const {
+    values,
+    dirty,
+    submitting,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    registerRef,
+  } = useForm(["name", "email", "mailingAddress"], validators, submitInfo)
 
   return (
     <BaseLayout>
@@ -92,11 +95,66 @@ export default () => {
                 Please confirm your email and mailing address! Formal invitation
                 to follow.
               </p>
-              <Form
-                fieldConfigs={saveTheDateFieldConfigs}
-                handleSubmit={submitInfo}
-                disabled={!firebase}
-              />
+              <div className="flex flex-col items-center px-12 pt-4 pb-6">
+                <label className="flex flex-wrap justify-between w-full mt-4">
+                  <span className="text-gray-700">Name</span>
+                  <span aria-live="polite" className="text-red-600">
+                    {dirty.name ? "Name is required." : ""}
+                  </span>
+                  <input
+                    name="name"
+                    type="text"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    ref={registerRef}
+                    className={`form-input form-base${
+                      dirty.name ? " form-invalid" : ""
+                    }`}
+                  />
+                </label>
+                <label className="flex flex-wrap justify-between w-full mt-4">
+                  <span className="text-gray-700">Email</span>
+                  <span aria-live="polite" className="text-red-600">
+                    {dirty.email ? "A valid email is required." : ""}
+                  </span>
+                  <input
+                    name="email"
+                    type="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    ref={registerRef}
+                    className={`form-input form-base${
+                      dirty.email ? " form-invalid" : ""
+                    }`}
+                  />
+                </label>
+                <label className="flex flex-wrap justify-between w-full mt-4">
+                  <span className="text-gray-700">Mailing address</span>
+                  <span aria-live="polite" className="text-red-600">
+                    {dirty.mailingAddress ? "Mailing address is required." : ""}
+                  </span>
+                  <textarea
+                    name="mailingAddress"
+                    value={values.mailingAddress}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    ref={registerRef}
+                    rows="3"
+                    className={`form-textarea form-base${
+                      dirty.mailingAddress ? " form-invalid" : ""
+                    }`}
+                  />
+                </label>
+                <button
+                  className="button mt-6"
+                  disabled={!firebase || submitting}
+                  onClick={handleSubmit}
+                >
+                  {submitting ? "Submitting..." : "Submit info"}
+                </button>
+              </div>
             </div>
             {submitted && (
               <div className="absolute inset-0 flex flex-col items-center">

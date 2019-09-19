@@ -1,10 +1,7 @@
-import React, { useState, useRef } from "react"
-import PropTypes from "prop-types"
-import FormInput from "./FormInput"
-import validator from "email-validator"
+import { useState, useRef } from "react"
 
 export const EmailValidator = {
-  validate: value => validator.validate(value),
+  validate: value => !/\S+@\S+\.\S+/.test(value),
   message: _ => `A valid email is required.`,
 }
 
@@ -13,135 +10,70 @@ export const RequiredValidator = {
   message: label => `${label} is required.`,
 }
 
-// Returns an object with the `name` fields from
-// fieldConfigs as keys, and fn(fieldConfig) as values.
-function makeFieldsMap(fieldConfigs, fn) {
-  return fieldConfigs.reduce((map, fieldConfig) => {
-    map[fieldConfig.name] = fn(fieldConfig)
+function makeMap(keys, fn) {
+  return keys.reduce((map, k) => {
+    map[k] = fn(k)
     return map
   }, {})
 }
 
-function validate(fieldConfig, value) {
-  return fieldConfig.validator.validate(value)
-}
+export function useForm(names, validators, submitCallback) {
+  const [values, setValues] = useState(makeMap(names, _ => ""))
+  const [dirty, setDirty] = useState(makeMap(names, _ => false))
+  const [submitting, setSubmitting] = useState(false)
+  const fieldsRef = useRef({})
+  const validate = (name, value) =>
+    validators[name].every(validator => validator.validate(value))
 
-function resetValues(fieldConfigs) {
-  return makeFieldsMap(fieldConfigs, _ => "")
-}
+  return {
+    values: values,
+    dirty: dirty,
+    submitting: submitting,
+    handleChange: event => {
+      const name = event.target.name
+      const value = event.target.value
+      setValues({ ...values, [name]: value })
 
-function resetDirty(fieldConfigs) {
-  return makeFieldsMap(fieldConfigs, _ => false)
-}
-
-function Form({ fieldConfigs, handleSubmit, disabled }) {
-  const [values, setValues] = useState(resetValues(fieldConfigs))
-  const [dirty, setDirty] = useState(resetDirty(fieldConfigs))
-  const [submissionStatus, setSubmissionStatus] = useState(null)
-  const fieldRefs = useRef(makeFieldsMap(fieldConfigs, _ => null))
-
-  const changeHandlers = makeFieldsMap(fieldConfigs, config => event => {
-    const value = event.target.value
-    setValues({ ...values, [config.name]: value })
-
-    // If (and only if) the current input is valid, clear dirty state for field
-    if (validate(config, value) && dirty[config.name]) {
-      setDirty({ ...dirty, [config.name]: false })
-    }
-  })
-  const blurHandlers = makeFieldsMap(fieldConfigs, config => _ => {
-    setDirty({
-      ...dirty,
-      // Field is dirty if it is invalid after blur
-      [config.name]: !validate(config, values[config.name]),
-    })
-  })
-  function handleSubmitClick() {
-    if (fieldConfigs.every(config => validate(config, values[config.name]))) {
-      setSubmissionStatus("submitting")
-      handleSubmit(values).then(
-        () => {
-          // Reset form
-          setValues(resetValues(fieldConfigs))
-          setDirty(resetDirty(fieldConfigs))
-          setSubmissionStatus(null)
-        },
-        () => setSubmissionStatus("failed")
-      )
-    } else {
-      // Bulk mark all invalid fields as dirty
-      setDirty(
-        makeFieldsMap(
-          fieldConfigs,
-          config => !validate(config, values[config.name])
-        )
-      )
-      const firstInvalidFieldName = fieldConfigs.find(
-        config => !validate(config, values[config.name])
-      ).name
-      if (fieldRefs.current[firstInvalidFieldName]) {
-        fieldRefs.current[firstInvalidFieldName].focus()
+      // Clear the dirty state for field if current input is valid
+      if (validate(name, value)) {
+        setDirty({ ...dirty, [name]: false })
       }
-    }
+    },
+    handleBlur: event => {
+      const name = event.target.name
+      // Mark as dirty if user has navigated away from an invalid field
+      setDirty({ ...dirty, [event.target.name]: !validate(name, values[name]) })
+    },
+    handleSubmit: _ => {
+      if (Object.keys(values).every(name => validate(name, values[name]))) {
+        setSubmitting(true)
+        submitCallback(values)
+          .then(() => setSubmitting(false))
+          .then(
+            () => {
+              // Reset form on success
+              setValues(makeMap(names, _ => ""))
+              setDirty({})
+            }
+            // TODO: set form-level error here
+          )
+      } else {
+        // Bulk mark all invalid fields as dirty
+        setDirty(makeMap(names, name => !validate(name, values[name])))
+        const firstInvalidName = names.find(
+          name => !validate(name, values[name])
+        )
+        if (fieldsRef.current[firstInvalidName]) {
+          fieldsRef.current[firstInvalidName].focus()
+        }
+      }
+    },
+    // Sets references to <input> elements as they are
+    // mounted in the DOM (for focusing purposes)
+    registerRef: element => {
+      if (element && element.name) {
+        fieldsRef.current[element.name] = element
+      }
+    },
   }
-
-  // Sets references to <input> elements as they are
-  // mounted in the DOM (for focusing purposes)
-  function updateFieldRefs(element) {
-    if (element && element.name) {
-      fieldRefs.current[element.name] = element
-    }
-  }
-
-  return (
-    <div className="flex flex-col items-center px-12 pt-4 pb-6">
-      {fieldConfigs.map(({ name, type, label, validator, ...otherProps }) => (
-        <label
-          className="flex flex-wrap justify-between w-full mt-4"
-          key={name}
-        >
-          <span className="text-gray-700">{label}</span>
-          <span aria-live="polite" className="text-red-600">
-            {dirty[name] ? validator.message(label) : ""}
-          </span>
-          <FormInput
-            name={name}
-            type={type}
-            value={values[name]}
-            onChange={changeHandlers[name]}
-            onBlur={blurHandlers[name]}
-            error={dirty[name]}
-            ref={updateFieldRefs}
-            {...otherProps}
-          />
-        </label>
-      ))}
-      <button
-        className="button mt-6"
-        disabled={disabled || submissionStatus === "submitting"}
-        onClick={handleSubmitClick}
-      >
-        {submissionStatus === "submitting" ? "Submitting..." : "Submit info"}
-      </button>
-    </div>
-  )
 }
-
-Form.propTypes = {
-  fieldConfigs: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      label: PropTypes.string,
-      type: PropTypes.string,
-      validator: PropTypes.object,
-    })
-  ),
-  handleSubmit: PropTypes.func,
-  disabled: PropTypes.bool,
-}
-
-Form.defaultProps = {
-  disabled: false,
-}
-
-export default Form
