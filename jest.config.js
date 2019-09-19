@@ -1,5 +1,6 @@
 module.exports = {
   transform: {
+    "^.+\\.tsx?$": "ts-jest",
     "^.+\\.jsx?$": `<rootDir>/jest-preprocess.js`,
   },
   moduleNameMapper: {
@@ -15,5 +16,4 @@ module.exports = {
     __PATH_PREFIX__: ``,
   },
   setupFiles: [`<rootDir>/jest-setup.js`],
-  setupFilesAfterEnv: [`<rootDir>/jest-post-setup.js`],
 }

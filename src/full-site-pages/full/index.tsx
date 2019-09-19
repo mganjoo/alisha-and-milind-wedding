@@ -2,9 +2,9 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import NavLayout from "../../components/NavLayout"
-import SEO from "../../components/seo"
+import SEO from "../../components/SEO"
 
-const IndexPage = ({ data }) => {
+const IndexPage = () => {
   const imageData = useStaticQuery(
     graphql`
       query {

@@ -1,8 +1,7 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React, { ReactNode } from "react"
 import Helmet from "react-helmet"
 
-const BaseLayout = ({ children }) => {
+export default function BaseLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Helmet>
@@ -25,9 +24,3 @@ const BaseLayout = ({ children }) => {
     </>
   )
 }
-
-BaseLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default BaseLayout

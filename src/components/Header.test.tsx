@@ -1,6 +1,7 @@
 import React from "react"
 import { render } from "@testing-library/react"
 import Header from "./Header"
+import "@testing-library/jest-dom/extend-expect"
 
 const link1 = { text: "Our Story", to: "/our-story" }
 const link2 = { text: "Events", to: "/events" }

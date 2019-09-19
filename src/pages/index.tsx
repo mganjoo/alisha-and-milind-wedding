@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 import BaseLayout from "../components/BaseLayout"
 import { useForm, EmailValidator, RequiredValidator } from "../components/Form"
-import { useFirebase } from "../services/firebase"
+import { useFirebaseApp } from "../services/firebase"
+import firebase from "firebase/app"
 
 const validators = {
   name: [RequiredValidator],
@@ -12,7 +13,7 @@ const validators = {
   mailingAddress: [RequiredValidator],
 }
 
-export default () => {
+export default function IndexPage() {
   const imageData = useStaticQuery(
     graphql`
       query {
@@ -26,25 +27,29 @@ export default () => {
       }
     `
   )
-  const firebase = useFirebase()
+  const firebaseApp = useFirebaseApp()
   const [submitted, setSubmitted] = useState(false)
 
-  function submitInfo(submission) {
-    console.log("Submitting: ", submission)
-    return firebase
-      .firestore()
-      .collection("contactDetails")
-      .add({
-        createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
-        ...submission,
-      })
-      .then(docRef => {
-        console.log(`Document added: ${docRef}`)
-        setSubmitted(true)
-      })
-      .catch(error => {
-        console.error("Error adding document: ", error)
-      })
+  async function submitInfo(submission: { [key: string]: string }) {
+    if (firebaseApp != null) {
+      console.log("Submitting: ", submission)
+      return firebaseApp
+        .firestore()
+        .collection("contactDetails")
+        .add({
+          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          ...submission,
+        })
+        .then(docRef => {
+          console.log(`Document added: ${docRef.id}`)
+          setSubmitted(true)
+        })
+        .catch(error => {
+          console.error("Error adding document: ", error)
+        })
+    } else {
+      return Promise.resolve()
+    }
   }
   const {
     values,
@@ -90,7 +95,7 @@ export default () => {
             <hr className="mt-5 inline-block w-24 border-gray-400" />
           </div>
           <div className="relative">
-            <div className={submitted ? "invisible" : null}>
+            <div className={submitted ? "invisible" : undefined}>
               <p className="mt-3 px-2 text-center font-serif text-lg">
                 Please confirm your email and mailing address! Formal invitation
                 to follow.
@@ -141,8 +146,8 @@ export default () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     ref={registerRef}
-                    rows="3"
-                    className={`form-textarea form-base${
+                    rows={3}
+                    className={`form-textarea form-base resize-none${
                       dirty.mailingAddress ? " form-invalid" : ""
                     }`}
                   />

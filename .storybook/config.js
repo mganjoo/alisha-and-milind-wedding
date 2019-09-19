@@ -2,8 +2,8 @@ import { addParameters, configure } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
 import "../gatsby-browser.js"
 
-// automatically import all files ending in *.stories.js in stories/
-const req = require.context("../stories", true, /\.stories\.js$/)
+// automatically import all files ending in *.stories.tsx in stories/
+const req = require.context("../stories", true, /\.stories\.tsx$/)
 function loadStories() {
   req.keys().forEach(filename => req(filename))
 }
@@ -71,7 +71,7 @@ global.___loader = {
 }
 // mock Gatsby ___navigate method to observe the effect of clicking on nav links
 global.___navigate = pathname => {
-  action("gatsbyNavigate:")(pathname)
+  action("NavigateTo:")(pathname)
 }
 
 configure(loadStories, module)

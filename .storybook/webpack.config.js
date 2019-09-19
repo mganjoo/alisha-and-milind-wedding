@@ -36,5 +36,23 @@ module.exports = async ({ config }) => {
     ],
   })
 
+  // Typescript support
+  config.module.rules.push({
+    test: /\.(ts|tsx)$/,
+    use: [
+      {
+        loader: require.resolve("babel-loader"),
+        options: {
+          presets: [["react-app", { flow: false, typescript: true }]],
+          plugins: [
+            require.resolve("@babel/plugin-proposal-class-properties"),
+            require.resolve("babel-plugin-remove-graphql-queries"),
+          ],
+        },
+      },
+    ],
+  })
+  config.resolve.extensions.push(".ts", ".tsx")
+
   return config
 }

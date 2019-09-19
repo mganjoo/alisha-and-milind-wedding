@@ -1,9 +1,8 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React, { ReactNode } from "react"
 import Header from "./Header"
 import BaseLayout from "./BaseLayout"
 
-const NavLayout = ({ children }) => {
+export default function NavLayout({ children }: { children: ReactNode }) {
   return (
     <BaseLayout>
       <Header
@@ -21,9 +20,3 @@ const NavLayout = ({ children }) => {
     </BaseLayout>
   )
 }
-
-NavLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default NavLayout

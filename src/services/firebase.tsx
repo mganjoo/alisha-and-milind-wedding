@@ -8,26 +8,26 @@ const firebaseConfig = {
 
 // Store global singleton instance of firebase to ensure
 // there is always exactly one instantiation across the app.
-let firebaseInstance
+type MaybeFirebase = firebase.app.App | null
+let globalFirebaseApp: MaybeFirebase
 
-export function useFirebase() {
-  const [firebase, setFirebase] = useState(null)
+export function useFirebaseApp() {
+  const [firebaseApp, setFirebaseApp] = useState<MaybeFirebase>(null)
   useEffect(() => {
-    if (!firebase) {
-      if (firebaseInstance) {
-        setFirebase(firebaseInstance)
+    if (!firebaseApp) {
+      if (globalFirebaseApp) {
+        setFirebaseApp(globalFirebaseApp)
       } else {
         console.log("loading firebase")
         const lazyApp = import("firebase/app")
         const lazyFirestore = import("firebase/firestore")
         Promise.all([lazyApp, lazyFirestore]).then(([app]) => {
-          app.initializeApp(firebaseConfig)
-          firebaseInstance = app
+          globalFirebaseApp = app.initializeApp(firebaseConfig)
           console.log("loaded firebase")
-          setFirebase(firebaseInstance)
+          setFirebaseApp(globalFirebaseApp)
         })
       }
     }
-  }, [firebase])
-  return firebase
+  }, [firebaseApp])
+  return firebaseApp
 }

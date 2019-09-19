@@ -1,12 +1,11 @@
 import React from "react"
 import NavLayout from "../../components/NavLayout"
-import SEO from "../../components/seo"
+import SEO from "../../components/SEO"
 
-const RsvpPage = ({ data }) => (
+const FaqPage = () => (
   <NavLayout>
-    <SEO title="RSVP" />
+    <SEO title="FAQ" />
     <p>TODO</p>
   </NavLayout>
 )
-
-export default RsvpPage
+export default FaqPage

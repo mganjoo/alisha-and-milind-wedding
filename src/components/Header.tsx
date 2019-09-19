@@ -1,23 +1,32 @@
-import PropTypes from "prop-types"
 import React, { useEffect, useRef, useState } from "react"
 import { Link } from "gatsby"
 
-function Header({ links }) {
+interface HeaderLink {
+  text: string
+  to: string
+  forceActive?: boolean
+}
+
+interface HeaderProps {
+  links: HeaderLink[]
+}
+
+export default function Header({ links }: HeaderProps) {
   const [dropdownVisible, setDropdownVisible] = useState(false)
   function closeDropdown() {
     setDropdownVisible(false)
   }
-  const menuButtonRef = useRef()
-  const navRef = useRef()
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const navRef = useRef<HTMLElement>(null)
   useEffect(() => {
     if (dropdownVisible) {
-      function handleClickOutside(event) {
+      function handleClickOutside(event: UIEvent) {
         // Close if click is inside neither menu nor nav
         if (
           menuButtonRef.current &&
           navRef.current &&
-          !menuButtonRef.current.contains(event.target) &&
-          !navRef.current.contains(event.target)
+          !menuButtonRef.current.contains(event.target as HTMLButtonElement) &&
+          !navRef.current.contains(event.target as HTMLElement)
         ) {
           closeDropdown()
         }
@@ -91,15 +100,3 @@ function Header({ links }) {
     </header>
   )
 }
-
-Header.propTypes = {
-  links: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      to: PropTypes.string,
-      forceActive: PropTypes.bool,
-    })
-  ),
-}
-
-export default Header
