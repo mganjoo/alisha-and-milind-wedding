@@ -5,7 +5,6 @@
   "version": "0.1.0",
   "author": "Milind Ganjoo <milind.ganjoo@gmail.com>",
   "dependencies": {
-    "eslint": "^6.4.0",
     "firebase": "^6.6.0",
     "gatsby": "^2.15.11",
     "gatsby-image": "^2.2.19",
@@ -56,6 +55,8 @@
     "cypress-axe": "^0.5.1",
     "cypress-image-snapshot": "^3.1.1",
     "cypress-multi-reporters": "^1.2.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-config-react-app": "^5.0.1",
     "eslint-plugin-cypress": "^2.6.1",
     "gatsby-plugin-eslint": "^2.0.5",
@@ -82,8 +83,7 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test": "npm run check:types && npm run test:unit && npm run test:e2e",
     "pretest": "npm run cy:clean",
     "test:ci": "npm run test:unit && npm run test:e2e:ci",
     "pretest:ci": "npm run cy:clean",
@@ -94,6 +94,8 @@
     "test:e2e:screenshots:update": "server-test develop http://localhost:8000 cy:screenshots:update",
     "check:types": "tsc",
     "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "storybook": "start-storybook -p 6006",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -114,7 +116,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,json,md}": [
+    "*.{js,jsx,ts,tsx,json,md}": [
       "prettier --write",
       "git add"
     ]
