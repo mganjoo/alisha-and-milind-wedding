@@ -3,7 +3,7 @@ const allPlugins = [
   {
     resolve: `gatsby-plugin-eslint`,
     options: {
-      test: /\.js$|\.jsx$|\.tsx/,
+      test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
     },
   },
   `gatsby-plugin-react-helmet`,

@@ -20,7 +20,7 @@ export default function Header({ links }: HeaderProps) {
   const navRef = useRef<HTMLElement>(null)
   useEffect(() => {
     if (dropdownVisible) {
-      function handleClickOutside(event: UIEvent) {
+      const handleClickOutside = (event: UIEvent) => {
         // Close if click is inside neither menu nor nav
         if (
           menuButtonRef.current &&

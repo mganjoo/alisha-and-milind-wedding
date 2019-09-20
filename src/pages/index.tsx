@@ -172,7 +172,7 @@ export default function IndexPage() {
                 </svg>
                 <p className="text-center px-16 mt-4 text-xl">
                   Thank you for confirming your details! Stay tuned &mdash; we
-                  can't wait to celebrate with you!
+                  can&mdash;t wait to celebrate with you!
                 </p>
               </div>
             )}
