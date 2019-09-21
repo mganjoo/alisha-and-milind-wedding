@@ -63,6 +63,7 @@ const allPlugins = [
     },
   },
   `gatsby-plugin-offline`,
+  `gatsby-plugin-netlify`,
 ]
 
 require("dotenv").config({
