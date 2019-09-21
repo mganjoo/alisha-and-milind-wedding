@@ -4,8 +4,7 @@ import Img from "gatsby-image"
 import SEO from "../components/SEO"
 import BaseLayout from "../components/BaseLayout"
 import { useForm, EmailValidator, RequiredValidator } from "../components/Form"
-import { useFirebaseApp } from "../services/firebase"
-import firebase from "firebase/app"
+import { useFirestore } from "../services/Firebase"
 
 const validators = {
   name: [RequiredValidator],
@@ -27,19 +26,14 @@ export default function IndexPage() {
       }
     `
   )
-  const firebaseApp = useFirebaseApp()
+  const firestore = useFirestore()
   const [submitted, setSubmitted] = useState(false)
 
   async function submitInfo(submission: { [key: string]: string }) {
-    if (firebaseApp != null) {
+    if (firestore != null) {
       console.log("Submitting: ", submission)
-      return firebaseApp
-        .firestore()
-        .collection("contactDetails")
-        .add({
-          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
-          ...submission,
-        })
+      return firestore
+        .addWithTimestamp("contactDetails", submission)
         .then(docRef => {
           console.log(`Document added: ${docRef.id}`)
           setSubmitted(true)
@@ -154,7 +148,7 @@ export default function IndexPage() {
                 </label>
                 <button
                   className="button mt-6"
-                  disabled={!firebase || submitting}
+                  disabled={!firestore || submitting}
                   onClick={handleSubmit}
                 >
                   {submitting ? "Submitting..." : "Submit info"}
@@ -172,7 +166,7 @@ export default function IndexPage() {
                 </svg>
                 <p className="text-center px-16 mt-4 text-xl">
                   Thank you for confirming your details! Stay tuned &mdash; we
-                  can&mdash;t wait to celebrate with you!
+                  can&apos;t wait to celebrate with you!
                 </p>
               </div>
             )}
