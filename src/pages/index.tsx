@@ -3,7 +3,12 @@ import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import SEO from "../components/SEO"
 import BaseLayout from "../components/BaseLayout"
-import { useForm, EmailValidator, RequiredValidator } from "../components/Form"
+import {
+  useForm,
+  EmailValidator,
+  RequiredValidator,
+  SubmissionMap,
+} from "../components/Form"
 import { useFirestore } from "../services/Firebase"
 
 const validators = {
@@ -29,7 +34,7 @@ export default function IndexPage() {
   const firestore = useFirestore()
   const [submitted, setSubmitted] = useState(false)
 
-  async function submitInfo(submission: { [key: string]: string }) {
+  async function submitInfo(submission: SubmissionMap) {
     if (firestore != null) {
       console.log("Submitting: ", submission)
       return firestore

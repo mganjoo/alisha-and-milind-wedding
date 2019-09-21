@@ -3,9 +3,10 @@ import { useState, useRef, FocusEvent, ChangeEvent } from "react"
 interface Validator {
   (value: string): boolean
 }
-
 export const EmailValidator: Validator = value => /\S+@\S+\.\S+/.test(value)
 export const RequiredValidator: Validator = value => value.length > 0
+
+export type ValidatorMap = { [key: string]: Validator[] }
 
 interface KeyedObject<T> {
   [key: string]: T
@@ -26,17 +27,19 @@ function makeKeyedObject<T>(
 
 type FormElement = HTMLInputElement | HTMLTextAreaElement | null
 
+export type SubmissionMap = { [key: string]: string }
+
 export function useForm(
   names: string[],
-  validators: { [key: string]: Validator[] },
-  submitCallback: (t: { [key: string]: string }) => Promise<void>
+  validators: ValidatorMap,
+  submitCallback: (t: SubmissionMap) => Promise<void>
 ) {
   const [values, setValues] = useState(makeKeyedObject(names, () => ""))
   const [dirty, setDirty] = useState(makeKeyedObject(names, () => false))
   const [submitting, setSubmitting] = useState(false)
   const fieldsRef = useRef<KeyedObject<FormElement>>({})
   const validate = (name: string, value: string) =>
-    validators[name].every(validator => validator(value))
+    !validators[name] || validators[name].every(validator => validator(value))
 
   return {
     values: values,
@@ -61,8 +64,12 @@ export function useForm(
     },
     handleSubmit: () => {
       // Bulk mark all invalid fields as dirty
-      setDirty(makeKeyedObject(names, name => !validate(name, values[name])))
-      const firstInvalidName = names.find(name => dirty[name])
+      const newDirty = makeKeyedObject(
+        names,
+        name => !validate(name, values[name])
+      )
+      setDirty(newDirty)
+      const firstInvalidName = names.find(name => newDirty[name])
 
       if (firstInvalidName === undefined) {
         setSubmitting(true)
