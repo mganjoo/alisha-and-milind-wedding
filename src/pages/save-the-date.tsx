@@ -99,11 +99,11 @@ export default function SaveTheDatePage() {
                 Please confirm your email and mailing address! Formal invitation
                 to follow.
               </p>
-              <div className="flex flex-col items-center px-12 pt-4 pb-6">
-                <label className="flex flex-wrap justify-between w-full mt-4">
-                  <span className="text-gray-700">Name</span>
-                  <span aria-live="polite" className="text-red-600">
-                    {dirty.name ? "Name is required." : ""}
+              <div className="flex flex-col items-center px-12 pt-4 pb-6 form-shared form-save-the-date">
+                <label>
+                  <span className="label">Name</span>
+                  <span aria-live="polite" className="error">
+                    {dirty.name && "Name is required."}
                   </span>
                   <input
                     name="name"
@@ -112,15 +112,13 @@ export default function SaveTheDatePage() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     ref={registerRef}
-                    className={`form-input form-base${
-                      dirty.name ? " form-invalid" : ""
-                    }`}
+                    className={dirty.name ? "invalid" : ""}
                   />
                 </label>
-                <label className="flex flex-wrap justify-between w-full mt-4">
-                  <span className="text-gray-700">Email</span>
-                  <span aria-live="polite" className="text-red-600">
-                    {dirty.email ? "A valid email is required." : ""}
+                <label>
+                  <span className="label">Email</span>
+                  <span aria-live="polite" className="error">
+                    {dirty.email && "A valid email is required."}
                   </span>
                   <input
                     name="email"
@@ -129,15 +127,13 @@ export default function SaveTheDatePage() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     ref={registerRef}
-                    className={`form-input form-base${
-                      dirty.email ? " form-invalid" : ""
-                    }`}
+                    className={dirty.email ? "invalid" : ""}
                   />
                 </label>
-                <label className="flex flex-wrap justify-between w-full mt-4">
-                  <span className="text-gray-700">Mailing address</span>
-                  <span aria-live="polite" className="text-red-600">
-                    {dirty.mailingAddress ? "Mailing address is required." : ""}
+                <label>
+                  <span className="label">Mailing address</span>
+                  <span aria-live="polite" className="error">
+                    {dirty.mailingAddress && "Mailing address is required."}
                   </span>
                   <textarea
                     name="mailingAddress"
@@ -146,8 +142,8 @@ export default function SaveTheDatePage() {
                     onBlur={handleBlur}
                     ref={registerRef}
                     rows={3}
-                    className={`form-textarea form-base resize-none${
-                      dirty.mailingAddress ? " form-invalid" : ""
+                    className={`resize-none${
+                      dirty.mailingAddress ? " invalid" : ""
                     }`}
                   />
                 </label>

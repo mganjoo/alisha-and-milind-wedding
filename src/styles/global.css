@@ -22,14 +22,41 @@
   }
 }
 
-/* TODO: style waiting state for button differently */
-
-.form-base {
-  @apply mt-1 block w-full;
+.form-save-the-date {
+  & label {
+    @apply mt-4;
+  }
 }
 
-.form-invalid {
-  @apply border-red-400 bg-red-100;
+.form-shared {
+  & label {
+    @apply flex flex-wrap justify-between w-full;
+
+    & span.label {
+      @apply text-gray-700;
+    }
+
+    & span.error {
+      @apply text-red-600;
+    }
+  }
+
+  & input,
+  & textarea {
+    @apply mt-1 block w-full;
+    &.invalid {
+      @apply border-red-400 bg-red-100;
+    }
+  }
+
+  & input[type="text"],
+  & input[type="email"] {
+    @extend .form-input;
+  }
+
+  & textarea {
+    @extend .form-textarea;
+  }
 }
 
 .constrained-hero {
