@@ -1,6 +1,14 @@
 const allPlugins = [
   `gatsby-plugin-typescript`,
   {
+    resolve: `gatsby-plugin-web-font-loader`,
+    options: {
+      custom: {
+        families: [`Montserrat`, `EB Garamond`, `Playfair Display`, `Arizonia`],
+      },
+    },
+  },
+  {
     resolve: `gatsby-plugin-eslint`,
     options: {
       test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
@@ -58,8 +66,10 @@ const allPlugins = [
       printRejected: true,
       tailwind: true,
       purgeOnly: [`src/styles/global.css`],
-      // whitelist <a> which is used indirectly by Gatsby <Link>
-      whitelist: [`a`],
+      // special whitelist:
+      // <a> which is used indirectly by Gatsby <Link>
+      // wf-* which is applied by webfont-loader
+      whitelist: [`a`, `wf-loading`, `wf-active`, `wf-inactive`],
     },
   },
   `gatsby-plugin-offline`,

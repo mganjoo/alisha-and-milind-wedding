@@ -28,7 +28,7 @@ module.exports = (on, config) => {
 
   if (yn(config.env.ENABLE_FULL_SITE)) {
     // Run full test suite when full site is enabled (default is to run "small-site" tests only)
-    config.ignoreTestFiles = ""
+    config.ignoreTestFiles = []
     return config
   }
 }

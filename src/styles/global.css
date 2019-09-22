@@ -40,4 +40,13 @@
   }
 }
 
+.wf-loading * {
+  @apply opacity-0;
+}
+
+.wf-active *,
+.wf-inactive * {
+  transition: opacity 500ms ease-out;
+}
+
 @tailwind utilities;
