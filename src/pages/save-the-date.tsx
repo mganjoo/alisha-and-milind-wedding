@@ -238,7 +238,7 @@ export default function SaveTheDatePage() {
                     <input
                       type="text"
                       name="country"
-                      autoComplete="country"
+                      autoComplete="country-name"
                       value={values.country}
                       list="countries"
                       onChange={handleChange}
