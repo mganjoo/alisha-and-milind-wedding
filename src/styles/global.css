@@ -3,7 +3,7 @@
 @tailwind components;
 
 .button {
-  @apply bg-orange-900 py-2 px-4 text-white font-sans rounded-br-lg shadow-lg;
+  @apply px-4 py-2 bg-orange-900 text-white font-sans rounded-br-lg shadow-lg;
 
   &:hover {
     @apply bg-orange-800;
@@ -12,58 +12,89 @@
     @apply outline-none shadow-outline-button;
   }
   &:active {
-    @apply outline-none shadow-outline-button bg-orange-700;
+    @apply bg-orange-700 outline-none shadow-outline-button;
   }
   &:disabled {
     @apply opacity-50 cursor-not-allowed;
   }
-  &:invalid {
-    @apply border-red-400 bg-red-100;
-  }
 }
 
-.form-save-the-date {
-  & label {
-    @apply mt-4;
-  }
+.int-error-message {
+  @apply mt-1 text-red-600 flex items-center;
 }
 
 .form-shared {
   & label {
-    @apply flex flex-wrap justify-between w-full;
+    @apply flex flex-wrap justify-between mt-3 text-sm;
 
-    & span.label {
-      @apply text-gray-700;
-    }
-
-    & span.error {
-      @apply text-red-600;
+    @screen sm {
+      @apply text-base;
     }
   }
 
-  & input,
-  & textarea {
+  & span.label {
+    @apply text-gray-700;
+
+    @screen lg {
+      @apply order-1;
+    }
+  }
+
+  & span.error-message {
+    @extend .int-error-message;
+
+    @screen lg {
+      @apply mt-0 order-2;
+    }
+  }
+
+  & span.error-message-standalone {
+    @extend .int-error-message;
+
+    @screen lg {
+      @apply w-full justify-end;
+    }
+  }
+
+  & input[type="text"],
+  & input[type="email"],
+  & select {
     @apply mt-1 block w-full;
+
     &.invalid {
-      @apply border-red-400 bg-red-100;
+      @apply border-red-400;
+    }
+
+    @screen lg {
+      @apply order-3;
     }
   }
+
+  /* Extend Tailwind Custom Forms plugin styles for individual form element types. */
 
   & input[type="text"],
   & input[type="email"] {
     @extend .form-input;
   }
 
-  & textarea {
-    @extend .form-textarea;
+  & select {
+    @extend .form-select;
   }
 }
 
 .constrained-hero {
   max-height: 24rem;
 
-  @screen md {
-    max-height: 100%;
+  @screen lg {
+    @apply max-h-full;
+  }
+}
+
+.alert {
+  @apply px-3 py-2 bg-red-100 border border-l-4 border-red-500 text-red-800 shadow-md;
+
+  & a {
+    @apply underline font-bold;
   }
 }
 

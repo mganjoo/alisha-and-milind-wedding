@@ -21,7 +21,6 @@ module.exports = {
       const overriddenStyles = {
         borderRadius: theme("borderRadius.lg"),
         borderColor: theme("colors.gray.400"),
-        fontSize: theme("fontSize.lg"),
         "&:focus": {
           boxShadow: theme("boxShadow.outline-input"),
           borderColor: theme("colors.orange.500"),
@@ -30,7 +29,7 @@ module.exports = {
       return {
         default: {
           input: overriddenStyles,
-          textarea: overriddenStyles,
+          select: overriddenStyles,
         },
       }
     },

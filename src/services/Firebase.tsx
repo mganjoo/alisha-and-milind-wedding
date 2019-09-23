@@ -40,9 +40,10 @@ export function useFirestore() {
     const lazyFirestore = import("firebase/firestore")
     Promise.all([lazyFirebase, lazyFirestore]).then(([firebase]) => {
       // Reuse already-initialized default firebase app if possible
-      const firebaseInstance = !firebase.apps.length
-        ? firebase.initializeApp(firebaseConfig)
-        : firebase.app()
+      const firebaseInstance =
+        firebase.apps && firebase.apps.length
+          ? firebase.app()
+          : firebase.initializeApp(firebaseConfig)
       const makeTimestamp = (date: Date) =>
         firebase.firestore.Timestamp.fromDate(date)
       setFirestore(new Firestore(firebaseInstance, makeTimestamp))
