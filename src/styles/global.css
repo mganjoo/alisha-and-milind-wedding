@@ -19,8 +19,8 @@
   }
 }
 
-.int-error-message {
-  @apply mt-1 text-red-600 flex items-center;
+.base-error {
+  @apply text-red-600 font-medium;
 }
 
 .form-shared {
@@ -32,37 +32,40 @@
     }
   }
 
-  & span.label {
-    @apply text-gray-700;
+  & label.right {
+    @apply justify-end;
+  }
+
+  & span.label-text {
+    @apply text-gray-700 whitespace-no-wrap;
 
     @screen lg {
       @apply order-1;
     }
   }
 
+  & span.label-text.error {
+    @extend .base-error;
+  }
+
   & span.error-message {
-    @extend .int-error-message;
+    @extend .base-error;
+    @apply mt-1 flex justify-end whitespace-no-wrap;
 
     @screen lg {
       @apply mt-0 order-2;
     }
   }
 
-  & span.error-message-standalone {
-    @extend .int-error-message;
-
-    @screen lg {
-      @apply w-full justify-end;
-    }
-  }
-
   & input[type="text"],
-  & input[type="email"],
-  & select {
+  & input[type="email"] {
     @apply mt-1 block w-full;
 
     &.invalid {
-      @apply border-red-400;
+      @apply border-red-400 bg-no-repeat bg-right pr-2;
+      background-image: inline("exclamation-outline.svg");
+      background-size: 20px 20px;
+      background-origin: content-box;
     }
 
     @screen lg {
@@ -75,10 +78,6 @@
   & input[type="text"],
   & input[type="email"] {
     @extend .form-input;
-  }
-
-  & select {
-    @extend .form-select;
   }
 }
 
@@ -105,6 +104,17 @@
 .wf-active *,
 .wf-inactive * {
   transition: opacity 500ms ease-out;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  border: 0 !important;
 }
 
 @tailwind utilities;

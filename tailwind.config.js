@@ -18,18 +18,16 @@ module.exports = {
       },
     },
     customForms: theme => {
-      const overriddenStyles = {
-        borderRadius: theme("borderRadius.lg"),
-        borderColor: theme("colors.gray.400"),
-        "&:focus": {
-          boxShadow: theme("boxShadow.outline-input"),
-          borderColor: theme("colors.orange.500"),
-        },
-      }
       return {
         default: {
-          input: overriddenStyles,
-          select: overriddenStyles,
+          input: {
+            borderRadius: theme("borderRadius.lg"),
+            borderColor: theme("colors.gray.400"),
+            "&:focus": {
+              boxShadow: theme("boxShadow.outline-input"),
+              borderColor: theme("colors.orange.500"),
+            },
+          },
         },
       }
     },

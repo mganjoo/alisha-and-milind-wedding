@@ -10,7 +10,6 @@ import {
   SubmissionMap,
 } from "../components/Form"
 import { useFirestore } from "../services/Firebase"
-import ValidationError from "../components/ValidationError"
 
 const countries = [
   "United States",
@@ -26,7 +25,7 @@ const fields: FieldsMap = {
   email: { validators: [RequiredValidator] },
   address: { validators: [RequiredValidator] },
   city: { validators: [RequiredValidator] },
-  state: { validators: [RequiredValidator] },
+  state: { validators: [] },
   zip: { validators: [RequiredValidator] },
   country: { validators: [RequiredValidator], initialValue: "United States" },
 }
@@ -94,7 +93,7 @@ export default function SaveTheDatePage() {
             <h1 className="mt-3 font-script text-5xl text-orange-900">
               Save the Date
             </h1>
-            <div>
+            <div aria-hidden="true">
               <svg
                 className="inline-block text-gray-600 stroke-current"
                 width="70"
@@ -110,7 +109,10 @@ export default function SaveTheDatePage() {
             </h2>
             <h3 className="mt-2 font-sans uppercase text-2xl">May 1-2, 2020</h3>
             <h4 className="font-sans uppercase text-lg">San Mateo, CA</h4>
-            <hr className="mt-5 inline-block w-24 border-gray-400" />
+            <hr
+              className="mt-5 inline-block w-24 border-gray-400"
+              aria-hidden="true"
+            />
           </div>
           <div className="relative">
             <div
@@ -133,43 +135,41 @@ export default function SaveTheDatePage() {
                     if you continue having trouble.
                   </div>
                 )}
-                <label className="w-full">
-                  <span className="label">Name</span>
-                  <input
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    value={values.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    ref={registerRef}
-                    className={dirty.name ? "invalid" : ""}
-                  />
-                  <ValidationError
-                    error={dirty.name}
-                    message="Name is required."
-                  />
-                </label>
-                <label className="w-full">
-                  <span className="label">Email</span>
-                  <input
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    ref={registerRef}
-                    className={dirty.email ? "invalid" : ""}
-                  />
-                  <ValidationError
-                    error={dirty.email}
-                    message="Email is required."
-                  />
-                </label>
                 <div className="flex flex-wrap justify-between">
                   <label className="w-full">
-                    <span className="label">Street address</span>
+                    <span className="label-text">Name</span>
+                    <input
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      value={values.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      ref={registerRef}
+                      className={dirty.name ? "invalid" : ""}
+                    />
+                    <span aria-live="assertive" className="error-message">
+                      {dirty.name && "Name is required."}
+                    </span>
+                  </label>
+                  <label className="w-full">
+                    <span className="label-text">Email</span>
+                    <input
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      ref={registerRef}
+                      className={dirty.email ? "invalid" : ""}
+                    />
+                    <span aria-live="assertive" className="error-message">
+                      {dirty.email && "Email is required."}
+                    </span>
+                  </label>
+                  <label className="w-full">
+                    <span className="label-text">Street address</span>
                     <input
                       type="text"
                       name="address"
@@ -180,13 +180,12 @@ export default function SaveTheDatePage() {
                       ref={registerRef}
                       className={dirty.address ? "invalid" : ""}
                     />
-                    <ValidationError
-                      error={dirty.address}
-                      message="Street address is required."
-                    />
+                    <span aria-live="assertive" className="error-message">
+                      {dirty.address && "Address is required."}
+                    </span>
                   </label>
                   <label className="w-full">
-                    <span className="label">City</span>
+                    <span className="label-text">City</span>
                     <input
                       type="text"
                       name="city"
@@ -197,13 +196,12 @@ export default function SaveTheDatePage() {
                       ref={registerRef}
                       className={dirty.city ? "invalid" : ""}
                     />
-                    <ValidationError
-                      error={dirty.city}
-                      message="City is required."
-                    />
+                    <span aria-live="assertive" className="error-message">
+                      {dirty.city && "City is required."}
+                    </span>
                   </label>
                   <label className="w-7/12">
-                    <span className="label">State</span>
+                    <span className="label-text">State/Province</span>
                     <input
                       type="text"
                       name="state"
@@ -215,8 +213,10 @@ export default function SaveTheDatePage() {
                       className={dirty.state ? "invalid" : ""}
                     />
                   </label>
-                  <label className="w-2/5">
-                    <span className="label">ZIP/Postal code</span>
+                  <label className="w-2/5 right">
+                    <span className={`label-text${dirty.zip ? " error" : ""}`}>
+                      ZIP/Postal code
+                    </span>
                     <input
                       type="text"
                       name="zip"
@@ -225,16 +225,14 @@ export default function SaveTheDatePage() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       ref={registerRef}
-                      className={dirty.zip ? "invalid" : ""}
+                      className={`text-right ${dirty.zip ? " invalid" : ""}`}
                     />
+                    <span aria-live="assertive" className="sr-only">
+                      {dirty.zip && "Postal code is required."}
+                    </span>
                   </label>
-                  <ValidationError
-                    error={dirty.state || dirty.zip}
-                    message="State &amp; postal code are required."
-                    standalone={true}
-                  />
                   <label className="w-full">
-                    <span className="label">Country</span>
+                    <span className="label-text">Country</span>
                     <input
                       type="text"
                       name="country"
@@ -251,10 +249,9 @@ export default function SaveTheDatePage() {
                         <option value={country} key={country} />
                       ))}
                     </datalist>
-                    <ValidationError
-                      error={dirty.country}
-                      message="Country is required."
-                    />
+                    <span aria-live="assertive" className="error-message">
+                      {dirty.country && "Country is required."}
+                    </span>
                   </label>
                 </div>
                 <button
