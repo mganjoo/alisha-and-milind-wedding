@@ -97,15 +97,6 @@
   }
 }
 
-.wf-loading * {
-  @apply opacity-0;
-}
-
-.wf-active *,
-.wf-inactive * {
-  transition: opacity 500ms ease-out;
-}
-
 .sr-only {
   position: absolute !important;
   width: 1px !important;
