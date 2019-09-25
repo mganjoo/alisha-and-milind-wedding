@@ -20,7 +20,7 @@
 }
 
 .base-error {
-  @apply text-red-600 font-medium;
+  @apply text-red-700 font-medium;
 }
 
 .form-shared {
