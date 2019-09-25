@@ -30,7 +30,7 @@ const fields: FieldsMap = {
   country: { validators: [RequiredValidator], initialValue: "United States" },
 }
 
-type SubmissionStatus = "none" | "submission-error" | "submitted"
+type SubmissionStatus = "none" | "submitting" | "submission-error" | "submitted"
 
 export default function SaveTheDatePage() {
   const imageData = useStaticQuery(
@@ -54,6 +54,7 @@ export default function SaveTheDatePage() {
   async function submitInfo(submission: SubmissionMap) {
     if (firestore != null) {
       console.log("Submitting: ", submission)
+      setSubmissionStatus("submitting")
       return firestore
         .addWithTimestamp("contactDetails", submission)
         .then(docRef => {
@@ -71,7 +72,6 @@ export default function SaveTheDatePage() {
   const {
     values,
     dirty,
-    submitting,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -139,7 +139,7 @@ export default function SaveTheDatePage() {
                 className="flex flex-col items-center px-8 pt-4 pb-6 form-shared"
                 onSubmit={handleSubmit}
               >
-                {submissionStatus === "submission-error" && !submitting && (
+                {submissionStatus === "submission-error" && (
                   <div className="alert" role="alert">
                     Something went wrong during submission. Please{" "}
                     <a href="mailto:alisha.and.milind@gmail.com">contact us</a>{" "}
@@ -268,9 +268,11 @@ export default function SaveTheDatePage() {
                 <button
                   type="submit"
                   className="button mt-6"
-                  disabled={!firestore || submitting}
+                  disabled={!firestore || submissionStatus === "submitting"}
                 >
-                  {submitting ? "Submitting..." : "Submit info"}
+                  {submissionStatus === "submitting"
+                    ? "Submitting..."
+                    : "Submit info"}
                 </button>
               </form>
             </div>

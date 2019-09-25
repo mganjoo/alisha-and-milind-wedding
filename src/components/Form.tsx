@@ -40,7 +40,6 @@ export function useForm(
     makeKeyedObject(names, name => fields[name].initialValue || "")
   const [values, setValues] = useState(resetValues())
   const [dirty, setDirty] = useState(makeKeyedObject(names, () => false))
-  const [submitting, setSubmitting] = useState(false)
   const fieldsRef = useRef<KeyedObject<FormElement>>({})
   const validate = (name: string, value: string) =>
     !fields[name].validators ||
@@ -54,7 +53,6 @@ export function useForm(
   return {
     values: values,
     dirty: dirty,
-    submitting: submitting,
     handleChange: (event: ChangeEvent<FormElement>) => {
       if (event && event.target) {
         const name = event.target.name
@@ -87,14 +85,11 @@ export function useForm(
       const firstInvalidName = names.find(name => newDirty[name])
 
       if (firstInvalidName === undefined) {
-        setSubmitting(true)
-        submitCallback(values)
-          .then(() => setSubmitting(false))
-          .then(() => {
-            // Reset form on success
-            setValues(resetValues())
-            setDirty({})
-          })
+        submitCallback(values).then(() => {
+          // Reset form on success
+          setValues(resetValues())
+          setDirty({})
+        })
       } else {
         const firstInvalidField = fieldsRef.current[firstInvalidName]
         if (firstInvalidField && firstInvalidField.focus) {

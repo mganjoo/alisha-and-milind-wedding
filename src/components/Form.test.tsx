@@ -18,7 +18,6 @@ function TestForm({ required, onSubmit }: TestFormProps) {
   const {
     values,
     dirty,
-    submitting,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -38,7 +37,6 @@ function TestForm({ required, onSubmit }: TestFormProps) {
         />
       </label>
       {dirty.textField && <span>text field is invalid</span>}
-      {submitting && <span>Submitting</span>}
       {submitted && <span>Submitted</span>}
       <button>Submit</button>
     </form>
@@ -95,22 +93,5 @@ describe("Form", () => {
     })
     // Error disappears when text is added
     expect(queryByText("text field is invalid")).not.toBeInTheDocument()
-  })
-
-  it("shows a pending status while submitting only", async () => {
-    expect.assertions(1)
-    const submissionHandler = () => {
-      return new Promise<void>(resolve => setTimeout(resolve, 20))
-    }
-    const { getByText, getByLabelText, findByText, queryByText } = render(
-      <TestForm required={true} onSubmit={submissionHandler} />
-    )
-    fireEvent.change(getByLabelText("text field"), {
-      target: { value: "abc" },
-    })
-    fireEvent.click(getByText("Submit"))
-    await findByText("Submitting")
-    await findByText("Submitted")
-    expect(queryByText("Submitting")).not.toBeInTheDocument()
   })
 })
