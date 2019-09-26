@@ -5,9 +5,9 @@ import BaseLayout from "../components/BaseLayout"
 const NotFoundPage = () => (
   <BaseLayout>
     <SEO title="Not Found" />
-    <main class="p-4">
-      <h1 class="text-4xl font-serif mb-2">Oops!</h1>
-      <p class="text-lg font-sans">
+    <main className="p-4">
+      <h1 className="text-4xl font-serif mb-2">Oops!</h1>
+      <p className="text-lg font-sans">
         We couldn&apos;t find that page. The full website is still a
         work in progress, so stay tuned!
       </p>
