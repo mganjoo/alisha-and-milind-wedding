@@ -1,4 +1,13 @@
-import { useState, useRef, FocusEvent, ChangeEvent, FormEvent } from "react"
+import React from "react"
+import {
+  useState,
+  useRef,
+  FocusEvent,
+  ChangeEvent,
+  FormEvent,
+  ReactNode,
+} from "react"
+import classnames from "classnames"
 
 interface Validator {
   (value: string): boolean
@@ -7,7 +16,7 @@ export const EmailValidator: Validator = value => /\S+@\S+\.\S+/.test(value)
 export const RequiredValidator: Validator = value => value.length > 0
 
 export type FieldsMap = {
-  [key: string]: { validators: Validator[]; initialValue?: string }
+  [key: string]: { validators?: Validator[]; initialValue?: string }
 }
 
 interface KeyedObject<T> {
@@ -42,8 +51,7 @@ export function useForm(
   const [dirty, setDirty] = useState(makeKeyedObject(names, () => false))
   const fieldsRef = useRef<KeyedObject<FormElement>>({})
   const validate = (name: string, value: string) =>
-    !fields[name].validators ||
-    fields[name].validators.every(validator => validator(value))
+    (fields[name].validators || []).every(validator => validator(value))
   function checkName(name: string) {
     if (!names.includes(name)) {
       throw new Error(`Form was never configured with field '${name}'`)
@@ -106,4 +114,41 @@ export function useForm(
       }
     },
   }
+}
+
+interface LabelWrapperProps {
+  label: string
+  className?: string
+  error?: boolean
+  errorMessage?: string
+  errorInLabel?: boolean
+  children: ReactNode
+}
+
+export function LabelWrapper({
+  label,
+  className,
+  errorMessage,
+  error,
+  errorInLabel,
+  children,
+}: LabelWrapperProps) {
+  return (
+    <label className={className || "w-full"}>
+      <span
+        className={classnames("label-text", { error: errorInLabel && error })}
+      >
+        {label}
+      </span>
+      {children}
+      {errorMessage && (
+        <span
+          aria-live="assertive"
+          className={errorInLabel ? "sr-only" : "error-message"}
+        >
+          {error && errorMessage}
+        </span>
+      )}
+    </label>
+  )
 }

@@ -8,8 +8,10 @@ import {
   RequiredValidator,
   FieldsMap,
   SubmissionMap,
+  LabelWrapper,
 } from "../components/Form"
 import { useFirestore } from "../services/Firebase"
+import classnames from "classnames"
 
 const countries = [
   "United States",
@@ -25,7 +27,7 @@ const fields: FieldsMap = {
   email: { validators: [RequiredValidator] },
   address: { validators: [RequiredValidator] },
   city: { validators: [RequiredValidator] },
-  state: { validators: [] },
+  state: {},
   zip: { validators: [RequiredValidator] },
   country: { validators: [RequiredValidator], initialValue: "United States" },
 }
@@ -69,6 +71,7 @@ export default function SaveTheDatePage() {
       return Promise.resolve()
     }
   }
+
   const {
     values,
     dirty,
@@ -77,6 +80,29 @@ export default function SaveTheDatePage() {
     handleSubmit,
     registerRef,
   } = useForm(fields, submitInfo)
+
+  const renderInput = (props: {
+    name: string
+    autoComplete: string
+    type?: "text" | "email"
+    otherClassNames?: string[]
+    otherProps?: { [t: string]: string }
+  }) => (
+    <input
+      name={props.name}
+      type={props.type || "text"}
+      value={values[props.name]}
+      autoComplete={props.autoComplete}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      ref={registerRef}
+      className={classnames(
+        { invalid: dirty[props.name] },
+        props.otherClassNames
+      )}
+      {...(props.otherProps || {})}
+    />
+  )
 
   return (
     <BaseLayout>
@@ -125,7 +151,7 @@ export default function SaveTheDatePage() {
               className={
                 submissionStatus === "submitted"
                   ? "hidden lg:block lg:invisible"
-                  : undefined
+                  : ""
               }
             >
               <p
@@ -147,123 +173,82 @@ export default function SaveTheDatePage() {
                   </div>
                 )}
                 <div className="flex flex-wrap justify-between">
-                  <label className="w-full">
-                    <span className="label-text">Name</span>
-                    <input
-                      name="name"
-                      type="text"
-                      autoComplete="name"
-                      value={values.name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      ref={registerRef}
-                      className={dirty.name ? "invalid" : ""}
-                    />
-                    <span aria-live="assertive" className="error-message">
-                      {dirty.name && "Name is required."}
-                    </span>
-                  </label>
-                  <label className="w-full">
-                    <span className="label-text">Email</span>
-                    <input
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      ref={registerRef}
-                      className={dirty.email ? "invalid" : ""}
-                    />
-                    <span aria-live="assertive" className="error-message">
-                      {dirty.email && "Email is required."}
-                    </span>
-                  </label>
-                  <label className="w-full">
-                    <span className="label-text">Street address</span>
-                    <input
-                      type="text"
-                      name="address"
-                      autoComplete="street-address"
-                      value={values.address}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      ref={registerRef}
-                      className={dirty.address ? "invalid" : ""}
-                    />
-                    <span aria-live="assertive" className="error-message">
-                      {dirty.address && "Address is required."}
-                    </span>
-                  </label>
-                  <label className="w-full">
-                    <span className="label-text">City</span>
-                    <input
-                      type="text"
-                      name="city"
-                      autoComplete="address-level2"
-                      value={values.city}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      ref={registerRef}
-                      className={dirty.city ? "invalid" : ""}
-                    />
-                    <span aria-live="assertive" className="error-message">
-                      {dirty.city && "City is required."}
-                    </span>
-                  </label>
-                  <label className="w-7/12">
-                    <span className="label-text">State/Province</span>
-                    <input
-                      type="text"
-                      name="state"
-                      autoComplete="address-level1"
-                      value={values.state}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      ref={registerRef}
-                      className={dirty.state ? "invalid" : ""}
-                    />
-                  </label>
-                  <label className="w-2/5 right">
-                    <span className={`label-text${dirty.zip ? " error" : ""}`}>
-                      ZIP/Postal code
-                    </span>
-                    <input
-                      type="text"
-                      name="zip"
-                      autoComplete="postal-code"
-                      value={values.zip}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      ref={registerRef}
-                      className={`text-right ${dirty.zip ? " invalid" : ""}`}
-                    />
-                    <span aria-live="assertive" className="sr-only">
-                      {dirty.zip && "Postal code is required."}
-                    </span>
-                  </label>
-                  <label className="w-full">
-                    <span className="label-text">Country</span>
-                    <input
-                      type="text"
-                      name="country"
-                      autoComplete="country-name"
-                      value={values.country}
-                      list="countries"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      ref={registerRef}
-                      className={dirty.country ? "invalid" : ""}
-                    />
-                    <datalist id="countries">
-                      {countries.map(country => (
-                        <option value={country} key={country} />
-                      ))}
-                    </datalist>
-                    <span aria-live="assertive" className="error-message">
-                      {dirty.country && "Country is required."}
-                    </span>
-                  </label>
+                  <LabelWrapper
+                    label="Name"
+                    className="w-full"
+                    error={dirty.name}
+                    errorMessage="Name is required."
+                  >
+                    {renderInput({ name: "name", autoComplete: "name" })}
+                  </LabelWrapper>
+                  <LabelWrapper
+                    label="Email"
+                    error={dirty.email}
+                    errorMessage="Email is required."
+                  >
+                    {renderInput({
+                      name: "email",
+                      type: "email",
+                      autoComplete: "email",
+                    })}
+                  </LabelWrapper>
+                  <LabelWrapper
+                    label="Street address"
+                    error={dirty.address}
+                    errorMessage="Address is required."
+                  >
+                    {renderInput({
+                      name: "address",
+                      autoComplete: "street-address",
+                    })}
+                  </LabelWrapper>
+                  <LabelWrapper
+                    label="City"
+                    error={dirty.city}
+                    errorMessage="City is required."
+                  >
+                    {renderInput({
+                      name: "city",
+                      autoComplete: "address-level2",
+                    })}
+                  </LabelWrapper>
+                  <LabelWrapper label="State/Province" className="w-7/12">
+                    {renderInput({
+                      name: "state",
+                      autoComplete: "address-level1",
+                    })}
+                  </LabelWrapper>
+                  <LabelWrapper
+                    label="ZIP/Postal code"
+                    className="w-2/5 right"
+                    error={dirty.zip}
+                    errorInLabel={true}
+                    errorMessage="Postal code is required."
+                  >
+                    {renderInput({
+                      name: "zip",
+                      autoComplete: "postal-code",
+                      otherClassNames: ["text-right"],
+                    })}
+                  </LabelWrapper>
+                  <LabelWrapper
+                    label="Country"
+                    error={dirty.country}
+                    errorMessage="Country is required."
+                  >
+                    {renderInput({
+                      name: "country",
+                      autoComplete: "country-name",
+                      otherProps: {
+                        list: "countries",
+                      },
+                    })}
+                  </LabelWrapper>
+                  <datalist id="countries">
+                    {countries.map(country => (
+                      <option value={country} key={country} />
+                    ))}
+                  </datalist>
                 </div>
                 <button
                   type="submit"
