@@ -43,3 +43,14 @@ jobs:
         GATSBY_FIREBASE_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_AUTH_DOMAIN }}
         GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+    - name: Archive Cypress videos
+      uses: actions/upload-artifact@v1
+      with:
+        name: videos
+        path: cypress/videos
+    - name: Archive Cypress screenshots
+      uses: actions/upload-artifact@v1
+      with:
+        name: screenshots
+        path: cypress/screenshots
+

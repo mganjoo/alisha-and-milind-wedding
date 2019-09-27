@@ -11,6 +11,7 @@ describe("save the date form", function() {
 
   it("should load correctly", function() {
     cy.get("h1").should("contain", "Save the Date")
+    cy.get("@submit_button").should("be.enabled")
     cy.percySnapshot()
   })
 
