@@ -1,5 +1,7 @@
 /// <reference types="Cypress" />
 
+const data = require("../fixtures/save-the-date.json")
+
 describe("save the date form", function() {
   this.beforeEach(function() {
     cy.visit("/save-the-date")
@@ -14,17 +16,32 @@ describe("save the date form", function() {
   it("should not submit with empty fields", function() {
     cy.get("@submit_button").click()
     // TODO: take snapshot
-    cy.findByText("Name is required.").should("exist")
+    cy.getByText("Name is required.").should("exist")
     cy.focused().should("have.attr", "name", "name")
   })
 
   it("should fail to submit if even one required field is missing", function() {
-    cy.getByLabelText(/name/i).type("Jack Jones")
-    cy.getByLabelText(/email/i).type("jack@gmail.com")
-    cy.getByLabelText(/street address/i).type("123 ABC Avenue")
-    cy.getByLabelText(/zip/i).type("12345")
+    cy.getByLabelText(/name/i).type(data.name)
+    cy.getByLabelText(/email/i).type(data.email)
+    cy.getByLabelText(/street address/i).type(data.address)
+    cy.getByLabelText(/zip/i).type(data.zip)
     cy.get("@submit_button").click()
-    cy.findByText("City is required.").should("exist")
+    cy.getByText("City is required.").should("exist")
     cy.focused().should("have.attr", "name", "city")
+  })
+
+  it("submits successfully when all fields are filled", function() {
+    cy.getByLabelText(/name/i).type(data.name)
+    cy.getByLabelText(/email/i).type(data.email)
+    cy.getByLabelText(/street address/i).type(data.address)
+    cy.getByLabelText(/city/i).type(data.city)
+    cy.getByLabelText(/state/i).type(data.state)
+    cy.getByLabelText(/zip/i).type(data.zip)
+    cy.getByLabelText(/country/i)
+      .clear()
+      .type(data.country)
+    cy.get("@submit_button").click()
+    cy.getByText(/thank you/i).should("exist")
+    // TODO: take snapshot
   })
 })
