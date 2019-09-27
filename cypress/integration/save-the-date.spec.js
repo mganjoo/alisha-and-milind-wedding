@@ -11,12 +11,12 @@ describe("save the date form", function() {
 
   it("should load correctly", function() {
     cy.get("h1").should("contain", "Save the Date")
-    // TODO: take snapshot
+    cy.percySnapshot()
   })
 
   it("should not submit with empty fields", function() {
     cy.get("@submit_button").click()
-    // TODO: take snapshot
+    cy.percySnapshot()
     cy.getByText("Name is required.").should("exist")
     cy.focused().should("have.attr", "name", "name")
     // Make sure error state is accessible
@@ -47,6 +47,6 @@ describe("save the date form", function() {
     cy.getByText(/thank you/i).should("exist")
     // Make sure submitted state is accessible
     cy.checkA11y()
-    // TODO: take snapshot
+    cy.percySnapshot()
   })
 })

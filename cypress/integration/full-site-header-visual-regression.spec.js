@@ -17,7 +17,7 @@ const sizes = {
 
 describe("header", function() {
   for (const key in sizes) {
-    it(`should match previous screenshot at ${key} size`, function() {
+    it.skip(`should match previous screenshot at ${key} size`, function() {
       const size = sizes[key]
       if (Cypress._.isArray(size)) {
         cy.viewport(size[0], size[1])
@@ -30,7 +30,7 @@ describe("header", function() {
     })
   }
 
-  it("should match previous screenshot at mobile size when menu is open", function() {
+  it.skip("should match previous screenshot at mobile size when menu is open", function() {
     cy.viewport("iphone-5")
     cy.visit("/full/our-story")
     cy.getByLabelText(/toggle menu/i)

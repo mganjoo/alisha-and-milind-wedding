@@ -36,3 +36,6 @@ test:
     reports:
       junit: cypress/results/results-*.xml
     expire_in: 2 days
+  variables:
+    # Disable Percy uploads in GitLab
+    PERCY_ENABLE: "0"

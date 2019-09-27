@@ -1,5 +1,6 @@
 const { addMatchImageSnapshotPlugin } = require("cypress-image-snapshot/plugin")
 const yn = require("yn")
+let percyHealthCheck = require("@percy/cypress/task")
 
 module.exports = (on, config) => {
   on("before:browser:launch", (browser = {}, args) => {
@@ -25,6 +26,8 @@ module.exports = (on, config) => {
   })
 
   addMatchImageSnapshotPlugin(on, config)
+
+  on("task", percyHealthCheck)
 
   if (yn(config.env.ENABLE_FULL_SITE)) {
     // Run full test suite when full site is enabled (default is to run "small-site" tests only)

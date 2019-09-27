@@ -5,5 +5,6 @@ exports.createPages = ({ actions }) => {
     toPath: "/save-the-date",
     isPermanent: false,
     redirectInBrowser: true,
+    force: true,
   })
 }
