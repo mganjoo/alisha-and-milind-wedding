@@ -48,9 +48,5 @@ jobs:
       with:
         name: videos
         path: cypress/videos
-    - name: Archive Cypress screenshots
-      uses: actions/upload-artifact@v1
-      with:
-        name: screenshots
-        path: cypress/screenshots
+
 
