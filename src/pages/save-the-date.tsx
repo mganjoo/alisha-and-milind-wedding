@@ -59,8 +59,8 @@ export default function SaveTheDatePage() {
       setSubmissionStatus("submitting")
       return firestore
         .addWithTimestamp("contactDetails", submission)
-        .then(docRef => {
-          console.log(`Document added: ${docRef.id}`)
+        .then(id => {
+          console.log(`Document added: ${id}`)
           setSubmissionStatus("submitted")
         })
         .catch(error => {

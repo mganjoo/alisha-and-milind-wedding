@@ -46,6 +46,10 @@ affect what tests are run.
 
 - `ENABLE_FULL_SITE`: When set to `"1"`, builds the entirety of the website
   (not just the Save the Date page). [**must be set in both build and test**; default: `"0"`]
+- `GATSBY_USE_PROD_FIREBASE`: When set to `"1"`, uses the environment variables
+  `GATSBY_PROD_FIREBASE_*` to configure Firebase instead of `GATSBY_FIREBASE_*`.
+  This enables writes to the production Firebase instance. This should almost
+  never be set in a local development environment or in CI.
 
 For options that are usable in the test environment, you can set them in
 [`cypress.env.json`](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json)

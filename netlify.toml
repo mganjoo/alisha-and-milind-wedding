@@ -5,18 +5,24 @@
 ## Set up environment-specific build options
 
 [context.production.environment]
-  # Disable anything other than guard page in production environment
+  # Disable anything other than save the date page
   ENABLE_FULL_SITE = "0"
+  # Use production Firebase config
+  GATSBY_USE_PROD_FIREBASE = "1"
 
-[context.staging]
-  # Run production tests in staging environment
-  command = "npm run build && ./trigger-gitlab.sh"
 [context.staging.environment]
-  # Disable anything other than guard page in staging environment
+  # Disable anything other than save the date page
   ENABLE_FULL_SITE = "0"
+  # Use production Firebase config
+  GATSBY_USE_PROD_FIREBASE = "1"
 
+[context.develop]
+  # Run production tests in develop environment
+  command = "npm run build && ./trigger-gitlab.sh"
 [context.develop.environment]
   ENABLE_FULL_SITE = "1"
+  GATSBY_USE_PROD_FIREBASE = "0"
 
 [context.deploy-preview.environment]
   ENABLE_FULL_SITE = "1"
+  GATSBY_USE_PROD_FIREBASE = "0"
