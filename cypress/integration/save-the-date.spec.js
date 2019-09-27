@@ -5,6 +5,7 @@ const data = require("../fixtures/save-the-date.json")
 describe("save the date form", function() {
   this.beforeEach(function() {
     cy.visit("/save-the-date")
+    cy.injectAxe()
     cy.getByText(/submit info/i).as("submit_button")
   })
 
@@ -18,6 +19,8 @@ describe("save the date form", function() {
     // TODO: take snapshot
     cy.getByText("Name is required.").should("exist")
     cy.focused().should("have.attr", "name", "name")
+    // Make sure error state is accessible
+    cy.checkA11y()
   })
 
   it("should fail to submit if even one required field is missing", function() {
@@ -42,6 +45,8 @@ describe("save the date form", function() {
       .type(data.country)
     cy.get("@submit_button").click()
     cy.getByText(/thank you/i).should("exist")
+    // Make sure submitted state is accessible
+    cy.checkA11y()
     // TODO: take snapshot
   })
 })
