@@ -78,3 +78,6 @@ cypress/diffs
 cypress/results
 cypress/videos
 cypress.env.json
+
+# Local Netlify folder
+.netlify

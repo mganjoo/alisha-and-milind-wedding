@@ -7,4 +7,10 @@ exports.createPages = ({ actions }) => {
     redirectInBrowser: true,
     force: true,
   })
+  createRedirect({
+    fromPath: "/savethedate",
+    toPath: "/save-the-date",
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
 }
