@@ -22,7 +22,7 @@ const allPlugins = [
       name: `Alisha & Milind Wedding`,
       short_name: `A&M Wedding`,
       language: `en`,
-      start_url: `/`,
+      start_url: `/save-the-date`,
       background_color: "#fffcf7", // off-white
       theme_color: "#fffcf7", // off-white
       // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
