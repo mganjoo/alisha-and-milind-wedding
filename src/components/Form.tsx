@@ -42,7 +42,7 @@ export type SubmissionMap = { [key: string]: string }
 
 export function useForm(
   fields: FieldsMap,
-  submitCallback: (t: SubmissionMap) => Promise<void>
+  submitCallback: (t: SubmissionMap) => Promise<boolean>
 ) {
   const names = Object.keys(fields)
   const resetValues = () =>
@@ -93,10 +93,12 @@ export function useForm(
       const firstInvalidName = names.find(name => newDirty[name])
 
       if (firstInvalidName === undefined) {
-        submitCallback(values).then(() => {
-          // Reset form on success
-          setValues(resetValues())
-          setDirty({})
+        submitCallback(values).then(submitted => {
+          if (submitted) {
+            // Reset form on success
+            setValues(resetValues())
+            setDirty({})
+          }
         })
       } else {
         const firstInvalidField = fieldsRef.current[firstInvalidName]
