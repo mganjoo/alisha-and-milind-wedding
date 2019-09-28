@@ -3,12 +3,13 @@ import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
 interface SEOProps {
+  title: string
   description: string
   lang: string
-  title: string
+  image: string
 }
 
-function SEO({ description, lang, title }: SEOProps) {
+function SEO({ title, description, lang, image }: SEOProps) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -17,6 +18,7 @@ function SEO({ description, lang, title }: SEOProps) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -24,47 +26,22 @@ function SEO({ description, lang, title }: SEOProps) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const metaImage = `${site.siteMetadata.siteUrl}${image ||
+    site.siteMetadata.image}`
 
   return (
     <Helmet
-      htmlAttributes={{
-        lang,
-      }}
+      htmlAttributes={{ lang }}
       title={title}
       titleTemplate={`%s: ${site.siteMetadata.title}`}
       meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
+        { name: `description`, content: metaDescription },
+        { property: `og:title`, content: title },
+        { property: `og:type`, content: `website` },
+        { property: `og:image`, content: metaImage },
+        { property: `og:description`, content: metaDescription },
+        { name: `twitter:card`, content: `summary` },
+        { name: `twitter:creator`, content: site.siteMetadata.author },
       ]}
     />
   )
@@ -73,6 +50,7 @@ function SEO({ description, lang, title }: SEOProps) {
 SEO.defaultProps = {
   lang: `en`,
   description: ``,
+  image: ``,
 }
 
 export default SEO

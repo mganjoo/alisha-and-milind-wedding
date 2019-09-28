@@ -106,7 +106,11 @@ export default function SaveTheDatePage() {
 
   return (
     <BaseLayout>
-      <SEO title="Save the Date" />
+      <SEO
+        title="Save the Date"
+        image="/alisha-and-milind-mirror.jpg"
+        description="Please save the date for Alisha & Milind's wedding: May 1 & 2, 2020 in San Mateo, CA."
+      />
       <main className="lg:flex lg:flex-row-reverse">
         <Img
           className="constrained-hero flex-1"
