@@ -14,7 +14,10 @@ function TestForm({ required, onSubmit }: TestFormProps) {
   }
   const [submitted, setSubmitted] = useState(false)
   const callback = (submission: SubmissionMap) =>
-    onSubmit(submission).then(() => setSubmitted(true))
+    onSubmit(submission).then(() => {
+      setSubmitted(true)
+      return true
+    })
   const {
     values,
     dirty,
