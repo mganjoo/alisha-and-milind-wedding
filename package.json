@@ -103,7 +103,7 @@
     "test:e2e:ci": "CYPRESS_baseUrl=http://localhost:9000/ server-test start:prod http://localhost:9000 cy:run:ci",
     "check": "npm run check:types && npm run lint",
     "check:types": "tsc",
-    "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
+    "lint": "eslint --cache --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "storybook": "start-storybook -p 6006",
@@ -122,7 +122,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint"
     }
   },
   "lint-staged": {
