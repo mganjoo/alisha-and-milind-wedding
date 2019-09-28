@@ -1,0 +1,35 @@
+name: External test
+on: repository_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v1
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Install packages
+      run: |
+        npm ci
+        $(npm bin)/cypress verify
+      env:
+        CI: true
+    - name: Run tests for external URL
+      if: startsWith(github.event.action, 'externalUrl_')
+      env:
+        CYPRESS_ENABLE_FULL_SITE: 1
+        PERCY_ENABLE: 0
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        CI: true
+        ACTION: ${{ github.event.action }}
+      run: |
+        export CYPRESS_baseUrl="${ACTION#externalUrl_}"
+        echo "Running tests with external URL ${CYPRESS_baseUrl} on branch '${GITHUB_REF}'..."
+        npm run cy:run:ci
+    - name: Archive Cypress videos
+      uses: actions/upload-artifact@v1
+      with:
+        name: videos
+        path: cypress/videos

@@ -18,11 +18,10 @@
 
 [context.develop]
   # Run production tests in develop environment
-  command = "npm run build && ./trigger-gitlab.sh"
+  command = "npm run build && ./trigger-github.sh"
 [context.develop.environment]
   ENABLE_FULL_SITE = "1"
   GATSBY_USE_PROD_FIREBASE = "0"
-  EXTRA_GITLAB_CURL_FLAGS = "-F variables[CYPRESS_ENABLE_FULL_SITE]=1"
 
 [context.deploy-preview.environment]
   ENABLE_FULL_SITE = "1"
