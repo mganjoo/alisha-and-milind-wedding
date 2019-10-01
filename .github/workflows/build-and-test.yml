@@ -2,8 +2,10 @@ name: Build and test
 on:
   push:
     branches:
-      # Match all branches except staging and master (since we test it before develop anyway)
+      # Match all branches except develop, staging and master
+      # (for develop, we run tests from Netlify)
       - '*'
+      - '!develop'
       - '!staging'
       - '!master'
     paths:
@@ -48,5 +50,3 @@ jobs:
       with:
         name: videos
         path: cypress/videos
-
-

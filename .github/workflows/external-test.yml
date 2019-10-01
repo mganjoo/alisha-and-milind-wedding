@@ -6,6 +6,9 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v1
+      with:
+        # Always build and run external tests on 'develop' branch
+        ref: develop
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
@@ -26,7 +29,7 @@ jobs:
         ACTION: ${{ github.event.action }}
       run: |
         export CYPRESS_baseUrl="${ACTION#externalUrl_}"
-        echo "Running tests with external URL ${CYPRESS_baseUrl} on branch '${GITHUB_REF}'..."
+        echo "Running tests with external URL ${CYPRESS_baseUrl}..."
         npm run cy:run:ci
     - name: Archive Cypress videos
       uses: actions/upload-artifact@v1
