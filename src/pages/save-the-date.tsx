@@ -149,7 +149,7 @@ export default function SaveTheDatePage() {
                 Please confirm your email address! Formal invitation to follow.
               </p>
               <form
-                className="flex flex-col items-center px-8 pt-4 pb-6 form-shared"
+                className="flex flex-col items-center px-8 pt-4 pb-6"
                 onSubmit={handleSubmit}
               >
                 {submissionStatus === "error" && (
