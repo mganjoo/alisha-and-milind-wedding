@@ -2,10 +2,8 @@ name: Build and test
 on:
   push:
     branches:
-      # Match all branches except develop, staging and master
-      # (for develop, we run tests from Netlify)
+      # Match all branches except staging and master
       - '*'
-      - '!develop'
       - '!staging'
       - '!master'
     paths:
