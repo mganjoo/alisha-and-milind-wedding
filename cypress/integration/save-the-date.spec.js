@@ -26,24 +26,14 @@ describe("save the date form", function() {
 
   it("should fail to submit if even one required field is missing", function() {
     cy.getByLabelText(/name/i).type(data.name)
-    cy.getByLabelText(/email/i).type(data.email)
-    cy.getByLabelText(/street address/i).type(data.address)
-    cy.getByLabelText(/zip/i).type(data.zip)
     cy.get("@submit_button").click()
-    cy.getByText("City is required.").should("exist")
-    cy.focused().should("have.attr", "name", "city")
+    cy.getByText("Email is required.").should("exist")
+    cy.focused().should("have.attr", "name", "email")
   })
 
   it("submits successfully when all fields are filled", function() {
     cy.getByLabelText(/name/i).type(data.name)
     cy.getByLabelText(/email/i).type(data.email)
-    cy.getByLabelText(/street address/i).type(data.address)
-    cy.getByLabelText(/city/i).type(data.city)
-    cy.getByLabelText(/state/i).type(data.state)
-    cy.getByLabelText(/zip/i).type(data.zip)
-    cy.getByLabelText(/country/i)
-      .clear()
-      .type(data.country)
     cy.get("@submit_button").click()
     cy.getByText(/thank you/i).should("exist")
     // Make sure submitted state is accessible

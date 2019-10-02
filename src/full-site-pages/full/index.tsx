@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import NavLayout from "../../components/NavLayout"
 import SEO from "../../components/SEO"
+import Button from "../../components/Button"
 
 const IndexPage = () => {
   const imageData = useStaticQuery(
@@ -37,7 +38,7 @@ const IndexPage = () => {
             <br />
             Alisha & Milind
           </p>
-          <button className="button shadow-md mt-12">RSVP</button>
+          <Button className="shadow-md mt-12">RSVP</Button>
         </div>
       </div>
     </NavLayout>

@@ -1,13 +1,4 @@
-import React from "react"
-import {
-  useState,
-  useRef,
-  FocusEvent,
-  ChangeEvent,
-  FormEvent,
-  ReactNode,
-} from "react"
-import classnames from "classnames"
+import { useState, useRef, FocusEvent, ChangeEvent, FormEvent } from "react"
 
 interface Validator {
   (value: string): boolean
@@ -116,41 +107,4 @@ export function useForm(
       }
     },
   }
-}
-
-interface LabelWrapperProps {
-  label: string
-  className?: string
-  error?: boolean
-  errorMessage?: string
-  errorInLabel?: boolean
-  children: ReactNode
-}
-
-export function LabelWrapper({
-  label,
-  className,
-  errorMessage,
-  error,
-  errorInLabel,
-  children,
-}: LabelWrapperProps) {
-  return (
-    <label className={className || "w-full"}>
-      <span
-        className={classnames("label-text", { error: errorInLabel && error })}
-      >
-        {label}
-      </span>
-      {children}
-      {errorMessage && (
-        <span
-          aria-live="assertive"
-          className={errorInLabel ? "sr-only" : "error-message"}
-        >
-          {error && errorMessage}
-        </span>
-      )}
-    </label>
-  )
 }

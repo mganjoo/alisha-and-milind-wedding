@@ -3,36 +3,24 @@ import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import SEO from "../components/SEO"
 import BaseLayout from "../components/BaseLayout"
+import Button from "../components/Button"
 import {
   useForm,
   RequiredValidator,
   FieldsMap,
   SubmissionMap,
-  LabelWrapper,
 } from "../components/Form"
+import LabelWrapper from "../components/LabelWrapper"
+import Input from "../components/Input"
+import Alert from "../components/Alert"
 import { useFirestore } from "../services/Firebase"
-import classnames from "classnames"
-
-const countries = [
-  "United States",
-  "Australia",
-  "Canada",
-  "France",
-  "India",
-  "United Kingdom",
-]
 
 const fields: FieldsMap = {
   name: { validators: [RequiredValidator] },
   email: { validators: [RequiredValidator] },
-  address: { validators: [RequiredValidator] },
-  city: { validators: [RequiredValidator] },
-  state: {},
-  zip: { validators: [RequiredValidator] },
-  country: { validators: [RequiredValidator], initialValue: "United States" },
 }
 
-type SubmissionStatus = "none" | "submitting" | "submission-error" | "submitted"
+type SubmissionStatus = "none" | "submitting" | "error" | "submitted"
 
 export default function SaveTheDatePage() {
   const imageData = useStaticQuery(
@@ -66,7 +54,7 @@ export default function SaveTheDatePage() {
         })
         .catch(error => {
           console.error("Error adding document: ", error)
-          setSubmissionStatus("submission-error")
+          setSubmissionStatus("error")
           return false
         })
     } else {
@@ -83,26 +71,20 @@ export default function SaveTheDatePage() {
     registerRef,
   } = useForm(fields, submitInfo)
 
-  const renderInput = (props: {
-    name: string
-    autoComplete: string
-    type?: "text" | "email"
-    otherClassNames?: string[]
-    otherProps?: { [t: string]: string }
-  }) => (
-    <input
-      name={props.name}
-      type={props.type || "text"}
-      value={values[props.name]}
-      autoComplete={props.autoComplete}
+  const renderInput = (
+    name: string,
+    autoComplete: string,
+    type: "text" | "email"
+  ) => (
+    <Input
+      name={name}
+      type={type}
+      value={values[name]}
+      autoComplete={autoComplete}
       onChange={handleChange}
       onBlur={handleBlur}
       ref={registerRef}
-      className={classnames(
-        { invalid: dirty[props.name] },
-        props.otherClassNames
-      )}
-      {...(props.otherProps || {})}
+      invalid={dirty[name]}
     />
   )
 
@@ -164,107 +146,44 @@ export default function SaveTheDatePage() {
                 className="mt-3 px-10 text-center font-serif text-lg"
                 id="save-the-date-instructions"
               >
-                Please confirm your email and mailing address! Formal invitation
-                to follow.
+                Please confirm your email address! Formal invitation to follow.
               </p>
               <form
                 className="flex flex-col items-center px-8 pt-4 pb-6 form-shared"
                 onSubmit={handleSubmit}
               >
-                {submissionStatus === "submission-error" && (
-                  <div className="alert" role="alert">
+                {submissionStatus === "error" && (
+                  <Alert>
                     Something went wrong during submission. Please{" "}
                     <a href="mailto:alisha.and.milind@gmail.com">contact us</a>{" "}
                     if you continue having trouble.
-                  </div>
+                  </Alert>
                 )}
                 <div className="flex flex-wrap justify-between">
                   <LabelWrapper
                     label="Name"
-                    className="w-full"
                     error={dirty.name}
                     errorMessage="Name is required."
                   >
-                    {renderInput({ name: "name", autoComplete: "name" })}
+                    {renderInput("name", "name", "text")}
                   </LabelWrapper>
                   <LabelWrapper
-                    label="Email"
+                    label="Email address"
                     error={dirty.email}
                     errorMessage="Email is required."
                   >
-                    {renderInput({
-                      name: "email",
-                      type: "email",
-                      autoComplete: "email",
-                    })}
+                    {renderInput("email", "email", "email")}
                   </LabelWrapper>
-                  <LabelWrapper
-                    label="Street address"
-                    error={dirty.address}
-                    errorMessage="Address is required."
-                  >
-                    {renderInput({
-                      name: "address",
-                      autoComplete: "street-address",
-                    })}
-                  </LabelWrapper>
-                  <LabelWrapper
-                    label="City"
-                    error={dirty.city}
-                    errorMessage="City is required."
-                  >
-                    {renderInput({
-                      name: "city",
-                      autoComplete: "address-level2",
-                    })}
-                  </LabelWrapper>
-                  <LabelWrapper label="State/Province" className="w-7/12">
-                    {renderInput({
-                      name: "state",
-                      autoComplete: "address-level1",
-                    })}
-                  </LabelWrapper>
-                  <LabelWrapper
-                    label="ZIP/Postal code"
-                    className="w-2/5 right"
-                    error={dirty.zip}
-                    errorInLabel={true}
-                    errorMessage="Postal code is required."
-                  >
-                    {renderInput({
-                      name: "zip",
-                      autoComplete: "postal-code",
-                      otherClassNames: ["text-right"],
-                    })}
-                  </LabelWrapper>
-                  <LabelWrapper
-                    label="Country"
-                    error={dirty.country}
-                    errorMessage="Country is required."
-                  >
-                    {renderInput({
-                      name: "country",
-                      autoComplete: "country-name",
-                      otherProps: {
-                        list: "countries",
-                      },
-                    })}
-                  </LabelWrapper>
-                  <datalist id="countries">
-                    {countries.map(country => (
-                      <option value={country} key={country} />
-                    ))}
-                  </datalist>
                 </div>
-                <button
+                <Button
                   type="submit"
-                  className="button mt-6"
+                  className="mt-6"
                   disabled={!firestore || submissionStatus === "submitting"}
                 >
                   {submissionStatus === "submitting"
                     ? "Submitting..."
                     : "Submit info"}
-                </button>
+                </Button>
               </form>
             </div>
             {submissionStatus === "submitted" && (

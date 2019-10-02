@@ -2,82 +2,35 @@
 
 @tailwind components;
 
-.button {
+.c-button {
   @apply px-4 py-2 bg-orange-900 text-white font-sans rounded-br-lg shadow-lg;
 
-  &:hover {
-    @apply bg-orange-800;
-  }
   &:focus {
     @apply outline-none shadow-outline-button;
   }
+  &:hover {
+    @apply bg-orange-800;
+  }
   &:active {
-    @apply bg-orange-700 outline-none shadow-outline-button;
+    @apply bg-orange-700;
   }
   &:disabled {
-    @apply opacity-50 cursor-not-allowed;
+    @apply opacity-50 cursor-wait;
   }
 }
 
-.base-error {
-  @apply text-red-700 font-medium;
+.c-input-invalid {
+  @apply border-red-400 bg-no-repeat bg-right pr-2;
+  background-image: inline("exclamation-outline.svg");
+  background-size: 20px 20px;
+  background-origin: content-box;
 }
 
-.form-shared {
-  & label {
-    @apply flex flex-wrap justify-between mt-3 text-sm;
+.c-alert {
+  @apply px-3 py-2 bg-red-100 border border-l-4 border-red-500 text-red-800 shadow-md;
 
-    @screen sm {
-      @apply text-base;
-    }
-  }
-
-  & label.right {
-    @apply justify-end;
-  }
-
-  & span.label-text {
-    @apply text-gray-700 whitespace-no-wrap;
-
-    @screen lg {
-      @apply order-1;
-    }
-  }
-
-  & span.label-text.error {
-    @extend .base-error;
-  }
-
-  & span.error-message {
-    @extend .base-error;
-    @apply mt-1 flex justify-end whitespace-no-wrap;
-
-    @screen lg {
-      @apply mt-0 order-2;
-    }
-  }
-
-  & input[type="text"],
-  & input[type="email"] {
-    @apply mt-1 block w-full;
-
-    &.invalid {
-      @apply border-red-400 bg-no-repeat bg-right pr-2;
-      background-image: inline("exclamation-outline.svg");
-      background-size: 20px 20px;
-      background-origin: content-box;
-    }
-
-    @screen lg {
-      @apply order-3;
-    }
-  }
-
-  /* Extend Tailwind Custom Forms plugin styles for individual form element types. */
-
-  & input[type="text"],
-  & input[type="email"] {
-    @extend .form-input;
+  & a {
+    @apply underline font-bold;
   }
 }
 
@@ -87,25 +40,6 @@
   @screen lg {
     @apply max-h-full;
   }
-}
-
-.alert {
-  @apply px-3 py-2 bg-red-100 border border-l-4 border-red-500 text-red-800 shadow-md;
-
-  & a {
-    @apply underline font-bold;
-  }
-}
-
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  border: 0 !important;
 }
 
 @tailwind utilities;
