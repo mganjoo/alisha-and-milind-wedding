@@ -14,13 +14,14 @@ import LabelWrapper from "../components/LabelWrapper"
 import Input from "../components/Input"
 import Alert from "../components/Alert"
 import { useFirestore } from "../services/Firebase"
+import classnames from "classnames"
 
 const fields: FieldsMap = {
   name: { validators: [RequiredValidator] },
   email: { validators: [RequiredValidator] },
 }
 
-type SubmissionStatus = "none" | "submitting" | "error" | "submitted"
+type SubmissionStatus = null | "submitting" | "error" | "submitted"
 
 export default function SaveTheDatePage() {
   const imageData = useStaticQuery(
@@ -29,7 +30,7 @@ export default function SaveTheDatePage() {
         weddingHeroImage: file(relativePath: { eq: "save-the-date-hero.jpg" }) {
           childImageSharp {
             fluid {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_tracedSVG
             }
           }
         }
@@ -37,24 +38,22 @@ export default function SaveTheDatePage() {
     `
   )
   const firestore = useFirestore()
-  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>(
-    "none"
-  )
+  const [status, setStatus] = useState<SubmissionStatus>(null)
 
   async function submitInfo(submission: SubmissionMap) {
     if (firestore != null) {
       console.log("Submitting: ", submission)
-      setSubmissionStatus("submitting")
+      setStatus("submitting")
       return firestore
         .addWithTimestamp("contacts", submission)
         .then(id => {
           console.log(`Document added: ${id}`)
-          setSubmissionStatus("submitted")
+          setStatus("submitted")
           return true
         })
         .catch(error => {
           console.error("Error adding document: ", error)
-          setSubmissionStatus("error")
+          setStatus("error")
           return false
         })
     } else {
@@ -97,14 +96,15 @@ export default function SaveTheDatePage() {
       />
       <main className="lg:flex lg:flex-row-reverse">
         <Img
-          className="constrained-hero flex-1"
+          className="save-the-date-banner flex-1"
           fluid={imageData.weddingHeroImage.childImageSharp.fluid}
+          backgroundColor="#ece5df"
           alt=""
           imgStyle={{ objectPosition: "36% 50%" }}
         />
-        <div className="flex-none mx-auto max-w-lg lg:max-w-md xl:max-w-lg">
+        <div className="flex-none flex flex-col items-center mx-auto max-w-lg lg:max-w-md xl:max-w-lg">
           <section className="text-center">
-            <h1 className="mt-3 font-script text-5xl text-orange-900">
+            <h1 className="mt-4 font-script text-5xl text-orange-900 lg:mt-10">
               Save the Date
             </h1>
             <div aria-hidden="true">
@@ -121,39 +121,40 @@ export default function SaveTheDatePage() {
             <p className="mt-2 font-display text-3xl sm:text-4xl tracking-wide">
               Alisha &amp; Milind
             </p>
-            <p className="mt-2 font-sans uppercase text-2xl">
+            <p className="mt-2 font-sans font-light uppercase text-2xl">
               May 1 &amp; 2, 2020
             </p>
-            <p className="font-sans uppercase text-lg">San Mateo, CA</p>
-            <hr
-              className="mt-5 inline-block w-24 border-gray-400"
-              aria-hidden="true"
-            />
+            <p className="font-sans font-light uppercase text-lg">
+              San Mateo, CA
+            </p>
           </section>
+          <hr
+            className="my-8 inline-block w-24 border-gray-400"
+            aria-hidden="true"
+          />
           <section
             className="relative"
             aria-label="Confirm contact details"
             aria-describedby="save-the-date-instructions"
           >
             <div
-              className={
-                submissionStatus === "submitted"
-                  ? "hidden lg:block lg:invisible"
-                  : ""
-              }
+              className={classnames({
+                "hidden lg:block lg:invisible": status === "submitted",
+              })}
             >
               <p
-                className="mt-3 px-10 text-center font-serif text-lg"
+                className="px-10 text-center font-serif text-lg"
                 id="save-the-date-instructions"
               >
-                Please confirm your email address! Formal invitation to follow.
+                We&apos;re going green! Please confirm your preferred email
+                address for the digital invitation to follow.
               </p>
               <form
-                className="flex flex-col items-center px-8 pt-4 pb-6"
+                className="flex flex-col items-center px-12 pt-4 pb-8 lg:pb-16 xl:px-16"
                 onSubmit={handleSubmit}
               >
-                {submissionStatus === "error" && (
-                  <Alert>
+                {status === "error" && (
+                  <Alert className="my-3 mx-4 lg:mx-3 xl:px-4">
                     Something went wrong during submission. Please{" "}
                     <a href="mailto:alisha.and.milind@gmail.com">contact us</a>{" "}
                     if you continue having trouble.
@@ -177,33 +178,31 @@ export default function SaveTheDatePage() {
                 </div>
                 <Button
                   type="submit"
-                  className="mt-6"
-                  disabled={!firestore || submissionStatus === "submitting"}
+                  className="mt-8 mb-2"
+                  disabled={!firestore || status === "submitting"}
                 >
-                  {submissionStatus === "submitting"
-                    ? "Submitting..."
-                    : "Submit info"}
+                  {status === "submitting" ? "Submitting..." : "Submit info"}
                 </Button>
               </form>
             </div>
-            {submissionStatus === "submitted" && (
+            {status === "submitted" && (
               <div
-                className="flex flex-col items-center lg:absolute lg:inset-0"
+                className="flex flex-col text-center px-8 pt-4 pb-10 text-xl items-center lg:absolute lg:inset-0 lg:px-12"
                 role="status"
               >
                 <svg
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
-                  className="w-12 mt-8 lg:mt-24 fill-current text-green-700"
+                  className="w-12 fill-current text-green-700"
                 >
                   <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z" />
                 </svg>
-                <p className="text-center px-16 mt-4 text-xl">
-                  Thank you for confirming your details! Stay tuned for the full
-                  wedding website &mdash; we can&apos;t wait to celebrate with
-                  you!
+                <p className="mt-8">
+                  Thank you for confirming your email! Stay tuned for the
+                  invitation and wedding website.
                 </p>
+                <p className="mt-8">We are so excited to celebrate with you!</p>
               </div>
             )}
           </section>

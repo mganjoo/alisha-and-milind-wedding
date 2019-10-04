@@ -1,7 +1,15 @@
 import React from "react"
+import classnames from "classnames"
 
-const Alert: React.FunctionComponent<{}> = ({ children }) => (
-  <div className="c-alert" role="alert">
+interface AlertProps {
+  className?: string
+}
+
+const Alert: React.FunctionComponent<AlertProps> = ({
+  className,
+  children,
+}) => (
+  <div className={classnames("c-alert", className)} role="alert">
     {children}
   </div>
 )

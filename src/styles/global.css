@@ -34,11 +34,15 @@
   }
 }
 
-.constrained-hero {
+.c-full-height {
+  @apply max-h-full;
+}
+
+.save-the-date-banner {
   max-height: 24rem;
 
   @screen lg {
-    @apply max-h-full;
+    @extend .c-full-height;
   }
 }
 
