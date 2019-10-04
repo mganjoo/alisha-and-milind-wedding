@@ -41,6 +41,7 @@ function SEO({ title, description, lang, image }: SEOProps) {
         { property: `og:type`, content: `website` },
         { property: `og:image`, content: metaImage },
         { property: `og:description`, content: metaDescription },
+        { property: `og:site_name`, content: site.siteMetadata.title },
         { name: `twitter:card`, content: `summary` },
         { name: `twitter:creator`, content: site.siteMetadata.author },
       ]}
