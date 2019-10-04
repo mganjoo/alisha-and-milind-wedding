@@ -1,6 +1,7 @@
 import React from "react"
 import SEO from "../components/SEO"
 import BaseLayout from "../components/BaseLayout"
+import { Link } from "gatsby"
 
 const NotFoundPage = () => (
   <BaseLayout>
@@ -10,6 +11,11 @@ const NotFoundPage = () => (
       <p>
         We couldn&apos;t find that page. The full website is still a work in
         progress, so stay tuned!
+      </p>
+      <p className="mt-4">
+        <Link to="/save-the-date" className="underline font-semibold">
+          Back to Save the Date
+        </Link>
       </p>
     </main>
   </BaseLayout>

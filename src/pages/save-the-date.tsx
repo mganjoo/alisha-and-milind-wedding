@@ -1,0 +1,213 @@
+import React, { useState } from "react"
+import { graphql, useStaticQuery } from "gatsby"
+import Img from "gatsby-image"
+import SEO from "../components/SEO"
+import BaseLayout from "../components/BaseLayout"
+import Button from "../components/Button"
+import {
+  useForm,
+  RequiredValidator,
+  FieldsMap,
+  SubmissionMap,
+} from "../components/Form"
+import LabelWrapper from "../components/LabelWrapper"
+import Input from "../components/Input"
+import Alert from "../components/Alert"
+import { useFirestore } from "../services/Firebase"
+import classnames from "classnames"
+
+const fields: FieldsMap = {
+  name: { validators: [RequiredValidator] },
+  email: { validators: [RequiredValidator] },
+}
+
+type SubmissionStatus = null | "submitting" | "error" | "submitted"
+
+export default function SaveTheDatePage() {
+  const imageData = useStaticQuery(
+    graphql`
+      query {
+        weddingHeroImage: file(relativePath: { eq: "save-the-date-hero.jpg" }) {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_tracedSVG
+            }
+          }
+        }
+      }
+    `
+  )
+  const firestore = useFirestore()
+  const [status, setStatus] = useState<SubmissionStatus>(null)
+
+  async function submitInfo(submission: SubmissionMap) {
+    if (firestore != null) {
+      console.log("Submitting: ", submission)
+      setStatus("submitting")
+      return firestore
+        .addWithTimestamp("contacts", submission)
+        .then(id => {
+          console.log(`Document added: ${id}`)
+          setStatus("submitted")
+          return true
+        })
+        .catch(error => {
+          console.error("Error adding document: ", error)
+          setStatus("error")
+          return false
+        })
+    } else {
+      return Promise.resolve(false)
+    }
+  }
+
+  const {
+    values,
+    dirty,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    registerRef,
+  } = useForm(fields, submitInfo)
+
+  const renderInput = (
+    name: string,
+    autoComplete: string,
+    type: "text" | "email"
+  ) => (
+    <Input
+      name={name}
+      type={type}
+      value={values[name]}
+      autoComplete={autoComplete}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      ref={registerRef}
+      invalid={dirty[name]}
+    />
+  )
+
+  return (
+    <BaseLayout>
+      <SEO
+        title="Save the Date"
+        image="/alisha-and-milind-mirror.jpg"
+        description="Please save the date for Alisha & Milind's wedding: May 1 & 2, 2020 in San Mateo, CA."
+      />
+      <main className="lg:flex lg:flex-row-reverse">
+        <Img
+          className="save-the-date-banner flex-1"
+          fluid={imageData.weddingHeroImage.childImageSharp.fluid}
+          backgroundColor="#ece5df"
+          alt=""
+          imgStyle={{ objectPosition: "36% 50%" }}
+        />
+        <div className="flex-none flex flex-col items-center mx-auto max-w-lg lg:max-w-md xl:max-w-lg">
+          <section className="text-center">
+            <h1 className="mt-4 font-script text-5xl text-orange-900 lg:mt-10">
+              Save the Date
+            </h1>
+            <div aria-hidden="true">
+              <svg
+                className="inline-block text-gray-600 stroke-current"
+                width="70"
+                height="28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M54.843 10.9c-3.615 2.051-6.843 3.81-9.798 5.273m9.798-5.272C56.666 1 68.99 3.516 68.99 3.516s.437 4.194-4.456 5.452c-4.894 1.258-4.894-.42-9.69 1.933zm0 0s3.522-4.869 6.922-4.45M1 6.452c5.78 5.347 6.834 5.94 14.025 9.355m30.02.367c.995 9.569 13.994 3.522 16.295 2.02-4.258-2.622-9.556-.245-16.295-2.02zm0 0c2.903-5.16 2.886-11.09 0-15.173-2.888 4.439-2.91 10.371 0 15.173zm0 0c-5.86 1.578-10.748 2.29-15.155 2.16m0 0c.238-.27 10.2 2.796 5.525 8.667-1.7-1.677-7.65-4.613-5.525-8.666zm0 0c4.138-3.668 4.452-8.55 1.7-11.881-2.183 4.265-2.595 6.857-1.7 11.882zm0 0c-3.353-.097-10.249-1.333-14.865-2.527m0 0c2.574 3.195 4.386 3.486 2.125 8.678-2.91-4.533-4.308-4.42-2.125-8.678zm0 0c6.161-2.433 5.466-6.73 6.375-6.838 2.586 5.077.425 6.838-6.375 6.838z" />
+              </svg>
+            </div>
+            <p className="mt-2 font-display text-3xl sm:text-4xl tracking-wide">
+              Alisha &amp; Milind
+            </p>
+            <p className="mt-2 font-sans font-light uppercase text-2xl">
+              May 1 &amp; 2, 2020
+            </p>
+            <p className="font-sans font-light uppercase text-lg">
+              San Mateo, CA
+            </p>
+          </section>
+          <hr
+            className="my-8 inline-block w-24 border-gray-400"
+            aria-hidden="true"
+          />
+          <section
+            className="relative"
+            aria-label="Confirm contact details"
+            aria-describedby="save-the-date-instructions"
+          >
+            <div
+              className={classnames({
+                "hidden lg:block lg:invisible": status === "submitted",
+              })}
+            >
+              <p
+                className="px-10 text-center font-serif text-lg"
+                id="save-the-date-instructions"
+              >
+                We&apos;re going green! Please confirm your preferred email
+                address for the digital invitation to follow.
+              </p>
+              <form
+                className="flex flex-col items-center px-12 pt-4 pb-8 lg:pb-16 xl:px-16"
+                onSubmit={handleSubmit}
+              >
+                {status === "error" && (
+                  <Alert className="my-3 mx-4 lg:mx-3 xl:px-4">
+                    Something went wrong during submission. Please{" "}
+                    <a href="mailto:alisha.and.milind@gmail.com">contact us</a>{" "}
+                    if you continue having trouble.
+                  </Alert>
+                )}
+                <div className="flex flex-wrap justify-between">
+                  <LabelWrapper
+                    label="Name"
+                    error={dirty.name}
+                    errorMessage="Name is required."
+                  >
+                    {renderInput("name", "name", "text")}
+                  </LabelWrapper>
+                  <LabelWrapper
+                    label="Email address"
+                    error={dirty.email}
+                    errorMessage="Email is required."
+                  >
+                    {renderInput("email", "email", "email")}
+                  </LabelWrapper>
+                </div>
+                <Button
+                  type="submit"
+                  className="mt-8 mb-2"
+                  disabled={!firestore || status === "submitting"}
+                >
+                  {status === "submitting" ? "Submitting..." : "Submit info"}
+                </Button>
+              </form>
+            </div>
+            {status === "submitted" && (
+              <div
+                className="flex flex-col text-center px-8 pt-4 pb-10 text-xl items-center lg:absolute lg:inset-0 lg:px-12"
+                role="status"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  className="w-12 fill-current text-green-700"
+                >
+                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z" />
+                </svg>
+                <p className="mt-8">
+                  Thank you for confirming your email! Stay tuned for the
+                  invitation and wedding website.
+                </p>
+                <p className="mt-8">We are so excited to celebrate with you!</p>
+              </div>
+            )}
+          </section>
+        </div>
+      </main>
+    </BaseLayout>
+  )
+}
