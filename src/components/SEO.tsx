@@ -19,6 +19,7 @@ function SEO({ title, description, lang, image }: SEOProps) {
             description
             author
             siteUrl
+            image
           }
         }
       }
