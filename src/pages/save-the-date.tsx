@@ -159,10 +159,11 @@ export default function SaveTheDatePage() {
                 noValidate
               >
                 {status === "error" && (
-                  <Alert className="my-3 mx-4 lg:mx-3 xl:px-4">
-                    Something went wrong during submission. Please{" "}
-                    <a href="mailto:alisha.and.milind@gmail.com">contact us</a>{" "}
-                    if you continue having trouble.
+                  <Alert className="my-3 mx-4 lg:mx-2 xl:px-4">
+                    There was a problem submitting your info. Please email us at{" "}
+                    <a href="mailto:alisha.and.milind@gmail.com">
+                      alisha.and.milind@gmail.com
+                    </a>
                   </Alert>
                 )}
                 <div className="flex flex-wrap justify-between">

@@ -1,19 +1,9 @@
 name: Build and test
 on:
   push:
-    branches:
-      # Match all branches except staging and master
-      - '*'
-      - '!staging'
-      - '!master'
-    paths:
-      - '*'
-      - '!README.md'
-      - '!LICENSE'
-      - '!.prettierrc'
-      - '!.prettierignore'
-      - '!.gitignore'
-      - '!.vscode/*'
+    branches-ignore:
+      - 'staging'
+      - 'master'
 jobs:
   test:
     runs-on: ubuntu-latest
