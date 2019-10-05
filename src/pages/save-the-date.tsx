@@ -6,20 +6,24 @@ import BaseLayout from "../components/BaseLayout"
 import Button from "../components/Button"
 import {
   useForm,
-  RequiredValidator,
-  FieldsMap,
+  SimpleValidator,
+  FieldConfig,
   SubmissionMap,
 } from "../components/Form"
+import { ValidEmail, NonEmpty } from "../components/Predicate"
 import LabelWrapper from "../components/LabelWrapper"
 import Input from "../components/Input"
 import Alert from "../components/Alert"
 import { useFirestore } from "../services/Firebase"
 import classnames from "classnames"
 
-const fields: FieldsMap = {
-  name: { validators: [RequiredValidator] },
-  email: { validators: [RequiredValidator] },
-}
+const fields: FieldConfig[] = [
+  { name: "name", validator: SimpleValidator(NonEmpty, "Name is required.") },
+  {
+    name: "email",
+    validator: SimpleValidator(ValidEmail, "A valid email is required."),
+  },
+]
 
 type SubmissionStatus = null | "submitting" | "error" | "submitted"
 
@@ -63,7 +67,7 @@ export default function SaveTheDatePage() {
 
   const {
     values,
-    dirty,
+    errors,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -83,7 +87,7 @@ export default function SaveTheDatePage() {
       onChange={handleChange}
       onBlur={handleBlur}
       ref={registerRef}
-      invalid={dirty[name]}
+      invalid={errors[name] !== null}
     />
   )
 
@@ -152,6 +156,7 @@ export default function SaveTheDatePage() {
               <form
                 className="flex flex-col items-center px-12 pt-4 pb-8 lg:pb-16 xl:px-16"
                 onSubmit={handleSubmit}
+                noValidate
               >
                 {status === "error" && (
                   <Alert className="my-3 mx-4 lg:mx-3 xl:px-4">
@@ -161,17 +166,12 @@ export default function SaveTheDatePage() {
                   </Alert>
                 )}
                 <div className="flex flex-wrap justify-between">
-                  <LabelWrapper
-                    label="Name"
-                    error={dirty.name}
-                    errorMessage="Name is required."
-                  >
+                  <LabelWrapper label="Name" errorMessage={errors.name}>
                     {renderInput("name", "name", "text")}
                   </LabelWrapper>
                   <LabelWrapper
                     label="Email address"
-                    error={dirty.email}
-                    errorMessage="Email is required."
+                    errorMessage={errors.email}
                   >
                     {renderInput("email", "email", "email")}
                   </LabelWrapper>

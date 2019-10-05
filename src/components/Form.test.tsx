@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { render, fireEvent } from "@testing-library/react"
-import { useForm, RequiredValidator, FieldsMap, SubmissionMap } from "./Form"
+import { useForm, FieldConfig, SubmissionMap } from "./Form"
+
 import "@testing-library/jest-dom/extend-expect"
 
 interface TestFormProps {
@@ -9,9 +10,13 @@ interface TestFormProps {
 }
 
 function TestForm({ required, onSubmit }: TestFormProps) {
-  const fields: FieldsMap = {
-    textField: { validators: required ? [RequiredValidator] : [] },
-  }
+  const fields: FieldConfig[] = [
+    {
+      name: "textField",
+      validator: value =>
+        required && value === "" ? "text field is invalid" : null,
+    },
+  ]
   const [submitted, setSubmitted] = useState(false)
   const callback = (submission: SubmissionMap) =>
     onSubmit(submission).then(() => {
@@ -20,7 +25,7 @@ function TestForm({ required, onSubmit }: TestFormProps) {
     })
   const {
     values,
-    dirty,
+    errors,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -39,7 +44,7 @@ function TestForm({ required, onSubmit }: TestFormProps) {
           ref={registerRef}
         />
       </label>
-      {dirty.textField && <span>text field is invalid</span>}
+      {errors.textField && <span>{errors.textField}</span>}
       {submitted && <span>Submitted</span>}
       <button>Submit</button>
     </form>

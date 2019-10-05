@@ -27,7 +27,7 @@ describe("save the date form", function() {
   it("should fail to submit if even one required field is missing", function() {
     cy.getByLabelText(/name/i).type(data.name)
     cy.get("@submit_button").click()
-    cy.getByText("Email is required.").should("exist")
+    cy.getByText("A valid email is required.").should("exist")
     cy.focused().should("have.attr", "name", "email")
   })
 

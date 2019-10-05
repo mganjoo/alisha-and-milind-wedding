@@ -2,14 +2,12 @@ import React from "react"
 
 interface LabelWrapperProps {
   label: string
-  error?: boolean
-  errorMessage?: string
+  errorMessage: string | null
 }
 
 const LabelWrapper: React.FunctionComponent<LabelWrapperProps> = ({
   label,
   errorMessage,
-  error,
   children,
 }) => {
   return (
@@ -23,10 +21,13 @@ const LabelWrapper: React.FunctionComponent<LabelWrapperProps> = ({
           aria-live="assertive"
           className="mt-1 flex justify-end whitespace-no-wrap text-red-700 font-medium lg:mt-0 lg:order-first"
         >
-          {error && errorMessage}
+          {errorMessage}
         </span>
       )}
     </label>
   )
+}
+LabelWrapper.defaultProps = {
+  errorMessage: null,
 }
 export default LabelWrapper
