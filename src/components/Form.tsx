@@ -42,7 +42,7 @@ type FormElement = HTMLInputElement | HTMLSelectElement | null
 
 export function useForm(
   fields: FieldConfig[],
-  submitCallback: (t: SubmissionMap) => Promise<boolean>
+  submitCallback: (t: SubmissionMap) => Promise<void>
 ) {
   const validators = makeFieldMap(fields, f => f.validator)
   function checkName(name: string) {
@@ -102,13 +102,7 @@ export function useForm(
 
       if (firstInvalidField === undefined) {
         // Submit form if all fields are valid
-        submitCallback(values).then(submitted => {
-          if (submitted) {
-            // Reset form on success
-            setValues(resetValues())
-            setErrors(resetErrors())
-          }
-        })
+        submitCallback(values)
       } else {
         // Focus first invalid field if at least one field is invalid
         const firstInvalidRef = fieldsRef.current[firstInvalidField.name]

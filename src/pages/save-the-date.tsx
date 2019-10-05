@@ -45,23 +45,14 @@ export default function SaveTheDatePage() {
   const [status, setStatus] = useState<SubmissionStatus>(null)
 
   async function submitInfo(submission: SubmissionMap) {
-    if (firestore != null) {
-      console.log("Submitting: ", submission)
+    if (firestore !== null) {
       setStatus("submitting")
-      return firestore
-        .addWithTimestamp("contacts", submission)
-        .then(id => {
-          console.log(`Document added: ${id}`)
-          setStatus("submitted")
-          return true
-        })
-        .catch(error => {
-          console.error("Error adding document: ", error)
-          setStatus("error")
-          return false
-        })
-    } else {
-      return Promise.resolve(false)
+      try {
+        await firestore.addWithTimestamp("contacts", submission)
+        setStatus("submitted")
+      } catch (e) {
+        setStatus("error")
+      }
     }
   }
 

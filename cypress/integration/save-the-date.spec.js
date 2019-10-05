@@ -40,4 +40,15 @@ describe("save the date form", function() {
     cy.checkA11y()
     cy.percySnapshot()
   })
+
+  it("handles server-side failures correctly", function() {
+    // special string that triggers validation error on server
+    cy.getByLabelText(/name/i).type("__reject_submission__")
+    cy.getByLabelText(/email/i).type(data.email)
+    cy.get("@submit_button").click()
+    cy.getByText(/there was a problem/i).should("exist")
+    // Make sure failure state is accessible
+    cy.checkA11y()
+    cy.percySnapshot()
+  })
 })

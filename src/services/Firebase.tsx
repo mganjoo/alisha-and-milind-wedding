@@ -2,6 +2,10 @@ import { useEffect, useState } from "react"
 import yn from "yn"
 
 interface Firestore {
+  /**
+   * Add a document to Firestore with a `createdAt` timestamp
+   * and returns the document ID.
+   */
   addWithTimestamp: (
     collection: string,
     data: { [key: string]: any }
@@ -13,7 +17,11 @@ function makeFirestore(
   makeTimestamp: (date: Date) => firebase.firestore.Timestamp
 ): Firestore {
   return {
-    addWithTimestamp: (collection: string, data: { [key: string]: any }) => {
+    addWithTimestamp: async (
+      collection: string,
+      data: { [key: string]: any }
+    ) => {
+      console.log(`Adding: `, data)
       return firebaseInstance
         .firestore()
         .collection(collection)
@@ -21,7 +29,14 @@ function makeFirestore(
           createdAt: makeTimestamp(new Date()),
           ...data,
         })
-        .then(docRef => docRef.id)
+        .then(docRef => {
+          console.log(`Document added: ${docRef.id}`)
+          return docRef.id
+        })
+        .catch(error => {
+          console.error("Error during execution: ", error)
+          throw error
+        })
     },
   }
 }

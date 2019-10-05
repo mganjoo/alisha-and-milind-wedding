@@ -21,7 +21,6 @@ function TestForm({ required, onSubmit }: TestFormProps) {
   const callback = (submission: SubmissionMap) =>
     onSubmit(submission).then(() => {
       setSubmitted(true)
-      return true
     })
   const {
     values,
