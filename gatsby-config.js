@@ -85,7 +85,7 @@ module.exports = {
     title: `Alisha & Milind Wedding`,
     description: `Welcome to Alisha and Milind's wedding website! We're excited to celebrate with you.`,
     author: `@mganjoo`,
-    siteUrl: `https://www.alishaandmilind.wedding`, // No trailing slash!
+    siteUrl: `https://alishaandmilind.wedding`, // No trailing slash!
     image: `/alisha-and-milind-mirror.jpg`,
   },
   plugins: allPlugins,

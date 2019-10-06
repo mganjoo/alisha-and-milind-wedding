@@ -6,7 +6,7 @@
   @apply px-4 py-2 bg-orange-900 text-white font-sans rounded-br-lg shadow-lg;
 
   &:focus {
-    @apply outline-none shadow-outline-button;
+    @apply outline-none shadow-outline-bold;
   }
   &:hover {
     @apply bg-orange-800;
@@ -31,6 +31,24 @@
 
   & a {
     @apply underline font-bold;
+  }
+}
+
+.c-add-calendar-button {
+  @apply mx-2 mt-1 mb-2 py-1 px-2 flex items-center font-sans border border-gray-800 text-gray-800 rounded-lg;
+
+  & svg {
+    @apply w-3 mr-2 fill-current;
+  }
+
+  &:focus {
+    @apply outline-none shadow-outline-light;
+  }
+  &:hover {
+    @apply bg-gray-800 text-white;
+  }
+  &:active {
+    @apply bg-gray-700;
   }
 }
 

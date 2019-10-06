@@ -14,6 +14,7 @@ import { ValidEmail, NonEmpty } from "../components/Predicate"
 import LabelWrapper from "../components/LabelWrapper"
 import Input from "../components/Input"
 import Alert from "../components/Alert"
+import AddToCalendarLinks from "../components/AddToCalendarLinks"
 import { useFirestore } from "../services/Firebase"
 import classnames from "classnames"
 
@@ -28,7 +29,7 @@ const fields: FieldConfig[] = [
 type SubmissionStatus = null | "submitting" | "error" | "submitted"
 
 export default function SaveTheDatePage() {
-  const imageData = useStaticQuery(
+  const data = useStaticQuery(
     graphql`
       query {
         weddingHeroImage: file(relativePath: { eq: "save-the-date-hero.jpg" }) {
@@ -36,6 +37,11 @@ export default function SaveTheDatePage() {
             fluid {
               ...GatsbyImageSharpFluid_tracedSVG
             }
+          }
+        }
+        site {
+          siteMetadata {
+            siteUrl
           }
         }
       }
@@ -92,7 +98,7 @@ export default function SaveTheDatePage() {
       <main className="lg:flex lg:flex-row-reverse">
         <Img
           className="save-the-date-banner flex-1"
-          fluid={imageData.weddingHeroImage.childImageSharp.fluid}
+          fluid={data.weddingHeroImage.childImageSharp.fluid}
           backgroundColor="#ece5df"
           alt=""
           imgStyle={{ objectPosition: "36% 50%" }}
@@ -179,7 +185,7 @@ export default function SaveTheDatePage() {
             </div>
             {status === "submitted" && (
               <div
-                className="flex flex-col text-center px-8 pt-4 pb-10 text-xl items-center lg:absolute lg:inset-0 lg:px-12"
+                className="flex flex-col text-center px-8 pt-2 pb-10 text-xl items-center lg:absolute lg:inset-0 lg:px-12"
                 role="status"
               >
                 <svg
@@ -190,11 +196,28 @@ export default function SaveTheDatePage() {
                 >
                   <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z" />
                 </svg>
-                <p className="mt-8">
+                <p className="mt-6">
                   Thank you for confirming your email! Stay tuned for the
                   invitation and wedding website.
                 </p>
-                <p className="mt-8">We are so excited to celebrate with you!</p>
+                <p className="mt-4">
+                  We&apos;re so excited to celebrate with you!
+                </p>
+                <h2 className="mt-8 text-sm font-sans font-semibold">
+                  Add dates to calendar
+                </h2>
+                <AddToCalendarLinks
+                  className="max-w-sm text-sm mt-2 lg:max-w-full"
+                  event={{
+                    title: "Alisha & Milind's Wedding Weekend",
+                    location: "San Mateo, CA",
+                    description: `Save the date for Alisha & Milind's wedding! More details to come at ${data.site.siteMetadata.siteUrl}`,
+                    startTime: "2020-05-01T00:00:00-07:00",
+                    endTime: "2020-05-03T00:00:00-07:00",
+                    allDay: true,
+                    url: data.site.siteMetadata.siteUrl,
+                  }}
+                />
               </div>
             )}
           </section>

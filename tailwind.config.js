@@ -13,8 +13,8 @@ module.exports = {
         script: ["Arizonia", ...defaultTheme.fontFamily.serif],
       },
       boxShadow: {
-        "outline-input": "0 0 0 3px rgba(237, 137, 54, 0.5)",
-        "outline-button": "0 0 0 5px rgba(237, 137, 54, 0.5)",
+        "outline-light": "0 0 0 3px rgba(237, 137, 54, 0.5)",
+        "outline-bold": "0 0 0 5px rgba(237, 137, 54, 0.5)",
       },
     },
     customForms: theme => {
@@ -24,7 +24,7 @@ module.exports = {
             borderRadius: theme("borderRadius.lg"),
             borderColor: theme("colors.gray.400"),
             "&:focus": {
-              boxShadow: theme("boxShadow.outline-input"),
+              boxShadow: theme("boxShadow.outline-light"),
               borderColor: theme("colors.orange.500"),
             },
           },
