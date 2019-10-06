@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react"
-import Header from "./Header"
+import Header from "./full-site/Header"
 import BaseLayout from "./BaseLayout"
 
 export default function NavLayout({ children }: { children: ReactNode }) {

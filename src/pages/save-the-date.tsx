@@ -14,7 +14,7 @@ import { ValidEmail, NonEmpty } from "../components/Predicate"
 import LabelWrapper from "../components/LabelWrapper"
 import Input from "../components/Input"
 import Alert from "../components/Alert"
-import AddToCalendarLinks from "../components/AddToCalendarLinks"
+import AddToCalendarLinks from "../components/save-the-date/AddToCalendarLinks"
 import { useFirestore } from "../services/Firebase"
 import classnames from "classnames"
 
@@ -26,7 +26,7 @@ const fields: FieldConfig[] = [
   },
 ]
 
-type SubmissionStatus = null | "submitting" | "error" | "submitted"
+type FormStatus = null | "submitting" | "error" | "submitted"
 
 export default function SaveTheDatePage() {
   const data = useStaticQuery(
@@ -48,16 +48,16 @@ export default function SaveTheDatePage() {
     `
   )
   const firestore = useFirestore()
-  const [status, setStatus] = useState<SubmissionStatus>(null)
+  const [formStatus, setFormStatus] = useState<FormStatus>(null)
 
   async function submitInfo(submission: SubmissionMap) {
     if (firestore !== null) {
-      setStatus("submitting")
+      setFormStatus("submitting")
       try {
         await firestore.addWithTimestamp("contacts", submission)
-        setStatus("submitted")
+        setFormStatus("submitted")
       } catch (e) {
-        setStatus("error")
+        setFormStatus("error")
       }
     }
   }
@@ -103,7 +103,7 @@ export default function SaveTheDatePage() {
           alt=""
           imgStyle={{ objectPosition: "36% 50%" }}
         />
-        <div className="flex-none flex flex-col items-center mx-auto max-w-lg lg:max-w-md xl:max-w-lg">
+        <div className="flex-none flex flex-col items-center mx-auto max-w-lg lg:max-w-lg">
           <section className="text-center">
             <h1 className="mt-4 font-script text-5xl text-orange-900 lg:mt-10">
               Save the Date
@@ -140,7 +140,7 @@ export default function SaveTheDatePage() {
           >
             <div
               className={classnames({
-                "hidden lg:block lg:invisible": status === "submitted",
+                "hidden lg:block lg:invisible": formStatus === "submitted",
               })}
             >
               <p
@@ -155,7 +155,7 @@ export default function SaveTheDatePage() {
                 onSubmit={handleSubmit}
                 noValidate
               >
-                {status === "error" && (
+                {formStatus === "error" && (
                   <Alert className="my-3 mx-4 lg:mx-2 xl:px-4">
                     There was a problem submitting your info. Please email us at{" "}
                     <a href="mailto:alisha.and.milind@gmail.com">
@@ -177,25 +177,29 @@ export default function SaveTheDatePage() {
                 <Button
                   type="submit"
                   className="mt-8 mb-2"
-                  disabled={!firestore || status === "submitting"}
+                  disabled={!firestore || formStatus === "submitting"}
                 >
-                  {status === "submitting" ? "Submitting..." : "Submit info"}
+                  {formStatus === "submitting"
+                    ? "Submitting..."
+                    : "Submit info"}
                 </Button>
               </form>
             </div>
-            {status === "submitted" && (
+            {formStatus === "submitted" && (
               <div
-                className="flex flex-col text-center px-8 pt-2 pb-10 text-xl items-center lg:absolute lg:inset-0 lg:px-12"
+                className="flex flex-col text-center px-8 text-xl items-center lg:absolute lg:inset-0 lg:px-12"
                 role="status"
               >
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  className="w-12 fill-current text-green-700"
-                >
-                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z" />
-                </svg>
+                <div className="w-12 h-12 mt-2" aria-hidden="true">
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    className="fill-current text-green-700"
+                  >
+                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM6.7 9.29L9 11.6l4.3-4.3 1.4 1.42L9 14.4l-3.7-3.7 1.4-1.42z" />
+                  </svg>
+                </div>
                 <p className="mt-6">
                   Thank you for confirming your email! Stay tuned for the
                   invitation and wedding website.
@@ -207,7 +211,7 @@ export default function SaveTheDatePage() {
                   Add dates to calendar
                 </h2>
                 <AddToCalendarLinks
-                  className="max-w-sm text-sm mt-2 lg:max-w-full"
+                  className="max-w-sm text-sm pt-2 pb-4 lg:max-w-full"
                   event={{
                     title: "Alisha & Milind's Wedding Weekend",
                     location: "San Mateo, CA",
