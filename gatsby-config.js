@@ -27,9 +27,6 @@ const allPlugins = [
       theme_color: "#fffcf7", // off-white
       // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
       display: "standalone",
-      icon_options: {
-        purpose: `maskable`,
-      },
       icons: [
         {
           src: `/am-square-96x96.png`,
@@ -47,7 +44,6 @@ const allPlugins = [
           type: `image/png`,
         },
       ],
-      crossOrigin: `use-credentials`,
     },
   },
   `gatsby-plugin-remove-console`,
