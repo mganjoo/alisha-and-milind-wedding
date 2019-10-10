@@ -63,8 +63,8 @@ const allPlugins = [
       whitelist: [`a`],
     },
   },
-  `gatsby-plugin-offline`,
   `gatsby-plugin-netlify`,
+  `gatsby-plugin-offline`,
 ]
 
 require("dotenv").config({
