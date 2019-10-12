@@ -1,6 +1,6 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import Header from "../src/components/full-site/Header"
+import Header from "../src/components/ui/Header"
 
 const link1 = { text: "Our Story", to: "/our-story" }
 const link2 = { text: "Events", to: "/events" }

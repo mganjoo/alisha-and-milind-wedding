@@ -1,5 +1,5 @@
 import { useState, useRef, FocusEvent, ChangeEvent, FormEvent } from "react"
-import { Predicate } from "./Predicate"
+import { Predicate } from "./ValidatorPredicate"
 
 /**
  * Interface for a function that tests a value and

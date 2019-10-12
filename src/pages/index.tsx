@@ -1,6 +1,6 @@
 import React from "react"
-import SEO from "../components/SEO"
-import BaseLayout from "../components/BaseLayout"
+import SEO from "../components/meta/SEO"
+import BaseLayout from "../components/layout/BaseLayout"
 import { Link } from "gatsby"
 
 const IndexPage = () => (

@@ -1,6 +1,6 @@
 import React from "react"
-import NavLayout from "../../components/NavLayout"
-import SEO from "../../components/SEO"
+import NavLayout from "../../components/layout/NavLayout"
+import SEO from "../../components/meta/SEO"
 
 const EventsPage = () => (
   <NavLayout>

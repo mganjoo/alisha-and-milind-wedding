@@ -1,20 +1,20 @@
 import React, { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
-import SEO from "../components/SEO"
-import BaseLayout from "../components/BaseLayout"
-import Button from "../components/Button"
+import SEO from "../components/meta/SEO"
+import BaseLayout from "../components/layout/BaseLayout"
+import Button from "../components/ui/Button"
 import {
   useForm,
   SimpleValidator,
   FieldConfig,
   SubmissionMap,
-} from "../components/Form"
-import { ValidEmail, NonEmpty } from "../components/Predicate"
-import LabelWrapper from "../components/LabelWrapper"
-import Input from "../components/Input"
-import Alert from "../components/Alert"
-import AddToCalendarLinks from "../components/save-the-date/AddToCalendarLinks"
+} from "../components/form/Form"
+import { ValidEmail, NonEmpty } from "../components/form/ValidatorPredicate"
+import LabelWrapper from "../components/form/LabelWrapper"
+import Input from "../components/form/Input"
+import Alert from "../components/form/Alert"
+import AddToCalendarLinks from "../components/ui/AddToCalendarLinks"
 import { useFirestore } from "../services/Firebase"
 import classnames from "classnames"
 
