@@ -61,6 +61,7 @@ const allPlugins = [
   },
   `gatsby-plugin-netlify`,
   `gatsby-plugin-offline`,
+  `gatsby-plugin-webpack-size`,
 ]
 
 require("dotenv").config({

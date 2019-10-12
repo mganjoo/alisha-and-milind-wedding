@@ -67,6 +67,7 @@
     "eslint-config-react-app": "^5.0.1",
     "eslint-plugin-cypress": "^2.6.1",
     "gatsby-plugin-eslint": "^2.0.5",
+    "gatsby-plugin-webpack-size": "^1.0.0",
     "husky": "^3.0.8",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
