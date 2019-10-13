@@ -7,6 +7,8 @@ function getBaseClassName(inputType: string | undefined) {
       return "form-input"
     case "email":
       return "form-input"
+    default:
+      return null
   }
 }
 

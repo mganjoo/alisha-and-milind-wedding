@@ -38,6 +38,7 @@ export default function Header({ links }: HeaderProps) {
         document.removeEventListener("touchstart", handleClickOutside)
       }
     }
+    return
   }, [dropdownVisible, menuButtonRef, navRef])
 
   return (
