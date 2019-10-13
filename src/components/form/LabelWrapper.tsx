@@ -5,7 +5,7 @@ interface LabelWrapperProps {
   errorMessage: string | null
 }
 
-const LabelWrapper: React.FunctionComponent<LabelWrapperProps> = ({
+const LabelWrapper: React.FC<LabelWrapperProps> = ({
   label,
   errorMessage,
   children,
@@ -26,8 +26,5 @@ const LabelWrapper: React.FunctionComponent<LabelWrapperProps> = ({
       )}
     </label>
   )
-}
-LabelWrapper.defaultProps = {
-  errorMessage: null,
 }
 export default LabelWrapper

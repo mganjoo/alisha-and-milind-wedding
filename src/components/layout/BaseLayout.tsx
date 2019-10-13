@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react"
+import React from "react"
 import Helmet from "react-helmet"
 
-export default function BaseLayout({ children }: { children: ReactNode }) {
+const BaseLayout: React.FC = ({ children }) => {
   return (
     <>
       <Helmet>
@@ -26,3 +26,4 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
     </>
   )
 }
+export default BaseLayout

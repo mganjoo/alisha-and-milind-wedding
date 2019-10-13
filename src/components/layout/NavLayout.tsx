@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react"
+import React from "react"
 import Header from "../ui/Header"
 import BaseLayout from "./BaseLayout"
 
-export default function NavLayout({ children }: { children: ReactNode }) {
+const NavLayout: React.FC = ({ children }) => {
   return (
     <BaseLayout>
       <Header
@@ -20,3 +20,4 @@ export default function NavLayout({ children }: { children: ReactNode }) {
     </BaseLayout>
   )
 }
+export default NavLayout

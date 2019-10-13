@@ -4,12 +4,11 @@ import { useStaticQuery, graphql } from "gatsby"
 
 interface SEOProps {
   title: string
-  description: string
-  lang: string
-  image: string
+  description?: string
+  image?: string
 }
 
-function SEO({ title, description, lang, image }: SEOProps) {
+const SEO: React.FC<SEOProps> = ({ title, description, image }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -32,7 +31,7 @@ function SEO({ title, description, lang, image }: SEOProps) {
 
   return (
     <Helmet
-      htmlAttributes={{ lang }}
+      htmlAttributes={{ lang: "en" }}
       title={title}
       titleTemplate={`%s: ${site.siteMetadata.title}`}
       meta={[
@@ -47,12 +46,6 @@ function SEO({ title, description, lang, image }: SEOProps) {
       ]}
     />
   )
-}
-
-SEO.defaultProps = {
-  lang: `en`,
-  description: ``,
-  image: ``,
 }
 
 export default SEO
