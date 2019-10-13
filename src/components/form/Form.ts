@@ -40,9 +40,11 @@ function makeFieldMap<T>(
 
 type FormElement = HTMLInputElement | HTMLSelectElement | null
 
+export type FormStatus = null | "submitting" | "error" | "submitted"
+
 export function useForm(
   fields: FieldConfig[],
-  submitCallback: (t: SubmissionMap) => Promise<void>
+  submitCallback: (t: SubmissionMap) => Promise<any>
 ) {
   const validators = makeFieldMap(fields, f => f.validator)
   function checkName(name: string) {
@@ -55,6 +57,7 @@ export function useForm(
   const resetErrors = () => makeFieldMap<string | null>(fields, () => null)
   const [values, setValues] = useState(resetValues())
   const [errors, setErrors] = useState(resetErrors())
+  const [formStatus, setFormStatus] = useState<FormStatus>(null)
   const fieldsRef = useRef<{ [key: string]: FormElement }>({})
   const getError = (name: string, value: string) => {
     const validator = validators[name]
@@ -62,8 +65,9 @@ export function useForm(
   }
 
   return {
-    values: values,
-    errors: errors,
+    values,
+    errors,
+    formStatus,
     handleChange: (event: ChangeEvent<FormElement>) => {
       if (event && event.target) {
         const name = event.target.name
@@ -102,7 +106,10 @@ export function useForm(
 
       if (firstInvalidField === undefined) {
         // Submit form if all fields are valid
+        setFormStatus("submitting")
         submitCallback(values)
+          .then(() => setFormStatus("submitted"))
+          .catch(() => setFormStatus("error"))
       } else {
         // Focus first invalid field if at least one field is invalid
         const firstInvalidRef = fieldsRef.current[firstInvalidField.name]

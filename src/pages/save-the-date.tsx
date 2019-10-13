@@ -3,30 +3,9 @@ import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import SEO from "../components/meta/SEO"
 import BaseLayout from "../components/layout/BaseLayout"
-import Button from "../components/ui/Button"
-import {
-  useForm,
-  SimpleValidator,
-  FieldConfig,
-  SubmissionMap,
-} from "../components/form/Form"
-import { ValidEmail, NonEmpty } from "../components/form/ValidatorPredicate"
-import LabelWrapper from "../components/form/LabelWrapper"
-import Input from "../components/form/Input"
-import Alert from "../components/form/Alert"
 import AddToCalendarLinks from "../components/ui/AddToCalendarLinks"
-import { useFirestore } from "../services/Firebase"
 import classnames from "classnames"
-
-const fields: FieldConfig[] = [
-  { name: "name", validator: SimpleValidator(NonEmpty, "Name is required.") },
-  {
-    name: "email",
-    validator: SimpleValidator(ValidEmail, "A valid email is required."),
-  },
-]
-
-type FormStatus = null | "submitting" | "error" | "submitted"
+import SaveTheDateForm from "../components/save-the-date/SaveTheDateForm"
 
 export default function SaveTheDatePage() {
   const data = useStaticQuery(
@@ -47,46 +26,7 @@ export default function SaveTheDatePage() {
       }
     `
   )
-  const firestore = useFirestore()
-  const [formStatus, setFormStatus] = useState<FormStatus>(null)
-
-  async function submitInfo(submission: SubmissionMap) {
-    if (firestore !== null) {
-      setFormStatus("submitting")
-      try {
-        await firestore.addWithTimestamp("contacts", submission)
-        setFormStatus("submitted")
-      } catch (e) {
-        setFormStatus("error")
-      }
-    }
-  }
-
-  const {
-    values,
-    errors,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    registerRef,
-  } = useForm(fields, submitInfo)
-
-  const renderInput = (
-    name: string,
-    autoComplete: string,
-    type: "text" | "email"
-  ) => (
-    <Input
-      name={name}
-      type={type}
-      value={values[name]}
-      autoComplete={autoComplete}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      ref={registerRef}
-      invalid={errors[name] !== null}
-    />
-  )
+  const [submitted, setSubmitted] = useState(false)
 
   return (
     <BaseLayout>
@@ -140,7 +80,7 @@ export default function SaveTheDatePage() {
           >
             <div
               className={classnames({
-                "hidden lg:block lg:invisible": formStatus === "submitted",
+                "hidden lg:block lg:invisible": submitted,
               })}
             >
               <p
@@ -150,42 +90,9 @@ export default function SaveTheDatePage() {
                 We&apos;re going green! Please confirm your preferred email
                 address for the digital invitation to follow.
               </p>
-              <form
-                className="flex flex-col items-center px-12 pt-4 pb-8 lg:pb-16 xl:px-16"
-                onSubmit={handleSubmit}
-                noValidate
-              >
-                {formStatus === "error" && (
-                  <Alert className="my-3 mx-4 lg:mx-2 xl:px-4">
-                    There was a problem submitting your info. Please email us at{" "}
-                    <a href="mailto:alisha.and.milind@gmail.com">
-                      alisha.and.milind@gmail.com
-                    </a>
-                  </Alert>
-                )}
-                <div className="flex flex-wrap justify-between">
-                  <LabelWrapper label="Name" errorMessage={errors.name}>
-                    {renderInput("name", "name", "text")}
-                  </LabelWrapper>
-                  <LabelWrapper
-                    label="Email address"
-                    errorMessage={errors.email}
-                  >
-                    {renderInput("email", "email", "email")}
-                  </LabelWrapper>
-                </div>
-                <Button
-                  type="submit"
-                  className="mt-8 mb-2"
-                  disabled={!firestore || formStatus === "submitting"}
-                >
-                  {formStatus === "submitting"
-                    ? "Submitting..."
-                    : "Submit info"}
-                </Button>
-              </form>
+              <SaveTheDateForm onSubmit={() => setSubmitted(true)} />
             </div>
-            {formStatus === "submitted" && (
+            {submitted && (
               <div
                 className="flex flex-col text-center px-8 text-xl items-center lg:absolute lg:inset-0 lg:px-12"
                 role="status"
