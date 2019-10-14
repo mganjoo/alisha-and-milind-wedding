@@ -12,11 +12,11 @@ dayjs.extend(utc)
 interface Event {
   title: string
   description: string
-  startTime: string
-  endTime: string
+  startTime: string | Date
+  endTime: string | Date
   location: string
-  allDay: boolean
   url: string
+  allDay?: boolean
 }
 
 const allDayFormat = "YYYYMMDD"
@@ -25,7 +25,7 @@ const utcFormat = "YYYYMMDD[T]HHmmss[Z]"
 // Outlook always expects UTC date, so no suffix
 const utcFormatOutlook = "YYYYMMDD[T]HHmmss"
 
-function formatTime(date: string, format: string) {
+function formatTime(date: string | Date, format: string) {
   return dayjs(date)
     .utc()
     .format(format)
@@ -54,7 +54,10 @@ function outlook(event: Event): string {
     subject: event.title,
     location: event.location,
     body: event.description,
-    allday: event.allDay.toString(),
+    allday: (typeof event.allDay === "undefined"
+      ? false
+      : event.allDay
+    ).toString(),
   }
   return `https://outlook.live.com/owa/?${stringify(details)}`
 }
