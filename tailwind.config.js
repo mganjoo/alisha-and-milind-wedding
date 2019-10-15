@@ -7,7 +7,7 @@ module.exports = {
         "off-white": "#fffcf7",
       },
       fontFamily: {
-        sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
+        sans: ["Raleway", ...defaultTheme.fontFamily.sans],
         serif: ["EB Garamond", ...defaultTheme.fontFamily.serif],
         display: ["Playfair Display", ...defaultTheme.fontFamily.serif],
         script: ["Arizonia", ...defaultTheme.fontFamily.serif],

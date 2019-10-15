@@ -3,7 +3,7 @@
 @tailwind components;
 
 .c-button {
-  @apply px-4 py-2 bg-orange-900 text-white font-sans rounded-br-lg shadow-lg;
+  @apply px-3 py-2 text-sm bg-orange-900 text-white font-sans rounded-br-lg shadow-lg;
 
   &:focus {
     @apply outline-none shadow-outline-bold;
@@ -27,17 +27,17 @@
 }
 
 .c-alert {
-  @apply px-3 py-2 bg-red-100 border border-l-4 border-red-500 text-red-800 shadow-md;
+  @apply px-3 py-2 bg-red-100 border border-l-4 border-red-500 text-red-800 font-sans text-sm shadow-md;
 
-  & a {
-    @apply underline font-bold;
+  & > a {
+    @apply font-bold;
   }
 }
 
 .c-add-calendar-button {
-  @apply mx-2 mt-1 mb-2 py-1 px-2 flex items-center font-sans border border-gray-800 text-gray-800 rounded-lg;
+  @apply mx-2 mt-1 mb-2 py-1 px-2 flex items-center font-sans text-sm border border-gray-800 text-gray-800 rounded-lg;
 
-  & svg {
+  & > svg {
     @apply w-3 mr-2 fill-current;
   }
 
@@ -54,6 +54,24 @@
 
 .c-full-height {
   @apply max-h-full;
+}
+
+.c-article {
+  & > h1 {
+    @apply text-3xl font-sans mb-2;
+  }
+
+  & > p {
+    @apply font-serif text-base mb-4;
+
+    & > a {
+      @apply border-b border-gray-800 border-dotted font-semibold;
+
+      &:hover {
+        @apply bg-orange-200;
+      }
+    }
+  }
 }
 
 .save-the-date-banner {

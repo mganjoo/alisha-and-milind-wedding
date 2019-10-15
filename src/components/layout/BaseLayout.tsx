@@ -20,7 +20,7 @@ const BaseLayout: React.FC = ({ children }) => {
         <link rel="mask-icon" href="/favicon-outline.svg" color="#1a202c" />
         <meta name="msapplication-TileColor" content="#ffc40d" />
         <meta name="robots" content="noindex" />
-        <body className="bg-off-white font-serif text-gray-900"></body>
+        <body className="bg-off-white text-gray-900"></body>
       </Helmet>
       {children}
     </>

@@ -66,16 +66,17 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
 
   return (
     <form
-      className="flex flex-col items-center px-12 pt-4 pb-8 lg:pb-16 xl:px-16"
+      className="flex flex-col items-center pb-8 lg:pb-16"
       onSubmit={handleSubmit}
       noValidate
     >
       {formStatus === "error" && (
-        <Alert className="my-3 mx-4 lg:mx-2 xl:px-4">
+        <Alert className="my-3 mx-4 lg:mx-2">
           There was a problem submitting your info. Please email us at{" "}
           <a href="mailto:alisha.and.milind@gmail.com">
             alisha.and.milind@gmail.com
           </a>
+          .
         </Alert>
       )}
       <div className="flex flex-wrap justify-between">

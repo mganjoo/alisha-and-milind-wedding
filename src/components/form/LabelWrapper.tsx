@@ -11,7 +11,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
   children,
 }) => {
   return (
-    <label className="flex flex-wrap justify-between mt-3 text-sm w-full sm:text-base">
+    <label className="flex flex-wrap justify-between mt-3 text-sm font-serif w-full">
       <span className="text-gray-700 whitespace-no-wrap lg:order-first">
         {label}
       </span>

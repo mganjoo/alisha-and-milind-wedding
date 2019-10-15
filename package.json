@@ -30,8 +30,8 @@
     "tailwindcss": "^1.1.2",
     "typeface-arizonia": "0.0.72",
     "typeface-eb-garamond": "0.0.72",
-    "typeface-montserrat": "0.0.75",
-    "typeface-playfair-display": "0.0.72"
+    "typeface-playfair-display": "0.0.72",
+    "typeface-raleway": "0.0.75"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
