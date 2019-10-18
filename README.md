@@ -66,7 +66,7 @@ This project has [Jest](https://jestjs.io/) configured for unit tests and
 [Cypress](https://www.cypress.io) for end-to-end tests.
 
 End-to-end tests also include visual regression tests set up using
-[cypress-image-snapshot](https://github.com/palmerhq/cypress-image-snapshot).
+[Percy](https://percy.io).
 
 ### To run the entire test suite (unit + e2e) locally
 
@@ -74,25 +74,13 @@ End-to-end tests also include visual regression tests set up using
 npm run test
 ```
 
-Running this command will also clean all previous visual regression diffs and
-test results stored in `cypress/diffs` and `cypress/results`.
+Running this command will also clean all test results
+stored in `cypress/results`.
 
 ### To open the Cypress app locally
 
 ```sh
 npm run test:e2e:open
-```
-
-> **NOTE**: Visual regression tests in Electron produce different snapshot sizes
-> when run from `cypress open` (and the relevant Cypress
-> [issue](https://github.com/cypress-io/cypress/issues/2102) seems to be
-> unresolved). For now this app hardcodes `toMatchImageSnapshot` to be a noop
-> on a headed Electron instance.
-
-### Updating snapshots
-
-```sh
-npm run test:e2e:screenshots:update
 ```
 
 ## 📗 Storybook
@@ -107,6 +95,4 @@ npm run storybook
 ## 🔄 Continuous integration
 
 The entire test suite is also run on CI servers, using the `test:ci` NPM
-script. The tests are identical; however, the failure threshold for visual
-regression tests is relaxed when running using this script, to allow for
-minor differences across machines.
+script.

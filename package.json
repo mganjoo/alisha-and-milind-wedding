@@ -60,8 +60,6 @@
     "cross-env": "^6.0.3",
     "cypress": "^3.4.1",
     "cypress-axe": "^0.5.1",
-    "cypress-image-snapshot": "^3.1.1",
-    "cypress-multi-reporters": "^1.2.1",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-config-react-app": "^5.0.1",
@@ -73,7 +71,6 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.4.2",
     "mocha": "^6.2.0",
-    "mocha-junit-reporter": "^1.23.1",
     "postcss-assets": "^5.0.0",
     "postcss-extend": "^1.0.5",
     "postcss-nesting": "^7.0.1",
@@ -84,26 +81,20 @@
     "typescript": "^3.6.3",
     "yn": "^3.1.1"
   },
-  "keywords": [
-    "gatsby",
-    "wedding"
-  ],
   "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
-    "serve": "gatsby serve",
     "build": "gatsby build",
-    "build:clean": "gatsby clean",
+    "serve": "gatsby serve",
     "start": "npm run develop",
     "start:prod": "npm run build && npm run serve",
-    "clean": "npm run build:clean && npm run cy:clean",
+    "clean": "gatsby clean",
     "test": "npm run test:unit && npm run test:e2e",
     "test:ci": "npm run test:unit && npm run test:e2e:ci",
     "pretest:ci": "npm run check",
     "test:unit": "jest",
     "test:e2e": "server-test develop 8000 cy:run",
     "test:e2e:open": "server-test develop 8000 cy:open",
-    "test:e2e:screenshots:update": "server-test develop 8000 cy:screenshots:update",
     "test:e2e:ci": "CYPRESS_baseUrl=http://localhost:9000 server-test start:prod 9000 cy:run:ci",
     "check": "npm run check:types && npm run lint",
     "check:types": "tsc",
@@ -113,9 +104,7 @@
     "storybook": "start-storybook -p 6006",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:run:ci": "percy exec -- cypress run --env relaxThresholds=true --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporters.json",
-    "cy:screenshots:update": "cypress run --env updateSnapshots=true",
-    "cy:clean": "rm -rf cypress/diffs/* cypress/results/*"
+    "cy:run:ci": "percy exec -- npm run cy:run"
   },
   "repository": {
     "type": "git",
