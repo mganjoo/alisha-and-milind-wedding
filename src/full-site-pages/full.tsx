@@ -1,8 +1,8 @@
 import React from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
-import NavLayout from "../../components/layout/NavLayout"
-import SEO from "../../components/meta/SEO"
+import NavLayout from "../components/layout/NavLayout"
+import SEO from "../components/meta/SEO"
 
 const IndexPage = () => {
   const imageData = useStaticQuery(
@@ -39,7 +39,7 @@ const IndexPage = () => {
               Alisha &amp; Milind
             </p>
           </div>
-          <Link className="shadow-md mt-6 c-button" to="/full/rsvp">
+          <Link className="shadow-md mt-6 c-button" to="/rsvp">
             RSVP
           </Link>
         </div>

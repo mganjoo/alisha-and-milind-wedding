@@ -7,11 +7,11 @@ const NavLayout: React.FC = ({ children }) => {
     <BaseLayout>
       <Header
         links={[
-          { text: "Our Story", to: "/full/our-story" },
-          { text: "Events", to: "/full/events" },
-          { text: "Travel", to: "/full/travel" },
-          { text: "FAQ", to: "/full/faq" },
-          { text: "RSVP", to: "/full/rsvp" },
+          { text: "Our Story", to: "/our-story" },
+          { text: "Events", to: "/events" },
+          { text: "Travel", to: "/travel" },
+          { text: "FAQ", to: "/faq" },
+          { text: "RSVP", to: "/rsvp" },
         ]}
       />
       <div className="sm:mt-4">
