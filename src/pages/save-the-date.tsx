@@ -5,7 +5,7 @@ import SEO from "../components/meta/SEO"
 import BaseLayout from "../components/layout/BaseLayout"
 import AddToCalendarLinks from "../components/ui/AddToCalendarLinks"
 import classnames from "classnames"
-import SaveTheDateForm from "../components/save-the-date/SaveTheDateForm"
+import SaveTheDateForm from "../components/partials/SaveTheDateForm"
 
 export default function SaveTheDatePage() {
   const data = useStaticQuery(
