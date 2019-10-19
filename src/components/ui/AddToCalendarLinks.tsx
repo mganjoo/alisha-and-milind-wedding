@@ -1,7 +1,7 @@
 import React from "react"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
-import { stringify } from "querystring"
+import { stringify } from "query-string"
 import classnames from "classnames"
 
 dayjs.extend(utc)
