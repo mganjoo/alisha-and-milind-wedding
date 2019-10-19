@@ -50,15 +50,17 @@ These options control how the Gatsby site gets generated. Usually, they also
 affect what tests are run.
 
 - `ENABLE_FULL_SITE`: When set to `"1"`, builds the entirety of the website
-  (not just the Save the Date page). [**must be set in both build and test**; default: `"0"`]
+  (not just the Save the Date page).
+- `CYPRESS_ENABLE_FULL_SITE`: When set to `"1"`, runs
+  tests for the entirety of the website (not just the Save the Date page). Accompanied by `ENABLE_FULL_SITE` above.
 - `GATSBY_USE_PROD_FIREBASE`: When set to `"1"`, uses the environment variables
-  `GATSBY_PROD_FIREBASE_*` to configure Firebase instead of `GATSBY_FIREBASE_*`.
+  `GATSBY_PROD_FIREBASE_*` to configure Firebase instead of the `GATSBY_FIREBASE_*` variables
+  listed in [Getting Started](#getting-started).
   This enables writes to the production Firebase instance. This should almost
-  never be set in a local development environment or in CI.
+  never be set in a local development environment or in CI; only in Netlify.
 
-For options that are usable in the test environment, you can set them in
-[`cypress.env.json`](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json)
-or via `CYPRESS_*` environment variables.
+For options that start with `CYPRESS_*`, they can also be set in
+[`cypress.env.json`](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json), without the `CYPRESS_` prefix.
 
 ## 🧪 Testing
 

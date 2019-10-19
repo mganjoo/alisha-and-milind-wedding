@@ -23,7 +23,7 @@ jobs:
       if: startsWith(github.event.action, 'externalUrl_')
       env:
         CYPRESS_ENABLE_FULL_SITE: 1
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        PERCY_ENABLE: 0
         CI: true
         ACTION: ${{ github.event.action }}
       run: |
