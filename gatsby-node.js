@@ -5,7 +5,7 @@ const yn = require("yn")
 
 exports.createPages = ({ actions }) => {
   const { createRedirect } = actions
-  if (!yn(process.env.ENABLE_FULL_SITE)) {
+  if (yn(process.env.DISABLE_FULL_SITE)) {
     // If full site isn't enabled, redirect index page
     createRedirect({
       fromPath: "/",

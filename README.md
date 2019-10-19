@@ -44,23 +44,17 @@
     The site will be running at `http://localhost:8000`, and the GraphiQL
     tool will be at `http://localhost:8000/___graphql`.
 
-## ⚙️ Configuration environment variables
+## ⚙️ Netlify configuration environment variables
 
-These options control how the Gatsby site gets generated. Usually, they also
-affect what tests are run.
+These options control how the Gatsby site gets generated. These options
+should only be set on Netlify in staging and production environments,
+never in CI or test environments.
 
-- `ENABLE_FULL_SITE`: When set to `"1"`, builds the entirety of the website
-  (not just the Save the Date page).
-- `CYPRESS_ENABLE_FULL_SITE`: When set to `"1"`, runs
-  tests for the entirety of the website (not just the Save the Date page). Accompanied by `ENABLE_FULL_SITE` above.
+- `DISABLE_FULL_SITE`: When set to `"1"`, builds only the Save the Date page (instead of the full site).
 - `GATSBY_USE_PROD_FIREBASE`: When set to `"1"`, uses the environment variables
   `GATSBY_PROD_FIREBASE_*` to configure Firebase instead of the `GATSBY_FIREBASE_*` variables
   listed in [Getting Started](#getting-started).
-  This enables writes to the production Firebase instance. This should almost
-  never be set in a local development environment or in CI; only in Netlify.
-
-For options that start with `CYPRESS_*`, they can also be set in
-[`cypress.env.json`](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json), without the `CYPRESS_` prefix.
+  **This enables writes to the production Firebase instance.**
 
 ## 🧪 Testing
 
@@ -75,9 +69,6 @@ End-to-end tests also include visual regression tests set up using
 ```sh
 npm run test
 ```
-
-Running this command will also clean all test results
-stored in `cypress/results`.
 
 ### To open the Cypress app locally
 

@@ -24,11 +24,7 @@ jobs:
       run: |
         npm run test:ci
       env:
-        # Enable full site tests for all tests during development
-        ENABLE_FULL_SITE: 1
-        CYPRESS_ENABLE_FULL_SITE: 1
         CI: true
-        # Provide firebase credentials to app for integration tests
         GATSBY_FIREBASE_API_KEY: ${{ secrets.GATSBY_FIREBASE_API_KEY }}
         GATSBY_FIREBASE_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_AUTH_DOMAIN }}
         GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}

@@ -6,12 +6,12 @@ const yn = require("yn")
 const backgroundColor = "#fffcf7" // Off-white
 const longTitle = "Alisha & Milind Wedding"
 const shortTitle = "A&M Wedding"
-const manifestStartUrl = yn(process.env.ENABLE_FULL_SITE)
-  ? "/"
-  : "/save-the-date"
-const additionalPagesFolder = yn(process.env.ENABLE_FULL_SITE)
-  ? "pages-full-site"
-  : "pages-save-the-date"
+const manifestStartUrl = yn(process.env.DISABLE_FULL_SITE)
+  ? "/save-the-date"
+  : "/"
+const additionalPagesFolder = yn(process.env.DISABLE_FULL_SITE)
+  ? "pages-save-the-date"
+  : "pages-full-site"
 
 module.exports = {
   siteMetadata: {
