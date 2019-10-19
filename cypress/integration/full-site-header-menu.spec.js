@@ -3,7 +3,7 @@
 describe("header menu on mobile", function() {
   beforeEach(() => {
     cy.viewport("iphone-6")
-    cy.visit("/full")
+    cy.visit("/")
     cy.findByLabelText(/toggle menu/i).as("menu_button")
   })
 

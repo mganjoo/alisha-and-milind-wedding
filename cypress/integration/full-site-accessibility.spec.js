@@ -6,7 +6,7 @@ describe("application", function() {
   sizes.forEach(size => {
     it(`has no detectable a11y violations on ${size} load`, function() {
       cy.viewport(size)
-      cy.visit("/full")
+      cy.visit("/")
       cy.injectAxe()
       // make the runner wait for the h1 element to load, critical to a11y tests
       cy.get("h1").should("be.visible")
@@ -18,7 +18,7 @@ describe("application", function() {
 describe("header menu on mobile", function() {
   beforeEach(() => {
     cy.viewport("iphone-6")
-    cy.visit("/full")
+    cy.visit("/")
     cy.injectAxe()
   })
 
