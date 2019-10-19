@@ -23,7 +23,7 @@ describe("header menu on mobile", function() {
   })
 
   it("has no detectable a11y violations when open", function() {
-    cy.getByLabelText(/toggle menu/i).click()
+    cy.findByLabelText(/toggle menu/i).click()
     cy.checkA11y()
   })
 })

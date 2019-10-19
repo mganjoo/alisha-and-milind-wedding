@@ -4,7 +4,7 @@ describe("header menu on mobile", function() {
   beforeEach(() => {
     cy.viewport("iphone-6")
     cy.visit("/full")
-    cy.getByLabelText(/toggle menu/i).as("menu_button")
+    cy.findByLabelText(/toggle menu/i).as("menu_button")
   })
 
   it("should not be visible initially", function() {
@@ -13,7 +13,7 @@ describe("header menu on mobile", function() {
 
   it.skip("toggles correctly when menu button is pressed", function() {
     cy.get("@menu_button").click()
-    cy.getByText(/our story/i).should("be.visible")
+    cy.findByText(/our story/i).should("be.visible")
     cy.get("@menu_button").click()
     cy.get("nav").should("not.be.visible")
   })
