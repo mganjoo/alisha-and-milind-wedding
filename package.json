@@ -19,7 +19,7 @@
     "gatsby-plugin-remove-console": "0.0.2",
     "gatsby-plugin-sharp": "^2.2.31",
     "gatsby-plugin-typescript": "^2.1.15",
-    "gatsby-source-filesystem": "^2.1.22",
+    "gatsby-source-filesystem": "^2.1.33",
     "gatsby-transformer-sharp": "^2.2.23",
     "mem": ">=4.0.0",
     "prop-types": "^15.7.2",
