@@ -14,3 +14,23 @@ exports.createPages = ({ actions }) => {
     redirectInBrowser: true,
   })
 }
+
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  if (stage === "develop") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            enforce: "pre",
+            test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
+            exclude: /(node_modules|.cache|public)/,
+            loader: "eslint-loader",
+            options: {
+              emitWarning: true, // prevent hot module replacement from failing on error
+            },
+          },
+        ],
+      },
+    })
+  }
+}

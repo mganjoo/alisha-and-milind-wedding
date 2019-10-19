@@ -1,11 +1,5 @@
 const allPlugins = [
   `gatsby-plugin-typescript`,
-  {
-    resolve: `gatsby-plugin-eslint`,
-    options: {
-      test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
-    },
-  },
   `gatsby-plugin-react-helmet`,
   {
     resolve: `gatsby-source-filesystem`,
