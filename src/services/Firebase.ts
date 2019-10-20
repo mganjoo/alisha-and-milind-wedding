@@ -2,14 +2,16 @@ import { useEffect, useState } from "react"
 import yn from "yn"
 
 interface Firestore {
-  /**
-   * Add a document to Firestore with a `createdAt` timestamp
-   * and returns the document ID.
-   */
   addWithTimestamp: (
     collection: string,
     data: { [key: string]: any }
   ) => Promise<string>
+
+  findByKey: (
+    collection: string,
+    key: string,
+    value: any
+  ) => Promise<firebase.firestore.DocumentData[]>
 }
 
 function makeFirestore(
@@ -38,10 +40,15 @@ function makeFirestore(
           throw error
         })
     },
+    findByKey: async (collection: string, key: string, value: any) =>
+      firebaseInstance
+        .firestore()
+        .collection(collection)
+        .where(key, "==", value)
+        .get()
+        .then(snapshot => snapshot.docs.map(doc => doc.data())),
   }
 }
-
-type MaybeFirestore = Firestore | null
 
 const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
   ? {
@@ -56,7 +63,7 @@ const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
     }
 
 export function useFirestore() {
-  const [firestore, setFirestore] = useState<MaybeFirestore>(null)
+  const [firestore, setFirestore] = useState<Firestore | null>(null)
   useEffect(() => {
     // Dynamic import of firebase modules, since some code depends on Window
     // (see https://kyleshevlin.com/firebase-and-gatsby-together-at-last/)

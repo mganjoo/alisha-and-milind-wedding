@@ -69,6 +69,10 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/invitation/*`] },
+    },
     `gatsby-plugin-remove-console`,
     `gatsby-plugin-postcss`,
     {
