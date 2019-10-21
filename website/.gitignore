@@ -36,27 +36,18 @@ build/Release
 node_modules/
 jspm_packages/
 
-# Optional npm cache directory
-.npm
-
 # Optional eslint cache
 .eslintcache
 
-# Optional REPL history
-.node_repl_history
+# dotenv environment variables file
+.env
+.env.*
 
-# Output of 'npm pack'
-*.tgz
+# gatsby files
+.cache/
+public
 
-# Mac files
-.DS_Store
-
-# Yarn
-yarn-error.log
-.pnp/
-.pnp.js
-# Yarn Integrity file
-.yarn-integrity
-
-# Local Netlify folder
-.netlify
+# Cypress
+cypress/screenshots
+cypress/videos
+cypress.env.json

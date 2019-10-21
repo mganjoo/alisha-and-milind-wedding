@@ -16,6 +16,8 @@ test:
       - web
   image: cypress/base:10
   stage: test
+  before_script:
+    - cd website/
   script:
     - npm ci
     - $(npm bin)/cypress verify

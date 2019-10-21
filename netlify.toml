@@ -1,3 +1,8 @@
+[build]
+  base = "website/"
+  command = "npm run build"
+  public = "website/public/"
+
 [build.environment]
   # Disable Cypress binary download since it takes too much time
   CYPRESS_INSTALL_BINARY = "0"

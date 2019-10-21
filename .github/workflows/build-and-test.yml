@@ -4,6 +4,8 @@ on:
     branches-ignore:
       - 'staging'
       - 'master'
+    paths:
+      - 'website/**'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -18,11 +20,13 @@ jobs:
       run: |
         npm ci
         $(npm bin)/cypress verify
+      working-directory: ./website
       env:
         CI: true
     - name: Run tests
       run: |
         npm run test:ci
+      working-directory: ./website
       env:
         CI: true
         GATSBY_FIREBASE_API_KEY: ${{ secrets.GATSBY_FIREBASE_API_KEY }}
@@ -33,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: videos
-        path: cypress/videos
+        path: website/cypress/videos

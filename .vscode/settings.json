@@ -9,5 +9,7 @@
     "javascriptreact",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "npm.includeDirectories": ["website"],
+  "eslint.workingDirectories": ["website"]
 }

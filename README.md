@@ -12,14 +12,14 @@
     ```sh
     git clone git@github.com:mganjoo/alisha-and-milind-wedding.git
     cd alisha-and-milind-wedding/
-    npm install
+    npm install && npm bootstrap
     ```
 
 1.  **Add Firebase credentials.**
 
     Go to Firebase Console > Project Settings and scroll down to find the
     section listing key app credentials. Create files `.env.development` and
-    `.env.production` (they will be ignored by Git) in the root directory of
+    `.env.production` (they will be ignored by Git) in the `website/` directory of
     the project, with the following contents:
 
     ```sh
@@ -36,6 +36,7 @@
 1.  **Start developing.**
 
     ```sh
+    cd website
     npm run develop
     ```
 

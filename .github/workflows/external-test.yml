@@ -17,6 +17,7 @@ jobs:
       run: |
         npm ci
         $(npm bin)/cypress verify
+      working-directory: ./website
       env:
         CI: true
     - name: Run tests for external URL
@@ -29,8 +30,9 @@ jobs:
         export CYPRESS_baseUrl="${ACTION#externalUrl_}"
         echo "Running tests with external URL ${CYPRESS_baseUrl}..."
         npm run cy:run:ci
+      working-directory: ./website
     - name: Archive Cypress videos
       uses: actions/upload-artifact@v1
       with:
         name: videos
-        path: cypress/videos
+        path: website/cypress/videos
