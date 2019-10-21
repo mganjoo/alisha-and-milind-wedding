@@ -10,8 +10,8 @@
     "typescript",
     "typescriptreact"
   ],
-  "npm.includeDirectories": ["website"],
-  "eslint.workingDirectories": ["website"],
+  "npm.includeDirectories": ["website", "cli"],
+  "eslint.workingDirectories": ["website", "cli"],
   "json.schemas": [
     {
       "fileMatch": ["cli/fixtures/*.json"],
