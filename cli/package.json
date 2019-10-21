@@ -1,0 +1,60 @@
+{
+  "name": "alisha-and-milind-wedding-cli",
+  "description": "Admin tool to manage wedding data",
+  "version": "0.0.0",
+  "author": "Milind Ganjoo @mganjoo",
+  "bin": {
+    "wedding-manager": "./bin/run"
+  },
+  "bugs": "https://github.com/mganjoo/wedding-manager/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.13.3",
+    "@oclif/plugin-help": "^2.2.1",
+    "ajv": "^6.10.2",
+    "chalk": "^2.4.2",
+    "cli-ux": "^5.3.2",
+    "dayjs": "^1.8.16",
+    "firebase-admin": "^8.6.1",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "@types/node": "^12.11.1",
+    "ajv-cli": "^3.0.0",
+    "globby": "^10.0.1",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/mganjoo/wedding-manager",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "wedding-manager",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "mganjoo/wedding-manager",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md",
+    "fixtures:validate": "! ls fixtures/*.json >/dev/null 2>&1 || ajv -s fixture-schema.json -d fixtures/*.json"
+  },
+  "types": "lib/index.d.ts"
+}

@@ -1,0 +1,29 @@
+{
+  "collection": "invitations",
+  "fixtures": [
+    {
+      "id": "test_35067944ab12",
+      "data": {
+        "code": "35067944ab12",
+        "partyName": "Keith Parker & Vicki Steward",
+        "guests": ["Keith Parker", "Vicki Steward"]
+      }
+    },
+    {
+      "id": "test_c89c22bf2bb9",
+      "data": {
+        "code": "c89c22bf2bb9",
+        "partyName": "Terry Gordon & Family",
+        "guests": ["Terry Gordon", "Allison Little", "Arnold James"]
+      }
+    },
+    {
+      "id": "test_a5cda1cda2fd",
+      "data": {
+        "code": "a5cda1cda2fd",
+        "partyName": "Rosemary Alexander",
+        "guests": ["Rosemary Alexander"]
+      }
+    }
+  ]
+}

@@ -11,5 +11,11 @@
     "typescriptreact"
   ],
   "npm.includeDirectories": ["website"],
-  "eslint.workingDirectories": ["website"]
+  "eslint.workingDirectories": ["website"],
+  "json.schemas": [
+    {
+      "fileMatch": ["cli/fixtures/*.json"],
+      "url": "cli/fixture-schema.json"
+    }
+  ]
 }
