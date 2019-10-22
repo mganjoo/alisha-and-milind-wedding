@@ -54,7 +54,7 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md",
-    "fixtures:validate": "! ls fixtures/*.json >/dev/null 2>&1 || ajv -s fixture-schema.json -d fixtures/*.json"
+    "fixtures:validate": "! ls ../fixtures/*.json >/dev/null 2>&1 || ajv -s fixture-schema.json -d ../fixtures/*.json"
   },
   "types": "lib/index.d.ts"
 }

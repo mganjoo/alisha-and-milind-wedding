@@ -17,6 +17,7 @@
     "gatsby-plugin-typescript": "^2.1.15",
     "gatsby-source-filesystem": "^2.1.33",
     "gatsby-transformer-sharp": "^2.2.23",
+    "idb-keyval": "^3.2.0",
     "query-string": "^6.8.3",
     "react": "^16.9.0",
     "react-dom": "^16.10.2",

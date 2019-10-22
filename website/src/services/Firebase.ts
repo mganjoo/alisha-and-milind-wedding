@@ -63,7 +63,7 @@ const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
     }
 
 export function useFirestore() {
-  const [firestore, setFirestore] = useState<Firestore | null>(null)
+  const [firestore, setFirestore] = useState<Firestore | undefined>(undefined)
   useEffect(() => {
     // Dynamic import of firebase modules, since some code depends on Window
     // (see https://kyleshevlin.com/firebase-and-gatsby-together-at-last/)

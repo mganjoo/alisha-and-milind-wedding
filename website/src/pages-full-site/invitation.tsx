@@ -1,63 +1,90 @@
 import React, { useEffect, useState } from "react"
 import { Router, RouteComponentProps, navigate } from "@reach/router"
 import { useFirestore } from "../services/Firebase"
+import InvitationCard from "../components/partials/InvitationCard"
+import { useIndexedValue } from "../services/IndexedDB"
+import BaseLayout from "../components/layout/BaseLayout"
+import Alert from "../components/form/Alert"
 
 export default function InvitationPage() {
   return (
-    <Router>
-      <Invitation path="/invitation/:code" />
-    </Router>
+    <BaseLayout>
+      <Router>
+        <InvitationWrapper path="/invitation" />
+        <InvitationWrapper path="/invitation/:code" />
+      </Router>
+    </BaseLayout>
   )
 }
 
-interface _Invitation {
+interface Invitation {
   code: string
   partyName: string
   guests: string[]
 }
 
-interface InvitationProps extends RouteComponentProps {
+interface InvitationWrapperProps extends RouteComponentProps {
   code?: string
 }
 
-function navigateToCodePage() {
-  // TODO: redirect to code page
-  navigate("/")
-}
+type InvitationStatus = "loading" | "error" | "loaded"
 
-const Invitation: React.FC<InvitationProps> = ({ code }) => {
+const InvitationWrapper: React.FC<InvitationWrapperProps> = ({ code }) => {
   const firestore = useFirestore()
-  const [invitation, setInvitation] = useState<_Invitation>()
+  const [invitation, setInvitation] = useIndexedValue<Invitation>("invitation")
+  const [status, setStatus] = useState<InvitationStatus>("loading")
   useEffect(() => {
-    async function fetchInvitation() {
-      if (!code) {
-        navigateToCodePage()
+    if (!invitation.loading) {
+      if (invitation.value && invitation.value.code === code) {
+        setStatus("loaded")
       } else if (firestore) {
-        const records = await firestore.findByKey("invitations", "code", code)
-        // TODO: handle error
-        if (records.length === 1) {
-          // TODO: validate fields of invitation too
-          setInvitation(records[0] as _Invitation)
-        } else if (records.length > 1) {
-          // TODO: this is an error
-        } else {
-          navigateToCodePage()
-        }
+        const newInvitationPromise = !code
+          ? Promise.resolve(null)
+          : firestore.findByKey("invitations", "code", code).then(records => {
+              if (records.length === 1) {
+                return records[0] as Invitation
+              } else if (records.length > 1) {
+                throw new Error("more than one invitation found with same code")
+              } else {
+                return null
+              }
+            })
+
+        newInvitationPromise
+          .then(newInvitation => {
+            if (newInvitation) {
+              setInvitation(newInvitation)
+            } else {
+              if (invitation.value) {
+                // If we have a cached code already, navigate to it instead
+                navigate(`/invitation/${invitation.value.code}`, {
+                  replace: true,
+                })
+              } else {
+                navigate("/", { replace: true })
+              }
+            }
+          })
+          .catch(err => {
+            console.error("Error retrieving invitation:", err)
+            setStatus("error")
+          })
       }
     }
-    fetchInvitation()
-  }, [firestore, code])
+  }, [firestore, code, invitation, setInvitation])
 
-  return invitation ? (
-    <div>
-      <p>To: {invitation.partyName}</p>
-      <ul>
-        {invitation.guests.map(guest => (
-          <li key={guest}>{guest}</li>
-        ))}
-      </ul>
-    </div>
-  ) : (
-    <p>Loading...</p>
-  )
+  if (status === "error") {
+    return <Alert>There was an error loading your invitation.</Alert>
+  } else if (status === "loaded" && invitation.value) {
+    return (
+      <InvitationCard
+        partyName={invitation.value.partyName}
+        guests={invitation.value.guests}
+      />
+    )
+  } else if (status === "loading") {
+    return <p>Loading...</p>
+  } else {
+    return null
+  }
 }

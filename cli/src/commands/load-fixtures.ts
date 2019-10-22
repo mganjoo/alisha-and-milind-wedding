@@ -10,15 +10,14 @@ const fixturesSchema = require("../../fixture-schema.json")
 const MaxFixtures = 20
 
 export default class LoadFixtures extends BaseCommand {
-  static description =
-    "Load fixtures into Firestore from data in fixtures/ folder"
+  static description = "Load fixtures into Firestore from data in fixtures json"
 
   static flags = {
     ...BaseCommand.defaultFlags,
   }
 
   static examples = [
-    `$ wedding-manager load-fixtures -c path/to/service-account.json invitations`,
+    `$ wedding-manager load-fixtures -c path/to/service-account.json path/to/invitations/fixture.json`,
   ]
 
   static args = [

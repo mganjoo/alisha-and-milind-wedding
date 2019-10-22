@@ -28,7 +28,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
   const firestore = useFirestore()
 
   async function submitInfo(submission: SubmissionMap) {
-    if (firestore !== null) {
+    if (firestore) {
       return firestore
         .addWithTimestamp("contacts", submission)
         .then(() => onSubmit())

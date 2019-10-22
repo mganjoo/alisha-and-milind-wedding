@@ -24,6 +24,22 @@
         "partyName": "Rosemary Alexander",
         "guests": ["Rosemary Alexander"]
       }
+    },
+    {
+      "id": "test_5151e1176a19",
+      "data": {
+        "code": "__duplicate_code__",
+        "partyName": "Alex Williamson",
+        "guests": ["Alex Williamson"]
+      }
+    },
+    {
+      "id": "test_59bbc2c94cf7",
+      "data": {
+        "code": "__duplicate_code__",
+        "partyName": "Hannah Fox",
+        "guests": ["Hannah Fox"]
+      }
     }
   ]
 }

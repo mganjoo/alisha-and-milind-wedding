@@ -6,6 +6,7 @@ Admin tool to manage wedding data
 
 <!-- toc -->
 
+- [wedding-manager](#wedding-manager)
 - [Usage](#usage)
 - [Commands](#commands)
   <!-- tocstop -->
@@ -15,11 +16,11 @@ Admin tool to manage wedding data
 <!-- usage -->
 
 ```sh-session
-$ npm install -g wedding-manager
+$ npm install -g alisha-and-milind-wedding-cli
 $ wedding-manager COMMAND
 running command...
 $ wedding-manager (-v|--version|version)
-wedding-manager/0.0.0 darwin-x64 node-v12.11.1
+alisha-and-milind-wedding-cli/0.0.0 darwin-x64 node-v12.12.0
 $ wedding-manager --help [COMMAND]
 USAGE
   $ wedding-manager COMMAND
@@ -81,7 +82,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1
 
 ## `wedding-manager load-fixtures PATH`
 
-Load fixtures into Firestore from data in fixtures/ folder
+Load fixtures into Firestore from data in fixtures json
 
 ```
 USAGE
@@ -95,7 +96,7 @@ OPTIONS
   -h, --help                     show CLI help
 
 EXAMPLE
-  $ wedding-manager load-fixtures -c path/to/service-account.json invitations
+  $ wedding-manager load-fixtures -c path/to/service-account.json path/to/invitations/fixture.json
 ```
 
 _See code: [src/commands/load-fixtures.ts](https://github.com/mganjoo/wedding-manager/blob/v0.0.0/src/commands/load-fixtures.ts)_
