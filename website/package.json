@@ -52,7 +52,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-preset-gatsby": "^0.2.20",
-    "cypress": "^3.4.1",
+    "cypress": "^3.5.0",
     "cypress-axe": "^0.5.1",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
