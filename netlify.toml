@@ -16,7 +16,3 @@
 [context.staging.environment]
   DISABLE_FULL_SITE = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
-
-[context.develop]
-  # Run test suite against built website
-  command = "npm run build && ./trigger-github.sh"
