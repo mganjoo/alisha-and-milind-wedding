@@ -35,10 +35,7 @@ function makeFirestore(
           console.log(`Document added: ${docRef.id}`)
           return docRef.id
         })
-        .catch(error => {
-          console.error("Error during execution: ", error)
-          throw error
-        })
+        .catch(observeAndRethrow)
     },
     findByKey: async (collection: string, key: string, value: any) =>
       firebaseInstance
@@ -46,8 +43,14 @@ function makeFirestore(
         .collection(collection)
         .where(key, "==", value)
         .get()
-        .then(snapshot => snapshot.docs.map(doc => doc.data())),
+        .then(snapshot => snapshot.docs.map(doc => doc.data()))
+        .catch(observeAndRethrow),
   }
+}
+
+function observeAndRethrow(error: Error): any {
+  console.error("Error during execution: ", error)
+  throw error
 }
 
 const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
@@ -62,22 +65,27 @@ const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
       projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
     }
 
+export async function loadFirestore() {
+  // Dynamic import of firebase modules, since some code depends on Window
+  // (see https://kyleshevlin.com/firebase-and-gatsby-together-at-last/)
+  const lazyFirebase = import("firebase/app")
+  const lazyFirestore = import("firebase/firestore")
+  const [firebase] = await Promise.all([lazyFirebase, lazyFirestore])
+  // Reuse already-initialized default firebase app if possible
+  const firebaseInstance =
+    firebase.apps && firebase.apps.length
+      ? firebase.app()
+      : firebase.initializeApp(firebaseConfig)
+  const makeTimestamp = (date: Date) =>
+    firebase.firestore.Timestamp.fromDate(date)
+  return makeFirestore(firebaseInstance, makeTimestamp)
+}
+
 export function useFirestore() {
   const [firestore, setFirestore] = useState<Firestore | undefined>(undefined)
   useEffect(() => {
-    // Dynamic import of firebase modules, since some code depends on Window
-    // (see https://kyleshevlin.com/firebase-and-gatsby-together-at-last/)
-    const lazyFirebase = import("firebase/app")
-    const lazyFirestore = import("firebase/firestore")
-    Promise.all([lazyFirebase, lazyFirestore]).then(([firebase]) => {
-      // Reuse already-initialized default firebase app if possible
-      const firebaseInstance =
-        firebase.apps && firebase.apps.length
-          ? firebase.app()
-          : firebase.initializeApp(firebaseConfig)
-      const makeTimestamp = (date: Date) =>
-        firebase.firestore.Timestamp.fromDate(date)
-      setFirestore(makeFirestore(firebaseInstance, makeTimestamp))
+    loadFirestore().then(firestore => {
+      setFirestore(firestore)
     })
   }, []) // we load firebase only once, on component mount
   return firestore

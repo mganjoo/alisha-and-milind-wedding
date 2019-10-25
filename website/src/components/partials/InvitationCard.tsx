@@ -1,19 +1,13 @@
-import React from "react"
+import React, { useContext } from "react"
+import { InvitationContext } from "./Authenticated"
 
-interface InvitationCardProps {
-  partyName: string
-  guests: string[]
-}
-
-export default function InvitationCard({
-  partyName,
-  guests,
-}: InvitationCardProps) {
+export default function InvitationCard() {
+  const invitation = useContext(InvitationContext)
   return (
     <div>
-      <p>To: {partyName}</p>
+      <p>To: {invitation.partyName}</p>
       <ul>
-        {guests.map(guest => (
+        {invitation.guests.map(guest => (
           <li key={guest}>{guest}</li>
         ))}
       </ul>
