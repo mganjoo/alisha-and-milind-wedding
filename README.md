@@ -77,15 +77,6 @@ npm run test
 npm run test:e2e:open
 ```
 
-## 📗 Storybook
-
-This project uses [Storybook](https://storybook.js.org) for development of UI
-components. To run a local instance of Storybook on port 6006:
-
-```sh
-npm run storybook
-```
-
 ## 🔄 Continuous integration
 
 The entire test suite is also run on CI servers, using the `test:ci` NPM
