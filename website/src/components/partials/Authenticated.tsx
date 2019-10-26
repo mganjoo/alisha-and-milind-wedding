@@ -44,15 +44,12 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   const [initialFetchError, setInitialFetchError] = useState(false)
   const [invitation, setInvitation] = useState<Invitation>()
   useEffect(() => {
-    const cachedInvitationPromise = loadSavedInvitation()
     const loadedInvitationPromise = initialCode
       ? fetchAndSaveInvitation(initialCode)
       : Promise.resolve(undefined)
-    Promise.all([cachedInvitationPromise, loadedInvitationPromise])
-      .then(([cachedInvitation, loadedInvitation]) => {
-        const finalInvitation = loadedInvitation || cachedInvitation
-        setInvitation(finalInvitation)
-      })
+    loadedInvitationPromise
+      .then(loadedInvitation => loadedInvitation || loadSavedInvitation())
+      .then(loadedInvitation => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
   }, [initialCode])
