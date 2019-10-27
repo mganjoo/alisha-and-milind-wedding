@@ -26,9 +26,9 @@ const fields: FieldConfig[] = [
 
 // Used only to seed the context for cases when there is no provider
 const FallbackInvitation: Invitation = {
-  code: "",
-  partyName: "",
-  guests: [],
+  code: "abcdefgh",
+  partyName: "Doug Peterson & Family",
+  guests: ["Doug Peterson Jones", "Betty Draper"],
 }
 export const InvitationContext = createContext<Invitation>(FallbackInvitation)
 

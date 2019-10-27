@@ -2,6 +2,8 @@
 
 @tailwind components;
 
+/* Reusable components */
+
 .c-button {
   @apply px-3 py-2 text-sm bg-orange-900 text-white font-sans rounded-br-lg shadow-lg;
 
@@ -74,11 +76,141 @@
   }
 }
 
+/* Specific UI elements */
+
 .save-the-date-banner {
   max-height: 24rem;
 
   @screen lg {
     @extend .c-full-height;
+  }
+}
+
+:root {
+  --paper-shadow-color: #b7791f;
+  --sqrt2: 1.414213;
+  --letter-width: 36rem;
+  --letter-height: 28rem;
+  --envelope-padding-w: 0.5rem;
+  --envelope-padding-h: 0.8rem;
+  --flap-small-radius: 5px;
+  --flap-base-radius: 10px;
+  /* Additional padding to add to width of flap to increase overlap */
+  --flap-padding: 0.5rem;
+}
+
+.envelope {
+  @apply relative rounded;
+  width: calc(var(--letter-width) + var(--envelope-padding-w));
+  height: calc(var(--letter-height) + var(--envelope-padding-h));
+  box-shadow: 0 0 20px -5px;
+  /* So that back of envelope can be slightly raised */
+  transform-style: preserve-3d;
+
+  & .front,
+  & .back {
+    @apply absolute w-full h-full bg-off-white rounded;
+    /* Paper effect */
+    box-shadow: inset 0 0 25px -5px var(--paper-shadow-color);
+  }
+
+  & .front {
+    @apply flex items-center justify-center;
+    & .address {
+      @apply font-serif text-2xl text-gray-900 tracking-tight;
+    }
+  }
+
+  & .back {
+    /* Slightly raised off front and reversed */
+    transform: rotateY(180deg) translate3d(0, 0, 1px);
+
+    & .flap {
+      @apply absolute w-full h-full overflow-hidden;
+
+      &:before {
+        @apply absolute bg-off-white;
+        content: "";
+        border-radius: var(--flap-base-radius);
+        /* Paper effect for seams */
+        box-shadow: inset 0 0 20px -5px var(--paper-shadow-color);
+      }
+    }
+
+    & .left-flap,
+    & .right-flap {
+      &:before {
+        /* Add padding for tighter seams */
+        width: calc(
+          (
+              var(--letter-height) + var(--envelope-padding-h) +
+                var(--flap-padding)
+            ) / var(--sqrt2)
+        );
+        height: calc(
+          (
+              var(--letter-height) + var(--envelope-padding-h) +
+                var(--flap-padding)
+            ) / var(--sqrt2)
+        );
+        top: calc(-1 * var(--flap-padding) / 2);
+      }
+    }
+
+    & .left-flap {
+      &:before {
+        transform-origin: top left;
+        transform: rotate(45deg);
+        border-top-right-radius: var(--flap-small-radius);
+      }
+    }
+
+    & .right-flap {
+      &:before {
+        @apply right-0;
+        transform-origin: top right;
+        transform: rotate(-45deg);
+        border-top-left-radius: var(--flap-small-radius);
+      }
+    }
+
+    & .top-flap,
+    & .bottom-flap {
+      &:before {
+        width: calc(
+          (var(--letter-width) + var(--envelope-padding-w)) / var(--sqrt2)
+        );
+        height: calc(
+          (var(--letter-width) + var(--envelope-padding-w)) / var(--sqrt2)
+        );
+      }
+    }
+
+    & .bottom-flap {
+      &:before {
+        @apply bottom-0;
+        transform-origin: bottom left;
+        transform: rotate(45deg);
+        border-top-left-radius: 120px;
+      }
+    }
+
+    & .top-flap {
+      transform-origin: top center;
+      &:before {
+        transform-origin: top left;
+        transform: rotate(-45deg);
+        border-bottom-left-radius: 50px;
+      }
+    }
+
+    & .letter {
+      @apply absolute bg-off-white rounded-sm shadow-md border border-orange-200 px-3 py-8;
+      width: calc(var(--letter-width));
+      height: calc(var(--letter-height));
+      top: calc(var(--envelope-padding-h) / 2);
+      left: calc(var(--envelope-padding-w) / 2);
+    }
   }
 }
 
