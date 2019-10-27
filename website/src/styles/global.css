@@ -86,7 +86,7 @@
   }
 }
 
-:root {
+.envelope {
   --paper-shadow-color: #b7791f;
   --sqrt2: 1.414213;
   --letter-width: 36rem;
@@ -97,14 +97,12 @@
   --flap-base-radius: 10px;
   /* Additional padding to add to width of flap to increase overlap */
   --flap-padding: 0.5rem;
-}
 
-.envelope {
   @apply relative rounded;
   width: calc(var(--letter-width) + var(--envelope-padding-w));
   height: calc(var(--letter-height) + var(--envelope-padding-h));
   box-shadow: 0 0 20px -5px;
-  /* So that back of envelope can be slightly raised */
+  /* So that the faces of the envelope are independent */
   transform-style: preserve-3d;
 
   & .front,
@@ -112,6 +110,8 @@
     @apply absolute w-full h-full bg-off-white rounded;
     /* Paper effect */
     box-shadow: inset 0 0 25px -5px var(--paper-shadow-color);
+    /* So that the opposite side isn't visible during flipping */
+    backface-visibility: hidden;
   }
 
   & .front {
@@ -123,7 +123,7 @@
 
   & .back {
     /* Slightly raised off front and reversed */
-    transform: rotateY(180deg) translate3d(0, 0, 1px);
+    transform: rotateY(180deg);
 
     & .flap {
       @apply absolute w-full h-full overflow-hidden;
