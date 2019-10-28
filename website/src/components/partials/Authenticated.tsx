@@ -16,6 +16,7 @@ import LabelWrapper from "../form/LabelWrapper"
 import Loading from "../ui/Loading"
 import Alert from "../form/Alert"
 import Button from "../ui/Button"
+import ContactEmail from "./ContactEmail"
 
 const fields: FieldConfig[] = [
   {
@@ -88,10 +89,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
           <Alert>
             {isError && "There was an error retrieving your invitation. "}
             {isMissing && "Hmm, we couldn't find that invitation code. "}
-            Please email us at{" "}
-            <a href="mailto:alisha.and.milind@gmail.com">
-              alisha.and.milind@gmail.com
-            </a>
+            Please email us at <ContactEmail />.
           </Alert>
         )}
         <LabelWrapper label="Invitation code" errorMessage={errors.code}>

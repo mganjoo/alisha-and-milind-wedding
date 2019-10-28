@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 
 interface HeaderLink {
   text: string
@@ -12,6 +12,19 @@ interface HeaderProps {
 }
 
 export default function Header({ links }: HeaderProps) {
+  const data = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            displayTitle
+            displayDates
+            location
+          }
+        }
+      }
+    `
+  )
   const [dropdownVisible, setDropdownVisible] = useState(false)
   function closeDropdown() {
     setDropdownVisible(false)
@@ -62,10 +75,11 @@ export default function Header({ links }: HeaderProps) {
         </div>
         <div className="py-5 text-center sm:pt-8 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl">
-            <Link to="/">Alisha &amp; Milind</Link>
+            <Link to="/">{data && data.site.siteMetadata.displayTitle}</Link>
           </h1>
           <h2 className="font-serif text-sm sm:text-xl lg:text-2xl">
-            May 1 &amp; 2, 2020 &middot; San Mateo, CA
+            {data && data.site.siteMetadata.displayDates} &middot;{" "}
+            {data && data.site.siteMetadata.location}
           </h2>
         </div>
       </div>

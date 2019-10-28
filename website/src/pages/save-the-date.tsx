@@ -20,7 +20,10 @@ export default function SaveTheDatePage() {
         }
         site {
           siteMetadata {
+            displayTitle
+            displayDates
             siteUrl
+            location
           }
         }
       }
@@ -60,12 +63,14 @@ export default function SaveTheDatePage() {
               </svg>
             </div>
             <p className="mt-2 font-display text-3xl tracking-wide sm:text-4xl">
-              Alisha &amp; Milind
+              {data.site.siteMetadata.displayTitle}
             </p>
             <p className="mt-2 font-serif text-xl sm:text-2xl">
-              May 1 &amp; 2, 2020
+              {data.site.siteMetadata.displayDates}
             </p>
-            <p className="font-serif text-lg sm:text-xl">San Mateo, CA</p>
+            <p className="font-serif text-lg sm:text-xl">
+              {data.site.siteMetadata.location}
+            </p>
           </section>
           <hr
             className="my-8 inline-block w-24 border-gray-400"
@@ -116,7 +121,7 @@ export default function SaveTheDatePage() {
                   className="max-w-sm pb-4 lg:max-w-full"
                   event={{
                     title: "Alisha & Milind's Wedding Weekend",
-                    location: "San Mateo, CA",
+                    location: data.site.siteMetadata.location,
                     description: `Save the date for Alisha & Milind's wedding! More details to come at ${data.site.siteMetadata.siteUrl}`,
                     startTime: "2020-05-01T00:00:00-07:00",
                     endTime: "2020-05-03T00:00:00-07:00",

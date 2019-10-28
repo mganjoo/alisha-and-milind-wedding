@@ -20,6 +20,10 @@ module.exports = {
     author: `@mganjoo`,
     siteUrl: `https://alishaandmilind.wedding`, // No trailing slash!
     image: `/alisha-and-milind-mirror.jpg`,
+    contactEmail: `alisha.and.milind@gmail.com`,
+    displayTitle: `Alisha & Milind`,
+    displayDates: `May 1 & 2, 2020`,
+    location: `San Mateo, CA`,
   },
   plugins: [
     `gatsby-plugin-typescript`,

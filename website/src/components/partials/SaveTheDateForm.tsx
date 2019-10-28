@@ -11,6 +11,7 @@ import LabelWrapper from "../form/LabelWrapper"
 import Input from "../form/Input"
 import Alert from "../form/Alert"
 import { useFirestore } from "../../services/Firebase"
+import ContactEmail from "./ContactEmail"
 
 const fields: FieldConfig[] = [
   { name: "name", validator: SimpleValidator(NonEmpty, "Name is required.") },
@@ -73,10 +74,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
       {formStatus === "error" && (
         <Alert className="my-3 mx-4 lg:mx-2">
           There was a problem submitting your info. Please email us at{" "}
-          <a href="mailto:alisha.and.milind@gmail.com">
-            alisha.and.milind@gmail.com
-          </a>
-          .
+          <ContactEmail />.
         </Alert>
       )}
       <div className="flex flex-wrap justify-between">
