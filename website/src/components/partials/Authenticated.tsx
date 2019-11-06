@@ -12,7 +12,7 @@ import Button from "../ui/Button"
 import ContactEmail from "./ContactEmail"
 import { useFormik, FormikHelpers } from "formik"
 import { object, string } from "yup"
-import { useFocusFirstError } from "../form/FocusFirstError"
+import { useFocusFirstError } from "../utils/UtilHooks"
 
 interface LoginFormValues {
   code: string

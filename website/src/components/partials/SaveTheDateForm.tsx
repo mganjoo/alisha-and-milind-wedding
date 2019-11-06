@@ -7,7 +7,7 @@ import Input from "../form/Input"
 import Alert from "../form/Alert"
 import { useFirestore } from "../../services/Firebase"
 import ContactEmail from "./ContactEmail"
-import { useFocusFirstError } from "../form/FocusFirstError"
+import { useFocusFirstError } from "../utils/UtilHooks"
 
 interface SaveTheDateFormValues {
   name: string
