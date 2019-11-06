@@ -7,6 +7,7 @@
     "classnames": "^2.2.6",
     "dayjs": "^1.8.16",
     "firebase": "^7.0.0",
+    "formik": "^2.0.3",
     "gatsby": "^2.16.5",
     "gatsby-image": "^2.2.29",
     "gatsby-plugin-manifest": "^2.2.23",
@@ -26,7 +27,8 @@
     "typeface-arizonia": "0.0.72",
     "typeface-eb-garamond": "0.0.72",
     "typeface-playfair-display": "0.0.72",
-    "typeface-raleway": "0.0.75"
+    "typeface-raleway": "0.0.75",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -42,6 +44,7 @@
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.2",
     "@types/react-helmet": "^5.0.12",
+    "@types/yup": "^0.26.24",
     "axe-core": "^3.3.2",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",

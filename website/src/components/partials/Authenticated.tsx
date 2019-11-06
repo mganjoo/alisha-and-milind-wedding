@@ -1,11 +1,4 @@
 import React, { useState, useEffect, createContext } from "react"
-import {
-  useForm,
-  FieldConfig,
-  SimpleValidator,
-  SubmissionMap,
-} from "../form/Form"
-import { NonEmpty } from "../form/ValidatorPredicate"
 import Input from "../form/Input"
 import {
   fetchAndSaveInvitation,
@@ -17,13 +10,13 @@ import Loading from "../ui/Loading"
 import Alert from "../form/Alert"
 import Button from "../ui/Button"
 import ContactEmail from "./ContactEmail"
+import { useFormik, FormikHelpers } from "formik"
+import { object, string } from "yup"
+import { useFocusFirstError } from "../form/FocusFirstError"
 
-const fields: FieldConfig[] = [
-  {
-    name: "code",
-    validator: SimpleValidator(NonEmpty, "Please enter your invitation code."),
-  },
-]
+interface LoginFormValues {
+  code: string
+}
 
 // Used only to seed the context for cases when there is no provider
 const FallbackInvitation: Invitation = {
@@ -55,24 +48,35 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       .finally(() => setDidInitialFetch(true))
   }, [initialCode])
 
-  async function login(submission: SubmissionMap) {
+  function login(
+    submission: LoginFormValues,
+    actions: FormikHelpers<LoginFormValues>
+  ) {
     setInitialFetchError(false) // after first submit, form will handle error handling
-    const value = await fetchAndSaveInvitation(submission.code)
-    setInvitation(value)
+    return fetchAndSaveInvitation(submission.code)
+      .then(setInvitation)
+      .then(() => actions.setStatus("submitted"))
+      .catch(() => actions.setStatus("serverError"))
+      .finally(() => actions.setSubmitting(false))
   }
-  const {
-    values,
-    errors,
-    formStatus,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    registerRef,
-  } = useForm(fields, login)
 
-  const isError = initialFetchError || formStatus === "error"
+  const initialValues: LoginFormValues = {
+    code: "",
+  }
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: object({
+      code: string().required("Please enter your invitation code."),
+    }),
+    onSubmit: login,
+  })
+
+  const registerRef = useFocusFirstError(formik)
+
+  const isError = initialFetchError || formik.status === "serverError"
   const isMissing =
-    (initialCode !== undefined || formStatus === "submitted") && !invitation
+    (initialCode !== undefined || formik.status === "submitted") && !invitation
 
   if (invitation) {
     return (
@@ -84,7 +88,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
     return <Loading />
   } else {
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         {(isError || isMissing) && (
           <Alert>
             {isError && "There was an error retrieving your invitation. "}
@@ -92,18 +96,18 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
             Please email us at <ContactEmail />.
           </Alert>
         )}
-        <LabelWrapper label="Invitation code" errorMessage={errors.code}>
+        <LabelWrapper
+          label="Invitation code"
+          errorMessage={formik.touched.code ? formik.errors.code : undefined}
+        >
           <Input
-            name="code"
+            {...formik.getFieldProps("code")}
             type="text"
-            value={values.code}
-            onChange={handleChange}
-            onBlur={handleBlur}
             ref={registerRef}
-            invalid={errors.code !== null}
+            invalid={formik.touched.code && formik.errors.code !== undefined}
           />
-          <Button disabled={formStatus === "submitting"}>
-            {formStatus === "submitting" ? "Submitting..." : "Submit"}
+          <Button disabled={formik.isSubmitting}>
+            {formik.isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </LabelWrapper>
       </form>

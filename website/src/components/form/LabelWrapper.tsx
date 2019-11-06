@@ -2,7 +2,7 @@ import React from "react"
 
 interface LabelWrapperProps {
   label: string
-  errorMessage: string | null
+  errorMessage: string | undefined
 }
 
 const LabelWrapper: React.FC<LabelWrapperProps> = ({

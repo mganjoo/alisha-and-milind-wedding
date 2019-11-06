@@ -4,6 +4,9 @@ function getInvitation(invitations, i) {
   return invitations.fixtures[i].data
 }
 
+// To reduce test flake
+Cypress.config("defaultCommandTimeout", 7000)
+
 describe("invitation tests", function() {
   this.beforeEach(() => {
     cy.wrap(null).then(() => {
