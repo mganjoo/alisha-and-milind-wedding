@@ -6,7 +6,8 @@
       "data": {
         "code": "35067944ab12",
         "partyName": "Keith Parker & Vicki Steward",
-        "guests": ["Keith Parker", "Vicki Steward"]
+        "numGuests": 2,
+        "knownGuests": ["Keith Parker", "Vicki Steward"]
       }
     },
     {
@@ -14,7 +15,8 @@
       "data": {
         "code": "c89c22bf2bb9",
         "partyName": "Terry Gordon & Family",
-        "guests": ["Terry Gordon", "Allison Little", "Arnold James"]
+        "numGuests": 3,
+        "knownGuests": ["Terry Gordon", "Allison Little", "Arnold James"]
       }
     },
     {
@@ -22,7 +24,8 @@
       "data": {
         "code": "a5cda1cda2fd",
         "partyName": "Rosemary Alexander",
-        "guests": ["Rosemary Alexander"]
+        "numGuests": 2,
+        "knownGuests": ["Rosemary Alexander"]
       }
     },
     {
@@ -30,7 +33,8 @@
       "data": {
         "code": "__duplicate_code__",
         "partyName": "Alex Williamson",
-        "guests": ["Alex Williamson"]
+        "numGuests": 1,
+        "knownGuests": ["Alex Williamson"]
       }
     },
     {
@@ -38,7 +42,8 @@
       "data": {
         "code": "__duplicate_code__",
         "partyName": "Hannah Fox",
-        "guests": ["Hannah Fox"]
+        "numGuests": 1,
+        "knownGuests": ["Hannah Fox"]
       }
     }
   ]

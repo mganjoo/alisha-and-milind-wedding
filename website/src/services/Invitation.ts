@@ -4,7 +4,8 @@ import { get, set, del } from "idb-keyval"
 export interface Invitation {
   code: string
   partyName: string
-  guests: string[]
+  numGuests: number
+  knownGuests: string[]
 }
 
 const InvitationKey = "invitation"

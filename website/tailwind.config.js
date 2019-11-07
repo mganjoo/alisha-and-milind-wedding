@@ -18,15 +18,27 @@ module.exports = {
       },
     },
     customForms: theme => {
+      const checkboxColor = theme("colors.orange.600")
+      const sharedStyles = {
+        borderColor: theme("colors.gray.400"),
+        "&:focus": {
+          boxShadow: theme("boxShadow.outline-light"),
+          borderColor: theme("colors.orange.500"),
+        },
+      }
       return {
         default: {
           input: {
             borderRadius: theme("borderRadius.lg"),
-            borderColor: theme("colors.gray.400"),
-            "&:focus": {
-              boxShadow: theme("boxShadow.outline-light"),
-              borderColor: theme("colors.orange.500"),
-            },
+            ...sharedStyles,
+          },
+          radio: {
+            color: checkboxColor,
+            ...sharedStyles,
+          },
+          checkbox: {
+            color: checkboxColor,
+            ...sharedStyles,
           },
         },
       }

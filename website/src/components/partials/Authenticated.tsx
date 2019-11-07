@@ -22,7 +22,8 @@ interface LoginFormValues {
 const FallbackInvitation: Invitation = {
   code: "abcdefgh",
   partyName: "Doug Peterson & Family",
-  guests: ["Doug Peterson Jones", "Betty Draper"],
+  numGuests: 2,
+  knownGuests: ["Doug Peterson Jones", "Betty Draper"],
 }
 export const InvitationContext = createContext<Invitation>(FallbackInvitation)
 

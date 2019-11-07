@@ -55,7 +55,7 @@ export default function Header({ links }: HeaderProps) {
   }, [dropdownVisible, menuButtonRef, navRef])
 
   return (
-    <header className="border-b border-gray-400">
+    <header className="border-b border-gray-400 mb-4">
       <div className="relative">
         <div className="absolute mx-1 h-full flex items-center sm:hidden">
           <button

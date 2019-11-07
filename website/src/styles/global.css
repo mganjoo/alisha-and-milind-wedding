@@ -65,7 +65,7 @@
 
 .c-article {
   & > h1 {
-    @apply text-3xl font-sans mb-2;
+    @apply text-2xl font-sans mb-2;
   }
 
   & > p {
