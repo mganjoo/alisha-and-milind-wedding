@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import yn from "yn"
 
 interface Firestore {
@@ -79,14 +78,4 @@ export async function loadFirestore() {
   const makeTimestamp = (date: Date) =>
     firebase.firestore.Timestamp.fromDate(date)
   return makeFirestore(firebaseInstance, makeTimestamp)
-}
-
-export function useFirestore() {
-  const [firestore, setFirestore] = useState<Firestore | undefined>(undefined)
-  useEffect(() => {
-    loadFirestore().then(firestore => {
-      setFirestore(firestore)
-    })
-  }, []) // we load firebase only once, on component mount
-  return firestore
 }

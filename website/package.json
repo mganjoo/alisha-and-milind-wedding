@@ -38,7 +38,6 @@
     "@testing-library/cypress": "^5.0.2",
     "@testing-library/jest-dom": "^4.1.2",
     "@testing-library/react": "^9.3.0",
-    "@testing-library/react-hooks": "^3.1.0",
     "@types/classnames": "^2.2.9",
     "@types/jest": "^24.0.19",
     "@types/reach__router": "^1.2.6",

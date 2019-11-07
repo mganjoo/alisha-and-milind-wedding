@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Formik } from "formik"
 import { object, string } from "yup"
 import Alert from "../form/Alert"
-import { useFirestore } from "../../services/Firebase"
+import { loadFirestore } from "../../services/Firebase"
 import ContactEmail from "./ContactEmail"
 import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
@@ -19,18 +19,13 @@ interface SaveTheDateFormProps {
 }
 
 const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
-  const firestore = useFirestore()
   const [submitError, setSubmitError] = useState(false)
 
   async function submitInfo(values: SaveTheDateFormValues) {
-    if (firestore) {
-      return firestore
-        .addWithTimestamp("contacts", values)
-        .then(() => onSubmit())
-        .catch(() => setSubmitError(true))
-    } else {
-      return Promise.resolve()
-    }
+    return loadFirestore()
+      .then(firestore => firestore.addWithTimestamp("contacts", values))
+      .then(() => onSubmit())
+      .catch(() => setSubmitError(true))
   }
 
   const initialValues: SaveTheDateFormValues = {
@@ -70,11 +65,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
             autoComplete="email"
           />
         </div>
-        <SubmitButton
-          label="Submit info"
-          className="mt-8 mb-2"
-          loading={!firestore}
-        />
+        <SubmitButton label="Submit info" className="mt-8 mb-2" />
       </BaseForm>
     </Formik>
   )
