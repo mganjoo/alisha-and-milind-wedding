@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { FormikErrors } from "formik"
+import { useFormikContext } from "formik"
 
 export function useStateList<T>(stateList: T[]) {
   const [current, setCurrent] = useState(0)
@@ -21,13 +21,8 @@ export function useStateList<T>(stateList: T[]) {
   }
 }
 
-interface FormikPartialType {
-  submitCount: number
-  isValid: boolean
-  errors: FormikErrors<any>
-}
-
-export function useFocusFirstError(formik: FormikPartialType) {
+export function useFocusFirstError() {
+  const formik = useFormikContext()
   const prevSubmitCountRef = useRef(formik.submitCount)
   const fieldsRef = useRef<{ [key: string]: HTMLInputElement }>({})
   const firstInvalidKey = Object.keys(formik.errors)[0]

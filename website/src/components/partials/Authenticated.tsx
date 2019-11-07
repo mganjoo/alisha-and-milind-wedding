@@ -1,18 +1,18 @@
 import React, { useState, useEffect, createContext } from "react"
-import Input from "../form/Input"
 import {
   fetchAndSaveInvitation,
   Invitation,
   loadSavedInvitation,
 } from "../../services/Invitation"
-import LabelWrapper from "../form/LabelWrapper"
 import Loading from "../ui/Loading"
 import Alert from "../form/Alert"
-import Button from "../ui/Button"
 import ContactEmail from "./ContactEmail"
-import { useFormik, FormikHelpers } from "formik"
+import { Formik } from "formik"
 import { object, string } from "yup"
-import { useFocusFirstError } from "../utils/UtilHooks"
+import { createSubmitFunction } from "../utils/Utils"
+import BaseForm from "../form/BaseForm"
+import LabelledTextInput from "../form/LabelledTextInput"
+import SubmitButton from "../form/SubmitButton"
 
 interface LoginFormValues {
   code: string
@@ -47,36 +47,23 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
   }, [initialCode])
+  const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
-  function login(
-    submission: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
-  ) {
+  async function login(submission: LoginFormValues) {
     setInitialFetchError(false) // after first submit, form will handle error handling
     return fetchAndSaveInvitation(submission.code)
       .then(setInvitation)
-      .then(() => actions.setStatus("submitted"))
-      .catch(() => actions.setStatus("serverError"))
-      .finally(() => actions.setSubmitting(false))
+      .then(() => setSubmitted(true))
+      .catch(() => setSubmitError(true))
   }
 
   const initialValues: LoginFormValues = {
     code: "",
   }
 
-  const formik = useFormik({
-    initialValues: initialValues,
-    validationSchema: object({
-      code: string().required("Please enter your invitation code."),
-    }),
-    onSubmit: login,
-  })
-
-  const registerRef = useFocusFirstError(formik)
-
-  const isError = initialFetchError || formik.status === "serverError"
-  const isMissing =
-    (initialCode !== undefined || formik.status === "submitted") && !invitation
+  const isError = initialFetchError || submitError
+  const isMissing = (initialCode !== undefined || submitted) && !invitation
 
   if (invitation) {
     return (
@@ -88,29 +75,25 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
     return <Loading />
   } else {
     return (
-      <form onSubmit={formik.handleSubmit}>
-        {(isError || isMissing) && (
-          <Alert>
-            {isError && "There was an error retrieving your invitation. "}
-            {isMissing && "Hmm, we couldn't find that invitation code. "}
-            Please email us at <ContactEmail />.
-          </Alert>
-        )}
-        <LabelWrapper
-          label="Invitation code"
-          errorMessage={formik.touched.code ? formik.errors.code : undefined}
-        >
-          <Input
-            {...formik.getFieldProps("code")}
-            type="text"
-            ref={registerRef}
-            invalid={formik.touched.code && formik.errors.code !== undefined}
-          />
-          <Button disabled={formik.isSubmitting}>
-            {formik.isSubmitting ? "Submitting..." : "Submit"}
-          </Button>
-        </LabelWrapper>
-      </form>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={object({
+          code: string().required("Please enter your invitation code."),
+        })}
+        onSubmit={createSubmitFunction(login)}
+      >
+        <BaseForm>
+          {(isError || isMissing) && (
+            <Alert>
+              {isError && "There was an error retrieving your invitation. "}
+              {isMissing && "Hmm, we couldn't find that invitation code. "}
+              Please email us at <ContactEmail />.
+            </Alert>
+          )}
+          <LabelledTextInput name="code" type="text" label="Invitation code" />
+          <SubmitButton label="Submit" />
+        </BaseForm>
+      </Formik>
     )
   }
 }
