@@ -34,6 +34,7 @@ jobs:
         GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     - name: Archive Cypress videos
+      if: failure()
       uses: actions/upload-artifact@v1
       with:
         name: videos

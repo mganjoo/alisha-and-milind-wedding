@@ -32,6 +32,7 @@ jobs:
         npm run cy:run:ci
       working-directory: ./website
     - name: Archive Cypress videos
+      if: failure()
       uses: actions/upload-artifact@v1
       with:
         name: videos
