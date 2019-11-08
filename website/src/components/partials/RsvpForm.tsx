@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react"
+import React, { useContext, useState } from "react"
 import { InvitationContext } from "./Authenticated"
 import { makeIdMap, range, createSubmitFunction } from "../utils/Utils"
 import BaseForm from "../form/BaseForm"
@@ -46,12 +46,10 @@ const AttendanceCheckboxGroup: React.FC<AttendanceCheckboxGroupProps> = ({
 
 const RsvpForm: React.FC = () => {
   const invitation = useContext(InvitationContext)
-  const initialGuests = useMemo(
-    () =>
-      makeIdMap(range(invitation.numGuests), (i: number) =>
-        i < invitation.knownGuests.length ? invitation.knownGuests[i] : ""
-      ),
-    [invitation]
+  const [initialGuests] = useState(() =>
+    makeIdMap(range(invitation.numGuests), (i: number) =>
+      i < invitation.knownGuests.length ? invitation.knownGuests[i] : ""
+    )
   )
   const initialValues: RsvpFormValues = {
     guests: initialGuests,
