@@ -14,13 +14,20 @@ interface LabelledOptionProps
 const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
   ({ label, name, type, value, ...otherProps }, ref) => {
     const [field] = useField<any>({ name, type, value })
+    const className =
+      // Need to reference the entire class name to make PurgeCSS work
+      type === "checkbox"
+        ? "form-checkbox"
+        : type === "radio"
+        ? "form-radio"
+        : undefined
     return (
       <div className="mt-1">
         <label className="inline-flex items-center">
           <input
             {...field}
             type={type}
-            className={`form-${type}`}
+            className={className}
             ref={ref}
             {...otherProps}
           />
