@@ -12,7 +12,7 @@
     ```sh
     git clone git@github.com:mganjoo/alisha-and-milind-wedding.git
     cd alisha-and-milind-wedding/
-    npm install && npm bootstrap
+    npm install && npm run bootstrap
     ```
 
 1.  **Add Firebase credentials.**
