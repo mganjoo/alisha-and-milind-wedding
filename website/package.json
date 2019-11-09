@@ -47,7 +47,7 @@
     "axe-core": "^3.3.2",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-remove-console": "^6.9.4",
-    "cypress": "^3.5.0",
+    "cypress": "^3.6.1",
     "cypress-axe": "^0.5.1",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
@@ -77,14 +77,13 @@
     "start": "npm run develop",
     "start:prod": "npm run build && npm run serve",
     "clean": "gatsby clean",
-    "test": "server-test develop 8000 cy:run",
-    "test:ci": "CYPRESS_baseUrl=http://localhost:9000 server-test start:prod 9000 cy:run:ci",
-    "test:open": "server-test develop 8000 cy:open",
+    "test": "server-test start 8000 cy:run",
+    "test:ci": "server-test start:prod 9000 cy:run:ci",
     "check": "npm run check:types && npm run check:lint",
     "check:types": "tsc",
     "check:lint": "eslint --cache --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:run:ci": "percy exec -- npm run cy:run"
+    "cy:run:ci": "percy exec -- cypress run --config-file cypress-ci.json"
   }
 }

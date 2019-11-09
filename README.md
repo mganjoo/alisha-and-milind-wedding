@@ -72,7 +72,8 @@ npm run test
 ### To open the Cypress app locally
 
 ```sh
-npm run test:open
+npm run develop
+npm run cy:open
 ```
 
 ## 🔄 Continuous integration
