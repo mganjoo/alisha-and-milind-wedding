@@ -27,7 +27,7 @@ test:
         npm run cy:run:ci
       else
         echo "Running local server and testing"
-        npm run test:ci
+        npm run check && npm run test:ci
       fi
   artifacts:
     when: always
