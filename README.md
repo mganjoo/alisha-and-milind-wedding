@@ -59,11 +59,11 @@ never in CI or test environments.
 
 ## 🧪 Testing
 
-This project has [Cypress](https://www.cypress.io) for end-to-end tests.
-They also include visual regression tests set up using
-[Percy](https://percy.io).
+This project has [Jest](https://jestjs.io/) configured for unit tests and
+[Cypress](https://www.cypress.io) for end-to-end tests. They also include
+visual regression tests set up using [Percy](https://percy.io).
 
-### To run the end-to-end test suite locally
+### To run the entire test suite (unit + e2e) locally
 
 ```sh
 npm run test

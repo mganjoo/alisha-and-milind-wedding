@@ -10,7 +10,6 @@ export function createSubmitFunction<Val>(
 }
 
 /**
- *
  * Transforms an array of T[] to an object of string key to S, using a function that maps T -> S.
  * Uses a `shortid` for key.
  */
@@ -27,6 +26,9 @@ export function makeIdMap<T, S>(
   )
 }
 
+/**
+ * Generates an array of integers from 0 to n, not inclusive.
+ */
 export function range(n: number) {
   return Array(n)
     .fill(null)
