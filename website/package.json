@@ -79,6 +79,7 @@
     "clean": "gatsby clean",
     "test": "server-test start 8000 cy:run",
     "test:ci": "server-test start:prod 9000 cy:run:ci",
+    "pretest:ci": "npm run check",
     "check": "npm run check:types && npm run check:lint",
     "check:types": "tsc",
     "check:lint": "eslint --cache --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",

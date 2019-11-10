@@ -25,7 +25,7 @@ jobs:
         CI: true
     - name: Run tests
       run: |
-        npm run check && npm run test:ci
+        npm run test:ci
       working-directory: ./website
       env:
         CI: true
