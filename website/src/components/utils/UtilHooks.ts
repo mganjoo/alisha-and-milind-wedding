@@ -31,6 +31,7 @@ export function useFocusFirstError() {
     if (prevSubmitCountRef.current !== formik.submitCount && !formik.isValid) {
       const firstInvalidRef = fieldsRef.current[firstInvalidKey]
       if (firstInvalidRef) {
+        prevSubmitCountRef.current = formik.submitCount
         firstInvalidRef.focus()
       }
     }
