@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Enable new document creation for the Contacts form
+    match /contacts/{contact} {
+      allow create:
+        // ensure no extra fields
+        if request.resource.data.keys().size() == 3
+        // ensure exactly these fields
+        && request.resource.data.keys().hasAll(["name", "email", "createdAt"])
+        // ensure types are correct
+        && request.resource.data.name is string
+        && request.resource.data.email is string
+        && request.resource.data.createdAt is timestamp
+        // reject special string that triggers errors
+        && request.resource.data.name != "__reject_submission__";
+    }
+
+    match /invitations/{invitation} {
+      allow read: if resource.data.code != "__reject_request__";
+    }
+  }
+}

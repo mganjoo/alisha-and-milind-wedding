@@ -1,12 +1,12 @@
 {
   "name": "alisha-and-milind-wedding-cli",
   "description": "Admin tool to manage wedding data",
+  "private": true,
   "version": "0.0.0",
-  "author": "Milind Ganjoo @mganjoo",
+  "author": "Milind Ganjoo <milind.ganjoo@gmail.com>",
   "bin": {
     "wedding-manager": "./bin/run"
   },
-  "bugs": "https://github.com/mganjoo/wedding-manager/issues",
   "dependencies": {
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
@@ -35,7 +35,6 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/mganjoo/wedding-manager",
   "keywords": [
     "oclif"
   ],
@@ -48,7 +47,6 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "mganjoo/wedding-manager",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",

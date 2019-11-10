@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "test-alisha-and-milind-wedding",
+    "production": "alisha-and-milind-wedding",
+    "staging": "test-alisha-and-milind-wedding"
+  }
+}
