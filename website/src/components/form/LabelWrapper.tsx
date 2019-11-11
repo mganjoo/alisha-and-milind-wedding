@@ -17,7 +17,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
   const uid = `label-${useUID()}`
   return (
     <Element
-      className="flex flex-wrap justify-between mt-3 font-serif w-full"
+      className="flex flex-wrap justify-between mt-3 mb-2 font-serif w-full"
       role={group ? "group" : undefined}
       aria-labelledby={group ? uid : undefined}
     >

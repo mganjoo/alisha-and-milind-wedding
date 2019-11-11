@@ -6,12 +6,16 @@ import { loadFirestore } from "../../services/Firebase"
 import ContactEmail from "./ContactEmail"
 import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
-import { createSubmitFunction } from "../utils/Utils"
 import BaseForm from "../form/BaseForm"
 
 interface SaveTheDateFormValues {
   name: string
   email: string
+}
+
+const initialValues: SaveTheDateFormValues = {
+  name: "",
+  email: "",
 }
 
 interface SaveTheDateFormProps {
@@ -28,11 +32,6 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
       .catch(() => setSubmitError(true))
   }
 
-  const initialValues: SaveTheDateFormValues = {
-    name: "",
-    email: "",
-  }
-
   return (
     <Formik
       initialValues={initialValues}
@@ -42,7 +41,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
           .email("A valid email is required.")
           .required("A valid email is required."),
       })}
-      onSubmit={createSubmitFunction(submitInfo)}
+      onSubmit={submitInfo}
     >
       <BaseForm className="flex flex-col items-center pb-8 lg:pb-16">
         {submitError && (

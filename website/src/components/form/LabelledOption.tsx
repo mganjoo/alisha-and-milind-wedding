@@ -3,7 +3,7 @@ import { useField } from "formik"
 
 interface LabelledOptionProps
   extends React.DetailedHTMLProps<
-    Omit<Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">, "name">,
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "name">,
     HTMLInputElement
   > {
   name: string

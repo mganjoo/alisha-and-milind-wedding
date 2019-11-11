@@ -1,13 +1,4 @@
-import { FormikHelpers } from "formik"
 import shortid from "shortid"
-
-export function createSubmitFunction<Val>(
-  submit: (values: Val) => Promise<void>
-) {
-  return (values: Val, actions: FormikHelpers<Val>) => {
-    return submit(values).finally(() => actions.setSubmitting(false))
-  }
-}
 
 /**
  * Transforms an array of T[] to an object of string key to S, using a function that maps T -> S.

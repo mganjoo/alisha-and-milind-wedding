@@ -1,8 +1,9 @@
-import React, { useContext } from "react"
+import React from "react"
 import LabelWrapper from "./LabelWrapper"
 import LabelledOption from "./LabelledOption"
 import { useField } from "formik"
-import { BaseFormHelpersContext } from "./BaseForm"
+import classnames from "classnames"
+import { useRegisteredRef } from "react-register-nodes"
 
 interface Option {
   value: string
@@ -23,15 +24,16 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   label,
 }) => {
   const [, meta] = useField(name)
-  const baseFormHelpers = useContext(BaseFormHelpersContext)
+  const ref = useRegisteredRef(name)
+  const errorMessage = meta.touched ? meta.error : undefined
 
   return (
-    <LabelWrapper
-      label={label}
-      group
-      errorMessage={meta.touched ? meta.error : undefined}
-    >
-      <div className="w-full">
+    <LabelWrapper label={label} group errorMessage={errorMessage}>
+      <div
+        className={classnames("w-full pl-1", {
+          "border rounded c-invalid-outline": !!errorMessage,
+        })}
+      >
         {options.map((option, i) => (
           <LabelledOption
             key={`option-${option.value}`}
@@ -39,7 +41,7 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
             type={type}
             label={option.label}
             value={option.value}
-            ref={i === 0 ? baseFormHelpers.registerRef : null}
+            ref={errorMessage && i === 0 ? ref : undefined}
           />
         ))}
       </div>

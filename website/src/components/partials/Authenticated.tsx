@@ -9,13 +9,16 @@ import Alert from "../form/Alert"
 import ContactEmail from "./ContactEmail"
 import { Formik } from "formik"
 import { object, string } from "yup"
-import { createSubmitFunction } from "../utils/Utils"
 import BaseForm from "../form/BaseForm"
 import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
 
 interface LoginFormValues {
   code: string
+}
+
+const initialValues: LoginFormValues = {
+  code: "",
 }
 
 // Used only to seed the context for cases when there is no provider
@@ -59,10 +62,6 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       .catch(() => setSubmitError(true))
   }
 
-  const initialValues: LoginFormValues = {
-    code: "",
-  }
-
   const isError = initialFetchError || submitError
   const isMissing = (initialCode !== undefined || submitted) && !invitation
 
@@ -81,7 +80,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         validationSchema={object({
           code: string().required("Please enter your invitation code."),
         })}
-        onSubmit={createSubmitFunction(login)}
+        onSubmit={login}
       >
         <BaseForm>
           {(isError || isMissing) && (

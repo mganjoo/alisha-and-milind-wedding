@@ -1,8 +1,8 @@
-import React, { useContext } from "react"
+import React from "react"
 import LabelWrapper from "./LabelWrapper"
 import { useField } from "formik"
 import TextInput from "./TextInput"
-import { BaseFormHelpersContext } from "./BaseForm"
+import { useRegisteredRef } from "react-register-nodes"
 
 interface LabelledTextInputProps {
   label: string
@@ -16,19 +16,17 @@ const LabelledTextInput: React.FC<LabelledTextInputProps> = ({
   name,
   ...props
 }) => {
-  const [field, meta] = useField<string>(name)
-  const baseFormHelpers = useContext(BaseFormHelpersContext)
+  const [, meta] = useField<string>(name)
+  const errorMessage = meta.touched ? meta.error : undefined
+  const ref = useRegisteredRef(name)
 
   return (
-    <LabelWrapper
-      label={label}
-      errorMessage={meta.touched ? meta.error : undefined}
-    >
+    <LabelWrapper label={label} errorMessage={errorMessage}>
       <TextInput
-        {...field}
+        name={name}
+        invalid={!!errorMessage}
+        ref={errorMessage ? ref : undefined}
         {...props}
-        ref={baseFormHelpers.registerRef}
-        invalid={meta.touched && meta.error !== undefined}
       />
     </LabelWrapper>
   )

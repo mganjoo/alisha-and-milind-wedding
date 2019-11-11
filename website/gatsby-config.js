@@ -2,16 +2,9 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 const yn = require("yn")
+const sharedConstants = require("./shared-constants")
 
-const backgroundColor = "#fffcf7" // Off-white
 const longTitle = "Alisha & Milind Wedding"
-const shortTitle = "A&M Wedding"
-const manifestStartUrl = yn(process.env.DISABLE_FULL_SITE)
-  ? "/save-the-date"
-  : "/"
-const additionalPagesFolder = yn(process.env.DISABLE_FULL_SITE)
-  ? "pages-save-the-date"
-  : "pages-full-site"
 
 module.exports = {
   siteMetadata: {
@@ -24,13 +17,30 @@ module.exports = {
     displayTitle: `Alisha & Milind`,
     displayDates: `May 1 & 2, 2020`,
     location: `San Mateo, CA`,
+    events: [
+      { shortName: "sangeet", name: "Sangeet", shortDate: "Fri May 1, 7:00pm" },
+      {
+        shortName: "ceremony",
+        name: "Ceremony",
+        shortDate: "Sat May 2, 9:00am",
+      },
+      {
+        shortName: "reception",
+        name: "Reception",
+        shortDate: "Sat May 2, 6:00pm",
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-typescript`,
     {
       resolve: `gatsby-plugin-page-creator`,
       options: {
-        path: `${__dirname}/src/${additionalPagesFolder}`,
+        path: `${__dirname}/src/${
+          yn(process.env.DISABLE_FULL_SITE)
+            ? "pages-save-the-date"
+            : "pages-full-site"
+        }`,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -47,11 +57,11 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: longTitle,
-        short_name: shortTitle,
+        short_name: `A&M Wedding`,
         language: `en`,
-        start_url: manifestStartUrl,
-        background_color: backgroundColor,
-        theme_color: backgroundColor,
+        start_url: yn(process.env.DISABLE_FULL_SITE) ? "/save-the-date" : "/",
+        background_color: sharedConstants.offWhite,
+        theme_color: sharedConstants.offWhite,
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
         display: "standalone",
         icons: [

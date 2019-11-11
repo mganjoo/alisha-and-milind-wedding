@@ -1,10 +1,11 @@
 const defaultTheme = require("tailwindcss/defaultTheme")
+const sharedConstants = require("./shared-constants")
 
 module.exports = {
   theme: {
     extend: {
       colors: {
-        "off-white": "#fffcf7",
+        "off-white": sharedConstants.offWhite,
       },
       fontFamily: {
         sans: ["Raleway", ...defaultTheme.fontFamily.sans],

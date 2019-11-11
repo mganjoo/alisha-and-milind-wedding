@@ -21,8 +21,13 @@
   }
 }
 
+.c-invalid-outline {
+  @apply border-red-400;
+}
+
 .c-input-invalid {
-  @apply border-red-400 bg-no-repeat bg-right pr-2;
+  @extend .c-invalid-outline;
+  @apply bg-no-repeat bg-right pr-2;
   background-image: inline("exclamation-outline.svg");
   background-size: 20px 20px;
   background-origin: content-box;
@@ -54,11 +59,6 @@
   }
 }
 
-/* TODO: include in save-the-date-banner directly */
-.c-full-height {
-  @apply max-h-full;
-}
-
 .c-full-area {
   @apply absolute w-full h-full top-0 left-0 bg-no-repeat bg-contain;
 }
@@ -66,10 +66,14 @@
 .c-article {
   & > h1 {
     @apply text-2xl font-sans mb-2;
+
+    @screen sm {
+      @apply text-3xl;
+    }
   }
 
   & > p {
-    @apply font-serif text-base mb-4;
+    @apply font-serif text-lg mb-4;
 
     & > a {
       @apply border-b border-gray-800 border-dotted font-semibold;
@@ -107,7 +111,7 @@
   max-height: 24rem;
 
   @screen lg {
-    @extend .c-full-height;
+    @apply max-h-full;
   }
 }
 

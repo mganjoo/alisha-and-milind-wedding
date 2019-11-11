@@ -1,29 +1,37 @@
-import React from "react"
-import { Form } from "formik"
-import { useFocusFirstError } from "../utils/UtilHooks"
+import React, { useRef, useEffect } from "react"
+import { Form, useFormikContext } from "formik"
+import { NodeManager, useOrderedNodes } from "react-register-nodes"
 
 interface BaseFormProps {
   className?: string
 }
 
-interface BaseFormHelpers {
-  registerRef: (elem: HTMLInputElement) => void
-}
+const FirstErrorFocuser: React.FC = ({ children }) => {
+  const formik = useFormikContext()
+  const prevSubmitCountRef = useRef(formik.submitCount)
+  const ordered = useOrderedNodes()
 
-const defaultContext: BaseFormHelpers = {
-  registerRef: () => console.error("Form was not wrapped in BaseFormContext"),
-}
+  useEffect(() => {
+    if (
+      prevSubmitCountRef.current !== formik.submitCount &&
+      !formik.isValid &&
+      ordered.length > 0
+    ) {
+      prevSubmitCountRef.current = formik.submitCount
+      ordered[0].focus()
+    }
+  }, [formik.isValid, formik.submitCount, ordered])
 
-export const BaseFormHelpersContext = React.createContext(defaultContext)
+  return <>{children}</>
+}
 
 const BaseForm: React.FC<BaseFormProps> = ({ className, children }) => {
-  const registerRef = useFocusFirstError()
   return (
-    <Form className={className} noValidate>
-      <BaseFormHelpersContext.Provider value={{ registerRef }}>
-        {children}
-      </BaseFormHelpersContext.Provider>
-    </Form>
+    <NodeManager>
+      <Form className={className} noValidate>
+        <FirstErrorFocuser>{children}</FirstErrorFocuser>
+      </Form>
+    </NodeManager>
   )
 }
 export default BaseForm

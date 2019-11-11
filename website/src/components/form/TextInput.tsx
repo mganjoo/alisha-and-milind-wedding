@@ -1,19 +1,23 @@
 import React from "react"
 import classnames from "classnames"
+import { useField } from "formik"
 
 interface TextInputProps
   extends React.DetailedHTMLProps<
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "name">,
     HTMLInputElement
   > {
+  name: string
   type: "text" | "email"
-  invalid: boolean
+  invalid?: boolean
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  ({ type, className, invalid, ...otherProps }, ref) => {
+  ({ type, className, invalid, name, ...otherProps }, ref) => {
+    const [field] = useField<string>(name)
     return (
       <input
+        {...field}
         ref={ref}
         type={type}
         className={classnames(
