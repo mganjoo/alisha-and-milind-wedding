@@ -14,5 +14,5 @@ module.exports = {
     __PATH_PREFIX__: ``,
     "ts-jest": { diagnostics: { warnOnly: true } },
   },
-  setupFiles: [`<rootDir>/jest-setup-files.js`],
+  setupFiles: [`<rootDir>/jest-setupFiles.js`],
 }

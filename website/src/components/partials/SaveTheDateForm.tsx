@@ -19,7 +19,7 @@ const initialValues: SaveTheDateFormValues = {
 }
 
 interface SaveTheDateFormProps {
-  onSubmit: () => void
+  onSubmit?: () => void
 }
 
 const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
@@ -28,7 +28,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
   async function submitInfo(values: SaveTheDateFormValues) {
     return loadFirestore()
       .then(firestore => firestore.addWithTimestamp("contacts", values))
-      .then(() => onSubmit())
+      .then(() => (onSubmit ? onSubmit() : {}))
       .catch(() => setSubmitError(true))
   }
 
