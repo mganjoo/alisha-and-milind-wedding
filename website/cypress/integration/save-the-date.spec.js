@@ -22,6 +22,22 @@ describe("save the date form", function() {
     cy.checkA11y()
   })
 
+  // Introduced to catch #287
+  it("should correctly focus on the first field with an error", function() {
+    cy.get("@submit_button").click()
+
+    // Check that filling data out again works
+    cy.focused().type("Rani Mukherjee")
+    cy.findByLabelText(/email/i).type("johnny.rose@example.com")
+
+    cy.findByLabelText(/name/i)
+      .invoke("val")
+      .then(val => expect(val).to.equal("Rani Mukherjee"))
+    cy.findByLabelText(/email/i)
+      .invoke("val")
+      .then(val => expect(val).to.equal("johnny.rose@example.com"))
+  })
+
   it("should fail to submit if even one required field is missing", function() {
     cy.findByLabelText(/name/i).type("Rani Mukherjee")
     cy.get("@submit_button").click()
