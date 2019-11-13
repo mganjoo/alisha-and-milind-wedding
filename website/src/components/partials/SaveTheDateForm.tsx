@@ -50,7 +50,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ onSubmit }) => {
             <ContactEmail />.
           </Alert>
         )}
-        <div className="flex flex-wrap justify-between">
+        <div className="w-full">
           <LabelledTextInput
             label="Name"
             name="name"

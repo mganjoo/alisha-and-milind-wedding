@@ -1,19 +1,17 @@
 import React from "react"
-import { useField } from "formik"
 
 interface LabelledOptionProps
   extends React.DetailedHTMLProps<
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "name">,
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
     HTMLInputElement
   > {
-  name: string
   label: string
   type: "checkbox" | "radio"
+  labelClassName?: string
 }
 
 const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
-  ({ label, name, type, value, ...otherProps }, ref) => {
-    const [field] = useField<any>({ name, type, value })
+  ({ label, type, labelClassName, ...otherProps }, ref) => {
     const className =
       // Need to reference the entire class name to make PurgeCSS work
       type === "checkbox"
@@ -24,14 +22,10 @@ const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
     return (
       <div className="mt-1">
         <label className="inline-flex items-center">
-          <input
-            {...field}
-            type={type}
-            className={className}
-            ref={ref}
-            {...otherProps}
-          />
-          <span className="ml-2">{label}</span>
+          <input type={type} className={className} ref={ref} {...otherProps} />
+          <span className="ml-2">
+            <span className={labelClassName}>{label}</span>
+          </span>
         </label>
       </div>
     )

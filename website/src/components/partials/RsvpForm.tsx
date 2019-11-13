@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useMemo } from "react"
 import { InvitationContext } from "./Authenticated"
 import { makeIdMap, range } from "../utils/Utils"
 import BaseForm from "../form/BaseForm"
@@ -7,9 +7,9 @@ import SubmitButton from "../form/SubmitButton"
 import OptionsGroup from "../form/OptionsGroup"
 import TextInputGroup from "../form/TextInputGroup"
 import { useStaticQuery, graphql } from "gatsby"
-import { Event, EventResult } from "../../interfaces/Event"
-import LabelledOption from "../form/LabelledOption"
+import { EventResult } from "../../interfaces/Event"
 import { object, string } from "yup"
+import EventAttendance from "./EventAttendance"
 
 interface RsvpFormValues {
   guests: { [key: string]: string }
@@ -30,36 +30,17 @@ function filterNonEmptyKeys(obj: { [key: string]: string }): string[] {
   return Object.keys(obj).filter(id => obj[id] && !/^\s*$/.test(obj[id]))
 }
 
-interface EventAttendanceProps {
-  event: Event
-  guests: { [id: string]: string }
-}
-const EventAttendance: React.FC<EventAttendanceProps> = ({ event, guests }) => {
-  const numGuests = Object.keys(guests).length
-  return numGuests === 0 ? null : numGuests === 1 ? (
-    <LabelledOption
-      type="checkbox"
-      name={`attendees.${event.shortName}`}
-      label={`${event.name} @ ${event.shortDate}`}
-      value={guests[Object.keys(guests)[0]]}
-    />
-  ) : (
-    <div>
-      <p className="mt-6 font-semibold">
-        {event.name}
-        <span className="text-gray-600"> @ {event.shortDate}</span>
-      </p>
-      <OptionsGroup
-        name={`attendees.${event.shortName}`}
-        type="checkbox"
-        label="Who is attending?"
-        options={Object.keys(guests).map(id => ({
-          value: id,
-          label: guests[id],
-        }))}
-      />
-    </div>
-  )
+function ordinalSuffix(i: number) {
+  const ones = i % 10
+  const tens = i % 100
+
+  return ones === 1 && tens !== 11
+    ? `${i}st`
+    : ones === 2 && tens !== 12
+    ? `${i}nd`
+    : ones === 3 && tens !== 13
+    ? `${i}rd`
+    : `${i}th`
 }
 
 const AttendanceDetailsSection: React.FC = () => {
@@ -73,14 +54,21 @@ const AttendanceDetailsSection: React.FC = () => {
     `
   )
   const { values } = useFormikContext<RsvpFormValues>()
-  const nonEmptyGuestKeys = filterNonEmptyKeys(values.guests)
-  const nonEmptyGuests = nonEmptyGuestKeys.reduce(
-    (obj, key) => {
-      obj[key] = values.guests[key]
-      return obj
-    },
-    {} as { [key: string]: string }
+  const nonEmptyGuestKeys = useMemo(() => filterNonEmptyKeys(values.guests), [
+    values.guests,
+  ])
+  const nonEmptyGuests = useMemo(
+    () =>
+      nonEmptyGuestKeys.reduce(
+        (obj, key) => {
+          obj[key] = values.guests[key]
+          return obj
+        },
+        {} as { [key: string]: string }
+      ),
+    [nonEmptyGuestKeys, values.guests]
   )
+
   return (
     <>
       {values.attending === "yes" && nonEmptyGuestKeys.length > 0 && (
@@ -107,15 +95,19 @@ const RsvpForm: React.FC = () => {
       i < invitation.knownGuests.length ? invitation.knownGuests[i] : ""
     )
   )
-  const initialValues: RsvpFormValues = {
-    guests: initialGuests,
-    attending: "",
-    attendees: {
-      sangeet: [],
-      ceremony: [],
-      reception: [],
-    },
-  }
+  const initialValues: RsvpFormValues = useMemo(
+    () => ({
+      guests: initialGuests,
+      attending: "",
+      attendees: {
+        sangeet: [],
+        ceremony: [],
+        reception: [],
+      },
+    }),
+    [initialGuests]
+  )
+
   return (
     <Formik
       initialValues={initialValues}
@@ -131,12 +123,16 @@ const RsvpForm: React.FC = () => {
         console.log(values)
       }}
     >
-      <BaseForm className="font-serif max-w-xs w-full">
+      <BaseForm className="font-serif max-w-xs w-full mb-10">
         <TextInputGroup
           label="Names of guests"
           errorKey="guests"
           fieldNames={Object.keys(initialGuests).map(id => `guests.${id}`)}
-          fieldLabelFn={i => `Enter name of guest ${i}`}
+          fieldLabelFn={i =>
+            `Name of ${ordinalSuffix(i)} guest${
+              i >= invitation.knownGuests.length ? " (optional)" : ""
+            }`
+          }
         />
         <OptionsGroup
           name="attending"
