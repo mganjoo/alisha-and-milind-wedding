@@ -23,7 +23,7 @@ interface RsvpFormValues {
 
 const attendingOptions = [
   { value: "yes", label: "Yes, excited to attend!" },
-  { value: "no", label: "No, we'll celebrate from afar." },
+  { value: "no", label: "No, will celebrate from afar." },
 ]
 
 function filterNonEmptyKeys(obj: { [key: string]: string }): string[] {
