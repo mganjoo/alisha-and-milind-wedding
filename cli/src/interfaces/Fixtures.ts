@@ -5,5 +5,5 @@ export default interface Fixtures {
 
 interface Fixture {
   id: string
-  data: { [key: string]: any }
+  data: Record<string, any>
 }

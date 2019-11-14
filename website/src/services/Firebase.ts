@@ -6,10 +6,7 @@ function makeFirestore(
   makeTimestamp: (date: Date) => firebase.firestore.Timestamp
 ): Firestore {
   return {
-    addWithTimestamp: async (
-      collection: string,
-      data: { [key: string]: any }
-    ) => {
+    addWithTimestamp: async (collection: string, data: Record<string, any>) => {
       console.log(`Adding: `, data)
       return firebaseInstance
         .firestore()

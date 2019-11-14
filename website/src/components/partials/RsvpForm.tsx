@@ -12,7 +12,7 @@ import { object, string } from "yup"
 import EventAttendance from "./EventAttendance"
 
 interface RsvpFormValues {
-  guests: { [key: string]: string }
+  guests: Record<string, string>
   attending: "yes" | "no" | ""
   attendees: {
     sangeet: string[]
@@ -26,7 +26,7 @@ const attendingOptions = [
   { value: "no", label: "No, will celebrate from afar." },
 ]
 
-function filterNonEmptyKeys(obj: { [key: string]: string }): string[] {
+function filterNonEmptyKeys(obj: Record<string, string>): string[] {
   return Object.keys(obj).filter(id => obj[id] && !/^\s*$/.test(obj[id]))
 }
 
@@ -64,7 +64,7 @@ const AttendanceDetailsSection: React.FC = () => {
           obj[key] = values.guests[key]
           return obj
         },
-        {} as { [key: string]: string }
+        {} as Record<string, string>
       ),
     [nonEmptyGuestKeys, values.guests]
   )

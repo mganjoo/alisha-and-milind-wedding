@@ -7,13 +7,13 @@ import shortid from "shortid"
 export function makeIdMap<T, S>(
   input: T[],
   fn: (t: T) => S
-): { [key: string]: S } {
+): Record<string, S> {
   return input.reduce(
     (map, i) => {
       map[shortid.generate()] = fn(i)
       return map
     },
-    {} as { [key: string]: S }
+    {} as Record<string, S>
   )
 }
 

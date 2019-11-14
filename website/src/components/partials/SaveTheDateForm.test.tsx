@@ -10,7 +10,7 @@ jest.mock("../../services/Firebase")
 
 function mockLoadFirestoreImpl(
   mockAddWithTimestamp: jest.MockedFunction<
-    (collection: string, data: { [key: string]: any }) => Promise<void>
+    (collection: string, data: Record<string, any>) => Promise<void>
   >
 ) {
   const mockLoadFirestore = loadFirestore as jest.MockedFunction<
@@ -20,7 +20,7 @@ function mockLoadFirestoreImpl(
     return Promise.resolve<Firestore>({
       addWithTimestamp: async (
         collection: string,
-        data: { [key: string]: any }
+        data: Record<string, any>
       ) => {
         await mockAddWithTimestamp(collection, data)
         // Reject all submissions to cause DOM change
@@ -41,7 +41,7 @@ function delayedPromise(timeoutMs: number): Promise<void> {
 describe("SaveTheDateForm", () => {
   it("should submit data correctly", async () => {
     const mockAddWithTimestamp = jest.fn() as jest.MockedFunction<
-      (collection: string, data: { [key: string]: any }) => Promise<void>
+      (collection: string, data: Record<string, any>) => Promise<void>
     >
     mockLoadFirestoreImpl(mockAddWithTimestamp)
 
@@ -68,9 +68,9 @@ describe("SaveTheDateForm", () => {
     jest.useFakeTimers()
 
     const mockAddWithTimestamp = jest.fn(
-      (_1: string, _2: { [key: string]: any }) => delayedPromise(5000)
+      (_1: string, _2: Record<string, any>) => delayedPromise(5000)
     ) as jest.MockedFunction<
-      (collection: string, data: { [key: string]: any }) => Promise<void>
+      (collection: string, data: Record<string, any>) => Promise<void>
     >
     mockLoadFirestoreImpl(mockAddWithTimestamp)
 

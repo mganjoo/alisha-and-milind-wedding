@@ -1,7 +1,7 @@
 export interface Firestore {
   addWithTimestamp: (
     collection: string,
-    data: { [key: string]: any }
+    data: Record<string, any>
   ) => Promise<string>
 
   findByKey: (

@@ -5,7 +5,7 @@ import ControlledLabelledOption from "../form/ControlledLabelledOption"
 
 interface EventAttendanceProps {
   event: Event
-  guests: { [id: string]: string }
+  guests: Record<string, string>
 }
 
 const EventAttendance: React.FC<EventAttendanceProps> = ({ event, guests }) => {
