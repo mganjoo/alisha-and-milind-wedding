@@ -9,7 +9,15 @@ interface EventAttendanceProps {
 }
 
 const EventAttendance: React.FC<EventAttendanceProps> = ({ event, guests }) => {
-  const numGuests = useMemo(() => Object.keys(guests).length, [guests])
+  const options = useMemo(
+    () =>
+      Object.keys(guests).map(id => ({
+        value: id,
+        label: guests[id],
+      })),
+    [guests]
+  )
+  const numGuests = options.length
 
   return numGuests === 0 ? null : numGuests === 1 ? (
     <ControlledLabelledOption
@@ -28,10 +36,7 @@ const EventAttendance: React.FC<EventAttendanceProps> = ({ event, guests }) => {
         name={`attendees.${event.shortName}`}
         type="checkbox"
         label="Who is attending?"
-        options={Object.keys(guests).map(id => ({
-          value: id,
-          label: guests[id],
-        }))}
+        options={options}
         showSelectAll
         selectAllLabel={numGuests > 2 ? "All guests" : "Both guests"}
       />

@@ -20,43 +20,36 @@ export function useStateList<T>(stateList: T[]) {
   }
 }
 
-// From https://usehooks.com/useWhyDidYouUpdate/
-export function useWhyDidYouUpdate(
-  name: string,
-  props: { [key: string]: any }
-) {
-  // Get a mutable ref object where we can store props ...
-  // ... for comparison next time this hook runs.
-  const previousProps = useRef<{ [key: string]: any }>()
+/**
+ * Quickly see what props changed and caused a re-render.
+ *
+ * From: https://usehooks.com/useWhyDidYouUpdate/
+ *
+ * @param label Label to use for console output
+ * @param props An object with props and values to monitor
+ */
+export function useWhyDidYouUpdate(label: string, props: Record<string, any>) {
+  const previousProps = useRef<Record<string, any>>()
 
   useEffect(() => {
     if (previousProps.current) {
-      // Get all keys from previous and current props
       const allKeys = Object.keys({ ...previousProps.current, ...props })
-      // Use this object to keep track of changed props
-      const changesObj: { [key: string]: any } = {}
-      // Iterate through keys
+      const changes: Record<string, { from: any; to: any }> = {}
       allKeys.forEach(key => {
-        // If previous is different from current
         if (
           previousProps.current &&
           previousProps.current[key] !== props[key]
         ) {
-          // Add to changesObj
-          changesObj[key] = {
+          changes[key] = {
             from: previousProps.current[key],
             to: props[key],
           }
         }
       })
-
-      // If changesObj not empty then output to console
-      if (Object.keys(changesObj).length) {
-        console.log("[why-did-you-update]", name, changesObj)
+      if (Object.keys(changes).length) {
+        console.log("[why-did-you-update]", label, changes)
       }
     }
-
-    // Finally update previousProps with current props for next hook call
     previousProps.current = props
   })
 }

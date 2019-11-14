@@ -34,10 +34,8 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   const { setFieldValue } = useFormikContext<any>()
 
   const allValues = useMemo(() => options.map(o => o.value), [options])
-  const shouldShowSelectAll = useMemo(
-    () => !!showSelectAll && type === "checkbox" && Array.isArray(field.value),
-    [showSelectAll, type, field.value]
-  )
+  const shouldShowSelectAll =
+    !!showSelectAll && type === "checkbox" && Array.isArray(field.value)
   const allSelected = useMemo(
     () => shouldShowSelectAll && allValues.every(v => field.value.includes(v)),
     [shouldShowSelectAll, allValues, field.value]
