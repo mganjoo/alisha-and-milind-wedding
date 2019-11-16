@@ -1,13 +1,32 @@
 import React from "react"
 import classnames from "classnames"
 
-const Button: React.FunctionComponent<
-  React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
+export interface ButtonProps
+  extends Omit<
+    React.DetailedHTMLProps<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+    >,
+    "type"
+  > {
+  isSecondary?: boolean
+}
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  isSecondary,
+  className,
+  ...otherProps
+}) => (
+  <button
+    className={classnames(
+      "c-button",
+      isSecondary ? "c-button-secondary" : "c-button-primary",
+      className
+    )}
+    type={isSecondary ? "button" : "submit"}
+    {...otherProps}
   >
-> = ({ children, className, ...otherProps }) => (
-  <button className={classnames("c-button", className)} {...otherProps}>
     {children}
   </button>
 )

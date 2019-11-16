@@ -6,38 +6,38 @@ import { useRegisteredRef } from "react-register-nodes"
 
 interface TextInputGroupProps {
   label: string
-  errorKey: string
-  fieldNames: string[]
+  groupName: string
+  fieldKeys: string[]
   fieldLabelFn: (idx: number) => string
 }
 
 const TextInputGroup: React.FC<TextInputGroupProps> = ({
   label,
-  errorKey,
-  fieldNames,
+  groupName,
+  fieldKeys,
   fieldLabelFn,
 }) => {
   const { getFieldMeta } = useFormikContext()
-  const meta = getFieldMeta(errorKey)
+  const meta = getFieldMeta(groupName)
   const errorMessage = meta.touched ? meta.error : undefined
-  const ref = useRegisteredRef(errorKey)
+  const ref = useRegisteredRef(groupName)
 
   return (
     <LabelWrapper
       label={label}
       errorMessage={meta.touched ? meta.error : undefined}
-      group
+      group={fieldKeys.length > 1}
     >
       <div className="w-full">
-        {fieldNames.map((fieldName, i) => (
+        {fieldKeys.map((fieldKey, i) => (
           <TextInput
-            key={fieldName}
+            key={fieldKey}
             type="text"
-            name={fieldName}
+            name={`guests.${fieldKey}`}
             className="mt-1 mb-2"
             invalid={!!errorMessage && i === 0}
-            placeholder={fieldLabelFn(i + 1)}
-            aria-label={fieldLabelFn(i + 1)}
+            placeholder={fieldKeys.length > 1 ? fieldLabelFn(i + 1) : undefined}
+            aria-label={fieldKeys.length > 1 ? fieldLabelFn(i + 1) : undefined}
             ref={errorMessage && i === 0 ? ref : undefined}
           />
         ))}

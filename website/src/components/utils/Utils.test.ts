@@ -1,4 +1,4 @@
-import { range, makeIdMap } from "./Utils"
+import { range, makeIdMap, filterNonEmptyKeys } from "./Utils"
 import shortid from "shortid"
 
 describe("Utils", () => {
@@ -18,6 +18,11 @@ describe("Utils", () => {
       expect(range(4)).toEqual([0, 1, 2, 3])
       expect(range(0)).toEqual([])
       expect(range(1)).toEqual([0])
+    })
+  })
+  describe("filterNonEmptyKeys()", () => {
+    it("should filter empty values correctly", () => {
+      expect(filterNonEmptyKeys({ a: "foo", b: "", c: "  " })).toEqual(["a"])
     })
   })
 })

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react"
 import { Form, useFormikContext } from "formik"
 import { NodeManager, useOrderedNodes } from "react-register-nodes"
+import { scrollIntoView } from "../utils/Utils"
 
 interface BaseFormProps {
   className?: string
@@ -18,6 +19,7 @@ const FirstErrorFocuser: React.FC = ({ children }) => {
       ordered.length > 0
     ) {
       prevSubmitCountRef.current = formik.submitCount
+      scrollIntoView(ordered[0])
       ordered[0].focus()
     }
   }, [formik.isValid, formik.submitCount, ordered])

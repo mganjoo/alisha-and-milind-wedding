@@ -1,25 +1,21 @@
 import React from "react"
 import { useFormikContext } from "formik"
-import Button from "../ui/Button"
+import Button, { ButtonProps } from "../ui/Button"
 
-interface SubmitButtonProps {
+interface SubmitButtonProps
+  extends Omit<ButtonProps, "type" | "disabled" | "isSecondary"> {
   label: string
-  className?: string
   loading?: boolean
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   label,
-  className,
   loading,
+  ...otherProps
 }) => {
   const formik = useFormikContext()
   return (
-    <Button
-      type="submit"
-      className={className}
-      disabled={loading || formik.isSubmitting}
-    >
+    <Button {...otherProps} disabled={loading || formik.isSubmitting}>
       {formik.isSubmitting ? "Submitting..." : label}
     </Button>
   )

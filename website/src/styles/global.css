@@ -5,10 +5,13 @@
 /* Reusable components */
 
 .c-button {
-  @apply px-3 py-2 text-sm bg-orange-900 text-white font-sans rounded-br-lg shadow-lg;
+  @apply px-3 py-2 text-sm font-sans rounded-br-lg;
 
   &:focus {
     @apply outline-none shadow-outline-bold;
+  }
+  &:disabled {
+    @apply opacity-50 cursor-wait;
   }
   &:hover {
     @apply bg-orange-800;
@@ -16,8 +19,17 @@
   &:active {
     @apply bg-orange-700;
   }
-  &:disabled {
-    @apply opacity-50 cursor-wait;
+}
+
+.c-button-primary {
+  @apply bg-orange-900 text-white shadow-lg;
+}
+
+.c-button-secondary {
+  @apply border border-orange-800 bg-transparent text-orange-900 shadow-none;
+
+  &:hover {
+    @apply text-white;
   }
 }
 

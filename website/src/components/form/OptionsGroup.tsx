@@ -18,6 +18,7 @@ interface OptionsGroupProps {
   options: Option[]
   showSelectAll?: boolean
   selectAllLabel?: string
+  additionalGroupLabelId?: string
 }
 
 const OptionsGroup: React.FC<OptionsGroupProps> = ({
@@ -27,18 +28,18 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   label,
   showSelectAll,
   selectAllLabel,
+  additionalGroupLabelId,
 }) => {
   const [field, meta] = useField<any>(name)
   const ref = useRegisteredRef(name)
   const errorMessage = meta.touched ? meta.error : undefined
   const { setFieldValue } = useFormikContext<any>()
-
-  const allValues = useMemo(() => options.map(o => o.value), [options])
   const shouldShowSelectAll =
     !!showSelectAll && type === "checkbox" && Array.isArray(field.value)
   const allSelected = useMemo(
-    () => shouldShowSelectAll && allValues.every(v => field.value.includes(v)),
-    [shouldShowSelectAll, allValues, field.value]
+    () =>
+      shouldShowSelectAll && options.every(o => field.value.includes(o.value)),
+    [shouldShowSelectAll, options, field.value]
   )
 
   if (showSelectAll && !shouldShowSelectAll) {
@@ -47,14 +48,19 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
     )
   }
 
-  const doSelectAll = useCallback(
+  const toggleSelectAll = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      setFieldValue(name, e.target.checked ? allValues : []),
-    [name, allValues, setFieldValue]
+      setFieldValue(name, e.target.checked ? options.map(o => o.value) : []),
+    [name, options, setFieldValue]
   )
 
   return (
-    <LabelWrapper label={label} group errorMessage={errorMessage}>
+    <LabelWrapper
+      label={label}
+      group
+      errorMessage={errorMessage}
+      additionalLabelId={additionalGroupLabelId}
+    >
       <div
         className={classnames("w-full pl-1", {
           "border rounded c-invalid-outline": !!errorMessage,
@@ -65,7 +71,7 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
             label={selectAllLabel || "Select all"}
             type="checkbox"
             checked={allSelected}
-            onChange={doSelectAll}
+            onChange={toggleSelectAll}
             labelClassName={classnames({ "font-semibold": allSelected })}
           />
         )}

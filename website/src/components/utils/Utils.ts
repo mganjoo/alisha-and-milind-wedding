@@ -1,4 +1,5 @@
 import shortid from "shortid"
+import smoothScrollIntoView from "smooth-scroll-into-view-if-needed"
 
 /**
  * Transforms an array of T[] to an object of string key to S, using a function that maps T -> S.
@@ -24,4 +25,24 @@ export function range(n: number) {
   return Array(n)
     .fill(null)
     .map((_, i) => i)
+}
+
+/**
+ * Returns keys of `record` that correspond to non-empty values.
+ */
+export function filterNonEmptyKeys(record: Record<string, string>): string[] {
+  return Object.keys(record).filter(
+    id => record[id] && !/^\s*$/.test(record[id])
+  )
+}
+
+/**
+ * Consistent options for scrolling things into view.
+ */
+export function scrollIntoView(target: Element) {
+  smoothScrollIntoView(target, {
+    scrollMode: "if-needed",
+    block: "center",
+    inline: "start",
+  })
 }

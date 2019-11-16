@@ -23,7 +23,9 @@ const RsvpPage = () => {
     <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
       <SEO title="RSVP" />
       <h1>RSVP</h1>
-      <p>We hope to see you at our wedding! Please RSVP by March 15, 2019.</p>
+      <p className="text-center">
+        We hope to see you at our wedding! Please RSVP by March 15, 2019.
+      </p>
       <Authenticated>
         <RsvpForm />
       </Authenticated>
