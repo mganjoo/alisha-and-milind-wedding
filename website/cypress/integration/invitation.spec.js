@@ -42,13 +42,6 @@ describe("invitation tests", function() {
       cy.findByText(/couldn't find that invitation code/i).should("exist")
     })
 
-    it("should redirect to code entry page on duplicate code, with error", function() {
-      // Special trigger code for Firestore
-      cy.visit(`/load?c=__duplicate_code__`)
-      cy.findByLabelText(/invitation code/i).should("exist")
-      cy.findByText(/error retrieving/i).should("exist")
-    })
-
     it("should redirect to code entry page on error", function() {
       // Special trigger code for Firestore
       cy.visit(`/load?c=__reject_request__`)
@@ -109,13 +102,6 @@ describe("invitation tests", function() {
       cy.get("@code_input").type("bla")
       cy.get("@button").click()
       cy.findByText(/couldn't find that invitation code/i).should("exist")
-    })
-
-    it("should show error on duplicate code", function() {
-      // Special trigger code for Firestore
-      cy.get("@code_input").type("__duplicate_code__")
-      cy.get("@button").click()
-      cy.findByText(/error retrieving/i).should("exist")
     })
 
     it("should redirect to code entry page on error", function() {

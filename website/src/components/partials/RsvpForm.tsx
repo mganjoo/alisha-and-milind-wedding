@@ -18,6 +18,8 @@ import { useEvents } from "../utils/UtilHooks"
 import { WeddingEvent } from "../../interfaces/Event"
 import { Invitation, Rsvp } from "../../interfaces/Invitation"
 import { addRsvp } from "../../services/Invitation"
+import Alert from "../form/Alert"
+import ContactEmail from "./ContactEmail"
 
 const attendingOptions = [
   { value: "yes", label: "Yes, excited to attend!" },
@@ -176,6 +178,7 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onSubmit }) => {
     }),
     [initialGuests, events, invitation]
   )
+  const [submitError, setSubmitError] = useState(false)
 
   async function submitRsvp(values: RsvpFormValues) {
     const guests = Object.keys(values.guests).map(id => ({
@@ -185,9 +188,13 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onSubmit }) => {
       ),
     }))
     const rsvp: Rsvp = { guests, attending: values.attending === "yes" }
-    await addRsvp(invitation.code, rsvp)
-    if (onSubmit) {
-      onSubmit()
+    try {
+      await addRsvp(invitation, rsvp)
+      if (onSubmit) {
+        onSubmit()
+      }
+    } catch {
+      setSubmitError(true)
     }
   }
 
@@ -198,6 +205,12 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onSubmit }) => {
       onSubmit={submitRsvp}
     >
       <BaseForm className="font-serif max-w-xs w-full mb-10">
+        {submitError && (
+          <Alert className="my-3 mx-4 lg:mx-2">
+            There was a problem submitting the RSVP. Please email us at{" "}
+            <ContactEmail />.
+          </Alert>
+        )}
         <PageWrapper invitation={invitation} events={events} />
       </BaseForm>
     </Formik>

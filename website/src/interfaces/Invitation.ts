@@ -4,6 +4,7 @@ export interface Invitation {
   numGuests: number
   knownGuests: string[]
   preEvents?: boolean
+  latestRsvp?: Rsvp
 }
 
 interface Guest {

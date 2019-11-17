@@ -1,25 +1,11 @@
-import { loadFirestore } from "./Firebase"
+import { loadFirestore } from "./Firestore"
 import { get, set, del } from "idb-keyval"
 import { Invitation, Rsvp } from "../interfaces/Invitation"
-import { QueryResult } from "../interfaces/Firestore"
 
 const InvitationKey = "invitation"
 
 const invitationsCollection = "invitations"
 const rsvpsCollection = "rsvps"
-
-async function fetchInvitation(code: string): Promise<QueryResult | undefined> {
-  const firestore = await loadFirestore()
-  const records = await firestore.findByKey(invitationsCollection, "code", code)
-
-  if (records.length === 1) {
-    return records[0]
-  } else if (records.length > 1) {
-    throw new Error("more than one invitation found with same code")
-  } else {
-    return undefined
-  }
-}
 
 /**
  * Attempts to fetch invitation with provided code and save into indexed DB.
@@ -31,7 +17,8 @@ async function fetchInvitation(code: string): Promise<QueryResult | undefined> {
 export async function fetchAndSaveInvitation(
   code: string
 ): Promise<Invitation | undefined> {
-  const result = await fetchInvitation(code)
+  const firestore = await loadFirestore()
+  const result = await firestore.findById(invitationsCollection, code)
   if (result) {
     const invitation = result.data as Invitation
     await set(InvitationKey, invitation)
@@ -51,12 +38,15 @@ export function clearSavedInvitation(): Promise<void> {
   return del(InvitationKey)
 }
 
-export async function addRsvp(code: string, rsvp: Rsvp) {
+/**
+ * Adds an RSVP for a given invitation.
+ *
+ * @param invitation invitation that is being responded to
+ * @param rsvp RSVP identifier
+ */
+export async function addRsvp(invitation: Invitation, rsvp: Rsvp) {
   const firestore = await loadFirestore()
-  const result = await fetchInvitation(code)
-  if (!result) {
-    throw new Error("could not find invitation entry for given code")
-  } else {
-    return firestore.addWithTimestamp(rsvpsCollection, rsvp, result.ref)
-  }
+  return firestore.addWithTimestamp(rsvpsCollection, rsvp, db =>
+    db.doc(`${invitationsCollection}/${invitation.code}`)
+  )
 }

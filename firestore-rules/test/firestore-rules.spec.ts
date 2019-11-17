@@ -132,5 +132,60 @@ describe("Firestore rules", () => {
         })
       )
     })
+
+    it("should reject writes containing missing timestamp", async () => {
+      await firebase.assertFails(
+        rsvps("abcdefg").add({
+          attending: true,
+          guests: [
+            {
+              name: "Terry Gordon",
+              events: ["sangeet", "mehendi", "ceremony"],
+            },
+            { name: "Allison Little", events: ["sangeet"] },
+          ],
+        })
+      )
+    })
+
+    it("should reject writes containing missing attending status", async () => {
+      await firebase.assertFails(
+        rsvps("abcdefg").add({
+          guests: [
+            {
+              name: "Terry Gordon",
+              events: ["sangeet", "mehendi", "ceremony"],
+            },
+            { name: "Allison Little", events: ["sangeet"] },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should reject writes containing missing guest list", async () => {
+      await firebase.assertFails(
+        rsvps("abcdefg").add({
+          attending: true,
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should reject writes for non-existent code", async () => {
+      await firebase.assertFails(
+        rsvps("non_existent").add({
+          attending: true,
+          guests: [
+            {
+              name: "Terry Gordon",
+              events: ["sangeet", "mehendi", "ceremony"],
+            },
+            { name: "Allison Little", events: ["sangeet"] },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
   })
 })

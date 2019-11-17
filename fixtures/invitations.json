@@ -2,49 +2,49 @@
   "collection": "invitations",
   "fixtures": [
     {
-      "id": "test_35067944ab12",
+      "id": "GXDpQURe",
       "data": {
-        "code": "35067944ab12",
-        "partyName": "Keith Parker & Vicki Steward",
+        "code": "GXDpQURe",
+        "partyName": "Harsh Kashyap & Vicki Mehta",
         "numGuests": 2,
-        "knownGuests": ["Keith Parker", "Vicki Steward"],
+        "knownGuests": ["Harsh Kashyap", "Vicki Mehta"],
         "preEvents": true
       }
     },
     {
-      "id": "test_c89c22bf2bb9",
+      "id": "0luysaLpV",
       "data": {
-        "code": "c89c22bf2bb9",
+        "code": "0luysaLpV",
         "partyName": "Terry Gordon & Family",
         "numGuests": 3,
-        "knownGuests": ["Terry Gordon", "Allison Little", "Arnold James"]
+        "knownGuests": ["Terry Gordon", "Rani Gordon", "Ramesh Gordon"]
       }
     },
     {
-      "id": "test_a5cda1cda2fd",
+      "id": "P4F3-6eKR",
       "data": {
-        "code": "a5cda1cda2fd",
+        "code": "P4F3-6eKR",
         "partyName": "Rosemary Alexander",
         "numGuests": 2,
         "knownGuests": ["Rosemary Alexander"]
       }
     },
     {
-      "id": "test_5151e1176a19",
+      "id": "P44oqtTlr",
       "data": {
-        "code": "__duplicate_code__",
+        "code": "P44oqtTlr",
         "partyName": "Alex Williamson",
         "numGuests": 1,
         "knownGuests": ["Alex Williamson"]
       }
     },
     {
-      "id": "test_59bbc2c94cf7",
+      "id": "KGqGfBUdR",
       "data": {
-        "code": "__duplicate_code__",
-        "partyName": "Hannah Fox",
-        "numGuests": 1,
-        "knownGuests": ["Hannah Fox"]
+        "code": "KGqGfBUdR",
+        "partyName": "Virat Kohli & Anushka Sharma",
+        "numGuests": 3,
+        "knownGuests": ["Virat Kohli", "Anushka Sharma"]
       }
     }
   ]

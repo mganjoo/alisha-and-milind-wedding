@@ -16,16 +16,20 @@ service cloud.firestore {
         && request.resource.data.name != "__reject_submission__";
     }
 
-    match /invitations/{invitation} {
-      allow read: if resource.data.code != "__reject_request__";
+    match /invitations/{code} {
+      allow read: if code != "__reject_request__";
 
       match /rsvps/{rsvp} {
         allow create:
-          if request.resource.data.keys().size() == 3
+          // ensure invitation code exists
+          if exists(/databases/$(database)/documents/invitations/$(code))
+          && request.resource.data.keys().size() == 3
           // ensure exactly these fields
           && request.resource.data.keys().hasAll(["attending", "guests", "createdAt"])
           && request.resource.data.attending is bool
-          && request.resource.data.createdAt is timestamp
+          && request.resource.data.guests is list
+          && request.resource.data.guests.size() > 0
+          && request.resource.data.createdAt is timestamp;
       }
     }
   }

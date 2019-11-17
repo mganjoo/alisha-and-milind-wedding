@@ -1,5 +1,25 @@
 import yn from "yn"
-import { Firestore } from "../interfaces/Firestore"
+
+export interface QueryResult {
+  ref: firebase.firestore.DocumentReference
+  data: firebase.firestore.DocumentData
+}
+
+export interface Firestore {
+  addWithTimestamp: (
+    collection: string,
+    data: Record<string, any>,
+    docRef?: (
+      db: firebase.firestore.Firestore
+    ) => firebase.firestore.DocumentReference
+  ) => Promise<string>
+  findById: (collection: string, id: string) => Promise<QueryResult | undefined>
+  findByKey: (
+    collection: string,
+    key: string,
+    value: any
+  ) => Promise<QueryResult[]>
+}
 
 function makeFirestore(
   firebaseInstance: firebase.app.App,
@@ -9,10 +29,13 @@ function makeFirestore(
     addWithTimestamp: async (
       collection: string,
       data: Record<string, any>,
-      docRef?: firebase.firestore.DocumentReference
+      docRef?: (
+        db: firebase.firestore.Firestore
+      ) => firebase.firestore.DocumentReference
     ) => {
       console.log(`Adding: `, data)
-      const base = docRef ? docRef : firebaseInstance.firestore()
+      const db = firebaseInstance.firestore()
+      const base = docRef ? docRef(db) : db
       return base
         .collection(collection)
         .add({
@@ -25,6 +48,16 @@ function makeFirestore(
         })
         .catch(observeAndRethrow)
     },
+    findById: async (collection: string, id: string) =>
+      firebaseInstance
+        .firestore()
+        .collection(collection)
+        .doc(id)
+        .get()
+        .then(doc =>
+          doc.exists ? { data: doc.data()!, ref: doc.ref } : undefined
+        )
+        .catch(observeAndRethrow),
     findByKey: async (collection: string, key: string, value: any) =>
       firebaseInstance
         .firestore()

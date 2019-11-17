@@ -63,7 +63,8 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   }
 
   const isError = initialFetchError || submitError
-  const isMissing = (initialCode !== undefined || submitted) && !invitation
+  const isMissing =
+    !isError && (initialCode !== undefined || submitted) && !invitation
 
   if (invitation) {
     return (
@@ -94,7 +95,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
             </p>
           </div>
           {(isError || isMissing) && (
-            <Alert>
+            <Alert className="mt-4">
               {isError && "There was an error retrieving your invitation. "}
               {isMissing && "Hmm, we couldn't find that invitation code. "}
               Please email us at <ContactEmail />.

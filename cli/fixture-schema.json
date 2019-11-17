@@ -29,8 +29,8 @@
             "type": "string",
             "title": "The Id Schema",
             "default": "",
-            "examples": ["test_35067944ab12"],
-            "pattern": "^test_[a-zA-Z0-9-]+$"
+            "examples": ["35067944ab12"],
+            "pattern": "[a-zA-Z0-9-_]+$"
           },
           "data": {
             "$id": "#/properties/fixtures/items/properties/data",

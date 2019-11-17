@@ -1,16 +1,21 @@
-import { loadFirestore } from "../../services/Firebase"
-import { Firestore } from "../../interfaces/Firestore"
+import { loadFirestore, Firestore } from "../../services/Firestore"
 import { render, fireEvent, waitForElement } from "@testing-library/react"
 import SaveTheDateForm from "./SaveTheDateForm"
 import React from "react"
 import "@testing-library/jest-dom/extend-expect"
 
 // Mock Firestore to replace submission function
-jest.mock("../../services/Firebase")
+jest.mock("../../services/Firestore")
 
 function mockLoadFirestoreImpl(
   mockAddWithTimestamp: jest.MockedFunction<
-    (collection: string, data: Record<string, any>) => Promise<void>
+    (
+      collection: string,
+      data: Record<string, any>,
+      docRef?: (
+        db: firebase.firestore.Firestore
+      ) => firebase.firestore.DocumentReference
+    ) => Promise<void>
   >
 ) {
   const mockLoadFirestore = loadFirestore as jest.MockedFunction<
@@ -20,12 +25,16 @@ function mockLoadFirestoreImpl(
     return Promise.resolve<Firestore>({
       addWithTimestamp: async (
         collection: string,
-        data: Record<string, any>
+        data: Record<string, any>,
+        docRef?: (
+          db: firebase.firestore.Firestore
+        ) => firebase.firestore.DocumentReference
       ) => {
-        await mockAddWithTimestamp(collection, data)
+        await mockAddWithTimestamp(collection, data, docRef)
         // Reject all submissions to cause DOM change
         throw new Error("submission rejected")
       },
+      findById: () => Promise.resolve(undefined),
       findByKey: () => Promise.resolve([]),
     })
   })
