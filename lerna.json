@@ -1,4 +1,4 @@
 {
-  "packages": ["website", "cli", "firestore-rules"],
+  "packages": ["website", "cli", "firestore-rules", "functions"],
   "version": "independent"
 }
