@@ -36,6 +36,7 @@ USAGE
 - [`wedding-manager export-contacts`](#wedding-manager-export-contacts)
 - [`wedding-manager help [COMMAND]`](#wedding-manager-help-command)
 - [`wedding-manager load-fixtures PATH`](#wedding-manager-load-fixtures-path)
+- [`wedding-manager shortid [FILE]`](#wedding-manager-shortid-file)
 
 ## `wedding-manager export-contacts`
 
@@ -60,8 +61,6 @@ EXAMPLES
   $ wedding-manager export-contacts -c path/to/service-account.json
   $ wedding-manager export-contacts -c path/to/service-account.json -x --filter=name=John --sort=-created
 ```
-
-_See code: [src/commands/export-contacts.ts](https://github.com/mganjoo/wedding-manager/blob/v0.0.0/src/commands/export-contacts.ts)_
 
 ## `wedding-manager help [COMMAND]`
 
@@ -99,6 +98,17 @@ EXAMPLE
   $ wedding-manager load-fixtures -c path/to/service-account.json path/to/invitations/fixture.json
 ```
 
-_See code: [src/commands/load-fixtures.ts](https://github.com/mganjoo/wedding-manager/blob/v0.0.0/src/commands/load-fixtures.ts)_
+## `wedding-manager shortid [FILE]`
+
+Generate a set of shortids
+
+```
+USAGE
+  $ wedding-manager shortid [FILE]
+
+OPTIONS
+  -h, --help           show CLI help
+  -n, --number=number  [default: 1] number of IDs to generate
+```
 
 <!-- commandsstop -->
