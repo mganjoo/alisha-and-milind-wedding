@@ -1,14 +1,15 @@
 import { graphql } from "gatsby"
 
-export interface Event {
+export interface WeddingEvent {
   shortName: string
   name: string
   shortDate: string
+  preEvent: true
 }
 
 export interface EventResult {
   siteMetadata: {
-    events: Event[]
+    events: WeddingEvent[]
   }
 }
 
@@ -18,7 +19,8 @@ export const eventFragment = graphql`
       events {
         shortName
         name
-        shortDate
+        shortDate: date(formatString: "ddd MMM D, h:mma")
+        preEvent
       }
     }
   }

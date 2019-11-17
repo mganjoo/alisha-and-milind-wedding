@@ -6,10 +6,14 @@ function makeFirestore(
   makeTimestamp: (date: Date) => firebase.firestore.Timestamp
 ): Firestore {
   return {
-    addWithTimestamp: async (collection: string, data: Record<string, any>) => {
+    addWithTimestamp: async (
+      collection: string,
+      data: Record<string, any>,
+      docRef?: firebase.firestore.DocumentReference
+    ) => {
       console.log(`Adding: `, data)
-      return firebaseInstance
-        .firestore()
+      const base = docRef ? docRef : firebaseInstance.firestore()
+      return base
         .collection(collection)
         .add({
           createdAt: makeTimestamp(new Date()),
@@ -27,7 +31,9 @@ function makeFirestore(
         .collection(collection)
         .where(key, "==", value)
         .get()
-        .then(snapshot => snapshot.docs.map(doc => doc.data()))
+        .then(snapshot =>
+          snapshot.docs.map(doc => ({ data: doc.data(), ref: doc.ref }))
+        )
         .catch(observeAndRethrow),
   }
 }

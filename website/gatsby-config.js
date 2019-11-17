@@ -18,16 +18,29 @@ module.exports = {
     displayDates: `May 1 & 2, 2020`,
     location: `San Mateo, CA`,
     events: [
-      { shortName: "sangeet", name: "Sangeet", shortDate: "Fri May 1, 7:00pm" },
+      {
+        shortName: "mehendi",
+        name: "Mehendi",
+        date: "2020-04-29T18:00:00",
+        preEvent: true,
+      },
+      {
+        shortName: "sangeet",
+        name: "Sangeet",
+        date: "2020-05-01T19:00:00",
+        preEvent: false,
+      },
       {
         shortName: "ceremony",
         name: "Ceremony",
-        shortDate: "Sat May 2, 9:00am",
+        date: "2020-05-02T09:00:00",
+        preEvent: false,
       },
       {
         shortName: "reception",
         name: "Reception",
-        shortDate: "Sat May 2, 6:00pm",
+        date: "2020-05-02T18:00:00",
+        preEvent: false,
       },
     ],
   },

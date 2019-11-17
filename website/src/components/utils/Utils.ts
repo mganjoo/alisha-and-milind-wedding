@@ -46,3 +46,16 @@ export function scrollIntoView(target: Element) {
     inline: "start",
   })
 }
+
+/**
+ * Check records for equality.
+ */
+export function recordsEqual<T>(
+  record1: Record<string, T>,
+  record2: Record<string, T>
+) {
+  const record1Keys = Object.keys(record1)
+  const record2Keys = Object.keys(record2)
+  if (record1Keys.length !== record2Keys.length) return false
+  return record1Keys.every(k => record1[k] === record2[k])
+}

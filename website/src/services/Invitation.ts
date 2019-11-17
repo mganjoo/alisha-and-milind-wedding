@@ -1,14 +1,25 @@
 import { loadFirestore } from "./Firebase"
 import { get, set, del } from "idb-keyval"
-
-export interface Invitation {
-  code: string
-  partyName: string
-  numGuests: number
-  knownGuests: string[]
-}
+import { Invitation, Rsvp } from "../interfaces/Invitation"
+import { QueryResult } from "../interfaces/Firestore"
 
 const InvitationKey = "invitation"
+
+const invitationsCollection = "invitations"
+const rsvpsCollection = "rsvps"
+
+async function fetchInvitation(code: string): Promise<QueryResult | undefined> {
+  const firestore = await loadFirestore()
+  const records = await firestore.findByKey(invitationsCollection, "code", code)
+
+  if (records.length === 1) {
+    return records[0]
+  } else if (records.length > 1) {
+    throw new Error("more than one invitation found with same code")
+  } else {
+    return undefined
+  }
+}
 
 /**
  * Attempts to fetch invitation with provided code and save into indexed DB.
@@ -20,18 +31,13 @@ const InvitationKey = "invitation"
 export async function fetchAndSaveInvitation(
   code: string
 ): Promise<Invitation | undefined> {
-  const firestore = await loadFirestore()
-  const records = await firestore.findByKey("invitations", "code", code)
-
-  if (records.length === 1) {
-    const invitation = records[0] as Invitation
+  const result = await fetchInvitation(code)
+  if (result) {
+    const invitation = result.data as Invitation
     await set(InvitationKey, invitation)
     return invitation
-  } else if (records.length > 1) {
-    throw new Error("more than one invitation found with same code")
-  } else {
-    return undefined
   }
+  return undefined
 }
 
 /**
@@ -43,4 +49,14 @@ export function loadSavedInvitation(): Promise<Invitation | undefined> {
 
 export function clearSavedInvitation(): Promise<void> {
   return del(InvitationKey)
+}
+
+export async function addRsvp(code: string, rsvp: Rsvp) {
+  const firestore = await loadFirestore()
+  const result = await fetchInvitation(code)
+  if (!result) {
+    throw new Error("could not find invitation entry for given code")
+  } else {
+    return firestore.addWithTimestamp(rsvpsCollection, rsvp, result.ref)
+  }
 }

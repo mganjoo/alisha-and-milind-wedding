@@ -1,6 +1,6 @@
 import React, { useContext, useState, useMemo, useRef, useEffect } from "react"
 import { InvitationContext } from "./Authenticated"
-import { makeIdMap, range, scrollIntoView } from "../utils/Utils"
+import { makeIdMap, range, scrollIntoView, recordsEqual } from "../utils/Utils"
 import BaseForm from "../form/BaseForm"
 import { Formik, useFormikContext } from "formik"
 import SubmitButton from "../form/SubmitButton"
@@ -10,9 +10,14 @@ import LeafSpacer from "../ui/LeafSpacer"
 import {
   RsvpFormValues,
   validationSchema,
+  GuestMap,
 } from "../../interfaces/RsvpFormValues"
 import Button from "../ui/Button"
 import AttendanceGroup from "./AttendanceGroup"
+import { useEvents } from "../utils/UtilHooks"
+import { WeddingEvent } from "../../interfaces/Event"
+import { Invitation, Rsvp } from "../../interfaces/Invitation"
+import { addRsvp } from "../../services/Invitation"
 
 const attendingOptions = [
   { value: "yes", label: "Yes, excited to attend!" },
@@ -32,23 +37,39 @@ function ordinalSuffix(i: number) {
     : `${i}th`
 }
 
-const attendeesInitialState: Record<string, string[]> = {
-  mehendi: [],
-  sangeet: [],
-  ceremony: [],
-  reception: [],
+function resetAttendeesInitialState(
+  events: WeddingEvent[],
+  includePreEvents: boolean
+): Record<string, string[]> {
+  return events
+    .filter(e => (includePreEvents ? true : !e.preEvent))
+    .reduce(
+      (state, e) => {
+        state[e.shortName] = []
+        return state
+      },
+      {} as Record<string, string[]>
+    )
 }
 
-async function submitRsvp(values: RsvpFormValues) {
-  console.log({ ...values, attending: values.attending === "yes" })
+type Page = "guests" | "attendance"
+
+interface PageWrapperProps {
+  invitation: Invitation
+  events: WeddingEvent[]
 }
 
-const PageWrapper: React.FC = () => {
+const PageWrapper: React.FC<PageWrapperProps> = ({ invitation, events }) => {
   const { values, validateForm, setValues } = useFormikContext<RsvpFormValues>()
-  const [page, setPage] = useState<"guests" | "events">("guests")
-  const previousPageRef = useRef<"guests" | "events">("guests")
+  const [page, setPage] = useState<Page>("guests")
+
+  // Snapshot of guests for events page
+  const [guestsForAttendancePage, setGuestsForAttendancePage] = useState<
+    GuestMap
+  >(() => values.guests)
 
   // Refs for scrolling
+  const previousPageRef = useRef<Page>("guests")
   const guestsRef = useRef<HTMLDivElement>(null)
   const eventsRef = useRef<HTMLDivElement>(null)
 
@@ -58,10 +79,9 @@ const PageWrapper: React.FC = () => {
       if (page === "guests" && guestsRef.current) {
         scrollIntoView(guestsRef.current)
       }
-      if (page === "events" && eventsRef.current) {
+      if (page === "attendance" && eventsRef.current) {
         scrollIntoView(eventsRef.current)
       }
-
       previousPageRef.current = page
     }
   })
@@ -69,9 +89,18 @@ const PageWrapper: React.FC = () => {
   const toEvents = () => {
     validateForm().then(errors => {
       if (!errors.guests && !errors.attending) {
-        // Reset attendees, so they can be selected again accordingly
-        setValues({ ...values, attendees: attendeesInitialState })
-        setPage("events")
+        // Reset attendees if names of guests changed
+        if (!recordsEqual(guestsForAttendancePage, values.guests)) {
+          setValues({
+            ...values,
+            attendees: resetAttendeesInitialState(
+              events,
+              !!invitation.preEvents
+            ),
+          })
+          setGuestsForAttendancePage(values.guests)
+        }
+        setPage("attendance")
       }
     })
   }
@@ -105,18 +134,18 @@ const PageWrapper: React.FC = () => {
           />
         </div>
       )}
-      {page === "events" && (
+      {page === "attendance" && (
         <div ref={eventsRef}>
-          <AttendanceGroup />
+          <AttendanceGroup guests={guestsForAttendancePage} />
         </div>
       )}
       <div className="mt-6 flex">
-        {page === "events" && (
+        {page === "attendance" && (
           <Button onClick={toGuests} className="mr-3" isSecondary>
             Back: edit guests
           </Button>
         )}
-        {page === "events" ||
+        {page === "attendance" ||
         (page === "guests" && values.attending === "no") ? (
           <SubmitButton label="Submit RSVP" />
         ) : (
@@ -127,21 +156,40 @@ const PageWrapper: React.FC = () => {
   )
 }
 
-const RsvpForm: React.FC = () => {
+interface RsvpFormProps {
+  onSubmit?: () => void
+}
+
+const RsvpForm: React.FC<RsvpFormProps> = ({ onSubmit }) => {
   const invitation = useContext(InvitationContext)
   const [initialGuests] = useState(() =>
     makeIdMap(range(invitation.numGuests), (i: number) =>
       i < invitation.knownGuests.length ? invitation.knownGuests[i] : ""
     )
   )
+  const events = useEvents()
   const initialValues: RsvpFormValues = useMemo(
     () => ({
       guests: initialGuests,
       attending: "-",
-      attendees: attendeesInitialState,
+      attendees: resetAttendeesInitialState(events, !!invitation.preEvents),
     }),
-    [initialGuests]
+    [initialGuests, events, invitation]
   )
+
+  async function submitRsvp(values: RsvpFormValues) {
+    const guests = Object.keys(values.guests).map(id => ({
+      name: values.guests[id],
+      events: Object.keys(values.attendees).filter(eventName =>
+        values.attendees[eventName].includes(id)
+      ),
+    }))
+    const rsvp: Rsvp = { guests, attending: values.attending === "yes" }
+    await addRsvp(invitation.code, rsvp)
+    if (onSubmit) {
+      onSubmit()
+    }
+  }
 
   return (
     <Formik
@@ -150,7 +198,7 @@ const RsvpForm: React.FC = () => {
       onSubmit={submitRsvp}
     >
       <BaseForm className="font-serif max-w-xs w-full mb-10">
-        <PageWrapper />
+        <PageWrapper invitation={invitation} events={events} />
       </BaseForm>
     </Formik>
   )

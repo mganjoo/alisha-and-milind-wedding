@@ -1,25 +1,24 @@
 import React, { useMemo } from "react"
 import OptionsGroup from "../form/OptionsGroup"
-import { Event } from "../../interfaces/Event"
+import { WeddingEvent } from "../../interfaces/Event"
 import ControlledLabelledOption from "../form/ControlledLabelledOption"
-import { useFormikContext } from "formik"
-import { RsvpFormValues } from "../../interfaces/RsvpFormValues"
+import { GuestMap } from "../../interfaces/RsvpFormValues"
 import { filterNonEmptyKeys } from "../utils/Utils"
 import { useUID } from "react-uid"
 
 interface AttendanceItemProps {
-  event: Event
+  event: WeddingEvent
+  guests: GuestMap
 }
 
-const AttendanceItem: React.FC<AttendanceItemProps> = ({ event }) => {
-  const { values } = useFormikContext<RsvpFormValues>()
+const AttendanceItem: React.FC<AttendanceItemProps> = ({ event, guests }) => {
   const options = useMemo(
     () =>
-      filterNonEmptyKeys(values.guests).map(id => ({
+      filterNonEmptyKeys(guests).map(id => ({
         value: id,
-        label: values.guests[id],
+        label: guests[id],
       })),
-    [values.guests]
+    [guests]
   )
   const numOptions = options.length
   const headingId = useUID()

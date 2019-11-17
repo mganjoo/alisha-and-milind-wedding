@@ -18,6 +18,15 @@ service cloud.firestore {
 
     match /invitations/{invitation} {
       allow read: if resource.data.code != "__reject_request__";
+
+      match /rsvps/{rsvp} {
+        allow create:
+          if request.resource.data.keys().size() == 3
+          // ensure exactly these fields
+          && request.resource.data.keys().hasAll(["attending", "guests", "createdAt"])
+          && request.resource.data.attending is bool
+          && request.resource.data.createdAt is timestamp
+      }
     }
   }
 }

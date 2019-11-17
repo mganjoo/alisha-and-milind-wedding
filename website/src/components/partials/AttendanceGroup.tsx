@@ -1,24 +1,44 @@
-import React, { useEffect, useRef, useState } from "react"
-import { EventResult } from "../../interfaces/Event"
-import { useStaticQuery, graphql } from "gatsby"
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+  useCallback,
+} from "react"
+import { WeddingEvent } from "../../interfaces/Event"
 import AttendanceItem from "./AttendanceItem"
 import { useFormikContext } from "formik"
-import { RsvpFormValues } from "../../interfaces/RsvpFormValues"
+import { RsvpFormValues, GuestMap } from "../../interfaces/RsvpFormValues"
 import Alert from "../form/Alert"
+import { InvitationContext } from "./Authenticated"
+import { useEvents } from "../utils/UtilHooks"
 
-const AttendanceGroup: React.FC = () => {
-  const { site }: { site: EventResult } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          ...Event
-        }
-      }
-    `
-  )
+interface AttendanceGroupProps {
+  guests: GuestMap
+}
+
+const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
+  const events = useEvents()
+  const invitation = useContext(InvitationContext)
   const { errors, submitCount } = useFormikContext<RsvpFormValues>()
   const prevSubmitCountRef = useRef(submitCount)
   const [showError, setShowError] = useState(false)
+  const renderEvents = useCallback(
+    (events: WeddingEvent[], preEvents: boolean) => (
+      <>
+        {events
+          .filter(e => e.preEvent === preEvents)
+          .map(event => (
+            <AttendanceItem
+              key={event.shortName}
+              event={event}
+              guests={guests}
+            />
+          ))}
+      </>
+    ),
+    [guests]
+  )
 
   useEffect(() => {
     // If attendees field has an error and we just submitted, show an alert
@@ -37,9 +57,8 @@ const AttendanceGroup: React.FC = () => {
       <p className="mb-2">
         Please let us know what events you&apos;ll be attending.
       </p>
-      {site.siteMetadata.events.map(event => (
-        <AttendanceItem key={event.shortName} event={event} />
-      ))}
+      {invitation.preEvents && renderEvents(events, true)}
+      {renderEvents(events, false)}
     </div>
   )
 }

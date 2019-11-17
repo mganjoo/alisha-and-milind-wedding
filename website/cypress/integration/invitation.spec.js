@@ -58,7 +58,7 @@ describe("invitation tests", function() {
 
     it("should redirect to code entry page on empty code argument, without error", function() {
       cy.visit(`/load`)
-      cy.findByText(/invitation code/i).should("exist")
+      cy.findByLabelText(/invitation code/i).should("exist")
       cy.findByText(/couldn't find that invitation code/i).should("not.exist")
     })
 

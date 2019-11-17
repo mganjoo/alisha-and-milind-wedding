@@ -1,5 +1,4 @@
 import * as firebase from "@firebase/testing"
-import { equal } from "assert"
 import fs from "fs"
 
 const projectId = "test-rules"
@@ -13,8 +12,23 @@ function firestore() {
     .firestore()
 }
 
+function firestoreAdmin() {
+  return firebase
+    .initializeAdminApp({
+      projectId,
+    })
+    .firestore()
+}
+
 function contacts() {
   return firestore().collection("contacts")
+}
+
+function rsvps(invitationId: string) {
+  return firestore()
+    .collection("invitations")
+    .doc(invitationId)
+    .collection("rsvps")
 }
 
 describe("Firestore rules", () => {
@@ -86,6 +100,36 @@ describe("Firestore rules", () => {
         contacts()
           .where("name", "==", "Jack Jones")
           .get()
+      )
+    })
+  })
+
+  describe("for Invitations/Rsvps collection", () => {
+    beforeEach(async () =>
+      firestoreAdmin()
+        .collection("invitations")
+        .doc("abcdefg")
+        .set({
+          code: "abcdefg",
+          partyName: "Terry Gordon & Family",
+          numGuests: 3,
+          knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
+        })
+    )
+
+    it("should allow writes containing attending, guests, and createdAt timestamp", async () => {
+      await firebase.assertSucceeds(
+        rsvps("abcdefg").add({
+          attending: true,
+          guests: [
+            {
+              name: "Terry Gordon",
+              events: ["sangeet", "mehendi", "ceremony"],
+            },
+            { name: "Allison Little", events: ["sangeet"] },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
       )
     })
   })

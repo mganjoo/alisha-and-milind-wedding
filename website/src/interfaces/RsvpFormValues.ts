@@ -1,10 +1,13 @@
 import { mixed, object, InferType, ObjectSchema } from "yup"
 import { filterNonEmptyKeys } from "../components/utils/Utils"
 
+export type RsvpFormValues = InferType<typeof validationSchema>
+export type GuestMap = Record<string, string>
+
 export const validationSchema = object().shape({
-  guests: object<Record<string, string>>().test({
+  guests: object<GuestMap>().test({
     name: "has-some-guest",
-    test: function test(value: Record<string, string>) {
+    test: function test(value: GuestMap) {
       return (
         filterNonEmptyKeys(value).length > 0 ||
         this.createError({
@@ -35,5 +38,3 @@ export const validationSchema = object().shape({
     }
   ),
 })
-
-export type RsvpFormValues = InferType<typeof validationSchema>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from "react"
 import {
   fetchAndSaveInvitation,
-  Invitation,
   loadSavedInvitation,
 } from "../../services/Invitation"
 import Loading from "../ui/Loading"
@@ -12,6 +11,7 @@ import { object, string } from "yup"
 import BaseForm from "../form/BaseForm"
 import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
+import { Invitation } from "../../interfaces/Invitation"
 
 interface LoginFormValues {
   code: string
@@ -82,7 +82,17 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         })}
         onSubmit={login}
       >
-        <BaseForm>
+        <BaseForm className="max-w-sm w-full mt-4">
+          <div className="font-serif">
+            <p>
+              To view this page, you will need an invitation code, which you can
+              find in your email invitation.
+            </p>
+            <p className="mt-4">
+              You can also click on the link in that email to open your digital
+              invitation, after which you can return to this page.
+            </p>
+          </div>
           {(isError || isMissing) && (
             <Alert>
               {isError && "There was an error retrieving your invitation. "}
@@ -90,8 +100,14 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
               Please email us at <ContactEmail />.
             </Alert>
           )}
-          <LabelledTextInput name="code" type="text" label="Invitation code" />
-          <SubmitButton label="Submit" />
+          <div className="mt-6">
+            <LabelledTextInput
+              name="code"
+              type="text"
+              label="Invitation code"
+            />
+            <SubmitButton label="Submit" className="mt-4" />
+          </div>
         </BaseForm>
       </Formik>
     )
