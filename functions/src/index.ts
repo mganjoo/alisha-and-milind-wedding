@@ -40,7 +40,7 @@ export const updateLatestRsvp = functions.firestore
         ...otherRsvpFields,
         timestampMillis: createdAt
           ? createdAt.toMillis()
-          : new Date().getUTCMilliseconds(),
+          : new Date().getTime(),
       }
       console.log(`Received valid RSVP for code ${code}`, rsvpWithTimestamp)
 
