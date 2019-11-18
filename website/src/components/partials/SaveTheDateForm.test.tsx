@@ -1,7 +1,12 @@
-import { loadFirestore, Firestore } from "../../services/Firestore"
+import {
+  loadFirestore,
+  Firestore,
+  HasServerTimestamp,
+} from "../../services/Firestore"
 import { render, fireEvent, waitForElement } from "@testing-library/react"
 import SaveTheDateForm from "./SaveTheDateForm"
 import React from "react"
+import firebase from "firebase"
 import "@testing-library/jest-dom/extend-expect"
 
 // Mock Firestore to replace submission function
@@ -15,7 +20,7 @@ function mockLoadFirestoreImpl(
       docRef?: (
         db: firebase.firestore.Firestore
       ) => firebase.firestore.DocumentReference
-    ) => Promise<void>
+    ) => Promise<Record<string, any> & HasServerTimestamp>
   >
 ) {
   const mockLoadFirestore = loadFirestore as jest.MockedFunction<
@@ -43,14 +48,19 @@ function mockLoadFirestoreImpl(
 // ContactEmail has some GraphQL queries that must be mocked out
 jest.mock("./ContactEmail")
 
-function delayedPromise(timeoutMs: number): Promise<void> {
-  return new Promise(resolve => setTimeout(() => resolve(), timeoutMs))
+function delayedPromise<T>(timeoutMs: number, returnValue: T): Promise<T> {
+  return new Promise(resolve =>
+    setTimeout(() => resolve(returnValue), timeoutMs)
+  )
 }
 
 describe("SaveTheDateForm", () => {
   it("should submit data correctly", async () => {
     const mockAddWithTimestamp = jest.fn() as jest.MockedFunction<
-      (collection: string, data: Record<string, any>) => Promise<void>
+      (
+        collection: string,
+        data: Record<string, any>
+      ) => Promise<Record<string, any> & HasServerTimestamp>
     >
     mockLoadFirestoreImpl(mockAddWithTimestamp)
 
@@ -77,9 +87,16 @@ describe("SaveTheDateForm", () => {
     jest.useFakeTimers()
 
     const mockAddWithTimestamp = jest.fn(
-      (_1: string, _2: Record<string, any>) => delayedPromise(5000)
+      (_1: string, record: Record<string, any>) =>
+        delayedPromise(5000, {
+          ...record,
+          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+        })
     ) as jest.MockedFunction<
-      (collection: string, data: Record<string, any>) => Promise<void>
+      (
+        collection: string,
+        data: Record<string, any>
+      ) => Promise<Record<string, any> & HasServerTimestamp>
     >
     mockLoadFirestoreImpl(mockAddWithTimestamp)
 

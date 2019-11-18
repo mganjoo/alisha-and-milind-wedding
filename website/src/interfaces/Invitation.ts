@@ -4,7 +4,7 @@ export interface Invitation {
   numGuests: number
   knownGuests: string[]
   preEvents?: boolean
-  latestRsvp?: Rsvp
+  latestRsvp?: RsvpWithTimestamp
 }
 
 interface Guest {
@@ -16,3 +16,5 @@ export interface Rsvp {
   attending: boolean
   guests: Guest[]
 }
+
+type RsvpWithTimestamp = Rsvp & { timestampMillis: number }

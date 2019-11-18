@@ -21,7 +21,10 @@ export default abstract class BaseCommand extends Command {
       admin.initializeApp({
         credential: admin.credential.cert(credentials),
       })
-    } else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    } else if (
+      process.env.GOOGLE_APPLICATION_CREDENTIALS ||
+      process.env.FIRESTORE_EMULATOR_HOST
+    ) {
       admin.initializeApp({
         credential: admin.credential.applicationDefault(),
       })

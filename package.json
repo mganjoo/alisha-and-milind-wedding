@@ -19,7 +19,8 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "firestore": "firebase emulators:start --only firestore"
   },
   "husky": {
     "hooks": {

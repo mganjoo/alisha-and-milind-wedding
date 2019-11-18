@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react"
+import React, { useState, useEffect, createContext, useMemo } from "react"
 import {
   fetchAndSaveInvitation,
   loadSavedInvitation,
@@ -21,14 +21,30 @@ const initialValues: LoginFormValues = {
   code: "",
 }
 
+interface InvitationContextWrapper {
+  invitation: Invitation
+  // Force a refetch from server (no change to current invitation if unsuccessful)
+  refetch: () => Promise<void>
+  // Force a reload from cache (no change to current invitation if unsuccessful)
+  reloadSaved: () => Promise<void>
+}
+
 // Used only to seed the context for cases when there is no provider
-const FallbackInvitation: Invitation = {
+const fallbackInvitation: Invitation = {
   code: "abcdefgh",
   partyName: "Doug Peterson & Family",
   numGuests: 2,
   knownGuests: ["Doug Peterson Jones", "Betty Draper"],
 }
-export const InvitationContext = createContext<Invitation>(FallbackInvitation)
+
+const fallbackInvitationContextWrapper: InvitationContextWrapper = {
+  invitation: fallbackInvitation,
+  refetch: () => new Promise(() => console.log("unsupported operation")),
+  reloadSaved: () => new Promise(() => console.log("unsupported operation")),
+}
+export const InvitationContext = createContext<InvitationContextWrapper>(
+  fallbackInvitationContextWrapper
+)
 
 interface AuthenticatedProps {
   initialCode?: string
@@ -41,6 +57,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   const [didInitialFetch, setDidInitialFetch] = useState(false)
   const [initialFetchError, setInitialFetchError] = useState(false)
   const [invitation, setInvitation] = useState<Invitation>()
+
   useEffect(() => {
     const loadedInvitationPromise = initialCode
       ? fetchAndSaveInvitation(initialCode)
@@ -62,13 +79,39 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       .catch(() => setSubmitError(true))
   }
 
+  const loadInvitation = useMemo(
+    () => async () => {
+      const loaded = await loadSavedInvitation()
+      if (loaded) {
+        setInvitation(loaded)
+      }
+    },
+    []
+  )
+  const refetchInvitation = useMemo(
+    () => async () => {
+      if (invitation) {
+        const fetched = await fetchAndSaveInvitation(invitation.code)
+        if (fetched) {
+          setInvitation(fetched)
+        }
+      }
+    },
+    [invitation]
+  )
+
   const isError = initialFetchError || submitError
   const isMissing =
     !isError && (initialCode !== undefined || submitted) && !invitation
 
   if (invitation) {
+    const invitationContextWrapper: InvitationContextWrapper = {
+      invitation: invitation,
+      refetch: refetchInvitation,
+      reloadSaved: loadInvitation,
+    }
     return (
-      <InvitationContext.Provider value={invitation}>
+      <InvitationContext.Provider value={invitationContextWrapper}>
         {children}
       </InvitationContext.Provider>
     )

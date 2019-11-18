@@ -163,7 +163,7 @@ interface RsvpFormProps {
 }
 
 const RsvpForm: React.FC<RsvpFormProps> = ({ onSubmit }) => {
-  const invitation = useContext(InvitationContext)
+  const { invitation, reloadSaved } = useContext(InvitationContext)
   const [initialGuests] = useState(() =>
     makeIdMap(range(invitation.numGuests), (i: number) =>
       i < invitation.knownGuests.length ? invitation.knownGuests[i] : ""
@@ -181,15 +181,17 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onSubmit }) => {
   const [submitError, setSubmitError] = useState(false)
 
   async function submitRsvp(values: RsvpFormValues) {
+    const attending = values.attending === "yes"
     const guests = Object.keys(values.guests).map(id => ({
       name: values.guests[id],
-      events: Object.keys(values.attendees).filter(eventName =>
-        values.attendees[eventName].includes(id)
+      events: Object.keys(values.attendees).filter(
+        eventName => attending && values.attendees[eventName].includes(id)
       ),
     }))
-    const rsvp: Rsvp = { guests, attending: values.attending === "yes" }
+    const rsvp: Rsvp = { guests, attending: attending }
     try {
       await addRsvp(invitation, rsvp)
+      await reloadSaved()
       if (onSubmit) {
         onSubmit()
       }

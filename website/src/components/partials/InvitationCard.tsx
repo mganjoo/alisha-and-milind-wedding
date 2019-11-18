@@ -38,7 +38,7 @@ export default function InvitationCard({
   playing = false,
   reverse = false,
 }: InvitationCardProps) {
-  const invitation = useContext(InvitationContext)
+  const { invitation } = useContext(InvitationContext)
   const { movePrevious, moveNext, isAfter } = useStateList(orderedStates)
 
   function transition() {

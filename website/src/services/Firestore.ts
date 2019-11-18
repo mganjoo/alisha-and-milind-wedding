@@ -5,6 +5,10 @@ export interface QueryResult {
   data: firebase.firestore.DocumentData
 }
 
+export interface HasServerTimestamp {
+  createdAt: firebase.firestore.Timestamp
+}
+
 export interface Firestore {
   addWithTimestamp: (
     collection: string,
@@ -12,7 +16,7 @@ export interface Firestore {
     docRef?: (
       db: firebase.firestore.Firestore
     ) => firebase.firestore.DocumentReference
-  ) => Promise<string>
+  ) => Promise<Record<string, any> & HasServerTimestamp>
   findById: (collection: string, id: string) => Promise<QueryResult | undefined>
   findByKey: (
     collection: string,
@@ -36,15 +40,16 @@ function makeFirestore(
       console.log(`Adding: `, data)
       const db = firebaseInstance.firestore()
       const base = docRef ? docRef(db) : db
+      const docWithTimestamp = {
+        createdAt: makeTimestamp(new Date()),
+        ...data,
+      }
       return base
         .collection(collection)
-        .add({
-          createdAt: makeTimestamp(new Date()),
-          ...data,
-        })
+        .add(docWithTimestamp)
         .then(docRef => {
           console.log(`Document added: ${docRef.id}`)
-          return docRef.id
+          return docWithTimestamp
         })
         .catch(observeAndRethrow)
     },

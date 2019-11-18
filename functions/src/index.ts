@@ -17,10 +17,13 @@ const rsvpSchema = object({
     )
     .required(),
   // Timestamp is validated by Firestore security rules
-  createdAt: object(),
+  createdAt: object<FirebaseFirestore.Timestamp>().notRequired(),
 }).noUnknown()
 
 type Rsvp = InferType<typeof rsvpSchema>
+
+// TODO: figure out a way to unify this interface with what's in website/src/interfaces
+type RsvpWithTimestamp = Omit<Rsvp, "createdAt"> & { timestampMillis: number }
 
 /**
  * Update the "latestRsvp" field of the invitation when a new RSVP is received.
@@ -31,21 +34,30 @@ export const updateLatestRsvp = functions.firestore
     const data = snapshot.data()
     const valid = await rsvpSchema.isValid(data)
     if (valid) {
-      const rsvp: Rsvp = rsvpSchema.cast(data)
+      const { createdAt, ...otherRsvpFields }: Rsvp = rsvpSchema.cast(data)
       const code = context.params.code
-      console.log(`Received valid RSVP for code ${code}`, rsvp)
+      const rsvpWithTimestamp: RsvpWithTimestamp = {
+        ...otherRsvpFields,
+        timestampMillis: createdAt
+          ? createdAt.toMillis()
+          : new Date().getUTCMilliseconds(),
+      }
+      console.log(`Received valid RSVP for code ${code}`, rsvpWithTimestamp)
 
       // Write latestRsvp to invitation
-      await db
-        .collection("invitations")
-        .doc(code)
-        .set(
-          {
-            latestRsvp: rsvp,
-          },
-          { merge: true }
+      try {
+        await db
+          .collection("invitations")
+          .doc(code)
+          .update({
+            latestRsvp: rsvpWithTimestamp,
+          })
+        console.log(`Updated latest RSVP for code ${code}`)
+      } catch {
+        console.log(
+          `Could not update invitation for code ${code} with latestRsvp`
         )
-      console.log(`Updated latest RSVP for code ${code}`)
+      }
     } else {
       console.error("Invalid RSVP received:", data)
     }

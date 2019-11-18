@@ -17,6 +17,7 @@ module.exports = {
     displayTitle: `Alisha & Milind`,
     displayDates: `May 1 & 2, 2020`,
     location: `San Mateo, CA`,
+    // TODO: figure out if this can be shared with Cloud Functions
     events: [
       {
         shortName: "mehendi",

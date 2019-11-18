@@ -19,7 +19,7 @@ interface AttendanceGroupProps {
 
 const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
   const events = useEvents()
-  const invitation = useContext(InvitationContext)
+  const { invitation } = useContext(InvitationContext)
   const { errors, submitCount } = useFormikContext<RsvpFormValues>()
   const prevSubmitCountRef = useRef(submitCount)
   const [showError, setShowError] = useState(false)

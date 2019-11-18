@@ -46,11 +46,17 @@ export function clearSavedInvitation(): Promise<void> {
  */
 export async function addRsvp(invitation: Invitation, rsvp: Rsvp) {
   const firestore = await loadFirestore()
-  await firestore.addWithTimestamp(rsvpsCollection, rsvp, db =>
-    db.doc(`${invitationsCollection}/${invitation.code}`)
+  const dataWithTimestamp = await firestore.addWithTimestamp(
+    rsvpsCollection,
+    rsvp,
+    db => db.doc(`${invitationsCollection}/${invitation.code}`)
   )
+  const latestRsvp = {
+    ...rsvp,
+    timestampMillis: dataWithTimestamp.createdAt.toMillis(),
+  }
   // Mirror the change that will also eventually happen server-side
-  const newInvitation: Invitation = { ...invitation, latestRsvp: rsvp }
+  const newInvitation: Invitation = { ...invitation, latestRsvp: latestRsvp }
   await set(InvitationKey, newInvitation)
   return newInvitation
 }

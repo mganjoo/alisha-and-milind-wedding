@@ -3,9 +3,8 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run shell",
-    "firestore": "firebase emulators:start --only firestore",
-    "shell": "FIRESTORE_EMULATOR_HOST=localhost:8080 npm run build && firebase functions:shell",
-    "deploy": "firebase deploy --only functions",
+    "shell": "FIRESTORE_EMULATOR_HOST=localhost:8080 firebase functions:shell",
+    "preshell": "npm run build",
     "logs": "firebase functions:log"
   },
   "engines": {

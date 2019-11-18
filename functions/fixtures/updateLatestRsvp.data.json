@@ -1,0 +1,7 @@
+{
+  "attending": true,
+  "guests": [
+    { "name": "Hash Kashyap", "events": ["mehendi", "sangeet"] },
+    { "name": "Vicki Mehta", "events": ["ceremony"] }
+  ]
+}
