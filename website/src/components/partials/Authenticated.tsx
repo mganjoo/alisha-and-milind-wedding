@@ -63,7 +63,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       ? fetchAndSaveInvitation(initialCode)
       : Promise.resolve(undefined)
     loadedInvitationPromise
-      .then(loadedInvitation => loadedInvitation || loadSavedInvitation())
+      .then(loadedInvitation => loadedInvitation || loadSavedInvitation(true))
       .then(loadedInvitation => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))

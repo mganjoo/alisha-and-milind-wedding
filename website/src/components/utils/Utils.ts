@@ -59,3 +59,10 @@ export function recordsEqual<T>(
   if (record1Keys.length !== record2Keys.length) return false
   return record1Keys.every(k => record1[k] === record2[k])
 }
+
+/**
+ * Type guard for default case in tests. Can be used to match "never" TS type.
+ */
+export function assertNever(t: never): never {
+  throw new Error(`Unexpected object: ${t}`)
+}
