@@ -8,14 +8,12 @@ const db = admin.firestore()
 
 const rsvpSchema = object({
   attending: boolean(),
-  guests: array()
-    .of(
-      object({
-        name: string().required(),
-        events: array().of(string().required()),
-      })
-    )
-    .required(),
+  guests: array().of(
+    object({
+      name: string(),
+      events: array().of(string()),
+    })
+  ),
   // Timestamp is validated by Firestore security rules
   createdAt: object<FirebaseFirestore.Timestamp>().notRequired(),
 }).noUnknown()
@@ -42,7 +40,7 @@ export const updateLatestRsvp = functions.firestore
           ? createdAt.toMillis()
           : new Date().getTime(),
       }
-      console.log(`Received valid RSVP for code ${code}`, rsvpWithTimestamp)
+      console.info(`Received valid RSVP for code ${code}`, rsvpWithTimestamp)
 
       // Write latestRsvp to invitation
       try {
@@ -52,13 +50,15 @@ export const updateLatestRsvp = functions.firestore
           .update({
             latestRsvp: rsvpWithTimestamp,
           })
-        console.log(`Updated latest RSVP for code ${code}`)
+        console.info(`Updated latest RSVP for code ${code}`)
       } catch {
-        console.log(
-          `Could not update invitation for code ${code} with latestRsvp`
+        console.error(
+          new Error(
+            `Could not update invitation for code ${code} with latestRsvp`
+          )
         )
       }
     } else {
-      console.error("Invalid RSVP received:", data)
+      console.error("Invalid RSVP:", data, new Error("Invalid RSVP received"))
     }
   })
