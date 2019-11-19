@@ -1,5 +1,5 @@
 {
-  "name": "alisha-and-milind-wedding-firestore-rules",
+  "name": "firestore-rules",
   "description": "Tests for Cloud Firestore rules",
   "private": true,
   "version": "0.0.0",
