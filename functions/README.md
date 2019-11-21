@@ -1,4 +1,6 @@
-# Firestore security rules tests
+# Firebase Cloud Functions
+
+This package includes Cloud Funtions for deploying to Firebase, as well as tests for those functions and Firestore security rules.
 
 ## Running tests
 
