@@ -1,7 +1,7 @@
 import { loadFirestore } from "./Firestore"
 import { Invitation, Rsvp } from "../interfaces/Invitation"
 import {
-  saveInvitatationData,
+  saveInvitationData,
   currentDataVersion,
   loadInvitationData,
   parseInvitationData,
@@ -11,7 +11,7 @@ const invitationsCollection = "invitations"
 const rsvpsCollection = "rsvps"
 
 function saveInvitation(invitation: Invitation): Promise<void> {
-  return saveInvitatationData({
+  return saveInvitationData({
     version: 1,
     fetchedInvitation: {
       invitation: invitation,

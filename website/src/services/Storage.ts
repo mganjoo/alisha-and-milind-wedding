@@ -41,9 +41,7 @@ export interface FetchedInvitation {
 }
 
 // Always support only the latest version for writes
-export function saveInvitatationData(
-  data: SavedInvitationDataV1
-): Promise<void> {
+export function saveInvitationData(data: SavedInvitationDataV1): Promise<void> {
   return set(InvitationKey, data, loadStore())
 }
 
