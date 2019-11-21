@@ -1,5 +1,5 @@
 import React from "react"
 
 export default function Loading() {
-  return <p>Loading...</p>
+  return <p className="font-sans p-2">Loading...</p>
 }

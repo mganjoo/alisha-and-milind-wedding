@@ -106,7 +106,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ invitation, events }) => {
           {!invitation.latestRsvp && (
             <p>
               We&apos;ve filled out some information based on what we know.
-              Please edit or correct anything we may have missed!
+              Please edit or correct anything we may have missed.
             </p>
           )}
           <TextInputGroup
@@ -196,12 +196,18 @@ const RsvpForm: React.FC = () => {
               <p>
                 Here is the information from your previously submitted RSVP.
                 Feel free to edit and submit as many times as you like before{" "}
-                {data.site.siteMetadata.deadline}.
+                <span className="font-semibold">
+                  {data.site.siteMetadata.deadline}
+                </span>
+                .
               </p>
             ) : (
               <p>
                 We hope to see you at our wedding! Please RSVP by{" "}
-                {data.site.siteMetadata.deadline}.
+                <span className="font-semibold">
+                  {data.site.siteMetadata.deadline}
+                </span>
+                .
               </p>
             )}
           </div>

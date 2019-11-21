@@ -10,16 +10,6 @@ interface SavedInvitationDataV1 {
   fetchedInvitation: FetchedInvitation
 }
 
-// V0 data was stored as Invitation directly; this helps type guard against that
-function isInvitation(
-  invitationData: SavedInvitationData
-): invitationData is Invitation {
-  return (
-    (invitationData as Invitation).code !== undefined &&
-    (invitationData as Invitation).numGuests !== undefined
-  )
-}
-
 function loadStore(): Store {
   if (!store) {
     store = new Store("am-wedding-store", "am-wedding")
@@ -31,8 +21,8 @@ function loadStore(): Store {
 
 // Versioned union for evolving schema
 // Bump these every time there is a schema change
-export type SavedInvitationData = Invitation | SavedInvitationDataV1
-type DataVersion = 0 | 1
+export type SavedInvitationData = SavedInvitationDataV1
+type DataVersion = 1
 export const currentDataVersion: DataVersion = 1
 
 export interface FetchedInvitation {
@@ -56,9 +46,5 @@ export function clearInvitationData(): Promise<void> {
 export function parseInvitationData(
   invitationData: SavedInvitationData
 ): [DataVersion, FetchedInvitation] {
-  if (isInvitation(invitationData)) {
-    return [0, { invitation: invitationData, lastFetched: new Date(0) }]
-  } else {
-    return [invitationData.version, invitationData.fetchedInvitation]
-  }
+  return [invitationData.version, invitationData.fetchedInvitation]
 }
