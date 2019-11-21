@@ -88,7 +88,6 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
               label={option.label}
               value={option.value}
               ref={errorMessage && i === 0 ? ref : undefined}
-              labelClassName={classnames({ "text-gray-600": allSelected })}
             />
           ))}
         </div>
