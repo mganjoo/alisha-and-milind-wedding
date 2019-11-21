@@ -5,7 +5,8 @@
     "start": "npm run shell",
     "shell": "FIRESTORE_EMULATOR_HOST=localhost:8080 firebase functions:shell",
     "preshell": "npm run build",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "check:types": "tsc --noEmit"
   },
   "engines": {
     "node": "8"

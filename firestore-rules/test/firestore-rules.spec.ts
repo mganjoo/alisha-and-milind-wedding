@@ -1,5 +1,5 @@
 import * as firebase from "@firebase/testing"
-import fs from "fs"
+import * as fs from "fs"
 
 const projectId = "test-rules"
 const rules = fs.readFileSync("../firestore.rules", "utf8")

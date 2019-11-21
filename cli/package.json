@@ -55,7 +55,8 @@
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md",
     "fixtures:validate": "! ls ../fixtures/*.json >/dev/null 2>&1 || ajv -s fixture-schema.json -d ../fixtures/*.json",
-    "load:invitations:emulator": "FIRESTORE_EMULATOR_HOST=localhost:8080 ./bin/run load-fixtures ../fixtures/invitations.json"
+    "load:invitations:emulator": "FIRESTORE_EMULATOR_HOST=localhost:8080 ./bin/run load-fixtures ../fixtures/invitations.json",
+    "check:types": "tsc --noEmit"
   },
   "types": "lib/index.d.ts"
 }

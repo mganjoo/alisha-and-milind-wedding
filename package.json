@@ -20,6 +20,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "check:types": "lerna run --concurrency 1 check:types",
     "firestore": "firebase emulators:start --only firestore"
   },
   "husky": {
