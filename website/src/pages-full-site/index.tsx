@@ -21,18 +21,20 @@ const IndexPage = () => {
     <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
       <>
         <SEO title="Home" />
-        <p>
-          Welcome to our wedding website! We are so excited to celebrate this
-          weekend with you!
-          <br />
-          <br />
-          Love,
-          <br />
-          Alisha &amp; Milind
-        </p>
-        <Link className="shadow-md mt-6 c-button" to="/rsvp">
-          RSVP
-        </Link>
+        <div className="c-article">
+          <p>
+            Welcome to our wedding website! We are so excited to celebrate this
+            weekend with you!
+            <br />
+            <br />
+            Love,
+            <br />
+            Alisha &amp; Milind
+          </p>
+          <p className="mt-6">
+            <Link to="/rsvp">RSVP</Link>
+          </p>
+        </div>
       </>
     </ImageLayout>
   )

@@ -23,9 +23,15 @@ const initialValues: LoginFormValues = {
 
 interface InvitationContextWrapper {
   invitation: Invitation
-  // Force a refetch from server (no change to current invitation if unsuccessful)
+
+  /**
+   * Force a refetch from server (no change to current invitation if unsuccessful)
+   */
   refetch: () => Promise<void>
-  // Force a reload from cache (no change to current invitation if unsuccessful)
+
+  /**
+   * Force a reload from cache (no change to current invitation if unsuccessful)
+   */
   reloadSaved: () => Promise<void>
 }
 
@@ -126,22 +132,18 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         })}
         onSubmit={login}
       >
-        <BaseForm className="max-w-sm w-full mt-4">
+        <BaseForm className="max-w-sm w-full mt-3 mb-8 border rounded-lg p-6 border-gray-400">
           <div className="font-serif">
             <p>
-              To view this page, you will need an invitation code, which you can
-              find in your email invitation.
-            </p>
-            <p className="mt-4">
-              You can also click on the link in that email to open your digital
-              invitation, after which you can return to this page.
+              To view this page, please use the invitation code included in your
+              wedding invitation email.
             </p>
           </div>
           {(isError || isMissing) && (
             <Alert className="mt-4">
               {isError && "There was an error retrieving your invitation. "}
               {isMissing && "Hmm, we couldn't find that invitation code. "}
-              Please email us at <ContactEmail />.
+              Please try again, or email us at <ContactEmail />.
             </Alert>
           )}
           <div className="mt-6">

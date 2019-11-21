@@ -1,13 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import SEO from "../components/meta/SEO"
 import BaseLayout from "../components/layout/BaseLayout"
-import AddToCalendarLinks from "../components/ui/AddToCalendarLinks"
-import classnames from "classnames"
 import SaveTheDateForm from "../components/partials/SaveTheDateForm"
 import LeafSpacer from "../components/ui/LeafSpacer"
-import Check from "../components/partials/Check"
 
 export default function SaveTheDatePage() {
   const data = useStaticQuery(
@@ -24,14 +21,12 @@ export default function SaveTheDatePage() {
           siteMetadata {
             displayTitle
             displayDates
-            siteUrl
             location
           }
         }
       }
     `
   )
-  const [submitted, setSubmitted] = useState(false)
 
   return (
     <BaseLayout>
@@ -73,47 +68,7 @@ export default function SaveTheDatePage() {
             aria-label="Confirm contact details"
             aria-describedby="save-the-date-instructions"
           >
-            <div
-              className={classnames("c-article px-12 lg:px-16", {
-                "hidden lg:block lg:invisible": submitted,
-              })}
-            >
-              <p className="text-center" id="save-the-date-instructions">
-                We&apos;re going green! Please confirm your preferred email
-                address for the digital invitation to follow.
-              </p>
-              <SaveTheDateForm onSubmit={() => setSubmitted(true)} />
-            </div>
-            {submitted && (
-              <div
-                className="flex flex-col text-center px-8 items-center lg:absolute lg:inset-0 lg:px-12"
-                role="status"
-              >
-                <Check />
-                <div className="c-article">
-                  <p>
-                    Thank you for confirming your email! Stay tuned for the
-                    invitation and wedding website.
-                  </p>
-                  <p>We&apos;re so excited to celebrate with you!</p>
-                </div>
-                <h2 className="mt-4 mb-2 text-sm font-sans font-semibold">
-                  Add dates to calendar
-                </h2>
-                <AddToCalendarLinks
-                  className="max-w-sm pb-4 lg:max-w-full"
-                  event={{
-                    title: "Alisha & Milind's Wedding Weekend",
-                    location: data.site.siteMetadata.location,
-                    description: `Save the date for Alisha & Milind's wedding! More details to come at ${data.site.siteMetadata.siteUrl}`,
-                    startTime: "2020-05-01T00:00:00-07:00",
-                    endTime: "2020-05-03T00:00:00-07:00",
-                    allDay: true,
-                    url: data.site.siteMetadata.siteUrl,
-                  }}
-                />
-              </div>
-            )}
+            <SaveTheDateForm />
           </section>
         </div>
       </main>

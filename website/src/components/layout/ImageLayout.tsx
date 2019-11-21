@@ -9,9 +9,9 @@ interface ImageLayoutProps {
 const ImageLayout: React.FC<ImageLayoutProps> = ({ fluidImage, children }) => {
   return (
     <NavLayout>
-      <main className="-mt-4 max-w-3xl flex flex-col mx-auto sm:mt-0">
+      <main className="-mt-4 max-w-3xl flex flex-col mb-10 mx-auto sm:mt-0">
         <Img fluid={fluidImage} alt="" className="mb-8 shadow-md w-full" />
-        <div className="flex flex-col items-center c-article px-8 sm:px-4">
+        <div className="flex flex-col items-center px-8 sm:px-4">
           {children}
         </div>
       </main>

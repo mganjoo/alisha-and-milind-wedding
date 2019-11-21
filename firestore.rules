@@ -20,16 +20,68 @@ service cloud.firestore {
       allow read: if code != "__reject_request__";
 
       match /rsvps/{rsvp} {
+        function attending() {
+          return request.resource.data.attending;
+        }
+        function guests() {
+          return request.resource.data.guests;
+        }
+        function guestsCount() {
+          return request.resource.data.guests.size();
+        }
+        function validEvents(events, preEvents) {
+          return
+            events is list
+            && (
+              (!attending() && events.size() == 0)
+              ||
+              // Must be kept up to date with values in Gatsby config
+              (attending() && (
+                (preEvents && events.hasOnly(["mehendi", "sangeet", "ceremony", "reception"]))
+                || (!preEvents && events.hasOnly(["sangeet", "ceremony", "reception"]))
+              ))
+            );
+        }
+        function validGuest(i, preEvents) {
+          return
+            guests()[i] is map
+            && guests()[i].keys().size() == 2
+            && guests()[i].keys().hasAll(["name", "events"])
+            && guests()[i].name is string
+            && validEvents(guests()[i].events, preEvents);
+        }
+        function validGuests(numInvitedGuests, preEvents) {
+          return
+            guestsCount() <= numInvitedGuests
+            && validGuest(0, preEvents)
+            && (guestsCount() < 2 || validGuest(1, preEvents))
+            && (guestsCount() < 3 || validGuest(2, preEvents))
+            && (guestsCount() < 4 || validGuest(3, preEvents))
+            && (guestsCount() < 5 || validGuest(4, preEvents))
+            && (guestsCount() < 6 || validGuest(5, preEvents))
+            && (guestsCount() < 7 || validGuest(6, preEvents))
+            && (guestsCount() < 8 || validGuest(7, preEvents))
+            && (guestsCount() < 9 || validGuest(8, preEvents))
+            && (guestsCount() < 10 || validGuest(9, preEvents))
+            && (guestsCount() < 11 || validGuest(10, preEvents));
+            // should bump this if we ever have more than 11 guests in a party.
+        }
+        function validGuestsFromInvitation(invitation) {
+          return validGuests(
+            invitation.numGuests,
+            invitation.get("preEvents", false)
+          )
+        }
         allow create:
-          // ensure invitation code exists
-          if exists(/databases/$(database)/documents/invitations/$(code))
-          && request.resource.data.keys().size() == 3
+          // ensure no extra fields
+          if request.resource.data.keys().size() == 3
           // ensure exactly these fields
           && request.resource.data.keys().hasAll(["attending", "guests", "createdAt"])
-          && request.resource.data.attending is bool
-          && request.resource.data.guests is list
-          && request.resource.data.guests.size() > 0
-          && request.resource.data.createdAt is timestamp;
+          && attending() is bool
+          && request.resource.data.createdAt is timestamp
+          && guests() is list
+          && guestsCount() > 0
+          && validGuestsFromInvitation(get(/databases/$(database)/documents/invitations/$(code)).data);
       }
     }
   }

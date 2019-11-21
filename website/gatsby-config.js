@@ -16,6 +16,7 @@ module.exports = {
     contactEmail: `alisha.and.milind@gmail.com`,
     displayTitle: `Alisha & Milind`,
     displayDates: `May 1 & 2, 2020`,
+    rsvpDeadline: `2020-03-15`,
     location: `San Mateo, CA`,
     // TODO: figure out if this can be shared with Cloud Functions
     events: [
