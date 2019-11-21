@@ -1,7 +1,9 @@
 import { Invitation } from "../interfaces/Invitation"
-import { set, del, get } from "idb-keyval"
+import { set, del, get, Store } from "idb-keyval"
 
 const InvitationKey = "invitation"
+
+let store: Store
 
 interface SavedInvitationDataV1 {
   version: 1
@@ -16,6 +18,13 @@ function isInvitation(
     (invitationData as Invitation).code !== undefined &&
     (invitationData as Invitation).numGuests !== undefined
   )
+}
+
+function loadStore(): Store {
+  if (!store) {
+    store = new Store("am-wedding-store", "am-wedding")
+  }
+  return store
 }
 
 /* Public interfaces */
@@ -35,15 +44,15 @@ export interface FetchedInvitation {
 export function saveInvitatationData(
   data: SavedInvitationDataV1
 ): Promise<void> {
-  return set(InvitationKey, data)
+  return set(InvitationKey, data, loadStore())
 }
 
 export function loadInvitationData(): Promise<SavedInvitationData | undefined> {
-  return get(InvitationKey)
+  return get(InvitationKey, loadStore())
 }
 
 export function clearInvitationData(): Promise<void> {
-  return del(InvitationKey)
+  return del(InvitationKey, loadStore())
 }
 
 export function parseInvitationData(

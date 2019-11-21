@@ -1,5 +1,3 @@
-import { del } from "idb-keyval"
-
 function getInvitation(invitations, i) {
   return invitations.fixtures[i].data
 }
@@ -9,10 +7,7 @@ Cypress.config("defaultCommandTimeout", 7000)
 
 describe("invitation tests", function() {
   this.beforeEach(() => {
-    cy.wrap(null).then(() => {
-      // Delete the indexed DB key each time
-      return del("invitation")
-    })
+    indexedDB.deleteDatabase("am-wedding-store")
     cy.fixture("../../../fixtures/invitations.json").as("invitations")
   })
 
