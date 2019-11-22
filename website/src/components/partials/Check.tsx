@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function Check() {
+const Check: React.FC = () => {
   return (
     <div className="w-12 h-12 mt-2 mb-6" aria-hidden="true">
       <svg
@@ -14,3 +14,4 @@ export default function Check() {
     </div>
   )
 }
+export default Check

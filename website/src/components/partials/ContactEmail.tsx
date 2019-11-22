@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-export default function ContactEmail() {
+const ContactEmail: React.FC = () => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -17,3 +17,4 @@ export default function ContactEmail() {
     </a>
   )
 }
+export default ContactEmail

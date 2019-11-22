@@ -34,10 +34,10 @@ const letterTransform = (y: any, rotateZ: any, scale: any) =>
 const flapTransform = (rotateX: any) =>
   `perspective(55rem) rotateX(${rotateX}deg)`
 
-export default function InvitationCard({
+const InvitationCard: React.FC<InvitationCardProps> = ({
   playing = false,
   reverse = false,
-}: InvitationCardProps) {
+}) => {
   const { invitation } = useContext(InvitationContext)
   const { movePrevious, moveNext, isAfter } = useStateList(orderedStates)
 
@@ -156,3 +156,4 @@ export default function InvitationCard({
     </div>
   )
 }
+export default InvitationCard

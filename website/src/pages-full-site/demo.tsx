@@ -3,7 +3,7 @@ import InvitationCard from "../components/partials/InvitationCard"
 import Button from "../components/ui/Button"
 import Helmet from "react-helmet"
 
-export default function DemoPage() {
+const DemoPage: React.FC = () => {
   const [playing, setPlaying] = useState(false)
   const [direction, setDirection] = useState(1)
   return (
@@ -27,3 +27,4 @@ export default function DemoPage() {
     </>
   )
 }
+export default DemoPage

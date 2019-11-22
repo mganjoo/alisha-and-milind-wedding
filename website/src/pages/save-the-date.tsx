@@ -6,7 +6,7 @@ import BaseLayout from "../components/layout/BaseLayout"
 import SaveTheDateForm from "../components/partials/SaveTheDateForm"
 import LeafSpacer from "../components/ui/LeafSpacer"
 
-export default function SaveTheDatePage() {
+const SaveTheDatePage: React.FC = () => {
   const data = useStaticQuery(
     graphql`
       query {
@@ -75,3 +75,4 @@ export default function SaveTheDatePage() {
     </BaseLayout>
   )
 }
+export default SaveTheDatePage

@@ -181,10 +181,10 @@ interface AddToCalendarProps {
   className?: string
 }
 
-export default function AddToCalendarLinks({
+const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
   event,
   className,
-}: AddToCalendarProps) {
+}) => {
   return (
     <ul className={classnames("flex flex-wrap justify-center", className)}>
       <CalendarLink url={ical(event)} download="event.ics" type="apple" />
@@ -195,3 +195,4 @@ export default function AddToCalendarLinks({
     </ul>
   )
 }
+export default AddToCalendarLinks

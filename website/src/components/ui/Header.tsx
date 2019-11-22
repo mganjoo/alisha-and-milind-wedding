@@ -11,7 +11,7 @@ interface HeaderProps {
   links: HeaderLink[]
 }
 
-export default function Header({ links }: HeaderProps) {
+const Header: React.FC<HeaderProps> = ({ links }) => {
   const data = useStaticQuery(
     graphql`
       query {
@@ -115,3 +115,4 @@ export default function Header({ links }: HeaderProps) {
     </header>
   )
 }
+export default Header

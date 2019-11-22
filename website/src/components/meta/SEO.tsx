@@ -47,5 +47,4 @@ const SEO: React.FC<SEOProps> = ({ title, description, image }) => {
     />
   )
 }
-
 export default SEO

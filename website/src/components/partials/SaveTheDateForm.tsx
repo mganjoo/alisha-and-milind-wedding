@@ -11,13 +11,9 @@ import classnames from "classnames"
 import Confirmation from "./Confirmation"
 import { useStaticQuery, graphql } from "gatsby"
 import AddToCalendarLinks from "../ui/AddToCalendarLinks"
+import { Contact } from "../../interfaces/Contact"
 
-interface SaveTheDateFormValues {
-  name: string
-  email: string
-}
-
-const initialValues: SaveTheDateFormValues = {
+const initialValues: Contact = {
   name: "",
   email: "",
 }
@@ -38,7 +34,7 @@ const SaveTheDateForm: React.FC = () => {
   const [submitError, setSubmitError] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  async function submitInfo(values: SaveTheDateFormValues) {
+  async function submitInfo(values: Contact) {
     return loadFirestore()
       .then(firestore => firestore.addWithTimestamp("contacts", values))
       .then(() => setSubmitted(true))

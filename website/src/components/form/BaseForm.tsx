@@ -1,30 +1,10 @@
-import React, { useRef, useEffect } from "react"
-import { Form, useFormikContext } from "formik"
-import { NodeManager, useOrderedNodes } from "react-register-nodes"
-import { scrollIntoView } from "../utils/Utils"
+import React from "react"
+import { Form } from "formik"
+import { NodeManager } from "react-register-nodes"
+import FirstErrorFocuser from "./FirstErrorFocuser"
 
 interface BaseFormProps {
   className?: string
-}
-
-const FirstErrorFocuser: React.FC = ({ children }) => {
-  const formik = useFormikContext()
-  const prevSubmitCountRef = useRef(formik.submitCount)
-  const ordered = useOrderedNodes()
-
-  useEffect(() => {
-    if (
-      prevSubmitCountRef.current !== formik.submitCount &&
-      !formik.isValid &&
-      ordered.length > 0
-    ) {
-      prevSubmitCountRef.current = formik.submitCount
-      scrollIntoView(ordered[0])
-      ordered[0].focus()
-    }
-  }, [formik.isValid, formik.submitCount, ordered])
-
-  return <>{children}</>
 }
 
 const BaseForm: React.FC<BaseFormProps> = ({ className, children }) => {
