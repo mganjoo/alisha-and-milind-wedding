@@ -1,7 +1,7 @@
 import { mixed, object, InferType, ObjectSchema } from "yup"
 import { filterNonEmptyKeys, makeIdMap, range } from "../components/utils/Utils"
 import { WeddingEvent } from "./Event"
-import { Invitation, Rsvp } from "./Invitation"
+import { Invitation, Rsvp } from "@alisha-and-milind-wedding/shared-types"
 
 export type RsvpFormValues = InferType<typeof validationSchema>
 export type GuestMap = Record<string, string>

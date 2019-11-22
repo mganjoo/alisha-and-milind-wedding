@@ -11,7 +11,7 @@ import classnames from "classnames"
 import Confirmation from "./Confirmation"
 import { useStaticQuery, graphql } from "gatsby"
 import AddToCalendarLinks from "../ui/AddToCalendarLinks"
-import { Contact } from "../../interfaces/Contact"
+import { Contact } from "@alisha-and-milind-wedding/shared-types"
 
 const initialValues: Contact = {
   name: "",

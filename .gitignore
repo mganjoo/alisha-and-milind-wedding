@@ -60,3 +60,6 @@ yarn-error.log
 
 # Local Netlify folder
 .netlify
+
+# Incremental buildinfo files
+*.tsbuildinfo

@@ -11,7 +11,7 @@ import { object, string } from "yup"
 import BaseForm from "../form/BaseForm"
 import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
-import { Invitation } from "../../interfaces/Invitation"
+import { Invitation } from "@alisha-and-milind-wedding/shared-types"
 
 interface LoginFormValues {
   code: string

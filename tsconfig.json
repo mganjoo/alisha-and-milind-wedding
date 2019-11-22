@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "shared-types" },
+    { "path": "functions" },
+    { "path": "cli" }
+  ]
+}

@@ -1,13 +1,18 @@
 {
-  "name": "cli",
+  "name": "@alisha-and-milind-wedding/cli",
   "description": "Admin tool to manage wedding data",
   "private": true,
   "version": "0.1.0",
-  "author": "Milind Ganjoo <milind.ganjoo@gmail.com>",
   "bin": {
     "wedding-manager": "./bin/run"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "dependencies": {
+    "@alisha-and-milind-wedding/shared-types": "*",
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.1",
@@ -28,20 +33,12 @@
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   },
-  "engines": {
-    "node": ">=8.0.0"
-  },
   "files": [
     "/bin",
     "/lib",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "keywords": [
-    "oclif"
-  ],
-  "license": "MIT",
-  "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
     "bin": "wedding-manager",
@@ -57,6 +54,5 @@
     "fixtures:validate": "! ls ../fixtures/*.json >/dev/null 2>&1 || ajv -s fixture-schema.json -d ../fixtures/*.json",
     "load:invitations:emulator": "FIRESTORE_EMULATOR_HOST=localhost:8080 ./bin/run load-fixtures ../fixtures/invitations.json",
     "check:types": "tsc --noEmit"
-  },
-  "types": "lib/index.d.ts"
+  }
 }

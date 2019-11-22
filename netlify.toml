@@ -1,7 +1,8 @@
 [build]
-  base = "website/"
-  command = "npm run build"
-  public = "website/public/"
+  command = "npm run build:netlify"
+  publish = "website/public/"
+  # Only trigger build if shared-types/, website/, or other core files change
+  ignore = "git diff --quiet HEAD^ HEAD -- shared-types/ website/ netlify.toml tsconfig.base.json"
 
 [build.environment]
   # Disable Cypress binary download since it takes too much time

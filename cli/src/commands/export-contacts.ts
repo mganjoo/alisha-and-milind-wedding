@@ -2,7 +2,10 @@ import BaseCommand from "../util/base-command"
 import admin from "firebase-admin"
 import cli from "cli-ux"
 import dayjs from "dayjs"
-import Contact from "../interfaces/Contact"
+import { Contact } from "@alisha-and-milind-wedding/shared-types"
+import { HasTimestamp } from "../interfaces/HasTimestamp"
+
+type ContactWithTimestamp = Contact & HasTimestamp
 
 export default class ExportContacts extends BaseCommand {
   static description = "Export contacts stored in Firestore"
@@ -30,7 +33,9 @@ export default class ExportContacts extends BaseCommand {
       .then(snapshot =>
         snapshot.docs.map(doc => {
           const data = doc.data()
-          return { id: doc.ref.id, ...data } as (Contact & { id: string })
+          return { id: doc.ref.id, ...data } as (ContactWithTimestamp & {
+            id: string
+          })
         })
       )
       .then(contacts =>

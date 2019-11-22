@@ -1,9 +1,12 @@
 {
-  "name": "website",
+  "name": "@alisha-and-milind-wedding/website",
   "private": true,
   "version": "0.1.0",
-  "author": "Milind Ganjoo <milind.ganjoo@gmail.com>",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
+    "@alisha-and-milind-wedding/shared-types": "*",
     "classnames": "^2.2.6",
     "dayjs": "^1.8.16",
     "firebase": "^7.0.0",
@@ -78,7 +81,6 @@
     "webpack": "^4.41.2",
     "yn": "^3.1.1"
   },
-  "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
@@ -98,8 +100,5 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:ci": "percy exec -- cypress run --config-file cypress-ci.json"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }
