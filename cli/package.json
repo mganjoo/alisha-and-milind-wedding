@@ -20,7 +20,7 @@
     "ajv": "6.10.2",
     "chalk": "3.0.0",
     "cli-ux": "5.3.3",
-    "dayjs": "1.8.16",
+    "dayjs": "1.8.17",
     "firebase-admin": "8.8.0",
     "shortid": "2.2.15",
     "tslib": "1.10.0"
