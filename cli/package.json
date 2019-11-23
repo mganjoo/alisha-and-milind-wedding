@@ -18,7 +18,7 @@
     "@oclif/plugin-help": "2.2.1",
     "@types/shortid": "0.0.29",
     "ajv": "6.10.2",
-    "chalk": "2.4.2",
+    "chalk": "3.0.0",
     "cli-ux": "5.3.3",
     "dayjs": "1.8.16",
     "firebase-admin": "8.8.0",
