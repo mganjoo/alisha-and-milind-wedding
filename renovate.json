@@ -3,7 +3,8 @@
   "packageRules": [
     {
       "packageNames": ["husky", "lint-staged", "prettier"],
-      "groupName": "autolinting"
+      "packagePatterns": ["^eslint"],
+      "groupName": "linting packages"
     }
   ]
 }
