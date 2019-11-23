@@ -19,10 +19,16 @@ firebase login
 Start the emulator:
 
 ```sh
-firebase emulators:start --only firestore
+npm run firestore
 ```
 
-Run tests:
+Run tests continuously (in watch mode):
+
+```sh
+npm run test:watch
+```
+
+or one-time:
 
 ```sh
 npm run test
@@ -34,7 +40,7 @@ You can also run the emulator and tests in one command:
 firebase emulators:exec --only firestore "npm run test"
 ```
 
-## Deploying rules
+## Deploying rules and functions
 
 ```sh
 # To staging

@@ -32,7 +32,7 @@ jobs:
     - name: Install packages
       run: |
         npm ci
-        npm run bootstrap:ci
+        npm run bootstrap:ci && npm --prefix shared-types run build
         cd ./website && $(npm bin)/cypress verify
       env:
         CI: true

@@ -26,6 +26,8 @@
     "preshell": "npm run build",
     "logs": "firebase functions:log",
     "check:types": "tsc --noEmit",
-    "test": "mocha"
+    "test": "mocha",
+    "test:watch": "mocha --watch",
+    "firestore": "firebase emulators:start --only firestore"
   }
 }

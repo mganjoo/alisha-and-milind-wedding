@@ -11,7 +11,7 @@
     ```sh
     git clone git@github.com:mganjoo/alisha-and-milind-wedding.git
     cd alisha-and-milind-wedding/
-    npm install && npm run bootstrap
+    npm ci && npm run bootstrap:ci
     ```
 
 1.  **Add Firebase credentials.**
@@ -34,9 +34,16 @@
 
 1.  **Start developing.**
 
+    Build shared types continuously:
+
     ```sh
-    cd website
-    npm run develop
+    npm run start:shared-types
+    ```
+
+    Build website continuously:
+
+    ```sh
+    npm run start:website
     ```
 
 1.  **Start editing.**
@@ -65,12 +72,14 @@ visual regression tests set up using [Percy](https://percy.io).
 ### To run the entire test suite (unit + e2e) locally
 
 ```sh
+cd website
 npm run test
 ```
 
 ### To open the Cypress app locally
 
 ```sh
+cd website
 npm run develop
 npm run cy:open
 ```
