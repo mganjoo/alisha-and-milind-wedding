@@ -1,5 +1,9 @@
 {
-  "extends": [
-    "config:base"
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "packageNames": ["husky", "lint-staged", "prettier"],
+      "groupName": "autolinting"
+    }
   ]
 }
