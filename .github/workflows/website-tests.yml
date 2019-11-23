@@ -1,4 +1,4 @@
-name: Build and test
+name: Website tests
 on:
   push:
     branches-ignore:
@@ -13,6 +13,7 @@ on:
   repository_dispatch: {}
 jobs:
   test:
+    name: Run tests
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
@@ -48,7 +49,7 @@ jobs:
         GATSBY_FIREBASE_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_AUTH_DOMAIN }}
         GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-    - name: Run tests for external URL
+    - name: Run tests (external dispatch)
       if: startsWith(github.event.action, 'externalUrl_')
       env:
         PERCY_ENABLE: 0
