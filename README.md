@@ -1,8 +1,7 @@
 # Alisha and Milind's Wedding Website
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7b8c6a26-ba68-4d43-8588-64f155b15c47/deploy-status)](https://app.netlify.com/sites/winning-lamport-6a6661/deploys)
-![GitHub Build and test Status](https://github.com/mganjoo/alisha-and-milind-wedding/workflows/Build%20and%20test/badge.svg)
-![GitHub External test Status](https://github.com/mganjoo/alisha-and-milind-wedding/workflows/External%20test/badge.svg)
+![GitHub website tests](https://github.com/mganjoo/alisha-and-milind-wedding/workflows/Website%20tests/badge.svg)
 [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/Milind-Ganjoo/alisha-and-milind-wedding)
 
 ## 🛠 Getting started
