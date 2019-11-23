@@ -90,6 +90,7 @@
     "clean": "gatsby clean",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "jest",
+    "test:unit:watch": "jest --watch",
     "test:e2e": "server-test start 8000 cy:run",
     "test:ci": "npm run test:unit && npm run test:e2e:ci",
     "pretest:ci": "npm run check",
