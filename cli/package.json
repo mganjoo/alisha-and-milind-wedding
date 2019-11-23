@@ -21,7 +21,7 @@
     "chalk": "2.4.2",
     "cli-ux": "5.3.3",
     "dayjs": "1.8.16",
-    "firebase-admin": "8.6.1",
+    "firebase-admin": "8.8.0",
     "shortid": "2.2.15",
     "tslib": "1.10.0"
   },
