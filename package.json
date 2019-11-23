@@ -12,10 +12,10 @@
     "url": "https://github.com/mganjoo/alisha-and-milind-wedding/issues"
   },
   "devDependencies": {
-    "husky": "3.0.9",
+    "husky": "3.1.0",
     "lerna": "3.19.0",
-    "lint-staged": "9.4.2",
-    "prettier": "1.18.2",
+    "lint-staged": "9.4.3",
+    "prettier": "1.19.1",
     "typescript": "3.7.2"
   },
   "scripts": {
