@@ -96,15 +96,14 @@ const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
 export async function loadFirestore() {
   // Dynamic import of firebase modules, since some code depends on Window
   // (see https://kyleshevlin.com/firebase-and-gatsby-together-at-last/)
-  const lazyFirebase = import("firebase/app")
-  const lazyFirestore = import("firebase/firestore")
-  const [firebase] = await Promise.all([lazyFirebase, lazyFirestore])
+  const loadedFirebase = await import("firebase/app")
+  await import("firebase/firestore")
   // Reuse already-initialized default firebase app if possible
   const firebaseInstance =
-    firebase.apps && firebase.apps.length
-      ? firebase.app()
-      : firebase.initializeApp(firebaseConfig)
+    loadedFirebase.apps && loadedFirebase.apps.length
+      ? loadedFirebase.app()
+      : loadedFirebase.initializeApp(firebaseConfig)
   const makeTimestamp = (date: Date) =>
-    firebase.firestore.Timestamp.fromDate(date)
+    loadedFirebase.firestore.Timestamp.fromDate(date)
   return makeFirestore(firebaseInstance, makeTimestamp)
 }
