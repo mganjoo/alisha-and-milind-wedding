@@ -1,6 +1,29 @@
 import React from "react"
 import classnames from "classnames"
 
+type ButtonPurpose = "primary" | "secondary" | "tertiary"
+type ButtonFit = "comfortable" | "compact"
+
+function getPurposeClass(purpose: ButtonPurpose) {
+  switch (purpose) {
+    case "primary":
+      return "c-button-primary"
+    case "secondary":
+      return "c-button-secondary"
+    case "tertiary":
+      return "c-button-tertiary"
+  }
+}
+
+function getFitClass(fit: ButtonFit) {
+  switch (fit) {
+    case "comfortable":
+      return "c-button-comfortable"
+    case "compact":
+      return "c-button-compact"
+  }
+}
+
 export interface ButtonProps
   extends Omit<
     React.DetailedHTMLProps<
@@ -9,22 +32,25 @@ export interface ButtonProps
     >,
     "type"
   > {
-  isSecondary?: boolean
+  purpose?: ButtonPurpose
+  fit?: ButtonFit
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  isSecondary,
+  purpose,
+  fit,
   className,
   ...otherProps
 }) => (
   <button
     className={classnames(
       "c-button",
-      isSecondary ? "c-button-secondary" : "c-button-primary",
+      getFitClass(fit || "comfortable"),
+      getPurposeClass(purpose || "primary"),
       className
     )}
-    type={isSecondary ? "button" : "submit"}
+    type={!purpose || purpose === "primary" ? "submit" : "button"}
     {...otherProps}
   >
     {children}

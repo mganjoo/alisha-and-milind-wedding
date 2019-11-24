@@ -1,5 +1,10 @@
 import { mixed, object, InferType, ObjectSchema } from "yup"
-import { filterNonEmptyKeys, makeIdMap, range } from "../components/utils/Utils"
+import {
+  filterNonEmptyKeys,
+  makeIdMap,
+  range,
+  stringEmpty,
+} from "../components/utils/Utils"
 import { WeddingEvent } from "./Event"
 import { Invitation, Rsvp } from "@alisha-and-milind-wedding/shared-types"
 
@@ -33,8 +38,7 @@ export const validationSchema = object().shape({
             name: "attending-at-least-one-event",
             test: (value: Record<string, string[]>) =>
               Object.values(value).some(v => v.length > 0),
-            message:
-              "Please confirm the specific events you will be attending.",
+            message: "Please confirm attendance for at least one event.",
           })
         : schema
     }
@@ -55,13 +59,10 @@ export function resetAttendeesState(
 ): Record<string, string[]> {
   return events
     .filter(e => (includePreEvents ? true : !e.preEvent))
-    .reduce(
-      (state, e) => {
-        state[e.shortName] = guestIdsForEvent ? guestIdsForEvent(e) : []
-        return state
-      },
-      {} as Record<string, string[]>
-    )
+    .reduce((state, e) => {
+      state[e.shortName] = guestIdsForEvent ? guestIdsForEvent(e) : []
+      return state
+    }, {} as Record<string, string[]>)
 }
 
 /**
@@ -109,11 +110,13 @@ export function makeInitialRsvpFormValues(
 
 export function toRsvp(values: RsvpFormValues): Rsvp {
   const attending = values.attending === "yes"
-  const guests = Object.keys(values.guests).map(id => ({
-    name: values.guests[id],
-    events: Object.keys(values.attendees).filter(
-      eventName => attending && values.attendees[eventName].includes(id)
-    ),
-  }))
+  const guests = Object.keys(values.guests)
+    .map(id => ({
+      name: values.guests[id],
+      events: Object.keys(values.attendees).filter(
+        eventName => attending && values.attendees[eventName].includes(id)
+      ),
+    }))
+    .filter(guest => !stringEmpty(guest.name))
   return { guests, attending: attending }
 }

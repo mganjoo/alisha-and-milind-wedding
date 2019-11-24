@@ -34,7 +34,7 @@ const AttendanceItem: React.FC<AttendanceItemProps> = ({ event, guests }) => {
     <div className="mt-4">
       <p className="font-semibold -mb-1" id={headingId}>
         {event.name}
-        <span className="text-gray-600"> @ {event.shortDate}</span>
+        <span className="text-gray-700"> @ {event.shortDate}</span>
       </p>
       <OptionsGroup
         name={`attendees.${event.shortName}`}

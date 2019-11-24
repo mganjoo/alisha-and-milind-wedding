@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import { EventResult } from "../../interfaces/Event"
-import { useStaticQuery, graphql } from "gatsby"
 
 export function useStateList<T>(stateList: T[]) {
   const [current, setCurrent] = useState(0)
@@ -54,20 +52,4 @@ export function useWhyDidYouUpdate(label: string, props: Record<string, any>) {
     }
     previousProps.current = props
   })
-}
-
-/**
- * Returns all registered wedding events.
- */
-export function useEvents() {
-  const { site }: { site: EventResult } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          ...Event
-        }
-      }
-    `
-  )
-  return site.siteMetadata.events
 }

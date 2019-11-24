@@ -11,7 +11,7 @@ import { useFormikContext } from "formik"
 import { RsvpFormValues, GuestMap } from "../../interfaces/RsvpFormValues"
 import Alert from "../form/Alert"
 import { InvitationContext } from "./Authenticated"
-import { useEvents } from "../utils/UtilHooks"
+import { useEvents } from "../utils/useEvents"
 
 interface AttendanceGroupProps {
   guests: GuestMap
@@ -51,10 +51,19 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
   }, [submitCount, errors.attendees])
 
   return (
-    <div>
+    <div
+      role="group"
+      aria-labelledby="confirm-events-heading"
+      aria-describedby="confirm-events-description"
+    >
       {showError && <Alert>{errors.attendees}</Alert>}
-      <p className="font-semibold mt-4 text-lg">Confirm events</p>
-      <p className="mb-2">
+      <h3
+        className="c-form-section-heading font-semibold"
+        id="confirm-events-heading"
+      >
+        Confirm events
+      </h3>
+      <p className="mb-2" id="confirm-events-description">
         Please let us know what events you&apos;ll be attending.
       </p>
       {invitation.preEvents && renderEvents(events, true)}

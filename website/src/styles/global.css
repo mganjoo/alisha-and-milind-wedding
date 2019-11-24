@@ -5,13 +5,19 @@
 /* Reusable components */
 
 .c-button {
-  @apply px-3 py-2 text-sm font-sans rounded-br-lg;
+  @apply text-sm font-sans;
+
+  &:disabled {
+    @apply opacity-50 cursor-wait;
+  }
+}
+
+.c-button-primary,
+.c-button-secondary {
+  @apply rounded-br-lg;
 
   &:focus {
     @apply outline-none shadow-outline-bold;
-  }
-  &:disabled {
-    @apply opacity-50 cursor-wait;
   }
   &:hover {
     @apply bg-orange-800;
@@ -22,14 +28,45 @@
 }
 
 .c-button-primary {
-  @apply bg-orange-900 text-white shadow-lg;
+  @apply bg-orange-900 text-white;
 }
 
 .c-button-secondary {
-  @apply border border-orange-800 bg-transparent text-orange-900 shadow-none;
+  @apply border border-orange-900 text-orange-900;
 
-  &:hover {
+  &:hover,
+  &:active {
     @apply text-white;
+  }
+}
+
+.c-button-tertiary {
+  @apply border border-gray-800 text-gray-800 rounded-lg;
+
+  &:focus {
+    @apply outline-none shadow-outline-light;
+  }
+  &:hover {
+    @apply bg-gray-800 text-white;
+  }
+  &:active {
+    @apply bg-gray-700;
+  }
+}
+
+.c-button-comfortable {
+  @apply px-3 py-2;
+}
+
+.c-button-compact {
+  @apply px-3 py-1;
+}
+
+.c-svg-button {
+  @apply flex items-center;
+
+  & > svg {
+    @apply w-3 mr-2 fill-current;
   }
 }
 
@@ -45,29 +82,15 @@
   background-origin: content-box;
 }
 
+.c-subtle-border {
+  @apply border-gray-400;
+}
+
 .c-alert {
-  @apply px-3 py-2 bg-red-100 border border-l-4 border-red-500 text-red-800 font-sans text-sm shadow-md;
+  @apply px-3 py-2 bg-red-100 border border-l-4 border-red-400 text-red-800 font-sans text-sm shadow-md;
 
   & > a {
     @apply font-bold;
-  }
-}
-
-.c-add-calendar-button {
-  @apply mx-2 mt-1 mb-2 py-1 px-2 flex items-center font-sans text-sm border border-gray-800 text-gray-800 rounded-lg;
-
-  & > svg {
-    @apply w-3 mr-2 fill-current;
-  }
-
-  &:focus {
-    @apply outline-none shadow-outline-light;
-  }
-  &:hover {
-    @apply bg-gray-800 text-white;
-  }
-  &:active {
-    @apply bg-gray-700;
   }
 }
 
@@ -75,25 +98,41 @@
   @apply absolute w-full h-full top-0 left-0 bg-no-repeat bg-contain;
 }
 
+.c-page-heading {
+  @apply text-2xl font-sans mb-2;
+
+  @screen sm {
+    @apply text-3xl;
+  }
+}
+
+.c-form-section-heading {
+  @apply font-sans mt-4 mb-2 text-lg;
+}
+
+.c-body-text {
+  @apply font-serif text-lg mb-4;
+
+  & > a {
+    @apply border-b border-gray-800 border-dotted font-semibold;
+
+    &:hover {
+      @apply bg-orange-200;
+    }
+  }
+}
+
 .c-article {
   & > h1 {
-    @apply text-2xl font-sans mb-2;
+    @extend .c-page-heading;
+  }
 
-    @screen sm {
-      @apply text-3xl;
-    }
+  & > h2 {
+    @apply font-sans text-xl mb-2 font-semibold;
   }
 
   & > p {
-    @apply font-serif text-lg mb-4;
-
-    & > a {
-      @apply border-b border-gray-800 border-dotted font-semibold;
-
-      &:hover {
-        @apply bg-orange-200;
-      }
-    }
+    @extend .c-body-text;
   }
 }
 

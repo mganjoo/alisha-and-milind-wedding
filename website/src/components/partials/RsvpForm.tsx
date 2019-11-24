@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef, useEffect, useMemo } from "react"
 import { InvitationContext } from "./Authenticated"
 import { scrollIntoView, recordsEqual } from "../utils/Utils"
 import BaseForm from "../form/BaseForm"
-import { Formik, useFormikContext } from "formik"
+import { Formik, useFormikContext, FormikHelpers } from "formik"
 import SubmitButton from "../form/SubmitButton"
 import OptionsGroup from "../form/OptionsGroup"
 import TextInputGroup from "../form/TextInputGroup"
@@ -17,14 +17,12 @@ import {
 } from "../../interfaces/RsvpFormValues"
 import Button from "../ui/Button"
 import AttendanceGroup from "./AttendanceGroup"
-import { useEvents } from "../utils/UtilHooks"
+import { useEvents } from "../utils/useEvents"
 import { WeddingEvent } from "../../interfaces/Event"
 import { Invitation } from "@alisha-and-milind-wedding/shared-types"
 import { addRsvp } from "../../services/Invitation"
 import Alert from "../form/Alert"
 import ContactEmail from "./ContactEmail"
-import Confirmation from "./Confirmation"
-import { Link, useStaticQuery, graphql } from "gatsby"
 
 const attendingOptions = [
   { value: "yes", label: "Yes, excited to attend!" },
@@ -49,10 +47,17 @@ type Page = "guests" | "attendance"
 interface PageWrapperProps {
   invitation: Invitation
   events: WeddingEvent[]
+  onDone: (submitted: boolean) => void
 }
 
-const PageWrapper: React.FC<PageWrapperProps> = ({ invitation, events }) => {
-  const { values, validateForm, setValues } = useFormikContext<RsvpFormValues>()
+const PageWrapper: React.FC<PageWrapperProps> = ({
+  invitation,
+  events,
+  onDone,
+}) => {
+  const { values, validateForm, setValues, resetForm } = useFormikContext<
+    RsvpFormValues
+  >()
   const [page, setPage] = useState<Page>("guests")
 
   // Snapshot of guests for events page
@@ -94,16 +99,27 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ invitation, events }) => {
     })
   }
   const toGuests = () => setPage("guests")
+  const buttonClassName = "mr-3 mb-3"
+  const handleCancel = () => {
+    resetForm()
+    onDone(false)
+  }
 
   const guestKeys = Object.keys(values.guests)
   return (
     <>
-      <div className="mt-1 mb-4 text-center">
-        <LeafSpacer />
-      </div>
       {page === "guests" && (
         <div ref={guestsRef}>
-          {!invitation.latestRsvp && (
+          <h3 className="c-form-section-heading">
+            {invitation.latestRsvp && "Editing"} RSVP for:{" "}
+            <span className="font-semibold">{invitation.partyName}</span>
+          </h3>
+          {invitation.latestRsvp ? (
+            <p>
+              Here is the information from your previous submission. Feel free
+              to make changes and submit the RSVP again.
+            </p>
+          ) : (
             <p>
               We&apos;ve filled out some information based on what we know.
               Please edit or correct anything we may have missed.
@@ -130,125 +146,99 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ invitation, events }) => {
           <AttendanceGroup guests={guestsForAttendancePage} />
         </div>
       )}
-      <div className="mt-6 flex">
-        {page === "attendance" && (
-          <Button onClick={toGuests} className="mr-3" isSecondary>
-            Back: edit guests
-          </Button>
-        )}
+      <div className="mt-6 flex flex-wrap">
         {page === "attendance" ||
         (page === "guests" && values.attending === "no") ? (
-          <SubmitButton label="Submit RSVP" />
+          <SubmitButton
+            label="Submit RSVP"
+            fit="compact"
+            className={buttonClassName}
+          />
         ) : (
-          <Button onClick={toEvents}>Next: confirm events</Button>
+          <Button onClick={toEvents} fit="compact" className={buttonClassName}>
+            Next: confirm events
+          </Button>
+        )}
+        {page === "attendance" && (
+          <Button
+            onClick={toGuests}
+            className={buttonClassName}
+            purpose="secondary"
+            fit="compact"
+          >
+            Back: guests
+          </Button>
+        )}
+        {invitation.latestRsvp && (
+          <Button
+            purpose="secondary"
+            fit="compact"
+            className={buttonClassName}
+            onClick={handleCancel}
+          >
+            Discard changes
+          </Button>
         )}
       </div>
     </>
   )
 }
 
-type SubmissionStatus = "attending" | "not-attending" | undefined
+interface RsvpFormProps {
+  onDone: (submitted: boolean) => void
+}
 
-const RsvpForm: React.FC = () => {
-  const data = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            shortDeadline: rsvpDeadline(formatString: "MMMM D")
-            deadline: rsvpDeadline(formatString: "MMMM D, YYYY")
-          }
-        }
-      }
-    `
-  )
+const RsvpForm: React.FC<RsvpFormProps> = ({ onDone }) => {
   const { invitation, reloadSaved } = useContext(InvitationContext)
   const events = useEvents()
   // Once form is mounted, the initial values remain unchanged
   const [initialValues] = useState<RsvpFormValues>(() =>
     makeInitialRsvpFormValues(invitation, events)
   )
-  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>(
-    undefined
-  )
   const [submitError, setSubmitError] = useState(false)
 
   const submitRsvp = useMemo(
-    () => async (values: RsvpFormValues) => {
+    () => async (
+      values: RsvpFormValues,
+      helpers: FormikHelpers<RsvpFormValues>
+    ) => {
       try {
-        const rsvp = toRsvp(values)
         await addRsvp(invitation, toRsvp(values))
         await reloadSaved()
-        setSubmissionStatus(rsvp.attending ? "attending" : "not-attending")
+        helpers.resetForm()
+        onDone(true)
       } catch {
         setSubmitError(true)
       }
     },
-    [invitation, reloadSaved]
+    [invitation, reloadSaved, onDone]
   )
 
   return (
-    <>
-      {!submissionStatus && (
-        <>
-          <div className="c-article text-center max-w-xl">
-            {invitation.latestRsvp ? (
-              <p>
-                Here is the information from your previously submitted RSVP.
-                Feel free to edit and submit as many times as you like before{" "}
-                <span className="font-semibold">
-                  {data.site.siteMetadata.deadline}
-                </span>
-                .
-              </p>
-            ) : (
-              <p>
-                We hope to see you at our wedding! Please RSVP by{" "}
-                <span className="font-semibold">
-                  {data.site.siteMetadata.deadline}
-                </span>
-                .
-              </p>
-            )}
-          </div>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={submitRsvp}
-          >
-            <BaseForm className="font-serif max-w-sm w-full">
-              {submitError && (
-                <Alert className="my-3 mx-4 lg:mx-2">
-                  There was a problem submitting the RSVP. Please email us at{" "}
-                  <ContactEmail />.
-                </Alert>
-              )}
-              <PageWrapper invitation={invitation} events={events} />
-            </BaseForm>
-          </Formik>
-        </>
-      )}
-      {submissionStatus && (
-        <Confirmation className="flex flex-col items-center text-center px-1 max-w-lg sm:px-4">
-          <div className="c-article">
-            <p>Thank you for submitting your RSVP.</p>
-            {submissionStatus === "attending" && (
-              <p>
-                We&apos;re excited that you&apos;ll be attending! If you need to
-                update your RSVP before {data.site.siteMetadata.shortDeadline},
-                you can just visit this page again.
-              </p>
-            )}
-            {submissionStatus === "not-attending" && (
-              <p>We&apos;ll miss you!</p>
-            )}
-            <p className="mt-8">
-              <Link to="/">Return to home page</Link>
-            </p>
-          </div>
-        </Confirmation>
-      )}
-    </>
+    <div className="mt-8 max-w-sm mx-auto w-full">
+      <div className="mb-6 text-center">
+        <LeafSpacer />
+      </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={submitRsvp}
+      >
+        <BaseForm className="font-serif w-full">
+          {submitError && (
+            <Alert className="my-3 mx-4 lg:mx-2">
+              There was a problem submitting the RSVP. Please email us at{" "}
+              <ContactEmail />.
+            </Alert>
+          )}
+          <PageWrapper
+            invitation={invitation}
+            events={events}
+            onDone={onDone}
+          />
+        </BaseForm>
+      </Formik>
+    </div>
   )
 }
 export default RsvpForm

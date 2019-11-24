@@ -60,7 +60,7 @@ const SaveTheDatePage: React.FC = () => {
             </p>
           </section>
           <hr
-            className="my-8 inline-block w-24 border-gray-400"
+            className="my-8 inline-block w-24 c-subtle-border"
             aria-hidden="true"
           />
           <section

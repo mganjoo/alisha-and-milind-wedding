@@ -1,9 +1,9 @@
 import React from "react"
 import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
-import RsvpForm from "../components/partials/RsvpForm"
 import { useStaticQuery, graphql } from "gatsby"
 import ImageLayout from "../components/layout/ImageLayout"
+import RsvpStatus from "../components/partials/RsvpStatus"
 
 const RsvpPage = () => {
   const imageData = useStaticQuery(
@@ -22,11 +22,9 @@ const RsvpPage = () => {
   return (
     <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
       <SEO title="RSVP" />
-      <div className="c-article">
-        <h1>RSVP</h1>
-      </div>
+      <h1 className="c-page-heading">RSVP</h1>
       <Authenticated>
-        <RsvpForm />
+        <RsvpStatus />
       </Authenticated>
     </ImageLayout>
   )

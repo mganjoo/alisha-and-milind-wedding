@@ -20,8 +20,8 @@ function saveInvitation(invitation: Invitation): Promise<void> {
   })
 }
 
-// 1 hour fetch window
-const fetchWindowInMs = 60 * 60 * 1000
+// 5 minute fetch window
+const fetchWindowInMs = 5 * 60 * 1000
 
 /**
  * Attempts to fetch invitation with provided code and save into indexed DB.

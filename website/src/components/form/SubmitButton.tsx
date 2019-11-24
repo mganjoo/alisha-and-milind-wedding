@@ -3,7 +3,7 @@ import { useFormikContext } from "formik"
 import Button, { ButtonProps } from "../ui/Button"
 
 interface SubmitButtonProps
-  extends Omit<ButtonProps, "type" | "disabled" | "isSecondary"> {
+  extends Omit<ButtonProps, "type" | "disabled" | "purpose"> {
   label: string
   loading?: boolean
 }

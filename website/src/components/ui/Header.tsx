@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
   }, [dropdownVisible, menuButtonRef, navRef])
 
   return (
-    <header className="border-b border-gray-400 mb-4">
+    <header className="border-b c-subtle-border mb-4">
       <div className="relative">
         <div className="absolute mx-1 h-full flex items-center sm:hidden">
           <button
@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         ref={navRef}
         className={`${
           dropdownVisible ? "block " : "hidden "
-        }py-3 border-t border-gray-400 font-sans font-semibold text-gray-900 text-sm sm:block sm:py-0 sm:border-t-0 sm:text-base lg:text-lg`}
+        }py-3 border-t c-subtle-border font-sans font-semibold text-gray-900 text-sm sm:block sm:py-0 sm:border-t-0 sm:text-base lg:text-lg`}
       >
         <ul className="sm:flex sm:flex-row sm:justify-center sm:items-center">
           {links.map((link, index) => (

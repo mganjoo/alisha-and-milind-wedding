@@ -21,6 +21,10 @@ const initialValues: LoginFormValues = {
   code: "",
 }
 
+const validationSchema = object<LoginFormValues>({
+  code: string().required("Please enter your invitation code."),
+})
+
 interface InvitationContextWrapper {
   invitation: Invitation
 
@@ -127,12 +131,10 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
     return (
       <Formik
         initialValues={initialValues}
-        validationSchema={object({
-          code: string().required("Please enter your invitation code."),
-        })}
+        validationSchema={validationSchema}
         onSubmit={login}
       >
-        <BaseForm className="max-w-sm w-full mt-3 mb-8 border rounded-lg p-6 border-gray-400">
+        <BaseForm className="max-w-sm w-full mt-3 mb-8 border rounded-lg p-6 c-subtle-border">
           <div className="font-serif">
             <p>
               To view this page, please use the invitation code included in your
@@ -152,7 +154,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
               type="text"
               label="Invitation code"
             />
-            <SubmitButton label="Submit" className="mt-4" />
+            <SubmitButton label="Submit" className="mt-4 shadow-lg" />
           </div>
         </BaseForm>
       </Formik>

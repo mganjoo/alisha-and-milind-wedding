@@ -48,6 +48,7 @@ service cloud.firestore {
             && guests()[i].keys().size() == 2
             && guests()[i].keys().hasAll(["name", "events"])
             && guests()[i].name is string
+            && guests()[i].name.trim().size() != 0
             && validEvents(guests()[i].events, preEvents);
         }
         function validGuests(numInvitedGuests, preEvents) {

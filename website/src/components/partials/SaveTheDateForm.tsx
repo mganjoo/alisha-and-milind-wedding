@@ -12,6 +12,14 @@ import Confirmation from "./Confirmation"
 import { useStaticQuery, graphql } from "gatsby"
 import AddToCalendarLinks from "../ui/AddToCalendarLinks"
 import { Contact } from "@alisha-and-milind-wedding/shared-types"
+import Symbol from "../ui/Symbol"
+
+const validationSchema = object<Contact>({
+  name: string().required("Name is required."),
+  email: string()
+    .email("A valid email is required.")
+    .required("A valid email is required."),
+})
 
 const initialValues: Contact = {
   name: "",
@@ -44,22 +52,17 @@ const SaveTheDateForm: React.FC = () => {
   return (
     <>
       <div
-        className={classnames("c-article px-12 lg:px-16", {
+        className={classnames("px-12 lg:px-16", {
           "hidden lg:block lg:invisible": submitted,
         })}
       >
-        <p className="text-center" id="save-the-date-instructions">
+        <p className="c-body-text text-center" id="save-the-date-instructions">
           We&apos;re going green! Please confirm your preferred email address
           for the digital invitation to follow.
         </p>
         <Formik
           initialValues={initialValues}
-          validationSchema={object({
-            name: string().required("Name is required."),
-            email: string()
-              .email("A valid email is required.")
-              .required("A valid email is required."),
-          })}
+          validationSchema={validationSchema}
           onSubmit={submitInfo}
         >
           <BaseForm className="flex flex-col items-center pb-8 lg:pb-16">
@@ -83,12 +86,16 @@ const SaveTheDateForm: React.FC = () => {
                 autoComplete="email"
               />
             </div>
-            <SubmitButton label="Submit info" className="mt-8 mb-2" />
+            <SubmitButton label="Submit info" className="mt-8 mb-2 shadow-lg" />
           </BaseForm>
         </Formik>
       </div>
       {submitted && (
         <Confirmation className="flex flex-col text-center px-8 items-center lg:absolute lg:inset-0 lg:px-12">
+          <Symbol
+            symbol="check"
+            className="w-12 h-12 mt-2 mb-6 text-green-700"
+          />
           <div className="c-article">
             <p>
               Thank you for confirming your email! Stay tuned for the invitation
@@ -96,11 +103,9 @@ const SaveTheDateForm: React.FC = () => {
             </p>
             <p>We&apos;re so excited to celebrate with you!</p>
           </div>
-          <h2 className="mt-4 mb-2 text-sm font-sans font-semibold">
-            Add dates to calendar
-          </h2>
           <AddToCalendarLinks
             className="max-w-sm pb-4 lg:max-w-full"
+            label="Add dates to calendar"
             event={{
               title: "Alisha & Milind's Wedding Weekend",
               location: data.site.siteMetadata.location,

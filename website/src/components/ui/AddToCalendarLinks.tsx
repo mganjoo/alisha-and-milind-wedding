@@ -77,7 +77,11 @@ function CalendarLink({ url, type, download }: CalendarLinkProps) {
     : { target: "_blank", rel: "noopener noreferrer" }
   return (
     <li>
-      <a className="c-add-calendar-button" href={url} {...extraProps}>
+      <a
+        className="c-button c-button-tertiary c-button-compact c-svg-button mx-2 mt-1 mb-2"
+        href={url}
+        {...extraProps}
+      >
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -93,21 +97,26 @@ function CalendarLink({ url, type, download }: CalendarLinkProps) {
 
 interface AddToCalendarProps {
   event: CalendarEvent
+  label: string
   className?: string
 }
 
 const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
   event,
+  label,
   className,
 }) => {
   return (
-    <ul className={classnames("flex flex-wrap justify-center", className)}>
-      <CalendarLink url={ical(event)} download="event.ics" type="apple" />
-      <CalendarLink url={google(event)} type="google" />
-      <CalendarLink url={outlook(event)} type="outlookcom" />
-      <CalendarLink url={yahoo(event)} type="yahoo" />
-      <CalendarLink url={ical(event)} download="event.ics" type="ical" />
-    </ul>
+    <>
+      <h2 className="mt-4 mb-2 text-sm font-sans font-semibold">{label}</h2>
+      <ul className={classnames("flex flex-wrap justify-center", className)}>
+        <CalendarLink url={ical(event)} download="event.ics" type="apple" />
+        <CalendarLink url={google(event)} type="google" />
+        <CalendarLink url={outlook(event)} type="outlookcom" />
+        <CalendarLink url={yahoo(event)} type="yahoo" />
+        <CalendarLink url={ical(event)} download="event.ics" type="ical" />
+      </ul>
+    </>
   )
 }
 export default AddToCalendarLinks

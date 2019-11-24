@@ -9,13 +9,10 @@ export function makeIdMap<T, S>(
   input: T[],
   fn: (t: T) => S
 ): Record<string, S> {
-  return input.reduce(
-    (map, i) => {
-      map[shortid.generate()] = fn(i)
-      return map
-    },
-    {} as Record<string, S>
-  )
+  return input.reduce((map, i) => {
+    map[shortid.generate()] = fn(i)
+    return map
+  }, {} as Record<string, S>)
 }
 
 /**
@@ -28,12 +25,17 @@ export function range(n: number) {
 }
 
 /**
+ * Returns true if string is undefined or empty.
+ */
+export function stringEmpty(s: string): boolean {
+  return !s || /^\s*$/.test(s)
+}
+
+/**
  * Returns keys of `record` that correspond to non-empty values.
  */
 export function filterNonEmptyKeys(record: Record<string, string>): string[] {
-  return Object.keys(record).filter(
-    id => record[id] && !/^\s*$/.test(record[id])
-  )
+  return Object.keys(record).filter(id => !stringEmpty(record[id]))
 }
 
 /**

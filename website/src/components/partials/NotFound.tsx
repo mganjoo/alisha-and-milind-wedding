@@ -11,7 +11,7 @@ const NotFound: React.FC = ({ children }) => {
         image: file(relativePath: { eq: "where-am-i.jpg" }) {
           childImageSharp {
             fluid {
-              ...GatsbyImageSharpFluid_tracedSVG
+              ...GatsbyImageSharpFluid
             }
           }
         }

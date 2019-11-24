@@ -5,8 +5,8 @@ import { Link } from "gatsby"
 const NotFoundPage = () => (
   <NotFound>
     <p>
-      We couldn&apos;t find that page. Come celebrate with us on the{" "}
-      <Link to="/">homepage</Link>!
+      We couldn&apos;t find that page. No worries: we can continue our
+      celebrations on the <Link to="/">homepage</Link>!
     </p>
   </NotFound>
 )

@@ -25,3 +25,19 @@ export const eventFragment = graphql`
     }
   }
 `
+
+export interface DeadlinesResult {
+  siteMetadata: {
+    shortDeadline: string
+    deadline: string
+  }
+}
+
+export const deadlinesFragment = graphql`
+  fragment Deadlines on Site {
+    siteMetadata {
+      shortDeadline: rsvpDeadline(formatString: "MMMM D")
+      deadline: rsvpDeadline(formatString: "MMMM D, YYYY")
+    }
+  }
+`

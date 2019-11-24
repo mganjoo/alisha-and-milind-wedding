@@ -246,6 +246,21 @@ describe("Firestore rules", () => {
       )
     })
 
+    it("should reject writes where guest name is empty", async () => {
+      await firebase.assertFails(
+        rsvps("abc").add({
+          attending: true,
+          guests: [
+            {
+              name: "   ",
+              events: ["sangeet", "mehendi", "ceremony"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
     it("should reject writes where events list has invalid name", async () => {
       await firebase.assertFails(
         rsvps("abc").add({
