@@ -74,10 +74,10 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
           </button>
         </div>
         <div className="py-5 text-center sm:pt-8 sm:pb-2">
-          <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl">
+          <h1 className="font-display text-2xl sm:text-4xl">
             <Link to="/">{data && data.site.siteMetadata.displayTitle}</Link>
           </h1>
-          <h2 className="font-serif text-sm sm:text-xl lg:text-2xl">
+          <h2 className="font-serif text-sm sm:text-xl">
             {data && data.site.siteMetadata.displayDates} &middot;{" "}
             {data && data.site.siteMetadata.location}
           </h2>
@@ -87,14 +87,11 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         ref={navRef}
         className={`${
           dropdownVisible ? "block " : "hidden "
-        }py-3 border-t c-subtle-border font-sans font-semibold text-gray-900 text-sm sm:block sm:py-0 sm:border-t-0 sm:text-base lg:text-lg`}
+        }py-3 border-t c-subtle-border font-sans font-semibold text-gray-900 text-sm sm:block sm:py-0 sm:border-t-0 sm:text-base`}
       >
         <ul className="sm:flex sm:flex-row sm:justify-center sm:items-center">
           {links.map((link, index) => (
-            <li
-              key={index}
-              className="text-center sm:inline-block sm:mx-2 lg:mx-4"
-            >
+            <li key={index} className="text-center sm:inline-block sm:mx-2">
               <Link
                 onClick={closeDropdown}
                 to={link.to}
