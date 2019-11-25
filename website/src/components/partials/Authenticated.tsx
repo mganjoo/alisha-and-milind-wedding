@@ -134,29 +134,31 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         validationSchema={validationSchema}
         onSubmit={login}
       >
-        <BaseForm className="max-w-sm w-full mt-3 mb-8 border rounded-lg p-6 c-subtle-border">
-          <div className="font-serif">
-            <p>
-              To view this page, please use the invitation code included in your
-              wedding invitation email.
-            </p>
-          </div>
-          {(isError || isMissing) && (
-            <Alert className="mt-4">
-              {isError && "There was an error retrieving your invitation. "}
-              {isMissing && "Hmm, we couldn't find that invitation code. "}
-              Please try again, or email us at <ContactEmail />.
-            </Alert>
-          )}
-          <div className="mt-6">
-            <LabelledTextInput
-              name="code"
-              type="text"
-              label="Invitation code"
-            />
-            <SubmitButton label="Submit" className="mt-4 shadow-lg" />
-          </div>
-        </BaseForm>
+        <div className="px-4 pt-4 pb-8">
+          <BaseForm className="max-w-sm w-full border rounded-lg p-6 c-subtle-border">
+            <div className="font-serif">
+              <p>
+                To view this page, please use the invitation code included in
+                your wedding invitation email.
+              </p>
+            </div>
+            {(isError || isMissing) && (
+              <Alert className="mt-4">
+                {isError && "There was an error retrieving your invitation. "}
+                {isMissing && "Hmm, we couldn't find that invitation code. "}
+                Please try again, or email us at <ContactEmail />.
+              </Alert>
+            )}
+            <div className="mt-6">
+              <LabelledTextInput
+                name="code"
+                type="text"
+                label="Invitation code"
+              />
+              <SubmitButton label="Submit" className="mt-4 shadow-lg" />
+            </div>
+          </BaseForm>
+        </div>
       </Formik>
     )
   }
