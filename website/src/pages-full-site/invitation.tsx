@@ -19,13 +19,16 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
     <BaseLayout additionalBodyClassName="overflow-x-hidden">
       <Authenticated initialCode={state.code}>
         <main className="flex flex-col">
-          <div className="flex-1 flex justify-center items-center">
+          <div className="flex-1 flex justify-center items-center overflow-hidden">
             <InvitationCard
               startAutomatically
               onOpen={() => setShowLinks(true)}
             />
           </div>
-          <animated.div className="flex justify-center" style={linksProps}>
+          <animated.div
+            className="flex justify-center mb-10"
+            style={linksProps}
+          >
             <Link
               className="text-center c-button c-button-primary c-button-comfortable shadow-lg"
               to="/"

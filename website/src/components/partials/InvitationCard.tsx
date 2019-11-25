@@ -68,6 +68,8 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   const { invitation } = useContext(InvitationContext)
   const [playing, setPlaying] = useState(false)
   const { movePrevious, moveNext, isAfter } = useStateList(orderedStates)
+  const [letterLoaded, setLetterLoaded] = useState(false)
+  const buttonClickable = letterLoaded && (!playing || allowPause)
 
   const imageData = useStaticQuery(
     graphql`
@@ -100,12 +102,12 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   }
 
   useEffect(() => {
-    if (startAutomatically && !playing) {
+    if (startAutomatically && !playing && letterLoaded) {
       const timerDelay = setTimeout(() => setPlaying(true), startDelay)
       return () => clearTimeout(timerDelay)
     }
     return
-  }, [startAutomatically, playing])
+  }, [startAutomatically, playing, letterLoaded])
 
   const props = useSpring({
     envelopeRotateY: isAfter("flipped") ? 180 : 0,
@@ -144,10 +146,10 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
     <div className="envelope-wrapper-dimensions">
       <div
         className="envelope-dimensions"
-        role={playing && !allowPause ? undefined : "button"}
-        tabIndex={playing && !allowPause ? undefined : 0}
-        onClick={playing && !allowPause ? undefined : handleClick}
-        onKeyUp={playing && !allowPause ? undefined : handleKeyUp}
+        role={buttonClickable ? "button" : undefined}
+        tabIndex={buttonClickable ? 0 : undefined}
+        onClick={buttonClickable ? handleClick : undefined}
+        onKeyUp={buttonClickable ? handleKeyUp : undefined}
       >
         <animated.div
           className="c-flippable"
@@ -209,6 +211,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
               <BackgroundImage
                 style={{ width: "100%", height: "100%" }}
                 fluid={imageData.invitation.childImageSharp.fluid}
+                onLoad={() => setLetterLoaded(true)}
               />
             </animated.div>
             <div
