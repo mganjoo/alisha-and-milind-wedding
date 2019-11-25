@@ -167,28 +167,14 @@
 }
 
 .envelope-wrapper-dimensions {
-  @apply max-w-sm w-full px-5;
+  @apply w-full max-w-2xl px-4;
 
-  padding-top: 8.5rem;
-  padding-bottom: 2.125rem;
+  padding-top: 40%;
+  padding-bottom: 40%;
 
-  @screen md {
-    @apply max-w-full px-0;
-    width: 28rem;
-    padding-top: 10rem;
-    padding-bottom: 2.5rem;
-  }
-
-  @screen lg {
-    width: 32rem;
-    padding-top: 11.5rem;
-    padding-bottom: 2.875rem;
-  }
-
-  @screen xl {
-    width: 36rem;
-    padding-top: 12.75rem;
-    padding-bottom: 3.25rem;
+  @screen sm {
+    padding-top: 16rem;
+    padding-bottom: 16rem;
   }
 }
 

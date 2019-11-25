@@ -31,9 +31,14 @@ const IndexPage = () => {
             <br />
             Alisha &amp; Milind
           </p>
-          <p className="mt-6">
-            <Link to="/rsvp">RSVP</Link>
-          </p>
+          <div className="mt-8">
+            <Link
+              to="/rsvp"
+              className="c-button c-button-primary c-button-comfortable"
+            >
+              RSVP
+            </Link>
+          </div>
         </div>
       </>
     </ImageLayout>

@@ -1,7 +1,9 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
+import { graphql, useStaticQuery } from "gatsby"
 import { InvitationContext } from "./Authenticated"
 import { useSpring, animated, interpolate } from "react-spring"
 import { useStateList } from "../utils/UtilHooks"
+import BackgroundImage from "gatsby-background-image"
 
 type AnimationState = "new" | "flipped" | "flap-open" | "letter-out"
 
@@ -13,13 +15,36 @@ const orderedStates: AnimationState[] = [
 ]
 
 interface InvitationCardProps {
-  playing?: boolean
+  /**
+   * Start animating a short delay after mount.
+   */
+  startAutomatically?: boolean
+
+  /**
+   * Normally, once the invitation starts playing, it cannot be paused.
+   * This optional param can be useful for debugging purposes, by
+   * allowing re-clicks that control pausing.
+   */
+  allowPause?: boolean
+
+  /**
+   * Optionally reverse the direction of animation.
+   */
   reverse?: boolean
+
+  /**
+   * Callback for when the card is opened.
+   */
+  onOpen?: () => void
 }
 
-const springConfig = { mass: 5, tension: 300, friction: 80, clamp: true }
+const startDelay = 2000 // in ms
+const springConfig = { mass: 5, tension: 300, friction: 65, clamp: true }
 const envelopeRotate = 25 // in degrees
-const envelopeScale = 0.8
+const envelopeScale = 0.95
+// Letter is originally in landscape (w = 1.4h). When rotated by 90deg,
+// multiply by aspect ratio so that new width is same as original width
+const letterScale = 1.4
 const letterPeakYOffset = 140 // in %
 const letterFinalYOffset = 0 // in %
 
@@ -35,21 +60,53 @@ const flapTransform = (rotateX: any) =>
   `perspective(55rem) rotateX(${rotateX}deg)`
 
 const InvitationCard: React.FC<InvitationCardProps> = ({
-  playing = false,
+  onOpen,
+  startAutomatically = false,
+  allowPause = false,
   reverse = false,
 }) => {
   const { invitation } = useContext(InvitationContext)
+  const [playing, setPlaying] = useState(false)
   const { movePrevious, moveNext, isAfter } = useStateList(orderedStates)
+
+  const imageData = useStaticQuery(
+    graphql`
+      query {
+        invitation: file(relativePath: { eq: "invitation.jpg" }) {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    `
+  )
 
   function transition() {
     if (playing) {
       if (reverse) {
         movePrevious()
       } else {
+        if (
+          isAfter(orderedStates[orderedStates.length - 1]) &&
+          onOpen !== undefined
+        ) {
+          onOpen()
+        }
         moveNext()
       }
     }
   }
+
+  useEffect(() => {
+    if (startAutomatically && !playing) {
+      const timerDelay = setTimeout(() => setPlaying(true), startDelay)
+      return () => clearTimeout(timerDelay)
+    }
+    return
+  }, [startAutomatically, playing])
+
   const props = useSpring({
     envelopeRotateY: isAfter("flipped") ? 180 : 0,
     flapZIndex: isAfter("flap-open") ? -1 : 0,
@@ -61,9 +118,37 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
     immediate: key => key === "flapZIndex" && !isAfter("flap-open"),
   })
 
+  function handleClick(e: React.SyntheticEvent<HTMLDivElement>) {
+    if (allowPause) {
+      setPlaying(p => !p)
+    } else {
+      setPlaying(true)
+    }
+    if (e.currentTarget) {
+      e.currentTarget.blur()
+    }
+  }
+
+  function handleKeyUp(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (
+      e.key === "Enter" ||
+      e.key === " " ||
+      e.key === "Return" ||
+      e.key === "Spacebar"
+    ) {
+      handleClick(e)
+    }
+  }
+
   return (
     <div className="envelope-wrapper-dimensions">
-      <div className="envelope-dimensions">
+      <div
+        className="envelope-dimensions"
+        role={playing && !allowPause ? undefined : "button"}
+        tabIndex={playing && !allowPause ? undefined : 0}
+        onClick={playing && !allowPause ? undefined : handleClick}
+        onKeyUp={playing && !allowPause ? undefined : handleKeyUp}
+      >
         <animated.div
           className="c-flippable"
           style={{
@@ -89,7 +174,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
             className="front flex items-center justify-center"
             style={{ backgroundImage: "url('/invitation/front-base.png')" }}
           >
-            <p className="font-serif text-lg text-gray-900 tracking-tight">
+            <p className="font-serif text-lg text-yellow-200 sm:text-xl">
               {invitation.partyName}
             </p>
           </div>
@@ -98,7 +183,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
             style={{ backgroundImage: "url('/invitation/back-base.png')" }}
           >
             <animated.div
-              className="letter-dimensions bg-off-white rounded-sm shadow-md border border-orange-200 px-3 py-8"
+              className="letter-dimensions border border-orange-800 shadow-lg"
               style={{
                 transform: interpolate(
                   [
@@ -111,7 +196,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
                     props.letterProgress.interpolate({
                       // scale
                       range: [0, 0.5, 1],
-                      output: [1, 1, 1 / envelopeScale],
+                      output: [1, 1, (1 / envelopeScale) * letterScale],
                     }),
                   ],
                   letterTransform
@@ -121,7 +206,10 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
                 ),
               }}
             >
-              <p>Welcome to our wedding</p>
+              <BackgroundImage
+                style={{ width: "100%", height: "100%" }}
+                fluid={imageData.invitation.childImageSharp.fluid}
+              />
             </animated.div>
             <div
               className="c-full-area"
