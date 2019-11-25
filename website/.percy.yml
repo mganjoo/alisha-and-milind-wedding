@@ -1,3 +1,13 @@
 version: 1
 snapshot:
   widths: [375, 768, 1280]
+  percy-css: |
+    .save-the-date-banner::after {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: white;
+      content: " ";
+    }
