@@ -38,7 +38,7 @@ export const validationSchema = object().shape({
             name: "attending-at-least-one-event",
             test: (value: Record<string, string[]>) =>
               Object.values(value).some(v => v.length > 0),
-            message: "Please confirm attendance for at least one event.",
+            message: "Please make selections for at least one event.",
           })
         : schema
     }

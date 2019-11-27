@@ -28,16 +28,18 @@ const RsvpStatus: React.FC<RsvpStatusProps> = () => {
   const statusIconClassName = "w-10 h-10 ml-2 mr-6"
   const [showForm, setShowForm] = useState(invitation.latestRsvp === undefined)
   return (
-    <div className="px-2 max-w-xl sm:px-0">
-      <p className="c-body-text">
-        We hope to see you at our wedding! Please RSVP by{" "}
-        <span className="font-semibold">{site.siteMetadata.deadline}</span>.
-      </p>
-      <p className="c-body-text">
-        Any member of your party can submit for the whole group, and you can
-        edit your RSVP as many times as you like before{" "}
-        {site.siteMetadata.shortDeadline}.
-      </p>
+    <div>
+      <div className="mb-4">
+        <p className="c-body-text">
+          We hope to see you at our wedding! Please RSVP by{" "}
+          <span className="font-semibold">{site.siteMetadata.deadline}</span>.
+        </p>
+        <p className="c-body-text">
+          Any member of your party can submit for the whole group, and you can
+          edit your RSVP as many times as you like before{" "}
+          {site.siteMetadata.shortDeadline}.
+        </p>
+      </div>
       {!showForm && invitation.latestRsvp && (
         <section
           className="font-serif text-base border py-4 px-3 mt-8 rounded-lg flex items-center border-gray-800 sm:py-6 sm:px-4"
@@ -48,8 +50,10 @@ const RsvpStatus: React.FC<RsvpStatusProps> = () => {
             className={classnames(statusIconClassName, "text-gray-600")}
           />
           <div className="font-sans">
-            <h2 className="mb-1 font-bold text-lg">{invitation.partyName}</h2>
-            <p>
+            <h2 className="font-display mb-1 text-2xl">
+              {invitation.partyName}
+            </h2>
+            <p className="font-serif">
               RSVP received on{" "}
               <span className="font-semibold whitespace-no-wrap">
                 {formatDate(invitation.latestRsvp.timestampMillis)}

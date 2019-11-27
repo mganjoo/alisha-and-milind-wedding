@@ -1,50 +1,48 @@
-import React, { useMemo } from "react"
-import OptionsGroup from "../form/OptionsGroup"
+import React from "react"
 import { WeddingEvent } from "../../interfaces/Event"
-import ControlledLabelledOption from "../form/ControlledLabelledOption"
-import { GuestMap } from "../../interfaces/RsvpFormValues"
-import { filterNonEmptyKeys } from "../utils/Utils"
-import { useUID } from "react-uid"
+import OptionsGroup, { Option } from "../form/OptionsGroup"
 
 interface AttendanceItemProps {
   event: WeddingEvent
-  guests: GuestMap
+  guestOptions: Option[]
 }
 
-const AttendanceItem: React.FC<AttendanceItemProps> = ({ event, guests }) => {
-  const options = useMemo(
-    () =>
-      filterNonEmptyKeys(guests).map(id => ({
-        value: id,
-        label: guests[id],
-      })),
-    [guests]
-  )
-  const numOptions = options.length
-  const headingId = useUID()
+const AttendanceItem: React.FC<AttendanceItemProps> = ({
+  event,
+  guestOptions,
+}) => {
+  const headingId = `event-heading-${event.shortName}`
+  const options =
+    guestOptions.length === 1
+      ? [{ label: "Attending", value: guestOptions[0].value }]
+      : guestOptions
 
-  return numOptions === 0 ? null : numOptions === 1 ? (
-    <ControlledLabelledOption
-      type="checkbox"
-      name={`attendees.${event.shortName}`}
-      label={`${event.name} @ ${event.shortDate}`}
-      value={options[0].value}
-    />
-  ) : (
-    <div className="mt-4">
-      <p className="font-semibold -mb-1" id={headingId}>
-        {event.name}
-        <span className="text-gray-700"> @ {event.shortDate}</span>
+  return (
+    <div className="mb-2 sm:flex sm:items-center">
+      <p
+        className="flex flex-wrap items-baseline pb-1 border-b c-subtle-border sm:border-0 sm:mr-4 sm:w-1/3 sm:flex-col sm:items-end sm:pb-0"
+        id={headingId}
+      >
+        <span className="pr-3 text-lg font-sans font-semibold text-orange-800 font-sans sm:pr-0 sm:mb-1 sm:text-xl">
+          {event.name}
+        </span>
+        <span className="text-gray-700 text-sm font-serif sm:text-base sm:mb-6">
+          {event.shortDate}
+        </span>
       </p>
-      <OptionsGroup
-        name={`attendees.${event.shortName}`}
-        type="checkbox"
-        label="Who is attending?"
-        options={options}
-        additionalGroupLabelId={headingId}
-        showSelectAll
-        selectAllLabel={numOptions > 2 ? "All guests" : "Both guests"}
-      />
+      <div className="mt-2 sm:w-2/3 sm:mt-0">
+        <OptionsGroup
+          name={`attendees.${event.shortName}`}
+          type="checkbox"
+          label={headingId}
+          labelType="id"
+          options={options}
+          showSelectAll={options.length > 1}
+          selectAllLabel={`${
+            guestOptions.length > 2 ? "All guests" : "Both guests"
+          } are attending`}
+        />
+      </div>
     </div>
   )
 }

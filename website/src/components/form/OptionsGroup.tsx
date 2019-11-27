@@ -6,7 +6,7 @@ import { useRegisteredRef } from "react-register-nodes"
 import ControlledLabelledOption from "./ControlledLabelledOption"
 import LabelledOption from "./LabelledOption"
 
-interface Option {
+export interface Option {
   value: string
   label: string
 }
@@ -14,11 +14,11 @@ interface Option {
 interface OptionsGroupProps {
   name: string
   label: string
+  labelType?: "text" | "id"
   type: "radio" | "checkbox"
   options: Option[]
   showSelectAll?: boolean
   selectAllLabel?: string
-  additionalGroupLabelId?: string
 }
 
 const OptionsGroup: React.FC<OptionsGroupProps> = ({
@@ -28,7 +28,7 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   label,
   showSelectAll,
   selectAllLabel,
-  additionalGroupLabelId,
+  labelType = "text",
 }) => {
   const [field, meta] = useField<any>(name)
   const ref = useRegisteredRef(name)
@@ -57,12 +57,12 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   return (
     <LabelWrapper
       label={label}
+      labelType={labelType}
       group
       errorMessage={errorMessage}
-      additionalLabelId={additionalGroupLabelId}
     >
       <div
-        className={classnames("w-full pl-1", {
+        className={classnames("w-full px-2 pt-2", {
           "border rounded c-invalid-outline": !!errorMessage,
         })}
       >
@@ -76,9 +76,14 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
           />
         )}
         <div
-          className={classnames({
-            "ml-2 border-l-2 pl-3 pt-1 border-orange-300": shouldShowSelectAll,
-          })}
+          className={
+            shouldShowSelectAll
+              ? classnames(
+                  "ml-2 pl-3 pt-1 border-l-2",
+                  allSelected ? "border-orange-500" : "c-subtle-border"
+                )
+              : undefined
+          }
         >
           {options.map((option, i) => (
             <ControlledLabelledOption

@@ -20,7 +20,7 @@ const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
         ? "form-radio"
         : undefined
     return (
-      <div className="mt-1">
+      <div className="mb-2">
         <label className="inline-flex items-center">
           <input type={type} className={className} ref={ref} {...otherProps} />
           <span className="ml-2">

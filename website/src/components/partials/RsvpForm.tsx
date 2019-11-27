@@ -55,9 +55,13 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
   events,
   onDone,
 }) => {
-  const { values, validateForm, setValues, resetForm } = useFormikContext<
-    RsvpFormValues
-  >()
+  const {
+    initialValues,
+    values,
+    validateForm,
+    setValues,
+    resetForm,
+  } = useFormikContext<RsvpFormValues>()
   const [page, setPage] = useState<Page>("guests")
 
   // Snapshot of guests for events page
@@ -99,7 +103,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     })
   }
   const toGuests = () => setPage("guests")
-  const buttonClassName = "mr-3 mb-3"
+  const buttonClassName = "mb-6 mx-2 flex-grow"
   const handleCancel = () => {
     resetForm()
     onDone(false)
@@ -110,27 +114,39 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     <>
       {page === "guests" && (
         <div ref={guestsRef}>
-          <h3 className="c-form-section-heading">
-            {invitation.latestRsvp && "Editing"} RSVP for:{" "}
-            <span className="font-semibold">{invitation.partyName}</span>
+          <h3
+            className={
+              invitation.numGuests === 1
+                ? "c-form-section-heading"
+                : "font-sans text-sm text-orange-800 italic"
+            }
+          >
+            {invitation.latestRsvp ? "Editing RSVP" : "Welcome"}
           </h3>
-          {invitation.latestRsvp ? (
-            <p>
-              Here is the information from your previous submission. Feel free
-              to make changes and submit the RSVP again.
-            </p>
-          ) : (
-            <p>
-              We&apos;ve filled out some information based on what we know.
-              Please edit or correct anything we may have missed.
-            </p>
+          {invitation.numGuests > 1 && (
+            <h3 className="c-form-section-heading">{invitation.partyName}</h3>
           )}
+          <p className="c-form-section-description">
+            {invitation.latestRsvp ? (
+              <>
+                Here is the information from your previous submission. Feel free
+                to make changes and submit the RSVP again.
+              </>
+            ) : (
+              <>
+                We&apos;ve filled out some information based on what we know.
+                Please edit or correct anything we may have missed.
+              </>
+            )}
+          </p>
           <TextInputGroup
             label={guestKeys.length > 1 ? "Names of guests" : "Name"}
             groupName="guests"
             fieldKeys={guestKeys}
             fieldLabelFn={i =>
-              `Name of ${ordinalSuffix(i)} guest${i === 1 ? " (required)" : ""}`
+              `Name of ${ordinalSuffix(i)} guest${
+                i > invitation.knownGuests.length ? " (optional)" : ""
+              }`
             }
           />
           <OptionsGroup
@@ -139,6 +155,12 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
             label="Will you be attending?"
             options={attendingOptions}
           />
+          {initialValues.attending !== values.attending && (
+            <div className="-mb-2 font-sans text-center text-sm text-orange-900 italic">
+              {values.attending === "yes" &&
+                "Yay! One more step: confirm attendance for specific events on the next page."}
+            </div>
+          )}
         </div>
       )}
       {page === "attendance" && (
@@ -146,17 +168,13 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
           <AttendanceGroup guests={guestsForAttendancePage} />
         </div>
       )}
-      <div className="mt-6 flex flex-wrap">
+      <div className="mt-6 flex flex-wrap flex-row-reverse">
         {page === "attendance" ||
         (page === "guests" && values.attending === "no") ? (
-          <SubmitButton
-            label="Submit RSVP"
-            fit="compact"
-            className={buttonClassName}
-          />
+          <SubmitButton label="Submit RSVP" className={buttonClassName} />
         ) : (
-          <Button onClick={toEvents} fit="compact" className={buttonClassName}>
-            Next: confirm events
+          <Button onClick={toEvents} className={buttonClassName}>
+            Next: specific events
           </Button>
         )}
         {page === "attendance" && (
@@ -164,15 +182,13 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
             onClick={toGuests}
             className={buttonClassName}
             purpose="secondary"
-            fit="compact"
           >
-            Back: guests
+            Back: guest details
           </Button>
         )}
         {invitation.latestRsvp && (
           <Button
             purpose="secondary"
-            fit="compact"
             className={buttonClassName}
             onClick={handleCancel}
           >
@@ -215,30 +231,24 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onDone }) => {
   )
 
   return (
-    <div className="mt-8 max-w-sm mx-auto w-full">
-      <div className="mb-6 text-center">
-        <LeafSpacer />
-      </div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={submitRsvp}
-      >
-        <BaseForm className="font-serif w-full">
-          {submitError && (
-            <Alert className="my-3 mx-4 lg:mx-2">
-              There was a problem submitting the RSVP. Please email us at{" "}
-              <ContactEmail />.
-            </Alert>
-          )}
-          <PageWrapper
-            invitation={invitation}
-            events={events}
-            onDone={onDone}
-          />
-        </BaseForm>
-      </Formik>
-    </div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={submitRsvp}
+    >
+      <BaseForm>
+        <div className="my-6 text-center">
+          <LeafSpacer />
+        </div>
+        <PageWrapper invitation={invitation} events={events} onDone={onDone} />
+        {submitError && (
+          <Alert className="mt-4">
+            There was a problem submitting the RSVP. Please email us at{" "}
+            <ContactEmail />.
+          </Alert>
+        )}
+      </BaseForm>
+    </Formik>
   )
 }
 export default RsvpForm

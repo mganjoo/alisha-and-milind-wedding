@@ -37,13 +37,13 @@ const SaveTheDatePage: React.FC = () => {
       />
       <main className="lg:flex lg:flex-row-reverse">
         <Img
-          className="save-the-date-banner flex-1"
+          className="full-screen-hero flex-1"
           fluid={data.weddingHeroImage.childImageSharp.fluid}
           backgroundColor="#ece5df"
           alt=""
           imgStyle={{ objectPosition: "36% 50%" }}
         />
-        <div className="flex-none flex flex-col items-center mx-auto max-w-lg lg:max-w-lg">
+        <div className="flex-none flex flex-col items-center mx-auto max-w-md px-8">
           <section className="text-center">
             <h1 className="mt-4 font-script text-4xl text-orange-900 sm:text-5xl lg:mt-10">
               Save the Date

@@ -22,10 +22,12 @@ const RsvpPage = () => {
   return (
     <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
       <SEO title="RSVP" />
-      <h1 className="c-page-heading">RSVP</h1>
-      <Authenticated>
-        <RsvpStatus />
-      </Authenticated>
+      <section className="max-w-lg mx-auto">
+        <h1 className="c-page-heading text-center">RSVP</h1>
+        <Authenticated>
+          <RsvpStatus />
+        </Authenticated>
+      </section>
     </ImageLayout>
   )
 }

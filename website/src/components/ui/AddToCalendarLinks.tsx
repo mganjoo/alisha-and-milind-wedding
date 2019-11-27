@@ -1,5 +1,4 @@
 import React from "react"
-import classnames from "classnames"
 import {
   CalendarEvent,
   ical,
@@ -7,6 +6,7 @@ import {
   outlook,
   yahoo,
 } from "../utils/AddToCalendarUtils"
+import { useUID } from "react-uid"
 
 type CalendarType = "google" | "yahoo" | "outlookcom" | "apple" | "ical"
 
@@ -98,25 +98,23 @@ function CalendarLink({ url, type, download }: CalendarLinkProps) {
 interface AddToCalendarProps {
   event: CalendarEvent
   label: string
-  className?: string
 }
 
-const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
-  event,
-  label,
-  className,
-}) => {
+const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({ event, label }) => {
+  const id = `addToCalendar-${useUID()}`
   return (
-    <>
-      <h2 className="mt-4 mb-2 text-sm font-sans font-semibold">{label}</h2>
-      <ul className={classnames("flex flex-wrap justify-center", className)}>
+    <section aria-labelledby={id}>
+      <h2 className="my-2 text-sm font-sans font-semibold" id={id}>
+        {label}
+      </h2>
+      <ul className="flex flex-wrap justify-center">
         <CalendarLink url={ical(event)} download="event.ics" type="apple" />
         <CalendarLink url={google(event)} type="google" />
         <CalendarLink url={outlook(event)} type="outlookcom" />
         <CalendarLink url={yahoo(event)} type="yahoo" />
         <CalendarLink url={ical(event)} download="event.ics" type="ical" />
       </ul>
-    </>
+    </section>
   )
 }
 export default AddToCalendarLinks

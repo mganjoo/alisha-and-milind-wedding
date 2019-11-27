@@ -52,7 +52,7 @@ const SaveTheDateForm: React.FC = () => {
   return (
     <>
       <div
-        className={classnames("px-12 lg:px-16", {
+        className={classnames({
           "hidden lg:block lg:invisible": submitted,
         })}
       >
@@ -65,14 +65,9 @@ const SaveTheDateForm: React.FC = () => {
           validationSchema={validationSchema}
           onSubmit={submitInfo}
         >
-          <BaseForm className="flex flex-col items-center pb-8 lg:pb-16">
-            {submitError && (
-              <Alert className="my-3 mx-4 lg:mx-2">
-                There was a problem submitting your info. Please email us at{" "}
-                <ContactEmail />.
-              </Alert>
-            )}
-            <div className="w-full">
+          {/* Padding needed here for confirmation page to work */}
+          <BaseForm className="flex flex-col items-center pt-4 pb-16 lg:pb-20">
+            <div className="w-full mb-6">
               <LabelledTextInput
                 label="Name"
                 name="name"
@@ -86,17 +81,20 @@ const SaveTheDateForm: React.FC = () => {
                 autoComplete="email"
               />
             </div>
-            <SubmitButton label="Submit info" className="mt-8 mb-2 shadow-lg" />
+            <SubmitButton label="Submit info" className="shadow-lg" />
+            {submitError && (
+              <Alert className="mt-8">
+                There was a problem submitting your info. Please email us at{" "}
+                <ContactEmail />.
+              </Alert>
+            )}
           </BaseForm>
         </Formik>
       </div>
       {submitted && (
-        <Confirmation className="flex flex-col text-center px-8 items-center lg:absolute lg:inset-0 lg:px-12">
-          <Symbol
-            symbol="check"
-            className="w-12 h-12 mt-2 mb-6 text-green-700"
-          />
-          <div className="c-article">
+        <Confirmation className="flex flex-col text-center items-center lg:absolute lg:inset-0">
+          <Symbol symbol="check" className="w-12 h-12 mb-4 text-green-700" />
+          <div className="c-article mb-2">
             <p>
               Thank you for confirming your email! Stay tuned for the invitation
               and wedding website.
@@ -104,7 +102,6 @@ const SaveTheDateForm: React.FC = () => {
             <p>We&apos;re so excited to celebrate with you!</p>
           </div>
           <AddToCalendarLinks
-            className="max-w-sm pb-4 lg:max-w-full"
             label="Add dates to calendar"
             event={{
               title: "Alisha & Milind's Wedding Weekend",
