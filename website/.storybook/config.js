@@ -1,12 +1,9 @@
-import { addParameters, configure } from "@storybook/react"
+import React from "react"
+import { addParameters, configure, addDecorator } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
 import "../gatsby-browser.js"
 
-// automatically import all files ending in *.stories.tsx in stories/
-const req = require.context("../stories", true, /\.stories\.tsx$/)
-function loadStories() {
-  req.keys().forEach(filename => req(filename))
-}
+const sharedConstants = require("../shared-constants")
 
 const responsiveViewports = {
   mobile_small: {
@@ -74,4 +71,14 @@ global.___navigate = pathname => {
   action("NavigateTo:")(pathname)
 }
 
-configure(loadStories, module)
+// global decorator for text color, from <BaseLayout />
+addDecorator(storyFn => <div className="text-gray-900">{storyFn()}</div>)
+
+// global background configuration
+addParameters({
+  backgrounds: [
+    { name: "off-white", value: sharedConstants.offWhite, default: true },
+  ],
+})
+
+configure(require.context("../src/components", true, /\.stories\.tsx$/), module)

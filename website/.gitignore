@@ -51,3 +51,6 @@ public
 cypress/screenshots
 cypress/videos
 cypress.env.json
+
+# Storybook
+storybook-static

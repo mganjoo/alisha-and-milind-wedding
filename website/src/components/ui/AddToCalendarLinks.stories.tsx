@@ -1,8 +1,11 @@
 import React from "react"
-import { storiesOf } from "@storybook/react"
-import AddToCalendarLinks from "../src/components/ui/AddToCalendarLinks"
+import AddToCalendarLinks from "./AddToCalendarLinks"
 
-storiesOf("AddToCalendarLinks", module).add("default", () => (
+export default {
+  title: "AddToCalendarLinks",
+}
+
+export const main = () => (
   <AddToCalendarLinks
     label="Add to calendar"
     event={{
@@ -14,4 +17,4 @@ storiesOf("AddToCalendarLinks", module).add("default", () => (
       url: "https://example.com",
     }}
   />
-))
+)

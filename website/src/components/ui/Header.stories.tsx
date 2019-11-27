@@ -1,6 +1,5 @@
 import React from "react"
-import { storiesOf } from "@storybook/react"
-import Header from "../src/components/ui/Header"
+import Header from "./Header"
 
 const link1 = { text: "Our Story", to: "/our-story" }
 const link2 = { text: "Events", to: "/events" }
@@ -17,6 +16,10 @@ const linksWithActive = [
   link5,
 ]
 
-storiesOf("Header", module)
-  .add("default", () => <Header links={defaultLinks} />)
-  .add("with active link", () => <Header links={linksWithActive} />)
+export default {
+  title: "Header",
+}
+
+export const main = () => <Header links={defaultLinks} />
+
+export const withActiveLink = () => <Header links={linksWithActive} />
