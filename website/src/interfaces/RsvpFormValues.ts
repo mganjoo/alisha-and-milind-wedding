@@ -4,7 +4,7 @@ import {
   makeIdMap,
   range,
   stringEmpty,
-} from "../components/utils/Utils"
+} from "../utils/Utils"
 import { WeddingEvent } from "./Event"
 import { Invitation, Rsvp } from "@alisha-and-milind-wedding/shared-types"
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { InvitationContext } from "./Authenticated"
 import { useSpring, animated, interpolate } from "react-spring"
-import { useStateList } from "../utils/UtilHooks"
+import { useStateList } from "../../utils/UtilHooks"
 import BackgroundImage from "gatsby-background-image"
 
 type AnimationState = "new" | "flipped" | "flap-open" | "letter-out"

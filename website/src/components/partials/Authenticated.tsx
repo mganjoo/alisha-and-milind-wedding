@@ -25,7 +25,7 @@ const validationSchema = object<LoginFormValues>({
   code: string().required("Please enter your invitation code."),
 })
 
-interface InvitationContextWrapper {
+export interface InvitationContextWrapper {
   invitation: Invitation
 
   /**
@@ -47,11 +47,19 @@ const fallbackInvitation: Invitation = {
   knownGuests: ["Doug Peterson Jones", "Betty Draper"],
 }
 
-const fallbackInvitationContextWrapper: InvitationContextWrapper = {
-  invitation: fallbackInvitation,
-  refetch: () => new Promise(() => console.log("unsupported operation")),
-  reloadSaved: () => new Promise(() => console.log("unsupported operation")),
+export function makeInvitationContextWrapper(
+  invitation: Invitation
+): InvitationContextWrapper {
+  return {
+    invitation: invitation,
+    refetch: () => new Promise(() => console.log("unsupported operation")),
+    reloadSaved: () => new Promise(() => console.log("unsupported operation")),
+  }
 }
+
+const fallbackInvitationContextWrapper: InvitationContextWrapper = makeInvitationContextWrapper(
+  fallbackInvitation
+)
 export const InvitationContext = createContext<InvitationContextWrapper>(
   fallbackInvitationContextWrapper
 )

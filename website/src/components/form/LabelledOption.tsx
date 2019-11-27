@@ -2,7 +2,7 @@ import React from "react"
 
 interface LabelledOptionProps
   extends React.DetailedHTMLProps<
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "className">,
     HTMLInputElement
   > {
   label: string

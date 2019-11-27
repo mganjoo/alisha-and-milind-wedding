@@ -12,7 +12,7 @@ const DemoPage: React.FC = () => {
       </Helmet>
       <main className="flex flex-col">
         <div className="flex justify-start py-4">
-          <Button className="ml-4" onClick={() => setDirection(-direction)}>
+          <Button onClick={() => setDirection(-direction)}>
             Switch: {direction > 0 ? "reverse" : "forward"}
           </Button>
         </div>

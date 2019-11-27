@@ -5,7 +5,7 @@ import {
   google,
   outlook,
   yahoo,
-} from "../utils/AddToCalendarUtils"
+} from "../../utils/AddToCalendarUtils"
 import { useUID } from "react-uid"
 
 type CalendarType = "google" | "yahoo" | "outlookcom" | "apple" | "ical"
@@ -103,7 +103,7 @@ interface AddToCalendarProps {
 const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({ event, label }) => {
   const id = `addToCalendar-${useUID()}`
   return (
-    <section aria-labelledby={id}>
+    <section aria-labelledby={id} className="flex flex-col items-center">
       <h2 className="my-2 text-sm font-sans font-semibold" id={id}>
         {label}
       </h2>

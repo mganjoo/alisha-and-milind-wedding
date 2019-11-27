@@ -1,4 +1,4 @@
-import { EventResult } from "../../interfaces/Event"
+import { EventResult } from "../interfaces/Event"
 import { useStaticQuery, graphql } from "gatsby"
 /**
  * Returns all registered wedding events.

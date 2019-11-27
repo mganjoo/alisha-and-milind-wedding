@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react"
 import classnames from "classnames"
-import { scrollIntoView } from "../utils/Utils"
+import { scrollIntoView } from "../../utils/Utils"
 import { useRegisteredRef } from "react-register-nodes"
 import { useUID } from "react-uid"
 
