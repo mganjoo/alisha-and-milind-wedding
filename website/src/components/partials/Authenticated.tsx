@@ -134,8 +134,8 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         validationSchema={validationSchema}
         onSubmit={login}
       >
-        <div className="px-4 pt-4 pb-8">
-          <BaseForm className="max-w-sm w-full border rounded-lg p-6 c-subtle-border">
+        <div className="p-4">
+          <BaseForm className="max-w-sm mx-auto w-full border rounded-lg p-6 c-subtle-border">
             <div className="font-serif">
               <p>
                 To view this page, please use the invitation code included in
