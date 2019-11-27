@@ -26,7 +26,8 @@
     "build:netlify": "npm --prefix shared-types run build && npm --prefix website run build",
     "start:shared-types": "npm --prefix shared-types run build:watch",
     "start:website": "npm --prefix website run develop",
-    "check:types": "lerna run --concurrency 1 --stream check:types"
+    "check:types": "lerna run --concurrency 1 --stream check:types",
+    "storybook": "npm --prefix website run storybook"
   },
   "husky": {
     "hooks": {
