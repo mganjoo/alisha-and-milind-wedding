@@ -111,7 +111,7 @@
 }
 
 .c-form-section-description {
-  @apply font-serif mb-6 text-gray-600;
+  @apply font-serif mb-6 text-gray-800;
 }
 
 .c-body-text {

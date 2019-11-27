@@ -103,7 +103,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     })
   }
   const toGuests = () => setPage("guests")
-  const buttonClassName = "mb-6 mx-2 flex-grow"
+  const buttonClassName = "mb-4 mx-2 flex-auto"
   const handleCancel = () => {
     resetForm()
     onDone(false)
@@ -168,7 +168,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
           <AttendanceGroup guests={guestsForAttendancePage} />
         </div>
       )}
-      <div className="mt-6 flex flex-wrap flex-row-reverse">
+      <div className="mt-6 px-2 flex flex-wrap flex-row-reverse">
         {page === "attendance" ||
         (page === "guests" && values.attending === "no") ? (
           <SubmitButton label="Submit RSVP" className={buttonClassName} />

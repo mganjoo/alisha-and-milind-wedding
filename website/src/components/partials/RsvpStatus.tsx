@@ -25,7 +25,6 @@ const RsvpStatus: React.FC<RsvpStatusProps> = () => {
       }
     `
   )
-  const statusIconClassName = "w-10 h-10 ml-2 mr-6"
   const [showForm, setShowForm] = useState(invitation.latestRsvp === undefined)
   return (
     <div>
@@ -41,38 +40,51 @@ const RsvpStatus: React.FC<RsvpStatusProps> = () => {
         </p>
       </div>
       {!showForm && invitation.latestRsvp && (
-        <section
-          className="font-serif text-base border py-4 px-3 mt-8 rounded-lg flex items-center border-gray-800 sm:py-6 sm:px-4"
-          aria-label="RSVP status"
-        >
-          <Symbol
-            symbol={invitation.latestRsvp.attending ? "check" : "cross"}
-            className={classnames(statusIconClassName, "text-gray-600")}
-          />
-          <div className="font-sans">
-            <h2 className="font-display mb-1 text-2xl">
-              {invitation.partyName}
-            </h2>
-            <p className="font-serif">
-              RSVP received on{" "}
-              <span className="font-semibold whitespace-no-wrap">
-                {formatDate(invitation.latestRsvp.timestampMillis)}
-              </span>
-            </p>
-            <p className="mt-1 font-semibold">
-              {invitation.latestRsvp.attending
-                ? `${invitation.latestRsvp.guests.length} ${
-                    invitation.latestRsvp.guests.length > 1 ? "guests" : "guest"
-                  } attending`
-                : "Not attending"}
-            </p>
-            <Button
-              className="mt-3"
-              fit="compact"
-              onClick={() => setShowForm(true)}
-            >
-              Edit RSVP
-            </Button>
+        <section aria-label="RSVP status" className="flex justify-center">
+          <div className="font-serif mt-8 px-6 py-6 flex flex-col items-center border c-subtle-border rounded-lg sm:px-8">
+            <div className="flex flex-col items-center sm:flex-row">
+              <Symbol
+                symbol={invitation.latestRsvp.attending ? "check" : "cross"}
+                className={classnames(
+                  "w-10 h-10 mb-4 sm:w-12 sm:h-12 sm:mr-4",
+                  "text-gray-600"
+                )}
+              />
+              <div className="text-center">
+                <h2 className="font-display mb-1 text-2xl">
+                  {invitation.partyName}
+                </h2>
+                <p className="font-sans italic text-sm text-gray-700 mb-6">
+                  RSVP received on{" "}
+                  <span className="font-semibold whitespace-no-wrap not-italic text-gray-900">
+                    {formatDate(invitation.latestRsvp.timestampMillis)}
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="font-sans font-semibold text-orange-800 mb-1">
+                {invitation.latestRsvp.attending
+                  ? `${invitation.latestRsvp.guests.length} ${
+                      invitation.latestRsvp.guests.length > 1
+                        ? "guests"
+                        : "guest"
+                    } attending`
+                  : "Not attending"}
+              </p>
+              {invitation.latestRsvp.attending && (
+                <ul className="font-serif">
+                  {invitation.latestRsvp.guests.map(guest => (
+                    <li key={guest.name}>{guest.name}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div className="flex justify-center mt-6 w-full">
+              <Button className="w-full" onClick={() => setShowForm(true)}>
+                Edit RSVP
+              </Button>
+            </div>
           </div>
         </section>
       )}

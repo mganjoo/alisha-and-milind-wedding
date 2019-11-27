@@ -136,26 +136,24 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       >
         <div className="p-4">
           <BaseForm className="max-w-sm mx-auto w-full border rounded-lg p-6 c-subtle-border">
-            <div className="font-serif">
-              <p>
-                To view this page, please use the invitation code included in
-                your wedding invitation email.
-              </p>
-            </div>
+            <p className="c-form-section-description">
+              To view this page, please use the invitation code included in your
+              wedding invitation email.
+            </p>
             {(isError || isMissing) && (
-              <Alert className="mt-4">
+              <Alert className="mb-4">
                 {isError && "There was an error retrieving your invitation. "}
                 {isMissing && "Hmm, we couldn't find that invitation code. "}
                 Please try again, or email us at <ContactEmail />.
               </Alert>
             )}
-            <div className="mt-6">
+            <div>
               <LabelledTextInput
                 name="code"
                 type="text"
                 label="Invitation code"
               />
-              <SubmitButton label="Submit" className="mt-4 shadow-lg" />
+              <SubmitButton label="Submit" className="mt-1 shadow-lg" />
             </div>
           </BaseForm>
         </div>
