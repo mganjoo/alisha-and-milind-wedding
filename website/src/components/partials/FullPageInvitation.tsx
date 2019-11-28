@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react"
 import InvitationCard from "./InvitationCard"
 import { Link } from "gatsby"
 import { useSpring, animated } from "react-spring"
+import Helmet from "react-helmet"
+import Div100vh from "react-div-100vh"
 
 interface FullPageInvitationProps {
   startDelay?: number | undefined
@@ -29,6 +31,9 @@ const FullPageInvitation: React.FC<FullPageInvitationProps> = ({
 
   return (
     <>
+      <Helmet>
+        <body className="invitation-page-bg text-gray-900 overflow-hidden"></body>
+      </Helmet>
       <animated.div
         className="fixed inset-x-0 top-0 w-full flex justify-center items-center py-2 bg-off-white z-10 font-sans text-sm border-b c-subtle-border shadow-md"
         style={linksProps}
@@ -43,7 +48,7 @@ const FullPageInvitation: React.FC<FullPageInvitationProps> = ({
           Download invitation
         </button>
       </animated.div>
-      <div className="flex h-screen w-screen justify-center items-center overflow-hidden">
+      <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden">
         <div className="envelope-outer-wrapper-dimensions">
           <InvitationCard
             playing={playing}
@@ -51,9 +56,9 @@ const FullPageInvitation: React.FC<FullPageInvitationProps> = ({
             onOpen={() => setShowLinks(true)}
           />
         </div>
-      </div>
+      </Div100vh>
       {showDemoBar && (
-        <div className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center pt-2 pb-3 font-sans text-sm border-t c-subtle-border z-10">
+        <div className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white text-gray-900 font-sans text-sm border-t-2 border-gray-600 z-10">
           <button
             className={secondaryClassName}
             onClick={() => setPlaying(!playing)}

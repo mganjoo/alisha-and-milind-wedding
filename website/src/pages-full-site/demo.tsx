@@ -3,7 +3,7 @@ import FullPageInvitation from "../components/partials/FullPageInvitation"
 import BaseLayout from "../components/layout/BaseLayout"
 
 const DemoPage: React.FC = () => (
-  <BaseLayout additionalBodyClassName="overflow-x-hidden">
+  <BaseLayout>
     <FullPageInvitation showDemoBar />
   </BaseLayout>
 )

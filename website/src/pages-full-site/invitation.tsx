@@ -12,7 +12,7 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
   const state: InvitationPageNavigationState =
     location && location.state ? location.state : {}
   return (
-    <BaseLayout additionalBodyClassName="overflow-x-hidden">
+    <BaseLayout>
       <Authenticated initialCode={state.code}>
         <main>
           <FullPageInvitation startDelay={2500} />
