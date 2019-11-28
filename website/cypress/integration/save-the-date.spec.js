@@ -45,7 +45,7 @@ describe("save the date form", function() {
     cy.focused().should("have.attr", "name", "email")
   })
 
-  it("submits successfully when all fields are filled", function() {
+  it("should submit successfully when all fields are filled", function() {
     cy.findByLabelText(/name/i).type("Johnny Rose")
     cy.findByLabelText(/email/i).type("johnny.rose@example.com")
     cy.get("@submit_button").click()
@@ -55,7 +55,7 @@ describe("save the date form", function() {
     cy.percySnapshot()
   })
 
-  it("handles server-side failures correctly", function() {
+  it("should handle server-side failures correctly", function() {
     // special string that triggers validation error on server
     cy.findByLabelText(/name/i).type("__reject_submission__")
     cy.findByLabelText(/email/i).type("abc@example.com")

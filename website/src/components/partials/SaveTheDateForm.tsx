@@ -8,7 +8,6 @@ import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
 import BaseForm from "../form/BaseForm"
 import classnames from "classnames"
-import Confirmation from "./Confirmation"
 import { useStaticQuery, graphql } from "gatsby"
 import AddToCalendarLinks from "../ui/AddToCalendarLinks"
 import { Contact } from "@alisha-and-milind-wedding/shared-types"
@@ -92,7 +91,10 @@ const SaveTheDateForm: React.FC = () => {
         </Formik>
       </div>
       {submitted && (
-        <Confirmation className="flex flex-col text-center items-center lg:absolute lg:inset-0">
+        <div
+          role="status"
+          className="flex flex-col text-center items-center lg:absolute lg:inset-0"
+        >
           <Symbol symbol="check" className="w-12 h-12 mb-4 text-green-700" />
           <div className="c-article mb-2">
             <p>
@@ -113,7 +115,7 @@ const SaveTheDateForm: React.FC = () => {
               url: data.site.siteMetadata.siteUrl,
             }}
           />
-        </Confirmation>
+        </div>
       )}
     </>
   )
