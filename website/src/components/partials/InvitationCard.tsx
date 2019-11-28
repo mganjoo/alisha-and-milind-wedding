@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { InvitationContext } from "./Authenticated"
 import { useSpring, animated, interpolate } from "react-spring"
@@ -16,16 +16,9 @@ const orderedStates: AnimationState[] = [
 
 interface InvitationCardProps {
   /**
-   * Start animating a short delay after mount.
+   * Whether the card is currently animating.
    */
-  startAutomatically?: boolean
-
-  /**
-   * Normally, once the invitation starts playing, it cannot be paused.
-   * This optional param can be useful for debugging purposes, by
-   * allowing re-clicks that control pausing.
-   */
-  allowPause?: boolean
+  playing: boolean
 
   /**
    * Optionally reverse the direction of animation.
@@ -38,13 +31,13 @@ interface InvitationCardProps {
   onOpen?: () => void
 }
 
-const startDelay = 2000 // in ms
-const springConfig = { mass: 5, tension: 300, friction: 65, clamp: true }
-const envelopeRotate = 25 // in degrees
-const envelopeScale = 0.95
 // Letter is originally in landscape (w = 1.4h). When rotated by 90deg,
 // multiply by aspect ratio so that new width is same as original width
 const letterScale = 1.4
+
+const springConfig = { mass: 5, tension: 300, friction: 70, clamp: true }
+const envelopeRotate = 25 // in degrees
+const envelopeScale = 0.95
 const letterPeakYOffset = 140 // in %
 const letterFinalYOffset = 0 // in %
 
@@ -60,16 +53,13 @@ const flapTransform = (rotateX: any) =>
   `perspective(55rem) rotateX(${rotateX}deg)`
 
 const InvitationCard: React.FC<InvitationCardProps> = ({
+  playing,
   onOpen,
-  startAutomatically = false,
-  allowPause = false,
   reverse = false,
 }) => {
   const { invitation } = useContext(InvitationContext)
-  const [playing, setPlaying] = useState(false)
   const { movePrevious, moveNext, isAfter } = useStateList(orderedStates)
   const [letterLoaded, setLetterLoaded] = useState(false)
-  const buttonClickable = letterLoaded && (!playing || allowPause)
 
   const imageData = useStaticQuery(
     graphql`
@@ -86,7 +76,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   )
 
   function transition() {
-    if (playing) {
+    if (letterLoaded && playing) {
       if (reverse) {
         movePrevious()
       } else {
@@ -101,14 +91,6 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
     }
   }
 
-  useEffect(() => {
-    if (startAutomatically && !playing && letterLoaded) {
-      const timerDelay = setTimeout(() => setPlaying(true), startDelay)
-      return () => clearTimeout(timerDelay)
-    }
-    return
-  }, [startAutomatically, playing, letterLoaded])
-
   const props = useSpring({
     envelopeRotateY: isAfter("flipped") ? 180 : 0,
     flapZIndex: isAfter("flap-open") ? -1 : 0,
@@ -120,37 +102,9 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
     immediate: key => key === "flapZIndex" && !isAfter("flap-open"),
   })
 
-  function handleClick(e: React.SyntheticEvent<HTMLDivElement>) {
-    if (allowPause) {
-      setPlaying(p => !p)
-    } else {
-      setPlaying(true)
-    }
-    if (e.currentTarget) {
-      e.currentTarget.blur()
-    }
-  }
-
-  function handleKeyUp(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (
-      e.key === "Enter" ||
-      e.key === " " ||
-      e.key === "Return" ||
-      e.key === "Spacebar"
-    ) {
-      handleClick(e)
-    }
-  }
-
   return (
     <div className="envelope-wrapper-dimensions">
-      <div
-        className="envelope-dimensions"
-        role={buttonClickable ? "button" : undefined}
-        tabIndex={buttonClickable ? 0 : undefined}
-        onClick={buttonClickable ? handleClick : undefined}
-        onKeyUp={buttonClickable ? handleKeyUp : undefined}
-      >
+      <div className="envelope-dimensions">
         <animated.div
           className="c-flippable"
           style={{
@@ -176,7 +130,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
             className="front flex items-center justify-center"
             style={{ backgroundImage: "url('/invitation/front-base.png')" }}
           >
-            <p className="font-serif text-lg text-yellow-200 sm:text-xl">
+            <p className="font-serif text-lg text-yellow-200 text-center sm:text-xl">
               {invitation.partyName}
             </p>
           </div>
