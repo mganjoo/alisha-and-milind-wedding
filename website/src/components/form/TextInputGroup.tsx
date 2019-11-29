@@ -23,13 +23,13 @@ const TextInputGroup: React.FC<TextInputGroupProps> = ({
   const meta = getFieldMeta(groupName)
   const errorMessage = meta.touched ? meta.error : undefined
   const ref = useRegisteredRef(groupName)
+  const makeFieldKey = (fieldKey: string) => `${groupName}.${fieldKey}`
 
   return fieldKeys.length === 0 ? null : fieldKeys.length === 1 ? (
     <LabelledTextInput
       label={label}
-      name={`guests.${fieldKeys[0]}`}
+      name={makeFieldKey(fieldKeys[0])}
       type="text"
-      autoComplete="name"
     />
   ) : (
     <LabelWrapper
@@ -43,13 +43,13 @@ const TextInputGroup: React.FC<TextInputGroupProps> = ({
         })}
       >
         {fieldKeys.map((fieldKey, i) => (
-          <div key={fieldKey} className="mt-1 mb-2 flex items-center">
-            <div className="mr-2 w-6 h-6 flex items-center justify-center font-sans text-xs bg-gray-200 border c-subtle-border text-gray-900 rounded-full">
+          <label key={fieldKey} className="mt-1 mb-2 flex items-center">
+            <span className="mr-2 w-6 h-6 flex items-center justify-center font-sans text-xs bg-gray-200 border c-subtle-border text-gray-900 rounded-full">
               {i + 1}
-            </div>
+            </span>
             <TextInput
               type="text"
-              name={`guests.${fieldKey}`}
+              name={makeFieldKey(fieldKey)}
               className="w-full mb-1"
               placeholder={
                 fieldKeys.length > 1 ? fieldLabelFn(i + 1) : undefined
@@ -59,7 +59,7 @@ const TextInputGroup: React.FC<TextInputGroupProps> = ({
               }
               ref={errorMessage && i === 0 ? ref : undefined}
             />
-          </div>
+          </label>
         ))}
       </div>
     </LabelWrapper>

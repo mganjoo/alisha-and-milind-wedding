@@ -12,28 +12,48 @@ export default {
 }
 
 const handleClick = action("Clicked")
-
-export const main = () => {
-  const purpose = optionsKnob(
-    "Purpose",
-    { Primary: "primary", Secondary: "secondary", Tertiary: "tertiary" },
-    "primary",
-    { display: "inline-radio" }
-  )
-  const fit = optionsKnob(
+const fitKnob = () =>
+  optionsKnob(
     "Fit",
     { Comfortable: "comfortable", Compact: "compact" },
     "comfortable",
     { display: "inline-radio" }
   )
+const disabledKnob = () => boolean("Disabled", false)
+const labelKnob = () => text("Label", "Click me")
+
+export const primary = () => {
   return (
     <Button
       onClick={handleClick}
-      purpose={purpose}
-      fit={fit}
-      disabled={boolean("Disabled", false)}
+      purpose="primary"
+      fit={fitKnob()}
+      disabled={disabledKnob()}
     >
-      {text("Label", "Click")}
+      {labelKnob()}
     </Button>
   )
 }
+
+export const secondary = () => {
+  return (
+    <Button
+      onClick={handleClick}
+      purpose="secondary"
+      fit={fitKnob()}
+      disabled={disabledKnob()}
+    >
+      {labelKnob()}
+    </Button>
+  )
+}
+export const tertiary = () => (
+  <Button
+    onClick={handleClick}
+    purpose="tertiary"
+    fit={fitKnob()}
+    disabled={disabledKnob()}
+  >
+    {labelKnob()}
+  </Button>
+)

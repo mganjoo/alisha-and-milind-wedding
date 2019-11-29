@@ -34,8 +34,7 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   const ref = useRegisteredRef(name)
   const errorMessage = meta.touched ? meta.error : undefined
   const { setFieldValue } = useFormikContext<any>()
-  const shouldShowSelectAll =
-    !!showSelectAll && type === "checkbox" && Array.isArray(field.value)
+  const shouldShowSelectAll = !!showSelectAll && type === "checkbox"
   const allSelected = useMemo(
     () =>
       shouldShowSelectAll && options.every(o => field.value.includes(o.value)),
