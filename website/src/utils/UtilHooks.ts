@@ -1,7 +1,15 @@
 import { useEffect, useRef, useState } from "react"
 
-export function useStateList<T>(stateList: T[]) {
-  const [current, setCurrent] = useState(0)
+export function useStateList<T>(stateList: T[], initialState?: T) {
+  const [current, setCurrent] = useState(() => {
+    if (initialState) {
+      const initialIndex = stateList.indexOf(initialState)
+      if (initialIndex !== -1) {
+        return initialIndex
+      }
+    }
+    return 0
+  })
   const movePrevious = () => setCurrent(c => (c > 0 ? c - 1 : c))
   const moveNext = () => setCurrent(c => (c < stateList.length - 1 ? c + 1 : c))
   const isAfter = (state: T) => {

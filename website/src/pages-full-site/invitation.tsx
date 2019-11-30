@@ -6,6 +6,7 @@ import AutoPlayingInvitationCard from "../components/partials/AutoPlayingInvitat
 
 interface InvitationPageNavigationState {
   code?: string
+  immediate?: boolean
 }
 
 const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
@@ -15,7 +16,10 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
     <BaseLayout>
       <Authenticated initialCode={state.code}>
         <main>
-          <AutoPlayingInvitationCard startDelayMs={2500} />
+          <AutoPlayingInvitationCard
+            startDelayMs={2500}
+            skipAnimation={state.immediate}
+          />
         </main>
       </Authenticated>
     </BaseLayout>

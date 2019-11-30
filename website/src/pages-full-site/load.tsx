@@ -6,6 +6,7 @@ import BaseLayout from "../components/layout/BaseLayout"
 
 interface InvitationPageQueryParams {
   c?: string
+  immediate?: number
 }
 
 const LoadPage: React.FC<RouteComponentProps> = ({ location }) => {
@@ -15,7 +16,10 @@ const LoadPage: React.FC<RouteComponentProps> = ({ location }) => {
   useEffect(() => {
     navigate("/invitation", {
       replace: true,
-      state: { code: pageArguments.c },
+      state: {
+        code: pageArguments.c,
+        immediate: pageArguments.immediate && pageArguments.immediate > 0,
+      },
     })
   }, [pageArguments])
   return (

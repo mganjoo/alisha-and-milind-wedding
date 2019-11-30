@@ -33,6 +33,11 @@ interface InvitationCardProps {
    * Optionally reverse the direction of animation.
    */
   reverse?: boolean
+
+  /**
+   * Whether to skip through all the animation.
+   */
+  skipAnimation?: boolean
 }
 
 // Letter is originally in landscape (w = 1.4h). When rotated by 90deg,
@@ -59,9 +64,13 @@ const flapTransform = (rotateX: any) =>
 const InvitationCard: React.FC<InvitationCardProps> = ({
   playing,
   reverse = false,
+  skipAnimation = false,
 }) => {
   const { invitation } = useContext(InvitationContext)
-  const { movePrevious, moveNext, isAfter } = useStateList(orderedStates)
+  const { movePrevious, moveNext, isAfter } = useStateList(
+    orderedStates,
+    skipAnimation ? "letter-out" : undefined
+  )
   const [letterLoaded, setLetterLoaded] = useState(false)
 
   const imageData = useStaticQuery(
@@ -79,7 +88,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   )
 
   function transition() {
-    if (letterLoaded && playing) {
+    if (letterLoaded && (playing || skipAnimation)) {
       if (reverse) {
         movePrevious()
       } else {

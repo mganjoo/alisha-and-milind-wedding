@@ -17,7 +17,13 @@ describe("authentication tests", function() {
       cy.findByText(
         new RegExp(getInvitation(this.invitations, 0).partyName, "i")
       ).should("exist")
-      cy.url().should("contain", "/invitation")
+      cy.percySnapshot()
+    })
+
+    it.only("should show the full invitation correctly", function() {
+      cy.visit(`/load?c=${getInvitation(this.invitations, 0).code}&immediate=1`)
+      cy.findByText(/enter website/i).should("exist")
+      cy.percySnapshot()
     })
 
     it("should load a cached invitation when possible", function() {
