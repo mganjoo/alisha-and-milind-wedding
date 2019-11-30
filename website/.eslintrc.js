@@ -11,10 +11,12 @@ module.exports = {
     "prettier/@typescript-eslint",
     "prettier/react",
   ],
+  plugins: ["no-only-tests"],
   rules: {
     "cypress/assertion-before-screenshot": "warn",
     "react/jsx-key": "warn",
     "react/no-unescaped-entities": "warn",
     "react/no-unknown-property": "warn",
+    "no-only-tests/no-only-tests": "error",
   },
 }

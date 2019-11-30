@@ -20,7 +20,7 @@ describe("authentication tests", function() {
       cy.percySnapshot()
     })
 
-    it.only("should show the full invitation correctly", function() {
+    it("should show the full invitation correctly", function() {
       cy.visit(`/load?c=${getInvitation(this.invitations, 0).code}&immediate=1`)
       cy.findByText(/enter website/i).should("exist")
       cy.percySnapshot()

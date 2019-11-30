@@ -69,7 +69,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   const { invitation } = useContext(InvitationContext)
   const { movePrevious, moveNext, isAfter } = useStateList(
     orderedStates,
-    skipAnimation ? "letter-out" : undefined
+    skipAnimation ? "letter-displayed" : undefined
   )
   const [letterLoaded, setLetterLoaded] = useState(false)
 
