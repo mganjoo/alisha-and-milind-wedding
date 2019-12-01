@@ -34,12 +34,6 @@
 
 1.  **Start developing.**
 
-    Build shared types continuously:
-
-    ```sh
-    npm run start:shared-types
-    ```
-
     Build website continuously:
 
     ```sh

@@ -1,5 +1,5 @@
 import { loadFirestore } from "./Firestore"
-import { Invitation, Rsvp } from "@alisha-and-milind-wedding/shared-types"
+import { Invitation, Rsvp } from "../interfaces/Invitation"
 import {
   saveInvitationData,
   currentDataVersion,

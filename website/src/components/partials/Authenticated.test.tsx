@@ -6,7 +6,7 @@ import {
   fetchAndSaveInvitation,
   loadSavedInvitation,
 } from "../../services/Invitation"
-import { Invitation } from "@alisha-and-milind-wedding/shared-types"
+import { Invitation } from "../../interfaces/Invitation"
 
 jest.mock("../../services/Invitation")
 

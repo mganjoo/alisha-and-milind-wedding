@@ -1,4 +1,4 @@
-import { Invitation } from "@alisha-and-milind-wedding/shared-types"
+import { Invitation } from "../interfaces/Invitation"
 import { set, del, get, Store } from "idb-keyval"
 
 const InvitationKey = "invitation"

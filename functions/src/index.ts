@@ -1,14 +1,22 @@
 import * as functions from "firebase-functions"
 import * as admin from "firebase-admin"
-import {
-  rsvpSchema,
-  Rsvp,
-  RsvpWithTimestamp,
-} from "@alisha-and-milind-wedding/shared-types"
+import { object, boolean, array, string, InferType } from "yup"
 
 admin.initializeApp()
 
 const db = admin.firestore()
+
+const rsvpSchema = object({
+  attending: boolean(),
+  guests: array().of(
+    object({
+      name: string(),
+      events: array().of(string()),
+    })
+  ),
+}).noUnknown()
+
+type Rsvp = InferType<typeof rsvpSchema>
 
 /**
  * Update the "latestRsvp" field of the invitation when a new RSVP is received.
@@ -21,7 +29,7 @@ export const updateLatestRsvp = functions.firestore
     if (valid) {
       const rsvp: Rsvp = rsvpSchema.cast(data)
       const code = context.params.code
-      const rsvpWithTimestamp: RsvpWithTimestamp = {
+      const rsvpWithTimestamp = {
         ...rsvp,
         timestampMillis: new Date().getTime(),
       }

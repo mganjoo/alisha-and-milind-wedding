@@ -7,10 +7,5 @@
     "rootDir": "src",
     "esModuleInterop": true
   },
-  "include": ["src/**/*"],
-  "references": [
-    {
-      "path": "../shared-types"
-    }
-  ]
+  "include": ["src/**/*"]
 }

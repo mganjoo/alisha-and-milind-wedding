@@ -6,8 +6,7 @@ on:
       - 'master'
     paths:
       - 'website/**'
-      - 'shared-types/**'
-      - '.github/**'
+      - '.github/workflows/website-tests.yml'
       - 'package.json'
       - 'package-lock.json'
   repository_dispatch: {}
@@ -32,8 +31,8 @@ jobs:
     - name: Install packages
       run: |
         npm ci
-        npm run bootstrap:ci && npm --prefix shared-types run build
-        cd ./website && $(npm bin)/cypress verify
+        $(npm bin)/cypress verify
+      working-directory: ./website
       env:
         CI: true
     - name: Run tests

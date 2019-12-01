@@ -3,10 +3,7 @@ import {
   InvitationContext,
   makeInvitationContextWrapper,
 } from "./Authenticated"
-import {
-  Invitation,
-  RsvpWithTimestamp,
-} from "@alisha-and-milind-wedding/shared-types"
+import { Invitation, RsvpWithTimestamp } from "../../interfaces/Invitation"
 import RsvpInfo from "./RsvpInfo"
 import { action } from "@storybook/addon-actions"
 

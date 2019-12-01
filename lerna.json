@@ -1,4 +1,4 @@
 {
-  "packages": ["website", "cli", "functions", "shared-types"],
+  "packages": ["website", "cli", "functions"],
   "version": "independent"
 }

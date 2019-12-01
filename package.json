@@ -15,16 +15,12 @@
     "husky": "3.1.0",
     "lerna": "3.19.0",
     "lint-staged": "9.5.0",
-    "prettier": "1.19.1",
-    "typescript": "3.7.2"
+    "prettier": "1.19.1"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "bootstrap:ci": "lerna bootstrap --ci",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "prebuild:netlify": "lerna bootstrap --scope @alisha-and-milind-wedding/shared-types --scope @alisha-and-milind-wedding/website --ci",
-    "build:netlify": "npm --prefix shared-types run build && npm --prefix website run build",
-    "start:shared-types": "npm --prefix shared-types run build:watch",
     "start:website": "npm --prefix website run develop",
     "check:types": "lerna run --concurrency 1 --stream check:types",
     "storybook": "npm --prefix website run storybook"

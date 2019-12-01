@@ -10,7 +10,7 @@ import BaseForm from "../form/BaseForm"
 import classnames from "classnames"
 import { useStaticQuery, graphql } from "gatsby"
 import AddToCalendarLinks from "../ui/AddToCalendarLinks"
-import { Contact } from "@alisha-and-milind-wedding/shared-types"
+import { Contact } from "../../interfaces/Contact"
 import Symbol from "../ui/Symbol"
 
 const validationSchema = object<Contact>({
