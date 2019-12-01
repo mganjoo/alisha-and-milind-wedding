@@ -35,7 +35,7 @@
     "logs": "firebase functions:log",
     "check": "npm run check:types && npm run check:lint",
     "check:types": "tsc --noEmit",
-    "check:lint": "eslint --cache --ignore-path ../.gitignore . --ext ts",
+    "check:lint": "eslint --cache --ignore-path .gitignore . --ext ts",
     "test": "firebase emulators:exec --only firestore 'npm run test:unit'",
     "test:unit": "FIRESTORE_EMULATOR_HOST=localhost:8080 mocha",
     "test:ci": "npm run check && npm run test",
