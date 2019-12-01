@@ -67,7 +67,7 @@ const invitations = require("../fixtures/invitation-fixtures.json") as Invitatio
  */
 export const seedInvitations = functions.https.onRequest(async (req, res) => {
   if (req.method === "POST") {
-    let batch = db.batch()
+    const batch = db.batch()
     invitations.forEach(invitation =>
       batch.set(
         db.collection("invitations").doc(invitation.id),

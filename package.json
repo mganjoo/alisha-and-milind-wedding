@@ -23,12 +23,13 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start:website": "npm --prefix website run develop",
     "check:types": "lerna run --concurrency 1 --stream check:types",
-    "storybook": "npm --prefix website run storybook"
+    "storybook": "npm --prefix website run storybook",
+    "check:lint": "lerna run check:lint"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "lerna run check:lint"
+      "pre-push": "npm run check:lint"
     }
   },
   "lint-staged": {

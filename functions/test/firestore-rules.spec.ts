@@ -4,7 +4,7 @@ import * as fs from "fs"
 const projectId = "test-rules"
 const rules = fs.readFileSync("../firestore.rules", "utf8")
 
-function firestore() {
+function firestore(): firebase.firestore.Firestore {
   return firebase
     .initializeTestApp({
       projectId,
@@ -12,7 +12,7 @@ function firestore() {
     .firestore()
 }
 
-function firestoreAdmin() {
+function firestoreAdmin(): firebase.firestore.Firestore {
   return firebase
     .initializeAdminApp({
       projectId,
@@ -20,11 +20,11 @@ function firestoreAdmin() {
     .firestore()
 }
 
-function contacts() {
+function contacts(): firebase.firestore.CollectionReference {
   return firestore().collection("contacts")
 }
 
-function rsvps(invitationId: string) {
+function rsvps(invitationId: string): firebase.firestore.CollectionReference {
   return firestore()
     .collection("invitations")
     .doc(invitationId)

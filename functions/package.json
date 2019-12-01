@@ -15,6 +15,11 @@
     "@firebase/testing": "0.16.0",
     "@types/mocha": "5.2.7",
     "@types/yup": "^0.26.26",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-no-only-tests": "^2.3.1",
     "firebase-functions-test": "0.1.7",
     "firebase-tools": "^7.8.1",
     "mocha": "6.2.2",
@@ -31,6 +36,7 @@
     "check:types": "tsc --noEmit",
     "test": "firebase emulators:exec --only firestore mocha",
     "test:watch": "mocha --watch",
-    "firestore": "firebase emulators:start --only firestore"
+    "firestore": "firebase emulators:start --only firestore",
+    "check:lint": "eslint --cache --ignore-path ../.gitignore . --ext ts"
   }
 }
