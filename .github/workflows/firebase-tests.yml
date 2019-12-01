@@ -1,0 +1,30 @@
+name: Firebase tests
+on:
+  push:
+    branches-ignore:
+      - 'staging'
+      - 'master'
+    paths:
+      - 'functions/**'
+      - 'firestore.rules'
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v1
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Install packages
+      run: |
+        npm ci
+      working-directory: ./functions
+    - name: Run tests
+      run: |
+        npm run test:ci
+      working-directory: ./functions
+      env:
+        CI: true

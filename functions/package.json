@@ -33,10 +33,13 @@
     "shell": "FIRESTORE_EMULATOR_HOST=localhost:8080 firebase functions:shell",
     "preshell": "npm run build",
     "logs": "firebase functions:log",
+    "check": "npm run check:types && npm run check:lint",
     "check:types": "tsc --noEmit",
-    "test": "firebase emulators:exec --only firestore mocha",
+    "check:lint": "eslint --cache --ignore-path ../.gitignore . --ext ts",
+    "test": "firebase emulators:exec --only firestore 'npm run test:unit'",
+    "test:unit": "FIRESTORE_EMULATOR_HOST=localhost:8080 mocha",
+    "test:ci": "npm run check && npm run test",
     "test:watch": "mocha --watch",
-    "firestore": "firebase emulators:start --only firestore",
-    "check:lint": "eslint --cache --ignore-path ../.gitignore . --ext ts"
+    "firestore": "firebase emulators:start --only firestore"
   }
 }
