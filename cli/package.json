@@ -48,7 +48,6 @@
   "scripts": {
     "test": "echo NO TESTS",
     "readme": "oclif-dev readme && git add README.md",
-    "fixtures:validate": "! ls ../fixtures/*.json >/dev/null 2>&1 || ajv -s fixture-schema.json -d ../fixtures/*.json",
     "check:types": "tsc --noEmit"
   }
 }

@@ -112,6 +112,6 @@
     "check:lint": "eslint --cache --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:run:ci": "percy exec -- cypress run --config-file cypress-ci.json"
+    "cy:run:ci": "percy exec -- cypress run --config baseUrl=http://localhost:9000"
   }
 }

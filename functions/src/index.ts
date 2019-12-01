@@ -44,14 +44,46 @@ export const updateLatestRsvp = functions.firestore
             latestRsvp: rsvpWithTimestamp,
           })
         console.info(`Updated latest RSVP for code ${code}`)
-      } catch {
+      } catch (error) {
         console.error(
-          new Error(
-            `Could not update invitation for code ${code} with latestRsvp`
-          )
+          `Could not update invitation for code ${code} with latestRsvp`,
+          error
         )
       }
     } else {
       console.error("Invalid RSVP:", data, new Error("Invalid RSVP received"))
     }
   })
+
+interface InvitationFixture {
+  id: string
+  data: Record<string, any>
+}
+
+const invitations = require("../fixtures/invitation-fixtures.json") as InvitationFixture[]
+
+/**
+ * Seed invitations into the test Firestore database, using a fixtures file.
+ */
+export const seedInvitations = functions.https.onRequest(async (req, res) => {
+  if (req.method === "POST") {
+    let batch = db.batch()
+    invitations.forEach(invitation =>
+      batch.set(
+        db.collection("invitations").doc(invitation.id),
+        invitation.data
+      )
+    )
+    try {
+      await batch.commit()
+      res.send({ records: invitations })
+    } catch (error) {
+      console.error(error)
+      res
+        .status(500)
+        .send({ error: "error occurred while seeding invitations" })
+    }
+  } else {
+    res.status(404).send({ error: "must seed invitations using POST" })
+  }
+})

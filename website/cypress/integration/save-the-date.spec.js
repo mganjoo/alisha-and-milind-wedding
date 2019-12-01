@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 describe("save the date form", function() {
-  this.beforeEach(function() {
+  beforeEach(function() {
     cy.visit("/save-the-date")
     cy.injectAxe()
     cy.findByText(/submit info/i).as("submit_button")

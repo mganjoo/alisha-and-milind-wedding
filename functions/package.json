@@ -5,7 +5,7 @@
   "engines": {
     "node": "8"
   },
-  "main": "lib/src/index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "8.8.0",
     "firebase-functions": "3.3.0",
@@ -16,18 +16,20 @@
     "@types/mocha": "5.2.7",
     "@types/yup": "^0.26.26",
     "firebase-functions-test": "0.1.7",
+    "firebase-tools": "^7.8.1",
     "mocha": "6.2.2",
     "ts-node": "8.5.4",
     "typescript": "3.7.2"
   },
   "scripts": {
     "build": "tsc",
-    "start": "npm run shell",
+    "start": "firebase serve",
+    "prestart": "npm run build",
     "shell": "FIRESTORE_EMULATOR_HOST=localhost:8080 firebase functions:shell",
     "preshell": "npm run build",
     "logs": "firebase functions:log",
     "check:types": "tsc --noEmit",
-    "test": "mocha",
+    "test": "firebase emulators:exec --only firestore mocha",
     "test:watch": "mocha --watch",
     "firestore": "firebase emulators:start --only firestore"
   }

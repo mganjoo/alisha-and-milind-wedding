@@ -1,5 +1,5 @@
 let percyHealthCheck = require("@percy/cypress/task")
 
-module.exports = (on, config) => {
+module.exports = on => {
   on("task", percyHealthCheck)
 }

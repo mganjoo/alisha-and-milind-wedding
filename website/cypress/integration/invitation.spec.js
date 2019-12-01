@@ -1,40 +1,45 @@
-function getInvitation(invitations, i) {
-  return invitations.fixtures[i].data
-}
+/// <reference types="Cypress" />
 
-// To reduce test flake
-Cypress.config("defaultCommandTimeout", 7000)
+describe("invitation tests", function() {
+  let invitations
 
-describe("authentication tests", function() {
-  this.beforeEach(() => {
+  before(function() {
+    cy.request("POST", Cypress.env("SEED_URL"))
+      .as("getInvitations")
+      .then(response => {
+        invitations = response.body.records
+        console.log(invitations)
+      })
+  })
+
+  beforeEach(() => {
     indexedDB.deleteDatabase("am-wedding-store")
-    cy.fixture("../../../fixtures/invitations.json").as("invitations")
   })
 
   describe("load code page", function() {
     it("should load an invitation correctly", function() {
-      cy.visit(`/load?c=${getInvitation(this.invitations, 0).code}`)
-      cy.findByText(
-        new RegExp(getInvitation(this.invitations, 0).partyName, "i")
-      ).should("exist")
+      cy.visit(`/load?c=${invitations[0].data.code}`)
+      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
+        "exist"
+      )
       cy.percySnapshot()
     })
 
     it("should show the full invitation correctly", function() {
-      cy.visit(`/load?c=${getInvitation(this.invitations, 0).code}&immediate=1`)
+      cy.visit(`/load?c=${invitations[0].data.code}&immediate=1`)
       cy.findByText(/enter website/i).should("exist")
       cy.percySnapshot()
     })
 
     it("should load a cached invitation when possible", function() {
-      cy.visit(`/load?c=${getInvitation(this.invitations, 0).code}`)
-      cy.findByText(
-        new RegExp(getInvitation(this.invitations, 0).partyName, "i")
-      ).should("exist")
+      cy.visit(`/load?c=${invitations[0].data.code}`)
+      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
+        "exist"
+      )
       cy.visit(`/invitation`)
-      cy.findByText(
-        new RegExp(getInvitation(this.invitations, 0).partyName, "i")
-      ).should("exist")
+      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
+        "exist"
+      )
     })
   })
 
@@ -46,11 +51,11 @@ describe("authentication tests", function() {
     })
 
     it("should load an invitation correctly", function() {
-      cy.get("@code_input").type(getInvitation(this.invitations, 0).code)
+      cy.get("@code_input").type(invitations[0].data.code)
       cy.get("@button").click()
-      cy.findByText(
-        new RegExp(getInvitation(this.invitations, 0).partyName, "i")
-      ).should("exist")
+      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
+        "exist"
+      )
     })
 
     it("should validate empty input", function() {

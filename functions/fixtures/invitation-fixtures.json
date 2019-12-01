@@ -1,0 +1,39 @@
+[
+  {
+    "id": "test2",
+    "data": {
+      "code": "test2",
+      "partyName": "Harsh Kashyap & Vicki Mehta",
+      "numGuests": 2,
+      "knownGuests": ["Harsh Kashyap", "Vicki Mehta"],
+      "preEvents": true
+    }
+  },
+  {
+    "id": "test3",
+    "data": {
+      "code": "test3",
+      "partyName": "Terry Gordon & Family",
+      "numGuests": 3,
+      "knownGuests": ["Terry Gordon", "Rani Gordon", "Ramesh Gordon"]
+    }
+  },
+  {
+    "id": "test1",
+    "data": {
+      "code": "test1",
+      "partyName": "Alex Williamson",
+      "numGuests": 1,
+      "knownGuests": ["Alex Williamson"]
+    }
+  },
+  {
+    "id": "test32",
+    "data": {
+      "code": "test32",
+      "partyName": "Virat Kohli & Anushka Sharma",
+      "numGuests": 3,
+      "knownGuests": ["Virat Kohli", "Anushka Sharma"]
+    }
+  }
+]
