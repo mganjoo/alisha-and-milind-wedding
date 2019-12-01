@@ -46,7 +46,7 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
       aria-labelledby="confirm-events-heading"
       aria-describedby="confirm-events-description"
     >
-      {showError && <Alert className="mb-4">{errors.attendees}</Alert>}
+      {showError && <Alert className="mb-4 w-full">{errors.attendees}</Alert>}
       <h3 className="c-form-section-heading" id="confirm-events-heading">
         Specific events
       </h3>

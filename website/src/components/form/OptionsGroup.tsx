@@ -14,7 +14,7 @@ export interface Option {
 interface OptionsGroupProps {
   name: string
   label: string
-  labelType?: "text" | "id"
+  labelType?: "text" | "id" | "aria"
   type: "radio" | "checkbox"
   options: Option[]
   showSelectAll?: boolean

@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef, useEffect, useMemo } from "react"
 import { InvitationContext } from "./Authenticated"
 import { scrollIntoView, recordsEqual } from "../../utils/Utils"
 import BaseForm from "../form/BaseForm"
-import { Formik, useFormikContext, FormikHelpers } from "formik"
+import { Formik, useFormikContext } from "formik"
 import SubmitButton from "../form/SubmitButton"
 import OptionsGroup from "../form/OptionsGroup"
 import TextInputGroup from "../form/TextInputGroup"
@@ -214,14 +214,10 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onDone }) => {
   const [submitError, setSubmitError] = useState(false)
 
   const submitRsvp = useMemo(
-    () => async (
-      values: RsvpFormValues,
-      helpers: FormikHelpers<RsvpFormValues>
-    ) => {
+    () => async (values: RsvpFormValues) => {
       try {
         await addRsvp(invitation, toRsvp(values))
         await reloadSaved()
-        helpers.resetForm()
         onDone(true)
       } catch {
         setSubmitError(true)

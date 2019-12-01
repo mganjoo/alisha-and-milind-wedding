@@ -5,7 +5,7 @@ interface LabelWrapperProps {
   label: string
   errorMessage: string | undefined
   group?: boolean
-  labelType?: string
+  labelType?: "text" | "id" | "aria"
 }
 
 const LabelWrapper: React.FC<LabelWrapperProps> = ({
@@ -22,6 +22,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
       className="flex flex-wrap justify-between mb-4 font-serif w-full"
       role={group ? "group" : undefined}
       aria-labelledby={group ? (labelType === "id" ? label : uid) : undefined}
+      aria-label={group && labelType === "aria" ? label : undefined}
     >
       {labelType === "text" && (
         <span

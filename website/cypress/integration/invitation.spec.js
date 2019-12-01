@@ -8,11 +8,10 @@ describe("invitation tests", function() {
       .as("getInvitations")
       .then(response => {
         invitations = response.body.records
-        console.log(invitations)
       })
   })
 
-  beforeEach(() => {
+  beforeEach(function() {
     indexedDB.deleteDatabase("am-wedding-store")
   })
 

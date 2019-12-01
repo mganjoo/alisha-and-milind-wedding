@@ -34,8 +34,8 @@ const AttendanceItem: React.FC<AttendanceItemProps> = ({
         <OptionsGroup
           name={`attendees.${event.shortName}`}
           type="checkbox"
-          label={headingId}
-          labelType="id"
+          label={`${event.name} @ ${event.shortDate}`}
+          labelType="aria"
           options={options}
           showSelectAll={options.length > 1}
           selectAllLabel={`${
