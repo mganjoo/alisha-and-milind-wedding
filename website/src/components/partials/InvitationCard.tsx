@@ -111,24 +111,6 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
 
   return (
     <>
-      <animated.div
-        className="fixed inset-x-0 top-0 w-full flex justify-center items-center py-2 bg-off-white z-10 font-sans text-sm border-b c-subtle-border shadow-md"
-        style={linksProps}
-      >
-        <Link
-          className="c-button c-button-primary py-1 px-2 mx-2 font-semibold"
-          to="/"
-        >
-          Enter website
-        </Link>
-        <button
-          className="mx-2 text-gray-800 font-semibold hover:text-orange-500"
-          disabled
-        >
-          Download invitation
-        </button>
-      </animated.div>
-
       <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden">
         <Helmet>
           <body className="invitation-page-bg text-gray-900 overflow-hidden"></body>
@@ -237,6 +219,23 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
           </div>
         </div>
       </Div100vh>
+      <animated.div
+        className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white z-10 font-sans text-sm border-t c-subtle-border shadow-inner"
+        style={linksProps}
+      >
+        <Link
+          className="c-button c-button-primary py-1 px-2 mx-2 font-semibold"
+          to="/"
+        >
+          Enter website
+        </Link>
+        <button
+          className="mx-2 text-gray-800 font-semibold hover:text-orange-500"
+          disabled
+        >
+          Download invitation
+        </button>
+      </animated.div>
     </>
   )
 }

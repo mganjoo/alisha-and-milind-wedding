@@ -196,13 +196,13 @@
 
 /* Allows sizing of the entire animation to the height of the viewport. */
 .envelope-outer-wrapper-dimensions {
-  @apply px-4;
+  @apply mx-4;
 
   /*
-   * Aspect ratio is w = 1.4h, so we size the envelope wrapper to be 1/1.4, with padding.
+   * Aspect ratio is w = 1.4h, so we size the envelope wrapper to be 1/1.4, with margin.
    */
-  width: calc(100vh * (1 / var(--aspect-ratio)) - 5vh);
-  margin-top: 2vh;
+  width: calc(100vh * (1 / var(--aspect-ratio)) - 7vh);
+  margin-bottom: 5vh;
 }
 
 /* Accounts for space used by letter when letter is open. */
@@ -226,12 +226,11 @@
    * - To make up for this difference in height, we add padding of the amount
    *     p = (h' - h) / 2 * w
    *       = (96% * 1.4 - 1 / 1.4) / 2
-   *       = 0.3148
-   *   We can then add 2-5% of padding to it for some breathing room.
+   *       = 31.48%
    */
   padding: calc(
       var(--letter-fraction) * (var(--aspect-ratio) / 2) -
-        (1 / var(--aspect-ratio) * 50%) + 5%
+        (1 / var(--aspect-ratio) * 50%)
     )
     0;
 }

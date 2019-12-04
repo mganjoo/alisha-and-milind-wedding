@@ -55,8 +55,7 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
         {options.length > 1
           ? "names of the guests attending each event"
           : "events you'll be attending"}
-        . You can always come back and edit this later if your travel plans
-        change.
+        . You can always come back and edit this later if your plans change.
       </p>
       {eventsToShow.map(event => (
         <AttendanceItem
