@@ -199,9 +199,10 @@
   @apply mx-4;
 
   /*
-   * Aspect ratio is w = 1.4h, so we size the envelope wrapper to be 1/1.4, with margin.
+   * Aspect ratio is w = 1.4h, so we size the envelope wrapper to be 1/1.4,
+   * with vertical margin of 5vh top and bottom and extra margin at bottom.
    */
-  width: calc(100vh * (1 / var(--aspect-ratio)) - 7vh);
+  width: calc(90vh * (1 / var(--aspect-ratio)));
   margin-bottom: 5vh;
 }
 
@@ -209,30 +210,24 @@
 .envelope-wrapper-dimensions {
   @apply w-full;
   /*
-   * - Letter is sized to be <letter fraction> of envelope size.
-   *
    * - When letter is rotated 90 degrees, the original width now becomes the height.
    *
-   * - We then scale it by a factor of 1.4, so that the "new" width (of the rotated short edge)
+   * - We then scale by a factor of 1.4, so that the "new" width (of the rotated short edge)
    *   would take up as much space as the old width (since the aspect ratio is 1.4).
    *
    * - This means the height of the rotated letter is now
-   * -   h' = 96% * 1.4 * w
+   * -   h' = 1.4 * w
    *
    * - Aspect ratio of envelope is w = 1.4h. Which means h = w / 1.4
    * - Difference between new height and old height is
-   *     h' - h = (96% * 1.4 - 1 / 1.4) * w
+   *     h' - h = (100% * 1.4 - 1 / 1.4) * w
    *
    * - To make up for this difference in height, we add padding of the amount
    *     p = (h' - h) / 2 * w
-   *       = (96% * 1.4 - 1 / 1.4) / 2
-   *       = 31.48%
+   *       = (100% * 1.4 - 1 / 1.4) / 2
+   *       = 31.42%
    */
-  padding: calc(
-      var(--letter-fraction) * (var(--aspect-ratio) / 2) -
-        (1 / var(--aspect-ratio) * 50%)
-    )
-    0;
+  padding: calc(50% * (var(--aspect-ratio) - 1 / var(--aspect-ratio))) 0;
 }
 
 .envelope-dimensions {
