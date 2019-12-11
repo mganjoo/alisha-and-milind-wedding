@@ -19,7 +19,9 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "prebootstrap": "npm install",
     "bootstrap:ci": "lerna bootstrap --ci",
+    "prebootstrap:ci": "npm ci",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start:website": "npm --prefix website run develop",
     "check:types": "lerna run --concurrency 1 --stream check:types",
