@@ -160,6 +160,8 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
                 name="code"
                 type="text"
                 label="Invitation code"
+                autoCapitalize="none"
+                autoCorrect="off"
               />
               <SubmitButton label="Submit" className="mt-1 shadow-lg" />
             </div>

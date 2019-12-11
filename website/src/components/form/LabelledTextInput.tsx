@@ -9,6 +9,8 @@ interface LabelledTextInputProps {
   name: string
   type: "text" | "email"
   autoComplete?: string
+  autoCapitalize?: string
+  autoCorrect?: string
 }
 
 const LabelledTextInput: React.FC<LabelledTextInputProps> = ({
