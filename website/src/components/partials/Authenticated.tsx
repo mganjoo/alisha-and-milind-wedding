@@ -45,6 +45,7 @@ const fallbackInvitation: Invitation = {
   partyName: "Doug Peterson & Family",
   numGuests: 2,
   knownGuests: ["Doug Peterson Jones", "Betty Draper"],
+  preEvents: true,
 }
 
 export function makeInvitationContextWrapper(

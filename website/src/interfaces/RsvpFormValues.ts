@@ -5,7 +5,7 @@ import {
   range,
   stringEmpty,
 } from "../utils/Utils"
-import { WeddingEvent } from "./Event"
+import { WeddingEventMarkdown } from "./Event"
 import { Invitation, Rsvp } from "../interfaces/Invitation"
 
 export type RsvpFormValues = InferType<typeof validationSchema>
@@ -50,17 +50,17 @@ export const validationSchema = object().shape({
  *
  * @param events the list of wedding events to generate attendee state for
  * @param includePreEvents whether to include events from the list classified as "pre-events"
- * @param guestIdsForEvent an optional function that returns a set of guest IDs for a particular event
+ * @param guestIdsForEvent an function that returns a set of guest IDs to initialize for a particular event
  */
 export function resetAttendeesState(
-  events: WeddingEvent[],
+  events: WeddingEventMarkdown[],
   includePreEvents: boolean,
-  guestIdsForEvent?: (e: WeddingEvent) => string[]
+  guestIdsForEvent: (e: WeddingEventMarkdown) => string[]
 ): Record<string, string[]> {
   return events
-    .filter(e => (includePreEvents ? true : !e.preEvent))
+    .filter(e => includePreEvents || !e.frontmatter.preEvent)
     .reduce((state, e) => {
-      state[e.shortName] = guestIdsForEvent ? guestIdsForEvent(e) : []
+      state[e.frontmatter.shortName] = guestIdsForEvent(e)
       return state
     }, {} as Record<string, string[]>)
 }
@@ -70,7 +70,7 @@ export function resetAttendeesState(
  */
 export function makeInitialRsvpFormValues(
   invitation: Invitation,
-  events: WeddingEvent[]
+  events: WeddingEventMarkdown[]
 ): RsvpFormValues {
   const initialGuests = makeIdMap(range(invitation.numGuests), (i: number) => {
     if (invitation.latestRsvp) {
@@ -92,18 +92,18 @@ export function makeInitialRsvpFormValues(
     attendees: resetAttendeesState(
       events,
       !!invitation.preEvents,
-      invitation.latestRsvp &&
-        ((e: WeddingEvent) =>
-          invitation
-            .latestRsvp!.guests // filter guests down to people attending event
-            .filter(guest => guest.events.includes(e.shortName))
-            .flatMap(
-              guest =>
-                // find ID of guest based on name
-                Object.keys(initialGuests).find(
-                  id => initialGuests[id] === guest.name
-                ) || []
-            ))
+      (e: WeddingEventMarkdown) =>
+        invitation.latestRsvp
+          ? invitation.latestRsvp.guests // filter guests down to people attending event
+              .filter(guest => guest.events.includes(e.frontmatter.shortName))
+              .flatMap(
+                guest =>
+                  // find ID of guest based on name
+                  Object.keys(initialGuests).find(
+                    id => initialGuests[id] === guest.name
+                  ) || []
+              )
+          : []
     ),
   }
 }

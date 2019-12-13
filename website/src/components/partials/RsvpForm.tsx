@@ -1,8 +1,8 @@
 import React, { useContext, useState, useRef, useEffect, useMemo } from "react"
 import { InvitationContext } from "./Authenticated"
-import { scrollIntoView, recordsEqual } from "../../utils/Utils"
+import { scrollIntoView, stringEmpty } from "../../utils/Utils"
 import BaseForm from "../form/BaseForm"
-import { Formik, useFormikContext } from "formik"
+import { Formik, useFormikContext, setNestedObjectValues } from "formik"
 import SubmitButton from "../form/SubmitButton"
 import OptionsGroup from "../form/OptionsGroup"
 import TextInputGroup from "../form/TextInputGroup"
@@ -10,7 +10,6 @@ import LeafSpacer from "../ui/LeafSpacer"
 import {
   RsvpFormValues,
   validationSchema,
-  GuestMap,
   resetAttendeesState,
   makeInitialRsvpFormValues,
   toRsvp,
@@ -18,7 +17,7 @@ import {
 import Button from "../ui/Button"
 import AttendanceGroup from "./AttendanceGroup"
 import { useEvents } from "../../utils/useEvents"
-import { WeddingEvent } from "../../interfaces/Event"
+import { WeddingEventMarkdown } from "../../interfaces/Event"
 import { Invitation } from "../../interfaces/Invitation"
 import { addRsvp } from "../../services/Invitation"
 import Alert from "../form/Alert"
@@ -46,7 +45,7 @@ type Page = "guests" | "attendance"
 
 interface PageWrapperProps {
   invitation: Invitation
-  events: WeddingEvent[]
+  events: WeddingEventMarkdown[]
   onDone: (submitted: boolean) => void
 }
 
@@ -59,15 +58,12 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     initialValues,
     values,
     validateForm,
+    touched,
+    setTouched,
     setValues,
     resetForm,
   } = useFormikContext<RsvpFormValues>()
   const [page, setPage] = useState<Page>("guests")
-
-  // Snapshot of guests for events page
-  const [guestsForAttendancePage, setGuestsForAttendancePage] = useState<
-    GuestMap
-  >(() => values.guests)
 
   // Refs for scrolling
   const previousPageRef = useRef<Page>("guests")
@@ -88,16 +84,25 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
   })
 
   const toEvents = () => {
+    setTouched({
+      ...touched,
+      guests: setNestedObjectValues(values.guests, true),
+      attending: true,
+    })
     validateForm().then(errors => {
       if (!errors.guests && !errors.attending) {
-        // Reset attendees if names of guests changed
-        if (!recordsEqual(guestsForAttendancePage, values.guests)) {
-          setValues({
-            ...values,
-            attendees: resetAttendeesState(events, !!invitation.preEvents),
-          })
-          setGuestsForAttendancePage(values.guests)
-        }
+        setValues({
+          ...values,
+          attendees: resetAttendeesState(
+            events,
+            !!invitation.preEvents,
+            (e: WeddingEventMarkdown) =>
+              // Keep attendance state intact only for guests whose name is non-empty
+              values.attendees[e.frontmatter.shortName].filter(
+                guestId => !stringEmpty(values.guests[guestId])
+              )
+          ),
+        })
         setPage("attendance")
       }
     })
@@ -165,7 +170,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
       )}
       {page === "attendance" && (
         <div ref={eventsRef}>
-          <AttendanceGroup guests={guestsForAttendancePage} />
+          <AttendanceGroup guests={values.guests} />
         </div>
       )}
       <div className="mt-6 px-2 flex flex-wrap flex-row-reverse">

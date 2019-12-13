@@ -1,19 +1,29 @@
-import { EventResult } from "../interfaces/Event"
+import { EventResultMarkdown } from "../interfaces/Event"
 import { useStaticQuery, graphql } from "gatsby"
+
 /**
  * Returns all registered wedding events.
  */
 export function useEvents() {
-  const {
-    site,
-  }: {
-    site: EventResult
-  } = useStaticQuery(graphql`
+  const { allMarkdownRemark }: EventResultMarkdown = useStaticQuery(graphql`
     query {
-      site {
-        ...Event
+      allMarkdownRemark(
+        filter: { fields: { sourceName: { eq: "events" } } }
+        sort: { fields: frontmatter___date }
+      ) {
+        edges {
+          node {
+            html
+            frontmatter {
+              shortDate: date(formatString: "ddd MMM D, h:mma")
+              preEvent
+              shortName
+              name: title
+            }
+          }
+        }
       }
     }
   `)
-  return site.siteMetadata.events
+  return allMarkdownRemark.edges.map(e => e.node)
 }

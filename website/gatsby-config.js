@@ -18,33 +18,6 @@ module.exports = {
     displayDates: `May 1 & 2, 2020`,
     rsvpDeadline: `2020-03-15`,
     location: `San Mateo, CA`,
-    // TODO: figure out if this can be shared with Cloud Functions
-    events: [
-      {
-        shortName: "mehendi",
-        name: "Mehendi",
-        date: "2020-04-29T18:00:00",
-        preEvent: true,
-      },
-      {
-        shortName: "sangeet",
-        name: "Sangeet",
-        date: "2020-05-01T19:00:00",
-        preEvent: false,
-      },
-      {
-        shortName: "ceremony",
-        name: "Ceremony",
-        date: "2020-05-02T09:00:00",
-        preEvent: false,
-      },
-      {
-        shortName: "reception",
-        name: "Reception",
-        date: "2020-05-02T18:00:00",
-        preEvent: false,
-      },
-    ],
   },
   plugins: [
     `gatsby-plugin-typescript`,
@@ -66,7 +39,16 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `events`,
+        path: `${__dirname}/src/events`,
+      },
+    },
     `gatsby-transformer-sharp`,
+    `gatsby-transformer-remark`,
+    `gatsby-remark-source-name`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,

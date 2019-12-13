@@ -15,7 +15,11 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
 }) => {
   const formik = useFormikContext()
   return (
-    <Button {...otherProps} disabled={loading || formik.isSubmitting}>
+    <Button
+      {...otherProps}
+      purpose="submit"
+      disabled={loading || formik.isSubmitting}
+    >
       {formik.isSubmitting ? "Submitting..." : label}
     </Button>
   )

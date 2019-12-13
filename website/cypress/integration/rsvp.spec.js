@@ -34,11 +34,20 @@ describe("RSVP page", function() {
     cy.findByText(/at least one name is required/i).should("exist")
     cy.findByText(/please confirm your attendance/i).should("exist")
     cy.percySnapshot()
+
+    // filling out fields restores errors
+    cy.findByLabelText(/name of 1st guest/i).type("Jack Jones")
+    cy.findByText(/at least one name is required/i).should("not.exist")
+    cy.findByLabelText(/yes/i).check()
+    cy.findByText(/please confirm your attendance/i).should("not.exist")
   })
 
   it("should prevent submission if no event attendance is selected", function() {
     // 2 person invitation, with mehendi
     openCode("test2")
+    const invitation = invitations.find(
+      invitation => invitation.data.code === "test2"
+    )
 
     cy.findByLabelText(/yes/i).check()
     cy.findByText(/next: specific events/i).click()
@@ -47,6 +56,75 @@ describe("RSVP page", function() {
 
     cy.findByText(/selections for at least one/i).should("exist")
     cy.percySnapshot()
+
+    // checking at least one field restores errors
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText(invitation.data.knownGuests[0]).check()
+    })
+    cy.findByText(/selections for at least one/i).should("not.exist")
+  })
+
+  it("should preserve attendance choices when only name spellings are changed", function() {
+    // 3 person invitation
+    openCode("test3")
+    const invitation = invitations.find(
+      invitation => invitation.data.code === "test3"
+    )
+
+    cy.findByLabelText(/yes/i).check()
+    cy.findByText(/next: specific events/i).click()
+
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText(invitation.data.knownGuests[0]).check()
+      cy.findByLabelText(invitation.data.knownGuests[2]).check()
+    })
+
+    // go back and forth
+    cy.findByText(/back: guest details/i).click()
+    cy.findByLabelText(/name of 1st guest/i)
+      .clear()
+      .type("Jack Jones")
+    cy.findByText(/next: specific events/i).click()
+
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText("Jack Jones").should("be.checked")
+      cy.findByLabelText(invitation.data.knownGuests[2]).should("be.checked")
+    })
+  })
+
+  it("should reset attendance choices when guest is removed", function() {
+    // 2 person invitation
+    openCode("test3")
+    const invitation = invitations.find(
+      invitation => invitation.data.code === "test3"
+    )
+
+    cy.findByLabelText(/yes/i).check()
+    cy.findByText(/next: specific events/i).click()
+
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText(/all guests are attending/i).check()
+    })
+
+    // go back and change a name, and go forward
+    cy.findByText(/back: guest details/i).click()
+    cy.findByLabelText(/name of 2nd guest/i).clear()
+    cy.findByText(/next: specific events/i).click()
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText(invitation.data.knownGuests[0]).should("be.checked")
+      cy.findByLabelText(invitation.data.knownGuests[1]).should("not.exist")
+      cy.findByLabelText(invitation.data.knownGuests[2]).should("be.checked")
+    })
+
+    // go back again, and add a new name
+    cy.findByText(/back: guest details/i).click()
+    cy.findByLabelText(/name of 2nd guest/i).type("Jack Jones")
+    cy.findByText(/next: specific events/i).click()
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText(invitation.data.knownGuests[0]).should("be.checked")
+      cy.findByLabelText("Jack Jones").should("not.be.checked")
+      cy.findByLabelText(invitation.data.knownGuests[2]).should("be.checked")
+    })
   })
 
   it("should adapt UI to 1-person case", function() {
@@ -64,6 +142,14 @@ describe("RSVP page", function() {
       cy.findByLabelText(/attending/i).should("exist")
     })
     cy.percySnapshot()
+
+    // should prevent submission if no event is selected
+    cy.findByText(/submit rsvp/i).click()
+    cy.findByText(/selections for at least one/i).should("exist")
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText(/attending/i).check()
+    })
+    cy.findByText(/selections for at least one/i).should("not.exist")
   })
 
   it("should adapt UI to 3 or more people", function() {
@@ -112,8 +198,11 @@ describe("RSVP page", function() {
     cy.findByText(/one more step/i).should("exist")
     cy.findByText(/next: specific events/i).click()
 
-    // 4 event sections for mehendi
-    cy.findAllByLabelText(/both guests are attending/i).should("have.length", 4)
+    // 5 event sections including mehendi and haldi
+    cy.findAllByLabelText(/both guests are attending/i).should("have.length", 5)
+    cy.findByLabelText(/haldi/i).within(() => {
+      cy.findByLabelText(invitation.data.knownGuests[0]).check()
+    })
     cy.findByLabelText(/mehendi/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).check()
     })
@@ -135,6 +224,11 @@ describe("RSVP page", function() {
     cy.findByLabelText(/yes, excited to attend/i).should("be.checked")
     cy.findByText(/next: specific events/i).click()
 
+    cy.findByLabelText(/haldi/i).within(() => {
+      cy.findByLabelText(/both guests are attending/i).should("not.be.checked")
+      cy.findByLabelText(invitation.data.knownGuests[0]).should("be.checked")
+      cy.findByLabelText("Jack Jones").should("not.be.checked")
+    })
     cy.findByLabelText(/mehendi/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).should("be.checked")
       cy.findByLabelText(invitation.data.knownGuests[0]).should("be.checked")

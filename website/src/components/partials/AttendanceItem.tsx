@@ -1,9 +1,9 @@
 import React from "react"
-import { WeddingEvent } from "../../interfaces/Event"
+import { WeddingEventMarkdown } from "../../interfaces/Event"
 import OptionsGroup, { Option } from "../form/OptionsGroup"
 
 interface AttendanceItemProps {
-  event: WeddingEvent
+  event: WeddingEventMarkdown
   guestOptions: Option[]
 }
 
@@ -11,7 +11,7 @@ const AttendanceItem: React.FC<AttendanceItemProps> = ({
   event,
   guestOptions,
 }) => {
-  const headingId = `event-heading-${event.shortName}`
+  const headingId = `event-heading-${event.frontmatter.shortName}`
   const options =
     guestOptions.length === 1
       ? [{ label: "Attending", value: guestOptions[0].value }]
@@ -24,17 +24,17 @@ const AttendanceItem: React.FC<AttendanceItemProps> = ({
         id={headingId}
       >
         <span className="pr-3 text-lg font-sans font-semibold text-orange-800 font-sans sm:pr-0 sm:mb-1 sm:text-xl">
-          {event.name}
+          {event.frontmatter.name}
         </span>
         <span className="text-gray-700 text-sm font-serif sm:text-base sm:mb-6">
-          {event.shortDate}
+          {event.frontmatter.shortDate}
         </span>
       </p>
       <div className="mt-2 sm:w-3/5 sm:mt-0">
         <OptionsGroup
-          name={`attendees.${event.shortName}`}
+          name={`attendees.${event.frontmatter.shortName}`}
           type="checkbox"
-          label={`${event.name} @ ${event.shortDate}`}
+          label={`${event.frontmatter.name} @ ${event.frontmatter.shortDate}`}
           labelType="aria"
           options={options}
           showSelectAll={options.length > 1}

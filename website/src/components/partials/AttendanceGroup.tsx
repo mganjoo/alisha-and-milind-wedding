@@ -18,7 +18,7 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
   const prevSubmitCountRef = useRef(submitCount)
   const [showError, setShowError] = useState(false)
   const eventsToShow = useMemo(
-    () => events.filter(e => !e.preEvent || invitation.preEvents),
+    () => events.filter(e => !e.frontmatter.preEvent || invitation.preEvents),
     [events, invitation]
   )
   const options = useMemo(
@@ -59,7 +59,7 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
       </p>
       {eventsToShow.map(event => (
         <AttendanceItem
-          key={event.shortName}
+          key={event.frontmatter.shortName}
           event={event}
           guestOptions={options}
         />

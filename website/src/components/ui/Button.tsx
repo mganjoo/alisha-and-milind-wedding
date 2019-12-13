@@ -1,11 +1,12 @@
 import React from "react"
 import classnames from "classnames"
 
-type ButtonPurpose = "primary" | "secondary" | "tertiary"
+type ButtonPurpose = "submit" | "primary" | "secondary" | "tertiary"
 type ButtonFit = "comfortable" | "compact"
 
 function getPurposeClass(purpose: ButtonPurpose) {
   switch (purpose) {
+    case "submit":
     case "primary":
       return "c-button-primary"
     case "secondary":
@@ -50,7 +51,7 @@ const Button: React.FC<ButtonProps> = ({
       getPurposeClass(purpose || "primary"),
       className
     )}
-    type={!purpose || purpose === "primary" ? "submit" : "button"}
+    type={purpose === "submit" ? "submit" : "button"}
     {...otherProps}
   >
     {children}

@@ -37,7 +37,7 @@ service cloud.firestore {
               ||
               // Must be kept up to date with values in Gatsby config
               (attending() && (
-                (preEvents && events.hasOnly(["mehendi", "sangeet", "ceremony", "reception"]))
+                (preEvents && events.hasOnly(["haldi", "mehendi", "sangeet", "ceremony", "reception"]))
                 || (!preEvents && events.hasOnly(["sangeet", "ceremony", "reception"]))
               ))
             );

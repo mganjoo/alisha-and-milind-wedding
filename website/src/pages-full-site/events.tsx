@@ -1,11 +1,35 @@
 import React from "react"
-import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
+import { useStaticQuery, graphql } from "gatsby"
+import ImageLayout from "../components/layout/ImageLayout"
+import Authenticated from "../components/partials/Authenticated"
+import Schedule from "../components/partials/Schedule"
 
-const EventsPage = () => (
-  <NavLayout>
-    <SEO title="Events" />
-    <p>TODO</p>
-  </NavLayout>
-)
+const EventsPage = () => {
+  const data = useStaticQuery(
+    graphql`
+      query {
+        heroImage: file(relativePath: { eq: "rsvp-hero.jpg" }) {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+        site {
+          ...Deadlines
+        }
+      }
+    `
+  )
+  return (
+    <ImageLayout fluidImage={data.heroImage.childImageSharp.fluid}>
+      <SEO title="Events" />
+      <h1 className="c-page-heading text-center">Events</h1>
+      <Authenticated>
+        <Schedule />
+      </Authenticated>
+    </ImageLayout>
+  )
+}
 export default EventsPage
