@@ -62,7 +62,7 @@
     "@types/react-dom": "16.9.4",
     "@types/react-helmet": "5.0.14",
     "@types/shortid": "0.0.29",
-    "@types/yup": "0.26.24",
+    "@types/yup": "0.26.26",
     "axe-core": "3.4.0",
     "babel-loader": "8.0.6",
     "babel-plugin-transform-remove-console": "6.9.4",
