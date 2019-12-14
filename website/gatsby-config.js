@@ -60,7 +60,7 @@ module.exports = {
         background_color: sharedConstants.offWhite,
         theme_color: sharedConstants.offWhite,
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
-        display: "standalone",
+        display: "minimal-ui",
         icons: [
           {
             src: `/am-square-96x96.png`,
