@@ -45,6 +45,10 @@ export function clearInvitationData(): Promise<void> {
 
 export function parseInvitationData(
   invitationData: SavedInvitationData
-): [DataVersion, FetchedInvitation] {
-  return [invitationData.version, invitationData.fetchedInvitation]
+): FetchedInvitation {
+  return invitationData.fetchedInvitation
+}
+
+export function isCurrentVersion(invitationData: SavedInvitationData): boolean {
+  return invitationData.version === 1
 }

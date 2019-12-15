@@ -1,7 +1,7 @@
 import React from "react"
 import {
   InvitationContext,
-  makeInvitationContextWrapper,
+  makeDummyInvitationContextWrapper,
 } from "./Authenticated"
 import { Invitation, RsvpWithTimestamp } from "../../interfaces/Invitation"
 import RsvpInfo from "./RsvpInfo"
@@ -32,14 +32,16 @@ export default {
 }
 
 export const main = () => (
-  <InvitationContext.Provider value={makeInvitationContextWrapper(invitation)}>
+  <InvitationContext.Provider
+    value={makeDummyInvitationContextWrapper(invitation)}
+  >
     <RsvpInfo handleEditRsvp={action("start editing RSVP")} />
   </InvitationContext.Provider>
 )
 
 export const notAttending = () => (
   <InvitationContext.Provider
-    value={makeInvitationContextWrapper({
+    value={makeDummyInvitationContextWrapper({
       ...invitation,
       latestRsvp: { ...rsvp, attending: false },
     })}

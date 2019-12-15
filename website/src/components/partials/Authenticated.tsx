@@ -29,11 +29,6 @@ export interface InvitationContextWrapper {
   invitation: Invitation
 
   /**
-   * Force a refetch from server (no change to current invitation if unsuccessful)
-   */
-  refetch: () => Promise<void>
-
-  /**
    * Force a reload from cache (no change to current invitation if unsuccessful)
    */
   reloadSaved: () => Promise<void>
@@ -48,17 +43,16 @@ const fallbackInvitation: Invitation = {
   preEvents: true,
 }
 
-export function makeInvitationContextWrapper(
+export function makeDummyInvitationContextWrapper(
   invitation: Invitation
 ): InvitationContextWrapper {
   return {
     invitation: invitation,
-    refetch: () => new Promise(() => console.log("unsupported operation")),
-    reloadSaved: () => new Promise(() => console.log("unsupported operation")),
+    reloadSaved: () => Promise.resolve(),
   }
 }
 
-const fallbackInvitationContextWrapper: InvitationContextWrapper = makeInvitationContextWrapper(
+const fallbackInvitationContextWrapper: InvitationContextWrapper = makeDummyInvitationContextWrapper(
   fallbackInvitation
 )
 export const InvitationContext = createContext<InvitationContextWrapper>(
@@ -67,11 +61,13 @@ export const InvitationContext = createContext<InvitationContextWrapper>(
 
 interface AuthenticatedProps {
   initialCode?: string
+  refreshOlderThanSecs?: number
 }
 
 const Authenticated: React.FC<AuthenticatedProps> = ({
   children,
   initialCode,
+  refreshOlderThanSecs = 0,
 }) => {
   const [didInitialFetch, setDidInitialFetch] = useState(false)
   const [initialFetchError, setInitialFetchError] = useState(false)
@@ -82,11 +78,14 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       ? fetchAndSaveInvitation(initialCode)
       : Promise.resolve(undefined)
     loadedInvitationPromise
-      .then(loadedInvitation => loadedInvitation || loadSavedInvitation(true))
+      .then(
+        loadedInvitation =>
+          loadedInvitation || loadSavedInvitation(refreshOlderThanSecs)
+      )
       .then(loadedInvitation => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
-  }, [initialCode])
+  }, [initialCode, refreshOlderThanSecs])
   const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState(false)
 
@@ -107,17 +106,6 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
     },
     []
   )
-  const refetchInvitation = useMemo(
-    () => async () => {
-      if (invitation) {
-        const fetched = await fetchAndSaveInvitation(invitation.code)
-        if (fetched) {
-          setInvitation(fetched)
-        }
-      }
-    },
-    [invitation]
-  )
 
   const isError = initialFetchError || submitError
   const isMissing =
@@ -126,7 +114,6 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   if (invitation) {
     const invitationContextWrapper: InvitationContextWrapper = {
       invitation: invitation,
-      refetch: refetchInvitation,
       reloadSaved: loadInvitation,
     }
     return (

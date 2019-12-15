@@ -3,12 +3,22 @@ import { render, waitForElementToBeRemoved } from "@testing-library/react"
 import "@testing-library/jest-dom/extend-expect"
 import Authenticated, { InvitationContext } from "./Authenticated"
 import {
-  fetchAndSaveInvitation,
-  loadSavedInvitation,
-} from "../../services/Invitation"
+  loadInvitationData,
+  parseInvitationData,
+  isCurrentVersion,
+  saveInvitationData,
+} from "../../services/Storage"
 import { Invitation } from "../../interfaces/Invitation"
+import dayjs from "dayjs"
+import {
+  mockLoadFirestoreImpl,
+  FindByIdFnType,
+} from "../../utils/FirestoreMocks"
+import { loadFirestore } from "../../services/Firestore"
 
-jest.mock("../../services/Invitation")
+// Mock core services
+jest.mock("../../services/Firestore")
+jest.mock("../../services/Storage")
 
 function ShowInvitation() {
   const { invitation } = useContext(InvitationContext)
@@ -16,18 +26,54 @@ function ShowInvitation() {
 }
 
 function mockReturnValues(
-  loadValue: Invitation | undefined | Promise<Invitation | undefined>,
-  fetchValue: Invitation | undefined | Promise<Invitation | undefined>
+  loadValue: Invitation | undefined,
+  fetchValue: Invitation | undefined | Promise<Invitation | undefined>,
+  lastFetched?: Date
 ) {
-  const mockLoadSavedInvitation = loadSavedInvitation as jest.MockedFunction<
-    typeof loadSavedInvitation
+  const lastFetchedDate = lastFetched || new Date()
+  const mockLoadInvitationData = loadInvitationData as jest.MockedFunction<
+    typeof loadInvitationData
   >
-  mockLoadSavedInvitation.mockReturnValueOnce(Promise.resolve(loadValue))
+  mockLoadInvitationData.mockReturnValueOnce(
+    Promise.resolve(
+      loadValue
+        ? {
+            version: 1,
+            fetchedInvitation: {
+              invitation: loadValue,
+              lastFetched: lastFetchedDate,
+            },
+          }
+        : undefined
+    )
+  )
+  if (loadValue) {
+    const mockParseInvitationData = parseInvitationData as jest.MockedFunction<
+      typeof parseInvitationData
+    >
+    mockParseInvitationData.mockReturnValueOnce({
+      invitation: loadValue,
+      lastFetched: lastFetchedDate,
+    })
+  }
 
-  const mockFetchAndSaveInvitation = fetchAndSaveInvitation as jest.MockedFunction<
-    typeof fetchAndSaveInvitation
+  const mockIsCurrentVersion = isCurrentVersion as jest.MockedFunction<
+    typeof isCurrentVersion
   >
-  mockFetchAndSaveInvitation.mockReturnValueOnce(Promise.resolve(fetchValue))
+  mockIsCurrentVersion.mockReturnValue(true)
+
+  const mockSaveInvitationData = saveInvitationData as jest.MockedFunction<
+    typeof saveInvitationData
+  >
+  mockSaveInvitationData.mockReturnValue(Promise.resolve())
+
+  const mockFindById = jest.fn() as jest.MockedFunction<FindByIdFnType>
+
+  mockLoadFirestoreImpl({
+    mockFindById: mockFindById.mockReturnValueOnce(
+      Promise.resolve(fetchValue).then(v => (v ? { data: v } : undefined))
+    ),
+  })
 }
 
 // ContactEmail has some GraphQL queries that must be mocked out
@@ -145,5 +191,59 @@ describe("Authenticated", () => {
     )
     await waitForElementToBeRemoved(() => queryByText(/Loading/i))
     expect(getByText(/error retrieving/i)).toBeInTheDocument()
+  })
+
+  it("should not re-fetch invitation that is within fetch window", async () => {
+    const invitation = {
+      code: "abcde",
+      partyName: "Cece Parekh & Winston Schmidt",
+      numGuests: 2,
+      knownGuests: [],
+    }
+    mockReturnValues(
+      invitation,
+      invitation,
+      dayjs()
+        .subtract(3, "minute")
+        .toDate()
+    )
+    const { getByText, queryByText } = render(
+      <Authenticated refreshOlderThanSecs={1000}>
+        <ShowInvitation />
+      </Authenticated>
+    )
+    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
+    expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
+    const mockLoadFirestore = loadFirestore as jest.MockedFunction<
+      typeof loadFirestore
+    >
+    expect(mockLoadFirestore).not.toHaveBeenCalled()
+  })
+
+  it("should re-fetch invitation that is sufficiently old", async () => {
+    const invitation = {
+      code: "abcde",
+      partyName: "Cece Parekh & Winston Schmidt",
+      numGuests: 2,
+      knownGuests: [],
+    }
+    mockReturnValues(
+      invitation,
+      invitation,
+      dayjs()
+        .subtract(3, "minute")
+        .toDate()
+    )
+    const { getByText, queryByText } = render(
+      <Authenticated refreshOlderThanSecs={60}>
+        <ShowInvitation />
+      </Authenticated>
+    )
+    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
+    expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
+    const mockLoadFirestore = loadFirestore as jest.MockedFunction<
+      typeof loadFirestore
+    >
+    expect(mockLoadFirestore).toHaveBeenCalled()
   })
 })

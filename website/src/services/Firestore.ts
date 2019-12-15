@@ -1,7 +1,6 @@
 import yn from "yn"
 
 export interface QueryResult {
-  ref: firebase.firestore.DocumentReference
   data: firebase.firestore.DocumentData
 }
 
@@ -18,11 +17,6 @@ export interface Firestore {
     ) => firebase.firestore.DocumentReference
   ) => Promise<Record<string, any> & HasServerTimestamp>
   findById: (collection: string, id: string) => Promise<QueryResult | undefined>
-  findByKey: (
-    collection: string,
-    key: string,
-    value: any
-  ) => Promise<QueryResult[]>
 }
 
 function makeFirestore(
@@ -61,16 +55,6 @@ function makeFirestore(
         .get()
         .then(doc =>
           doc.exists ? { data: doc.data()!, ref: doc.ref } : undefined
-        )
-        .catch(observeAndRethrow),
-    findByKey: async (collection: string, key: string, value: any) =>
-      firebaseInstance
-        .firestore()
-        .collection(collection)
-        .where(key, "==", value)
-        .get()
-        .then(snapshot =>
-          snapshot.docs.map(doc => ({ data: doc.data(), ref: doc.ref }))
         )
         .catch(observeAndRethrow),
   }

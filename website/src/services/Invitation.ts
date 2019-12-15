@@ -2,9 +2,9 @@ import { loadFirestore } from "./Firestore"
 import { Invitation, Rsvp } from "../interfaces/Invitation"
 import {
   saveInvitationData,
-  currentDataVersion,
   loadInvitationData,
   parseInvitationData,
+  isCurrentVersion,
 } from "./Storage"
 
 const invitationsCollection = "invitations"
@@ -19,9 +19,6 @@ function saveInvitation(invitation: Invitation): Promise<void> {
     },
   })
 }
-
-// 5 minute fetch window
-const fetchWindowInMs = 5 * 60 * 1000
 
 /**
  * Attempts to fetch invitation with provided code and save into indexed DB.
@@ -46,21 +43,22 @@ export async function fetchAndSaveInvitation(
 /**
  * Retrieves a saved invitation from cache, if it exists.
  *
- * @param refreshOld if true, will attempt to reload from cache if value is too old
+ * @param refreshOlderThanSecs if the cached invitation was fetched older than this duration (in secs), fetch again.
+ *                             if the value is 0, then will never re-fetch.
  */
 export async function loadSavedInvitation(
-  refreshOld: boolean = false
+  refreshOlderThanSecs: number = 0
 ): Promise<Invitation | undefined> {
   const data = await loadInvitationData()
   if (data) {
-    const [version, savedInvitation] = parseInvitationData(data)
+    const savedInvitation = parseInvitationData(data)
     const now = new Date().getTime()
     if (
-      version !== currentDataVersion ||
-      (refreshOld &&
-        now - savedInvitation.lastFetched.getTime() > fetchWindowInMs)
+      !isCurrentVersion(data) ||
+      (refreshOlderThanSecs > 0 &&
+        now - savedInvitation.lastFetched.getTime() >
+          refreshOlderThanSecs * 1000)
     ) {
-      console.log("Refetching stale invitation")
       return fetchAndSaveInvitation(savedInvitation.invitation.code)
     } else {
       return savedInvitation.invitation

@@ -30,7 +30,7 @@ const RsvpPage = () => {
       <SEO title="RSVP" />
       <section className="max-w-lg mx-auto">
         <h1 className="c-page-heading text-center">RSVP</h1>
-        <Authenticated>
+        <Authenticated refreshOlderThanSecs={90}>
           <div>
             <div className="mb-4">
               <p className="c-body-text">
