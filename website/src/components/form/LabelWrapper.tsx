@@ -21,7 +21,13 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
     <Element
       className="flex flex-wrap justify-between mb-4 font-serif w-full"
       role={group ? "group" : undefined}
-      aria-labelledby={group ? (labelType === "id" ? label : uid) : undefined}
+      aria-labelledby={
+        group && labelType !== "aria"
+          ? labelType === "id"
+            ? label
+            : uid
+          : undefined
+      }
       aria-label={group && labelType === "aria" ? label : undefined}
     >
       {labelType === "text" && (

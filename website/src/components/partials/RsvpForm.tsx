@@ -119,7 +119,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     <>
       {page === "guests" && (
         <div ref={guestsRef}>
-          <h3
+          <h2
             className={
               invitation.numGuests === 1
                 ? "c-form-section-heading"
@@ -127,7 +127,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
             }
           >
             {invitation.latestRsvp ? "Editing RSVP" : "Welcome"}
-          </h3>
+          </h2>
           {invitation.numGuests > 1 && (
             <h3 className="c-form-section-heading">{invitation.partyName}</h3>
           )}

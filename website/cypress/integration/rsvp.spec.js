@@ -19,6 +19,7 @@ describe("RSVP page", function() {
   beforeEach(function() {
     indexedDB.deleteDatabase("am-wedding-store")
     cy.visit("/rsvp")
+    cy.injectAxe()
     cy.findByLabelText(/invitation code/i).as("code_input")
     cy.findByText(/submit/i).as("button")
   })
@@ -34,6 +35,8 @@ describe("RSVP page", function() {
     cy.findByText(/at least one name is required/i).should("exist")
     cy.findByText(/please confirm your attendance/i).should("exist")
     cy.percySnapshot()
+    // Make sure error state is accessible
+    cy.checkA11y()
 
     // filling out fields restores errors
     cy.findByLabelText(/name of 1st guest/i).type("Jack Jones")
@@ -56,6 +59,8 @@ describe("RSVP page", function() {
 
     cy.findByText(/selections for at least one/i).should("exist")
     cy.percySnapshot()
+    // Make sure error state is accessible
+    cy.checkA11y()
 
     // checking at least one field restores errors
     cy.findByLabelText(/reception/i).within(() => {
@@ -142,6 +147,7 @@ describe("RSVP page", function() {
       cy.findByLabelText(/attending/i).should("exist")
     })
     cy.percySnapshot()
+    cy.checkA11y()
 
     // should prevent submission if no event is selected
     cy.findByText(/submit rsvp/i).click()
@@ -182,6 +188,7 @@ describe("RSVP page", function() {
     cy.findByText(/submit rsvp/i).click()
     cy.findByText(/not attending/i).should("exist")
     cy.percySnapshot()
+    cy.checkA11y()
   })
 
   it("should submit a yes response correctly", function() {
@@ -213,10 +220,12 @@ describe("RSVP page", function() {
       cy.findByLabelText(invitation.data.knownGuests[0]).check()
     })
     cy.percySnapshot("RSVP page - second page")
+    cy.checkA11y()
 
     cy.findByText(/submit rsvp/i).click()
     cy.findByText(/2 guests attending/i).should("exist")
     cy.percySnapshot("RSVP page - attending")
+    cy.checkA11y()
 
     // Responses should be sticky
     cy.findByText(/edit rsvp/i).click()
