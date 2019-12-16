@@ -37,7 +37,8 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   const shouldShowSelectAll = !!showSelectAll && type === "checkbox"
   const allSelected = useMemo(
     () =>
-      shouldShowSelectAll && options.every(o => field.value.includes(o.value)),
+      shouldShowSelectAll &&
+      options.every(o => field.value && field.value.includes(o.value)),
     [shouldShowSelectAll, options, field.value]
   )
 

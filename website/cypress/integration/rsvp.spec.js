@@ -178,6 +178,24 @@ describe("RSVP page", function() {
     cy.findAllByText(/both guests are attending/i).should("exist")
   })
 
+  // This test is more of a unit test for checkbox group functionality
+  it("should allow selection and deselection of arbitrary checkboxes", function() {
+    openCode("test2")
+    const invitation = invitations.find(
+      invitation => invitation.data.code === "test2"
+    )
+
+    cy.findByLabelText(/yes/i).check()
+    cy.findByText(/next: specific events/i).click()
+
+    cy.findByLabelText(/reception/i).within(() => {
+      cy.findByLabelText(/both guests are attending/i).check()
+      cy.findByLabelText(/both guests are attending/i).uncheck()
+      cy.findByLabelText(invitation.data.knownGuests[0]).check()
+      cy.findByLabelText(invitation.data.knownGuests[0]).uncheck()
+    })
+  })
+
   it("should submit a no response correctly", function() {
     // 3 person invitation
     openCode("test3")
