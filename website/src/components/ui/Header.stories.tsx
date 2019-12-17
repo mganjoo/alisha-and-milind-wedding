@@ -18,6 +18,16 @@ const linksWithActive = [
 
 export default {
   title: "Header",
+  decorators: [
+    (storyFn: any) => (
+      <div>
+        {storyFn()}
+        <p className="px-4 text-center">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+      </div>
+    ),
+  ],
 }
 
 export const main = () => <Header links={defaultLinks} />

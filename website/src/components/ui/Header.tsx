@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
+import classnames from "classnames"
 
 interface HeaderLink {
   text: string
@@ -59,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       <div className="relative">
         <div className="absolute mx-1 h-full flex items-center sm:hidden">
           <button
-            className="p-2"
+            className="ml-1 p-2 focus:outline-none focus:shadow-outline-light"
             ref={menuButtonRef}
             onClick={() => setDropdownVisible(!dropdownVisible)}
             aria-label="Toggle Menu"
@@ -75,7 +76,12 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         </div>
         <div className="py-5 text-center sm:pt-8 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-4xl">
-            <Link to="/">{data && data.site.siteMetadata.displayTitle}</Link>
+            <Link
+              to="/"
+              className="focus:outline-none focus:shadow-outline-light px-1"
+            >
+              {data && data.site.siteMetadata.displayTitle}
+            </Link>
           </h1>
           <h2 className="font-serif text-sm sm:text-xl">
             {data && data.site.siteMetadata.displayDates} &middot;{" "}
@@ -85,9 +91,10 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       </div>
       <nav
         ref={navRef}
-        className={`${
-          dropdownVisible ? "block " : "hidden "
-        }py-3 border-t c-subtle-border font-sans font-semibold text-gray-900 text-sm sm:block sm:py-0 sm:border-t-0 sm:text-base`}
+        className={classnames(
+          dropdownVisible ? "block" : "hidden",
+          "py-3 border-t c-subtle-border font-sans font-semibold text-gray-900 text-sm shadow-inner sm:shadow-none sm:block sm:py-0 sm:border-t-0 sm:text-base"
+        )}
       >
         <ul className="sm:flex sm:flex-row sm:justify-center sm:items-center">
           {links.map((link, index) => (
@@ -96,11 +103,12 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
                 onClick={closeDropdown}
                 to={link.to}
                 getProps={({ isCurrent, isPartiallyCurrent }) => ({
-                  className: `inline-block px-1 pt-4 pb-1 border-b-4 sm:px-2 sm:py-3 sm:border-b-4${
+                  className: classnames(
+                    "inline-block px-1 pt-4 pb-1 border-b-4 focus:outline-none focus:border-orange-300 hover:border-orange-500 hover:text-orange-700 sm:px-2 sm:py-3 sm:border-b-4",
                     isCurrent || isPartiallyCurrent || link.forceActive
-                      ? " border-orange-500"
-                      : " border-transparent hover:border-orange-300"
-                  }`,
+                      ? " border-orange-600"
+                      : " border-transparent"
+                  ),
                 })}
               >
                 {link.text}
