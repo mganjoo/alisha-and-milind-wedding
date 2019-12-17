@@ -1,14 +1,10 @@
 import React, { useContext } from "react"
-import { useEvents } from "../../utils/useEvents"
+import { useEvents } from "../../interfaces/Event"
 import { InvitationContext } from "./Authenticated"
 import ScheduleItem from "./ScheduleItem"
 import { Link } from "gatsby"
 
-interface ScheduleProps {
-  siteUrl: string
-}
-
-const Schedule: React.FC<ScheduleProps> = ({ siteUrl }) => {
+const Schedule: React.FC = () => {
   const events = useEvents()
   const { invitation } = useContext(InvitationContext)
   return (
@@ -31,11 +27,7 @@ const Schedule: React.FC<ScheduleProps> = ({ siteUrl }) => {
       {events
         .filter(e => !e.frontmatter.preEvent || invitation.preEvents)
         .map(event => (
-          <ScheduleItem
-            key={event.frontmatter.shortName}
-            event={event}
-            siteUrl={siteUrl}
-          />
+          <ScheduleItem key={event.frontmatter.shortName} event={event} />
         ))}
     </div>
   )

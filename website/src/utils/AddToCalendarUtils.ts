@@ -7,8 +7,8 @@ export interface CalendarEvent {
   description: string
   startTime: string | Date
   endTime: string | Date
-  location: string
-  url: string
+  location?: string
+  url?: string
   allDay?: boolean
   shortName?: string
 }

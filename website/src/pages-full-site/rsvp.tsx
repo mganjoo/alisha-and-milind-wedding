@@ -4,10 +4,10 @@ import Authenticated from "../components/partials/Authenticated"
 import { useStaticQuery, graphql } from "gatsby"
 import ImageLayout from "../components/layout/ImageLayout"
 import RsvpSection from "../components/partials/RsvpSection"
-import { DeadlinesResult } from "../interfaces/Event"
+import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
 
 const RsvpPage = () => {
-  const data = useStaticQuery(
+  const imageData = useStaticQuery(
     graphql`
       query {
         heroImage: file(relativePath: { eq: "rsvp-hero.jpg" }) {
@@ -17,35 +17,31 @@ const RsvpPage = () => {
             }
           }
         }
-        site {
-          ...Deadlines
-        }
       }
     `
   )
-  const site = data.site as DeadlinesResult
-
   return (
-    <ImageLayout fluidImage={data.heroImage.childImageSharp.fluid}>
+    <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
       <SEO title="RSVP" />
       <section className="max-w-lg mx-auto">
         <h1 className="c-page-heading text-center">RSVP</h1>
         <Authenticated refreshOlderThanSecs={90}>
           <div>
-            <div className="mb-4">
-              <p className="c-body-text">
-                We hope to see you at our wedding! Please RSVP by{" "}
-                <span className="font-semibold">
-                  {site.siteMetadata.deadline}
-                </span>
-                .
-              </p>
-              <p className="c-body-text">
-                Any member of your party can submit for the whole group, and you
-                can edit your RSVP as many times as you like before{" "}
-                {site.siteMetadata.shortDeadline}.
-              </p>
-            </div>
+            <WeddingMetadataContext.Consumer>
+              {value => (
+                <div className="mb-4">
+                  <p className="c-body-text">
+                    We hope to see you at our wedding! Please RSVP by{" "}
+                    <span className="font-semibold">{value.deadline}</span>.
+                  </p>
+                  <p className="c-body-text">
+                    Any member of your party can submit for the whole group, and
+                    you can edit your RSVP as many times as you like before{" "}
+                    {value.shortDeadline}.
+                  </p>
+                </div>
+              )}
+            </WeddingMetadataContext.Consumer>
             <RsvpSection />
           </div>
         </Authenticated>
@@ -53,4 +49,5 @@ const RsvpPage = () => {
     </ImageLayout>
   )
 }
+
 export default RsvpPage

@@ -1,14 +1,15 @@
-import React from "react"
+import React, { useContext } from "react"
 import { WeddingEventMarkdown } from "../../interfaces/Event"
 import Symbol from "../ui/Symbol"
 import AddToCalendarLinks from "../ui/AddToCalendarLinks"
+import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
 
 interface ScheduleItemProps {
-  siteUrl: string
   event: WeddingEventMarkdown
 }
 
-const ScheduleItem: React.FC<ScheduleItemProps> = ({ event, siteUrl }) => {
+const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
+  const metadata = useContext(WeddingMetadataContext)
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-3 md:mb-0 md:w-1/2 md:flex md:flex-col md:items-center">
@@ -57,7 +58,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event, siteUrl }) => {
                 description: event.plainText,
                 startTime: event.frontmatter.startDate,
                 endTime: event.frontmatter.endDate,
-                url: siteUrl,
+                url: metadata.siteUrl,
               }}
               dropdown
             />

@@ -1,6 +1,8 @@
 import React from "react"
 import Helmet from "react-helmet"
 import classnames from "classnames"
+import { useWeddingMetadata } from "../../interfaces/WeddingMetadata"
+import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
 
 interface BaseLayoutProps {
   additionalBodyClassName?: string
@@ -10,8 +12,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
   children,
   additionalBodyClassName,
 }) => {
+  const metadata = useWeddingMetadata()
   return (
-    <>
+    <WeddingMetadataContext.Provider value={metadata}>
       <Helmet>
         <link
           rel="icon"
@@ -36,7 +39,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
         ></body>
       </Helmet>
       {children}
-    </>
+    </WeddingMetadataContext.Provider>
   )
 }
 export default BaseLayout

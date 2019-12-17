@@ -4,7 +4,7 @@ import { useFormikContext } from "formik"
 import { RsvpFormValues, GuestMap } from "../../interfaces/RsvpFormValues"
 import Alert from "../form/Alert"
 import { InvitationContext } from "./Authenticated"
-import { useEvents } from "../../utils/useEvents"
+import { useEvents } from "../../interfaces/Event"
 import { filterNonEmptyKeys } from "../../utils/Utils"
 
 interface AttendanceGroupProps {
