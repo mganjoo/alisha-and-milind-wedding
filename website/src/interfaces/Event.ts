@@ -2,11 +2,17 @@ import { graphql } from "gatsby"
 
 export interface WeddingEventMarkdown {
   html: string
+  plainText: string
   frontmatter: {
     shortName: string
     name: string
     shortDate: string
+    startDate: string
+    endDate: string
     preEvent: true
+    longDateOnly: string
+    timeOnly: string
+    location: string
   }
 }
 

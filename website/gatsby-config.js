@@ -48,6 +48,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-transformer-remark`,
+    `gatsby-transformer-remark-plaintext`,
     `gatsby-remark-source-name`,
     `gatsby-plugin-sharp`,
     {

@@ -46,7 +46,7 @@ describe("RSVP page", function() {
   })
 
   it("should prevent submission if no event attendance is selected", function() {
-    // 2 person invitation, with mehendi
+    // 2 person invitation, with mehndi
     openCode("test2")
     const invitation = invitations.find(
       invitation => invitation.data.code === "test2"
@@ -210,7 +210,7 @@ describe("RSVP page", function() {
   })
 
   it("should submit a yes response correctly", function() {
-    // 2 person invitation, with mehendi
+    // 2 person invitation, with mehndi
     openCode("test2")
     const invitation = invitations.find(
       invitation => invitation.data.code === "test2"
@@ -223,12 +223,12 @@ describe("RSVP page", function() {
     cy.findByText(/one more step/i).should("exist")
     cy.findByText(/next: specific events/i).click()
 
-    // 5 event sections including mehendi and haldi
+    // 5 event sections including mehndi and haldi
     cy.findAllByLabelText(/both guests are attending/i).should("have.length", 5)
     cy.findByLabelText(/haldi/i).within(() => {
       cy.findByLabelText(invitation.data.knownGuests[0]).check()
     })
-    cy.findByLabelText(/mehendi/i).within(() => {
+    cy.findByLabelText(/mehndi/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).check()
     })
     cy.findByLabelText(/sangeet/i).within(() => {
@@ -256,7 +256,7 @@ describe("RSVP page", function() {
       cy.findByLabelText(invitation.data.knownGuests[0]).should("be.checked")
       cy.findByLabelText("Jack Jones").should("not.be.checked")
     })
-    cy.findByLabelText(/mehendi/i).within(() => {
+    cy.findByLabelText(/mehndi/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).should("be.checked")
       cy.findByLabelText(invitation.data.knownGuests[0]).should("be.checked")
       cy.findByLabelText("Jack Jones").should("be.checked")

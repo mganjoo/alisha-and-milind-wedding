@@ -68,6 +68,9 @@
   &:focus {
     @apply outline-none shadow-outline-light;
   }
+  &:hover {
+    @apply text-orange-700;
+  }
 }
 
 .c-invalid-outline {

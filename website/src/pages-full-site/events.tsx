@@ -17,7 +17,9 @@ const EventsPage = () => {
           }
         }
         site {
-          ...Deadlines
+          siteMetadata {
+            siteUrl
+          }
         }
       }
     `
@@ -27,7 +29,7 @@ const EventsPage = () => {
       <SEO title="Events" />
       <h1 className="c-page-heading text-center">Events</h1>
       <Authenticated>
-        <Schedule />
+        <Schedule siteUrl={data.site.siteMetadata.siteUrl} />
       </Authenticated>
     </ImageLayout>
   )

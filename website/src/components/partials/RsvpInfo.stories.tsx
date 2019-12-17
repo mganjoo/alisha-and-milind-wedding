@@ -10,11 +10,11 @@ import { action } from "@storybook/addon-actions"
 const rsvp: RsvpWithTimestamp = {
   attending: true,
   guests: [
-    { name: "Foo Adams", events: ["mehendi", "sangeet"] },
-    { name: "Bar Adams", events: ["mehendi", "sangeet"] },
-    { name: "Baz Adams", events: ["mehendi", "sangeet"] },
-    { name: "Abigail Adams", events: ["mehendi", "sangeet"] },
-    { name: "James Adams", events: ["mehendi", "sangeet"] },
+    { name: "Foo Adams", events: ["mehndi", "sangeet"] },
+    { name: "Bar Adams", events: ["mehndi", "sangeet"] },
+    { name: "Baz Adams", events: ["mehndi", "sangeet"] },
+    { name: "Abigail Adams", events: ["mehndi", "sangeet"] },
+    { name: "James Adams", events: ["mehndi", "sangeet"] },
   ],
   timestampMillis: new Date().getTime(),
 }

@@ -134,7 +134,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Terry Gordon",
-              events: ["sangeet", "mehendi", "ceremony"],
+              events: ["sangeet", "mehndi", "ceremony"],
             },
             { name: "Allison Little", events: ["sangeet"] },
             {
@@ -168,7 +168,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Terry Gordon",
-              events: ["sangeet", "mehendi", "ceremony"],
+              events: ["sangeet", "mehndi", "ceremony"],
             },
             { name: "Allison Little", events: ["sangeet"] },
           ],
@@ -218,7 +218,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Terry Gordon",
-              events: ["sangeet", "mehendi", "ceremony"],
+              events: ["sangeet", "mehndi", "ceremony"],
             },
             { name: "Allison Little", events: ["sangeet"] },
             {
@@ -238,7 +238,7 @@ describe("Firestore rules", () => {
           attending: true,
           guests: [
             {
-              events: ["sangeet", "mehendi", "ceremony"],
+              events: ["sangeet", "mehndi", "ceremony"],
             },
           ],
           createdAt: firebase.firestore.Timestamp.now(),
@@ -253,7 +253,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "   ",
-              events: ["sangeet", "mehendi", "ceremony"],
+              events: ["sangeet", "mehndi", "ceremony"],
             },
           ],
           createdAt: firebase.firestore.Timestamp.now(),
@@ -283,7 +283,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "John Jacobs",
-              events: ["sangeet", "mehendi", "ceremony"],
+              events: ["sangeet", "mehndi", "ceremony"],
             },
           ],
           createdAt: firebase.firestore.Timestamp.now(),
