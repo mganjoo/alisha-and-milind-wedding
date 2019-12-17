@@ -6,7 +6,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@reach/menu-button": "^0.6.4",
+    "@reach/menu-button": "0.6.4",
     "classnames": "2.2.6",
     "dayjs": "1.8.17",
     "firebase": "7.6.0",
@@ -22,7 +22,7 @@
     "gatsby-remark-source-name": "1.0.0",
     "gatsby-source-filesystem": "2.1.42",
     "gatsby-transformer-remark": "2.6.42",
-    "gatsby-transformer-remark-plaintext": "^1.0.3",
+    "gatsby-transformer-remark-plaintext": "1.0.3",
     "gatsby-transformer-sharp": "2.3.9",
     "idb-keyval": "3.2.0",
     "query-string": "6.9.0",
