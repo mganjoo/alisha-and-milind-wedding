@@ -97,9 +97,11 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
             !!invitation.preEvents,
             (e: WeddingEventMarkdown) =>
               // Keep attendance state intact only for guests whose name is non-empty
-              values.attendees[e.frontmatter.shortName].filter(
-                guestId => !stringEmpty(values.guests[guestId])
-              )
+              values.attendees[e.frontmatter.shortName]
+                ? values.attendees[e.frontmatter.shortName].filter(
+                    guestId => !stringEmpty(values.guests[guestId])
+                  )
+                : []
           ),
         })
         setPage("attendance")
