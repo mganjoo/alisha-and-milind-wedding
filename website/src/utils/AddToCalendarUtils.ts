@@ -10,6 +10,7 @@ export interface CalendarEvent {
   location: string
   url: string
   allDay?: boolean
+  shortName?: string
 }
 
 // Documentation for how to add dates from:

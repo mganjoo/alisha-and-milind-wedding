@@ -62,11 +62,11 @@
   @apply px-3 py-1;
 }
 
-.c-svg-button {
-  @apply flex items-center;
+.c-add-cal-button {
+  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold;
 
-  & > svg {
-    @apply w-3 mr-2 fill-current;
+  &:focus {
+    @apply outline-none shadow-outline-light;
   }
 }
 
@@ -168,6 +168,19 @@
     /* Reverse back so that reverse looks correct */
     transform: rotateY(180deg);
   }
+}
+
+[data-reach-menu-list] {
+  @extend .c-subtle-border;
+  @apply py-2 text-sm font-sans;
+}
+
+[data-reach-menu-item] {
+  @apply flex px-4 py-1;
+}
+
+[data-reach-menu-item][data-selected] {
+  @apply bg-orange-800;
 }
 
 /* Specific UI elements */

@@ -12,17 +12,22 @@ function dateKnob(name: string, defaultValue: Date) {
   return new Date(timestamp)
 }
 
+const makeEvent = () => ({
+  title: "My Event",
+  description: "This is an event",
+  location: "San Francisco, CA",
+  startTime: dateKnob("Start", new Date("2019-08-01T05:00")),
+  endTime: dateKnob("End", new Date("2019-08-01T07:00")),
+  allDay: boolean("All day", false),
+  url: "https://example.com",
+})
+
 export const main = () => (
-  <AddToCalendarLinks
-    label="Add to calendar"
-    event={{
-      title: "My Event",
-      description: "This is an event",
-      location: "San Francisco, CA",
-      startTime: dateKnob("Start", new Date("2019-08-01T05:00")),
-      endTime: dateKnob("End", new Date("2019-08-01T07:00")),
-      allDay: boolean("All day", false),
-      url: "https://example.com",
-    }}
-  />
+  <AddToCalendarLinks label="Add to calendar" event={makeEvent()} />
+)
+
+export const withDropdown = () => (
+  <div className="p-5">
+    <AddToCalendarLinks label="Add to calendar" event={makeEvent()} dropdown />
+  </div>
 )

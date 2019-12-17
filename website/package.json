@@ -6,6 +6,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "@reach/menu-button": "^0.6.4",
     "classnames": "2.2.6",
     "dayjs": "1.8.17",
     "firebase": "7.6.0",

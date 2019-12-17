@@ -7,6 +7,8 @@ import {
   yahoo,
 } from "../../utils/AddToCalendarUtils"
 import { useUID } from "react-uid"
+import { Menu, MenuButton, MenuList, MenuLink } from "@reach/menu-button"
+import Symbol from "./Symbol"
 
 type CalendarType = "google" | "yahoo" | "outlookcom" | "apple" | "ical"
 
@@ -65,56 +67,101 @@ function getIcon(icon: CalendarType) {
   }
 }
 
-interface CalendarLinkProps {
-  url: string
-  type: CalendarType
-  download?: string
+function getLinkOpenProps(event: CalendarEvent, type: CalendarType) {
+  switch (type) {
+    case "apple":
+    case "ical":
+      return { download: `${event.shortName || "event"}.ics` }
+    default:
+      return { target: "_blank", rel: "noopener noreferrer" }
+  }
 }
 
-function CalendarLink({ url, type, download }: CalendarLinkProps) {
-  const extraProps = download
-    ? { download: download }
-    : { target: "_blank", rel: "noopener noreferrer" }
-  return (
-    <li>
-      <a
-        className="c-button c-button-tertiary c-button-compact c-svg-button mx-2 mt-1 mb-2"
-        href={url}
-        {...extraProps}
-      >
+function getUrl(event: CalendarEvent, type: CalendarType) {
+  switch (type) {
+    case "apple":
+      return ical(event)
+    case "ical":
+      return ical(event)
+    case "google":
+      return google(event)
+    case "outlookcom":
+      return outlook(event)
+    case "yahoo":
+      return yahoo(event)
+  }
+}
+
+function getLinkProps(event: CalendarEvent, type: CalendarType) {
+  return {
+    href: getUrl(event, type),
+    children: (
+      <>
         <svg
           aria-hidden="true"
+          className="w-3 mr-2 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox={getViewbox(type)}
         >
           {getIcon(type)}
         </svg>
         {getLabel(type)}
-      </a>
-    </li>
-  )
+      </>
+    ),
+    ...getLinkOpenProps(event, type),
+  }
 }
+
+const eventTypes: CalendarType[] = [
+  "apple",
+  "google",
+  "outlookcom",
+  "yahoo",
+  "ical",
+]
 
 interface AddToCalendarProps {
   event: CalendarEvent
   label: string
+  dropdown?: boolean
 }
 
-const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({ event, label }) => {
+const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
+  event,
+  label,
+  dropdown,
+}) => {
   const id = `addToCalendar-${useUID()}`
-  return (
+  return !dropdown ? (
     <section aria-labelledby={id} className="flex flex-col items-center">
-      <h2 className="my-2 text-sm font-sans font-semibold" id={id}>
+      <p className="my-2 text-sm font-sans font-semibold" id={id}>
         {label}
-      </h2>
+      </p>
       <ul className="flex flex-wrap justify-center">
-        <CalendarLink url={ical(event)} download="event.ics" type="apple" />
-        <CalendarLink url={google(event)} type="google" />
-        <CalendarLink url={outlook(event)} type="outlookcom" />
-        <CalendarLink url={yahoo(event)} type="yahoo" />
-        <CalendarLink url={ical(event)} download="event.ics" type="ical" />
+        {eventTypes.map(eventType => (
+          <li className="mx-2 mt-1 mb-2" key={eventType}>
+            {
+              // eslint-disable-next-line jsx-a11y/anchor-has-content
+              <a
+                className="c-button c-button-tertiary c-button-compact flex items-center"
+                {...getLinkProps(event, eventType)}
+              />
+            }
+          </li>
+        ))}
       </ul>
     </section>
+  ) : (
+    <Menu>
+      <MenuButton className="c-add-cal-button">
+        {label} <Symbol symbol="chevron-down" className="w-3 ml-1" inline />
+      </MenuButton>
+      <MenuList>
+        {eventTypes.map(eventType => (
+          <MenuLink key={eventType} {...getLinkProps(event, eventType)} />
+        ))}
+      </MenuList>
+    </Menu>
   )
 }
 export default AddToCalendarLinks
