@@ -99,7 +99,7 @@ function getLinkProps(event: CalendarEvent, type: CalendarType) {
       <>
         <svg
           aria-hidden="true"
-          className="w-3 mr-2 fill-current"
+          className="w-3 h-4 mr-2 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox={getViewbox(type)}
         >
