@@ -1,10 +1,14 @@
 import React from "react"
 import AddToCalendarLinks from "./AddToCalendarLinks"
 import { date, withKnobs, boolean } from "@storybook/addon-knobs"
+import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
 
 export default {
   title: "AddToCalendarLinks",
-  decorators: [withKnobs],
+  decorators: [
+    withKnobs,
+    (storyFn: any) => <StoryPaddingWrapper>{storyFn()}</StoryPaddingWrapper>,
+  ],
 }
 
 function dateKnob(name: string, defaultValue: Date) {
@@ -27,7 +31,5 @@ export const main = () => (
 )
 
 export const withDropdown = () => (
-  <div className="p-5">
-    <AddToCalendarLinks label="Add to calendar" event={makeEvent()} dropdown />
-  </div>
+  <AddToCalendarLinks label="Add to calendar" event={makeEvent()} dropdown />
 )

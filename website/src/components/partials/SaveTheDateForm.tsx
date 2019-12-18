@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Formik } from "formik"
 import { object, string } from "yup"
-import Alert from "../form/Alert"
+import Alert from "../ui/Alert"
 import { loadFirestore } from "../../services/Firestore"
 import ContactEmail from "./ContactEmail"
 import LabelledTextInput from "../form/LabelledTextInput"
@@ -53,23 +53,21 @@ const SaveTheDateForm: React.FC = () => {
         >
           {/* Padding needed here for confirmation page to work */}
           <BaseForm className="flex flex-col items-center pt-4 pb-16 lg:pb-20">
-            <div className="w-full mb-6">
-              <LabelledTextInput
-                label="Name"
-                name="name"
-                type="text"
-                autoComplete="name"
-              />
-              <LabelledTextInput
-                label="Email address"
-                name="email"
-                type="email"
-                autoComplete="email"
-              />
-            </div>
-            <SubmitButton label="Submit info" className="shadow-lg" />
+            <LabelledTextInput
+              label="Name"
+              name="name"
+              type="text"
+              autoComplete="name"
+            />
+            <LabelledTextInput
+              label="Email address"
+              name="email"
+              type="email"
+              autoComplete="email"
+            />
+            <SubmitButton label="Submit info" className="my-4 shadow-lg" />
             {submitError && (
-              <Alert className="mt-8">
+              <Alert>
                 There was a problem submitting your info. Please email us at{" "}
                 <ContactEmail />.
               </Alert>

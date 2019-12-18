@@ -4,7 +4,7 @@ import {
   loadSavedInvitation,
 } from "../../services/Invitation"
 import Loading from "../ui/Loading"
-import Alert from "../form/Alert"
+import Alert from "../ui/Alert"
 import ContactEmail from "./ContactEmail"
 import { Formik } from "formik"
 import { object, string } from "yup"
@@ -12,6 +12,7 @@ import BaseForm from "../form/BaseForm"
 import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
 import { Invitation } from "../../interfaces/Invitation"
+import FormDescription from "../form/FormDescription"
 
 interface LoginFormValues {
   code: string
@@ -131,13 +132,13 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         onSubmit={login}
       >
         <div className="p-4">
-          <BaseForm className="max-w-sm mx-auto w-full border rounded-lg p-6 c-subtle-border">
-            <p className="c-form-section-description">
+          <BaseForm className="max-w-sm mx-auto w-full border rounded-lg p-6 border-gray-subtle">
+            <FormDescription>
               To view this page, please use the invitation code included in your
               wedding invitation email.
-            </p>
+            </FormDescription>
             {(isError || isMissing) && (
-              <Alert className="mb-4">
+              <Alert>
                 {isError && "There was an error retrieving your invitation. "}
                 {isMissing && "Hmm, we couldn't find that invitation code. "}
                 Please try again, or email us at <ContactEmail />.

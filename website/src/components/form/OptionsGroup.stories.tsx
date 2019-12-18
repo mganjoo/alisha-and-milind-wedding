@@ -1,10 +1,13 @@
 import React from "react"
 import OptionsGroup, { Option } from "./OptionsGroup"
 import FormikStoryWrapper from "../../utils/FormikStoryWrapper"
+import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
 
 export default {
   title: "OptionsGroup",
-  decorators: [(storyFn: any) => <div className="p-4">{storyFn()}</div>],
+  decorators: [
+    (storyFn: any) => <StoryPaddingWrapper>{storyFn()}</StoryPaddingWrapper>,
+  ],
 }
 
 const options: Option[] = [

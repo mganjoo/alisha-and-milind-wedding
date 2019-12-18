@@ -7,13 +7,12 @@ interface BaseFormProps {
   className?: string
 }
 
-const BaseForm: React.FC<BaseFormProps> = ({ className, children }) => {
-  return (
+const BaseForm: React.FC<BaseFormProps> = ({ className, children }) => (
+  <Form className={className} noValidate>
     <NodeManager>
-      <Form className={className} noValidate>
-        <FirstErrorFocuser>{children}</FirstErrorFocuser>
-      </Form>
+      <FirstErrorFocuser>{children}</FirstErrorFocuser>
     </NodeManager>
-  )
-}
+  </Form>
+)
+
 export default BaseForm

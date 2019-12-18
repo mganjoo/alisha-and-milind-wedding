@@ -51,6 +51,7 @@ module.exports = {
     `gatsby-transformer-remark-plaintext`,
     `gatsby-remark-source-name`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-react-css-modules`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -88,7 +89,6 @@ module.exports = {
       options: {
         printRejected: true,
         tailwind: true,
-        purgeOnly: [`src/styles/global.css`],
         // special whitelist:
         // <a> which is used indirectly by Gatsby <Link>
         whitelist: [`a`],

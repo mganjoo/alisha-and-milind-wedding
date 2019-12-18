@@ -1,0 +1,10 @@
+.alert {
+  & a,
+  & button {
+    @apply font-bold;
+
+    &:hover {
+      @apply underline;
+    }
+  }
+}

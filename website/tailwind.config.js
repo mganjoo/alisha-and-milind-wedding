@@ -6,6 +6,8 @@ module.exports = {
     extend: {
       colors: {
         "off-white": sharedConstants.offWhite,
+        invalid: defaultTheme.colors.red["400"],
+        "gray-subtle": defaultTheme.colors.gray["400"],
       },
       fontFamily: {
         sans: ["Raleway", ...defaultTheme.fontFamily.sans],

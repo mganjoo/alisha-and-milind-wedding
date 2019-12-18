@@ -1,6 +1,6 @@
 {
   "files.associations": {
-    "global.css": "postcss",
+    "*.css": "postcss",
     "netlify.toml": "ini"
   },
   "eslint.enable": true,

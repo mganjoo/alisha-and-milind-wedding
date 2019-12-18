@@ -1,0 +1,6 @@
+.invalid {
+  @apply border-invalid bg-no-repeat bg-right pr-2;
+  background-image: inline("exclamation-outline.svg");
+  background-size: 20px 20px;
+  background-origin: content-box;
+}

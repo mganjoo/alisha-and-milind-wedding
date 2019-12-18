@@ -1,10 +1,10 @@
 import React, { useMemo, useCallback } from "react"
-import LabelWrapper from "./LabelWrapper"
 import { useField, useFormikContext } from "formik"
 import classnames from "classnames"
 import { useRegisteredRef } from "react-register-nodes"
 import ControlledLabelledOption from "./ControlledLabelledOption"
 import LabelledOption from "./LabelledOption"
+import InputGroup from "./InputGroup"
 
 export interface Option {
   value: string
@@ -55,49 +55,38 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   )
 
   return (
-    <LabelWrapper
-      label={label}
-      labelType={labelType}
-      group
-      errorMessage={errorMessage}
-    >
+    <InputGroup label={label} labelType={labelType} errorMessage={errorMessage}>
+      {shouldShowSelectAll && (
+        <LabelledOption
+          label={selectAllLabel || "Select all"}
+          type="checkbox"
+          checked={allSelected}
+          onChange={toggleSelectAll}
+          bold={allSelected}
+        />
+      )}
       <div
-        className={classnames("w-full px-2 pt-2", {
-          "border rounded c-invalid-outline": !!errorMessage,
-        })}
+        className={
+          shouldShowSelectAll
+            ? classnames(
+                "ml-2 pl-3 border-l-2",
+                allSelected ? "border-orange-500" : "border-gray-subtle"
+              )
+            : undefined
+        }
       >
-        {shouldShowSelectAll && (
-          <LabelledOption
-            label={selectAllLabel || "Select all"}
-            type="checkbox"
-            checked={allSelected}
-            onChange={toggleSelectAll}
-            labelClassName={classnames({ "font-semibold": allSelected })}
+        {options.map((option, i) => (
+          <ControlledLabelledOption
+            key={option.value}
+            name={name}
+            type={type}
+            label={option.label}
+            value={option.value}
+            ref={errorMessage && i === 0 ? ref : undefined}
           />
-        )}
-        <div
-          className={
-            shouldShowSelectAll
-              ? classnames(
-                  "ml-2 pl-3 pt-1 border-l-2",
-                  allSelected ? "border-orange-500" : "c-subtle-border"
-                )
-              : undefined
-          }
-        >
-          {options.map((option, i) => (
-            <ControlledLabelledOption
-              key={`option-${option.value}`}
-              name={name}
-              type={type}
-              label={option.label}
-              value={option.value}
-              ref={errorMessage && i === 0 ? ref : undefined}
-            />
-          ))}
-        </div>
+        ))}
       </div>
-    </LabelWrapper>
+    </InputGroup>
   )
 }
 export default OptionsGroup

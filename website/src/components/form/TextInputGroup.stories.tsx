@@ -1,10 +1,13 @@
 import FormikStoryWrapper from "../../utils/FormikStoryWrapper"
 import React from "react"
 import TextInputGroup from "./TextInputGroup"
+import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
 
 export default {
   title: "TextInputGroup",
-  decorators: [(storyFn: any) => <div className="p-4">{storyFn()}</div>],
+  decorators: [
+    (storyFn: any) => <StoryPaddingWrapper>{storyFn()}</StoryPaddingWrapper>,
+  ],
 }
 
 export const main = () => (

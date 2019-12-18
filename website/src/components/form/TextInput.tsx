@@ -1,10 +1,14 @@
 import React from "react"
-import classnames from "classnames"
 import { useField } from "formik"
+import "./TextInputGroup.module.css"
+import classnames from "classnames"
 
 interface TextInputProps
   extends React.DetailedHTMLProps<
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "name">,
+    Omit<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      "type" | "name" | "className"
+    >,
     HTMLInputElement
   > {
   name: string
@@ -13,18 +17,15 @@ interface TextInputProps
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  ({ type, className, invalid, name, ...otherProps }, ref) => {
+  ({ type, invalid, name, ...otherProps }, ref) => {
     const [field] = useField<string>(name)
     return (
       <input
         {...field}
         ref={ref}
         type={type}
-        className={classnames(
-          "block w-full form-input",
-          { "c-input-invalid": invalid },
-          className
-        )}
+        className="block w-full form-input"
+        styleName={classnames({ invalid: invalid })}
         {...otherProps}
       />
     )

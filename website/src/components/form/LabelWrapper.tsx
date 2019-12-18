@@ -1,7 +1,7 @@
 import React from "react"
 import { useUID } from "react-uid"
 
-interface LabelWrapperProps {
+export interface LabelWrapperProps {
   label: string
   errorMessage: string | undefined
   group?: boolean
@@ -19,7 +19,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
   const uid = `label-${useUID()}`
   return (
     <Element
-      className="flex flex-wrap justify-between mb-4 font-serif w-full"
+      className="block w-full mb-4 font-serif"
       role={group ? "group" : undefined}
       aria-labelledby={
         group && labelType !== "aria"
@@ -31,10 +31,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
       aria-label={group && labelType === "aria" ? label : undefined}
     >
       {labelType === "text" && (
-        <span
-          className="mb-1 text-gray-700 whitespace-no-wrap text-sm font-sans"
-          id={uid}
-        >
+        <span className="block mb-1 text-gray-700 text-sm font-sans" id={uid}>
           {label}
         </span>
       )}
@@ -42,7 +39,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
       {errorMessage && (
         <span
           aria-live="assertive"
-          className="mt-1 mb-1 flex justify-end whitespace-no-wrap text-sm text-red-700 font-medium"
+          className="block my-1 text-red-700 text-sm font-medium"
         >
           {errorMessage}
         </span>

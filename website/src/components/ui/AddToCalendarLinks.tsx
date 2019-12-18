@@ -9,6 +9,7 @@ import {
 import { useUID } from "react-uid"
 import { Menu, MenuButton, MenuList, MenuLink } from "@reach/menu-button"
 import Symbol from "./Symbol"
+import "./AddToCalendarLinks.module.css"
 
 type CalendarType = "google" | "yahoo" | "outlookcom" | "apple" | "ical"
 
@@ -98,7 +99,7 @@ function getLinkProps(event: CalendarEvent, type: CalendarType) {
     children: (
       <>
         <svg
-          aria-hidden="true"
+          aria-hidden
           className="w-3 h-4 mr-2 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox={getViewbox(type)}
@@ -153,7 +154,7 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
     </section>
   ) : (
     <Menu>
-      <MenuButton className="c-add-cal-button">
+      <MenuButton styleName="menu-button">
         {label}{" "}
         <Symbol
           symbol="chevron-down"

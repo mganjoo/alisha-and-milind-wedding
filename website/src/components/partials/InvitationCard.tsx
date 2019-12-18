@@ -7,6 +7,7 @@ import BackgroundImage from "gatsby-background-image"
 import Div100vh from "react-div-100vh"
 import Helmet from "react-helmet"
 import { Link } from "gatsby"
+import "./InvitationCard.module.css"
 
 type AnimationState =
   | "new"
@@ -113,13 +114,16 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
     <>
       <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden">
         <Helmet>
-          <body className="invitation-page-bg text-gray-900 overflow-hidden"></body>
+          <body
+            className="text-gray-900 overflow-hidden"
+            styleName="background"
+          ></body>
         </Helmet>
-        <div className="envelope-outer-wrapper-dimensions">
-          <div className="envelope-wrapper-dimensions">
-            <div className="envelope-dimensions">
+        <div styleName="envelope-outer-wrapper-dimensions">
+          <div styleName="envelope-wrapper-dimensions">
+            <div styleName="envelope-dimensions">
               <animated.div
-                className="c-flippable"
+                styleName="flippable"
                 style={{
                   transform: interpolate(
                     [
@@ -140,7 +144,8 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
                 }}
               >
                 <div
-                  className="front flex items-center justify-center"
+                  className="flex items-center justify-center"
+                  styleName="front"
                   style={{
                     backgroundImage: "url('/invitation/front-base.png')",
                   }}
@@ -150,13 +155,14 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
                   </p>
                 </div>
                 <div
-                  className="back"
+                  styleName="back"
                   style={{
                     backgroundImage: "url('/invitation/back-base.png')",
                   }}
                 >
                   <animated.div
-                    className="letter-dimensions border border-orange-800 shadow-lg"
+                    className="border border-orange-800 shadow-lg"
+                    styleName="letter-dimensions"
                     style={{
                       transform: interpolate(
                         [
@@ -186,14 +192,14 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
                     />
                   </animated.div>
                   <div
-                    className="c-full-area"
+                    styleName="full-area"
                     style={{
                       backgroundImage:
                         "url('/invitation/back-bottom-flaps.png')",
                     }}
                   ></div>
                   <animated.div
-                    className="c-flippable"
+                    styleName="flippable"
                     style={{
                       transform: props.flapRotateX.interpolate(flapTransform),
                       transformOrigin: "center top",
@@ -201,13 +207,13 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
                     }}
                   >
                     <div
-                      className="front"
+                      styleName="front"
                       style={{
                         backgroundImage: "url('/invitation/front-flap.png')",
                       }}
                     ></div>
                     <div
-                      className="back"
+                      styleName="back"
                       style={{
                         backgroundImage: "url('/invitation/back-flap.png')",
                       }}
@@ -220,7 +226,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
         </div>
       </Div100vh>
       <animated.div
-        className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white z-10 font-sans text-sm border-t c-subtle-border shadow-inner"
+        className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white z-10 font-sans text-sm border-t border-gray-subtle shadow-inner"
         style={linksProps}
       >
         <Link

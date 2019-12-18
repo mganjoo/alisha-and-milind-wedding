@@ -17,7 +17,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
   const { invitation } = useContext(InvitationContext)
   return !invitation.latestRsvp ? null : (
     <section aria-label="RSVP status" className="flex justify-center">
-      <div className="font-serif mt-8 px-6 py-6 flex flex-col items-center border c-subtle-border rounded-lg sm:px-8">
+      <div className="font-serif mt-8 px-6 py-6 flex flex-col items-center border border-gray-subtle rounded-lg sm:px-8">
         <div className="flex flex-col items-center sm:flex-row">
           <Symbol
             symbol={invitation.latestRsvp.attending ? "check" : "cross"}

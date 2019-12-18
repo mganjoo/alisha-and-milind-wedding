@@ -5,6 +5,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import ImageLayout from "../components/layout/ImageLayout"
 import RsvpSection from "../components/partials/RsvpSection"
 import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
+import PageHeading from "../components/ui/PageHeading"
 
 const RsvpPage = () => {
   const imageData = useStaticQuery(
@@ -24,7 +25,7 @@ const RsvpPage = () => {
     <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
       <SEO title="RSVP" />
       <section className="max-w-lg mx-auto">
-        <h1 className="c-page-heading text-center">RSVP</h1>
+        <PageHeading>RSVP</PageHeading>
         <Authenticated refreshOlderThanSecs={90}>
           <div>
             <WeddingMetadataContext.Consumer>

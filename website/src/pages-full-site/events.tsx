@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import ImageLayout from "../components/layout/ImageLayout"
 import Authenticated from "../components/partials/Authenticated"
 import Schedule from "../components/partials/Schedule"
+import PageHeading from "../components/ui/PageHeading"
 
 const EventsPage = () => {
   const data = useStaticQuery(
@@ -22,7 +23,7 @@ const EventsPage = () => {
   return (
     <ImageLayout fluidImage={data.heroImage.childImageSharp.fluid}>
       <SEO title="Events" />
-      <h1 className="c-page-heading text-center">Events</h1>
+      <PageHeading>Events</PageHeading>
       <Authenticated>
         <Schedule />
       </Authenticated>

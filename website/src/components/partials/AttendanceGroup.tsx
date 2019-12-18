@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState, useContext, useMemo } from "react"
 import AttendanceItem from "./AttendanceItem"
 import { useFormikContext } from "formik"
 import { RsvpFormValues, GuestMap } from "../../interfaces/RsvpFormValues"
-import Alert from "../form/Alert"
+import Alert from "../ui/Alert"
 import { InvitationContext } from "./Authenticated"
 import { useEvents } from "../../interfaces/Event"
 import { filterNonEmptyKeys } from "../../utils/Utils"
+import "./RsvpForm.module.css"
+import FormDescription from "../form/FormDescription"
 
 interface AttendanceGroupProps {
   guests: GuestMap
@@ -46,17 +48,17 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
       aria-labelledby="confirm-events-heading"
       aria-describedby="confirm-events-description"
     >
-      {showError && <Alert className="mb-4 w-full">{errors.attendees}</Alert>}
-      <h2 className="c-form-section-heading" id="confirm-events-heading">
+      {showError && <Alert>{errors.attendees}</Alert>}
+      <h2 styleName="section-heading" id="confirm-events-heading">
         Specific events
       </h2>
-      <p className="c-form-section-description" id="confirm-events-description">
+      <FormDescription id="confirm-events-description">
         Please select the{" "}
         {options.length > 1
           ? "names of the guests attending each event"
           : "events you'll be attending"}
         . You can always come back and edit this later if your plans change.
-      </p>
+      </FormDescription>
       {eventsToShow.map(event => (
         <AttendanceItem
           key={event.frontmatter.shortName}

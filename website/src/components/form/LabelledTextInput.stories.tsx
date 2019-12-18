@@ -1,10 +1,13 @@
 import React from "react"
 import LabelledTextInput from "./LabelledTextInput"
 import FormikStoryWrapper from "../../utils/FormikStoryWrapper"
+import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
 
 export default {
   title: "LabelledTextInput",
-  decorators: [(storyFn: any) => <div className="p-4">{storyFn()}</div>],
+  decorators: [
+    (storyFn: any) => <StoryPaddingWrapper>{storyFn()}</StoryPaddingWrapper>,
+  ],
 }
 
 export const main = () => (

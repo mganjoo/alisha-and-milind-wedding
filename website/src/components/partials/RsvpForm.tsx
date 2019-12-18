@@ -19,8 +19,10 @@ import AttendanceGroup from "./AttendanceGroup"
 import { WeddingEventMarkdown, useEvents } from "../../interfaces/Event"
 import { Invitation } from "../../interfaces/Invitation"
 import { addRsvp } from "../../services/Invitation"
-import Alert from "../form/Alert"
+import Alert from "../ui/Alert"
 import ContactEmail from "./ContactEmail"
+import "./RsvpForm.module.css"
+import FormDescription from "../form/FormDescription"
 
 const attendingOptions = [
   { value: "yes", label: "Yes, excited to attend!" },
@@ -121,18 +123,18 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
       {page === "guests" && (
         <div ref={guestsRef}>
           <h2
-            className={
+            styleName={
               invitation.numGuests === 1
-                ? "c-form-section-heading"
-                : "font-sans text-sm text-orange-800 italic"
+                ? "section-heading"
+                : "section-subheading"
             }
           >
             {invitation.latestRsvp ? "Editing RSVP" : "Welcome"}
           </h2>
           {invitation.numGuests > 1 && (
-            <h3 className="c-form-section-heading">{invitation.partyName}</h3>
+            <h3 styleName="section-heading">{invitation.partyName}</h3>
           )}
-          <p className="c-form-section-description">
+          <FormDescription>
             {invitation.latestRsvp ? (
               <>
                 Here is the information from your previous submission. Feel free
@@ -144,7 +146,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
                 Please edit or correct anything we may have missed.
               </>
             )}
-          </p>
+          </FormDescription>
           <TextInputGroup
             label={guestKeys.length > 1 ? "Names of guests" : "Name"}
             groupName="guests"
@@ -244,7 +246,7 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onDone }) => {
         </div>
         <PageWrapper invitation={invitation} events={events} onDone={onDone} />
         {submitError && (
-          <Alert className="mt-4">
+          <Alert>
             There was a problem submitting the RSVP. Please email us at{" "}
             <ContactEmail />.
           </Alert>

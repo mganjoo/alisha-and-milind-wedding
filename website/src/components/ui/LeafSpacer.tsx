@@ -1,7 +1,7 @@
 import React from "react"
 
 const LeafSpacer: React.FC = () => (
-  <div aria-hidden="true">
+  <div aria-hidden>
     <svg
       className="inline-block text-gray-600 stroke-current"
       width="70"

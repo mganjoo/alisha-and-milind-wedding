@@ -1,5 +1,3 @@
-const path = require("path")
-
 module.exports = async ({ config }) => {
   // Configure rule 0 (.mjs, .js, .jsx) for gatsby
   // (warning: this reference by index is very brittle and may not work with package upgrades)
@@ -22,16 +20,48 @@ module.exports = async ({ config }) => {
   config.module.rules[0].use[0].options.plugins.push(
     require.resolve("babel-plugin-remove-graphql-queries")
   )
+  // Set up CSS module support
+  const scopedName = `[name]--[local]--[hash:base64:5]`
+  const cssModulesOptions = {
+    webpackHotModuleReloading: true,
+    generateScopedName: scopedName,
+  }
+  config.module.rules[0].use[0].options.plugins.push([
+    require.resolve("babel-plugin-react-css-modules"),
+    cssModulesOptions,
+  ])
 
   // Configure css rule to use postcss-loader (for Tailwind)
+  // First, remove existing CSS rule
   config.module.rules = config.module.rules.filter(
     f => f.test.toString() !== "/\\.css$/"
   )
+  // Then add PostCSS config for all non-module CSS files
   config.module.rules.push({
     test: /\.css$/,
+    exclude: /\.module\.css$/,
     loaders: [
       "style-loader",
-      { loader: "css-loader", options: { importLoaders: 1 } },
+      {
+        loader: "css-loader",
+        options: { importLoaders: 1 },
+      },
+      "postcss-loader",
+    ],
+  })
+  // Then add module CSS config
+  config.module.rules.push({
+    test: /\.module\.css$/,
+    loaders: [
+      "style-loader",
+      {
+        loader: "css-loader",
+        options: {
+          importLoaders: 1,
+          modules: true,
+          localIdentName: scopedName,
+        },
+      },
       "postcss-loader",
     ],
   })
@@ -47,6 +77,10 @@ module.exports = async ({ config }) => {
           plugins: [
             require.resolve("@babel/plugin-proposal-class-properties"),
             require.resolve("babel-plugin-remove-graphql-queries"),
+            [
+              require.resolve("babel-plugin-react-css-modules"),
+              cssModulesOptions,
+            ],
           ],
         },
       },

@@ -2,8 +2,6 @@
 
 @tailwind components;
 
-/* Reusable components */
-
 .c-button {
   @apply text-sm font-sans;
 
@@ -62,67 +60,6 @@
   @apply px-3 py-1;
 }
 
-.c-add-cal-button {
-  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold;
-
-  &:focus {
-    @apply outline-none shadow-outline-light;
-  }
-  &:hover {
-    @apply text-orange-700;
-  }
-}
-
-.c-invalid-outline {
-  @apply border-red-400;
-}
-
-.c-input-invalid {
-  @extend .c-invalid-outline;
-  @apply bg-no-repeat bg-right pr-2;
-  background-image: inline("exclamation-outline.svg");
-  background-size: 20px 20px;
-  background-origin: content-box;
-}
-
-.c-subtle-border {
-  @apply border-gray-400;
-}
-
-.c-alert {
-  @apply inline-block px-3 py-2 bg-red-100 border border-l-4 border-red-400 text-red-800 font-sans text-sm shadow-md;
-
-  & > a,
-  & > button {
-    @apply font-bold;
-  }
-
-  & > a:hover,
-  & > button:hover {
-    @apply underline;
-  }
-}
-
-.c-full-area {
-  @apply absolute w-full h-full top-0 left-0 bg-no-repeat bg-contain;
-}
-
-.c-page-heading {
-  @apply text-3xl font-sans font-bold mb-4;
-
-  @screen sm {
-    @apply text-4xl;
-  }
-}
-
-.c-form-section-heading {
-  @apply font-display mb-1 text-xl;
-}
-
-.c-form-section-description {
-  @apply font-serif mb-6 text-gray-800;
-}
-
 .c-body-text {
   @apply font-serif text-lg mb-4;
 
@@ -153,119 +90,12 @@
   }
 }
 
-.c-flippable {
-  @extend .c-full-area;
-
-  /* So that the faces of the flippable div are independent */
-  transform-style: preserve-3d;
-
-  & > .front,
-  & > .back {
-    @apply absolute w-full h-full bg-no-repeat bg-contain;
-
-    /* So that the opposite side isn't visible during flipping */
-    backface-visibility: hidden;
-  }
-
-  & > .back {
-    /* Reverse back so that reverse looks correct */
-    transform: rotateY(180deg);
-  }
-}
-
-[data-reach-menu-list] {
-  @extend .c-subtle-border;
-  @apply py-2 text-sm font-sans;
-}
-
-[data-reach-menu-item] {
-  @apply flex px-4 py-1;
-}
-
-[data-reach-menu-item][data-selected] {
-  @apply bg-orange-800;
-}
-
-/* Specific UI elements */
-
 .full-screen-hero {
   max-height: 24rem;
 
   @screen lg {
     @apply max-h-full;
   }
-}
-
-.hero {
-  max-height: 24rem;
-}
-
-/* Specific to invitation page */
-
-:root {
-  /* Letter size as percentage of envelope size */
-  --letter-fraction: 96%;
-
-  /* Envelope aspect ratio */
-  --aspect-ratio: 1.4;
-}
-
-/* Allows sizing of the entire animation to the height of the viewport. */
-.envelope-outer-wrapper-dimensions {
-  @apply mx-4;
-
-  /*
-   * Aspect ratio is w = 1.4h, so we size the envelope wrapper to be 1/1.4,
-   * with vertical margin of 5vh top and bottom and extra margin at bottom.
-   */
-  width: calc(90vh * (1 / var(--aspect-ratio)));
-  margin-bottom: 5vh;
-}
-
-/* Accounts for space used by letter when letter is open. */
-.envelope-wrapper-dimensions {
-  @apply w-full;
-  /*
-   * - When letter is rotated 90 degrees, the original width now becomes the height.
-   *
-   * - We then scale by a factor of 1.4, so that the "new" width (of the rotated short edge)
-   *   would take up as much space as the old width (since the aspect ratio is 1.4).
-   *
-   * - This means the height of the rotated letter is now
-   * -   h' = 1.4 * w
-   *
-   * - Aspect ratio of envelope is w = 1.4h. Which means h = w / 1.4
-   * - Difference between new height and old height is
-   *     h' - h = (100% * 1.4 - 1 / 1.4) * w
-   *
-   * - To make up for this difference in height, we add padding of the amount
-   *     p = (h' - h) / 2 * w
-   *       = (100% * 1.4 - 1 / 1.4) / 2
-   *       = 31.42%
-   */
-  padding: calc(50% * (var(--aspect-ratio) - 1 / var(--aspect-ratio))) 0;
-}
-
-.envelope-dimensions {
-  @apply relative w-full;
-
-  /* Aspect ratio = 1.4 */
-  padding: calc(50% / var(--aspect-ratio)) 50%;
-}
-
-.letter-dimensions {
-  @apply absolute;
-
-  width: var(--letter-fraction);
-  height: var(--letter-fraction);
-  top: calc((100% - var(--letter-fraction)) / 2);
-  left: calc((100% - var(--letter-fraction)) / 2);
-}
-
-.invitation-page-bg {
-  /* From heropatterns.com */
-  background-color: #fffcf7;
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='88' viewBox='0 0 80 88' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 21.91V26h-2c-9.94 0-18 8.06-18 18 0 9.943 8.058 18 18 18h2v4.09c8.012.722 14.785 5.738 18 12.73 3.212-6.99 9.983-12.008 18-12.73V62h2c9.94 0 18-8.06 18-18 0-9.943-8.058-18-18-18h-2v-4.09c-8.012-.722-14.785-5.738-18-12.73-3.212 6.99-9.983 12.008-18 12.73zM54 58v4.696c-5.574 1.316-10.455 4.428-14 8.69-3.545-4.262-8.426-7.374-14-8.69V58h-5.993C12.27 58 6 51.734 6 44c0-7.732 6.275-14 14.007-14H26v-4.696c5.574-1.316 10.455-4.428 14-8.69 3.545 4.262 8.426 7.374 14 8.69V30h5.993C67.73 30 74 36.266 74 44c0 7.732-6.275 14-14.007 14H54zM42 88c0-9.94 8.06-18 18-18h2v-4.09c8.016-.722 14.787-5.738 18-12.73v7.434c-3.545 4.262-8.426 7.374-14 8.69V74h-5.993C52.275 74 46 80.268 46 88h-4zm-4 0c0-9.943-8.058-18-18-18h-2v-4.09c-8.012-.722-14.785-5.738-18-12.73v7.434c3.545 4.262 8.426 7.374 14 8.69V74h5.993C27.73 74 34 80.266 34 88h4zm4-88c0 9.943 8.058 18 18 18h2v4.09c8.012.722 14.785 5.738 18 12.73v-7.434c-3.545-4.262-8.426-7.374-14-8.69V14h-5.993C52.27 14 46 7.734 46 0h-4zM0 34.82c3.213-6.992 9.984-12.008 18-12.73V18h2c9.94 0 18-8.06 18-18h-4c0 7.732-6.275 14-14.007 14H14v4.696c-5.574 1.316-10.455 4.428-14 8.69v7.433z' fill='%23f5d2a8' fill-opacity='0.18' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
 @tailwind utilities;

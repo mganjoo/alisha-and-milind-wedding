@@ -1,14 +1,10 @@
 import React, { useRef, useEffect } from "react"
-import classnames from "classnames"
 import { scrollIntoView } from "../../utils/Utils"
 import { useRegisteredRef } from "react-register-nodes"
 import { useUID } from "react-uid"
+import "./Alert.module.css"
 
-interface AlertProps {
-  className?: string
-}
-
-const Alert: React.FC<AlertProps> = ({ className, children }) => {
+const Alert: React.FC = ({ children }) => {
   const initialRef = useRef<HTMLDivElement>(null)
   const mounted = useRef(false)
   const refName = useUID()
@@ -21,14 +17,17 @@ const Alert: React.FC<AlertProps> = ({ className, children }) => {
       mounted.current = true
     }
   })
+
   return (
     <div
-      className={classnames("c-alert", className)}
       role="alert"
+      className="block my-4 px-3 py-2 bg-red-100 border border-l-4 border-invalid text-red-800 font-sans text-sm shadow-md"
+      styleName="alert"
       ref={mounted.current ? laterRef : initialRef}
     >
       {children}
     </div>
   )
 }
+
 export default Alert

@@ -1,0 +1,24 @@
+@import "@reach/menu-button/styles.css";
+
+.menu-button {
+  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold;
+
+  &:focus {
+    @apply outline-none shadow-outline-light;
+  }
+  &:hover {
+    @apply text-orange-700;
+  }
+}
+
+[data-reach-menu-list] {
+  @apply py-2 text-sm font-sans border-gray-subtle;
+}
+
+[data-reach-menu-item] {
+  @apply flex px-4 py-1;
+}
+
+[data-reach-menu-item][data-selected] {
+  @apply bg-orange-800;
+}

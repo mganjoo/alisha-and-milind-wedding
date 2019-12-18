@@ -7,22 +7,14 @@ interface ControlledLabelledOptionProps {
   type: "radio" | "checkbox"
   label: string
   value: string
-  labelClassName?: string
 }
 
 const ControlledLabelledOption = React.forwardRef<
   HTMLInputElement,
   ControlledLabelledOptionProps
->(({ label, name, type, value, labelClassName }, ref) => {
+>(({ label, name, type, value }, ref) => {
   const [field] = useField<any>({ name, type, value })
-  return (
-    <LabelledOption
-      {...field}
-      label={label}
-      type={type}
-      ref={ref}
-      labelClassName={labelClassName}
-    />
-  )
+  return <LabelledOption {...field} label={label} type={type} ref={ref} />
 })
+
 export default ControlledLabelledOption
