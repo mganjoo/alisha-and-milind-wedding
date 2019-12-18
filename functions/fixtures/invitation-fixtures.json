@@ -35,5 +35,24 @@
       "numGuests": 3,
       "knownGuests": ["Virat Kohli", "Anushka Sharma"]
     }
+  },
+  {
+    "id": "atest2",
+    "data": {
+      "code": "atest2",
+      "partyName": "Deepika Padukone & Ranveer Singh",
+      "numGuests": 2,
+      "knownGuests": ["Deepika Padukone", "Ranveer Singh"],
+      "preEvents": true
+    }
+  },
+  {
+    "id": "atest3",
+    "data": {
+      "code": "atest3",
+      "partyName": "Raj Kapoor & Family",
+      "numGuests": 3,
+      "knownGuests": ["Raj Kapoor", "Kareena Kapoor", "Ranbir Kapoor"]
+    }
   }
 ]
