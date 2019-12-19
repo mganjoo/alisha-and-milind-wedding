@@ -41,7 +41,7 @@
     "typeface-eb-garamond": "0.0.72",
     "typeface-playfair-display": "0.0.72",
     "typeface-raleway": "0.0.75",
-    "yup": "0.27.0"
+    "yup": "0.28.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.5",
