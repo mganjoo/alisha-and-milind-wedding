@@ -1,17 +1,15 @@
-name: Firebase tests
+name: Firebase staging deploy
 on:
   push:
-    branches-ignore:
+    branches:
       - 'develop'
-      - 'staging'
-      - 'master'
     paths:
       - 'functions/**'
       - 'firestore.rules'
-      - '.github/workflows/firebase.yml'
+      - '.github/workflows/firebase-deploy.yml'
 jobs:
   deploy:
-    name: Run tests
+    name: Run tests and deploy
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
@@ -24,9 +22,10 @@ jobs:
       run: |
         npm ci
       working-directory: ./functions
-    - name: Run tests
+    - name: Run tests and deploy
       run: |
-        npm run test:ci
+        npm run test:ci && npm run deploy
       working-directory: ./functions
       env:
         CI: true
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
