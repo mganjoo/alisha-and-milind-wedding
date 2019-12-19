@@ -47,7 +47,7 @@ const DemoPage: React.FC = () => {
           )}
         </button>
       </div>
-      <InvitationCard playing={playing} reverse={reverse} />
+      <InvitationCard playing={playing} reverse={reverse} testMode />
     </BaseLayout>
   )
 }

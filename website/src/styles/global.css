@@ -99,7 +99,7 @@
 }
 
 .c-shadow-box {
-  @apply p-6 border border-gray-subtle rounded-lg shadow-lg;
+  @apply p-6 bg-off-white border border-gray-subtle rounded-lg shadow-lg;
 }
 
 .c-hero {

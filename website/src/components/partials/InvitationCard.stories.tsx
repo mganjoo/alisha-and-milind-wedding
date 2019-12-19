@@ -1,6 +1,6 @@
 import React from "react"
 import InvitationCard from "./InvitationCard"
-import { boolean, withKnobs } from "@storybook/addon-knobs"
+import { boolean, withKnobs, number } from "@storybook/addon-knobs"
 
 export default {
   title: "InvitationCard",
@@ -11,5 +11,7 @@ export const main = () => (
   <InvitationCard
     playing={boolean("Playing", false)}
     reverse={boolean("Reverse", false)}
+    startDelayMs={number("Delay in ms", 0)}
+    testMode
   />
 )

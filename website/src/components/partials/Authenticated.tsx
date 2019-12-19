@@ -135,31 +135,33 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
           role="dialog"
           aria-label="Enter code"
           aria-describedby="enter-code-description"
-          className="max-w-sm mx-auto my-6 text-center c-shadow-box"
+          className="max-w-sm mx-auto text-center"
         >
-          <BaseForm>
-            <p className="c-form-description" id="enter-code-description">
-              To view this page, please use the invitation code included in your
-              wedding invitation email.
-            </p>
-            {(isError || isMissing) && (
-              <Alert>
-                {isError && "There was an error retrieving your invitation. "}
-                {isMissing && "Hmm, we couldn't find that invitation code. "}
-                Please try again, or email us at <ContactEmail />.
-              </Alert>
-            )}
-            <LabelledTextInput
-              name="code"
-              type="text"
-              label="Invitation code"
-              autoCapitalize="none"
-              autoCorrect="off"
-            />
-            <ButtonRow shadow>
-              <SubmitButton label="Submit" />
-            </ButtonRow>
-          </BaseForm>
+          <div className="c-shadow-box mx-4 my-6">
+            <BaseForm>
+              <p className="c-form-description" id="enter-code-description">
+                To view this page, please use the invitation code included in
+                your wedding invitation email.
+              </p>
+              {(isError || isMissing) && (
+                <Alert>
+                  {isError && "There was an error retrieving your invitation. "}
+                  {isMissing && "Hmm, we couldn't find that invitation code. "}
+                  Please try again, or email us at <ContactEmail />.
+                </Alert>
+              )}
+              <LabelledTextInput
+                name="code"
+                type="text"
+                label="Invitation code"
+                autoCapitalize="none"
+                autoCorrect="off"
+              />
+              <ButtonRow shadow>
+                <SubmitButton label="Submit" />
+              </ButtonRow>
+            </BaseForm>
+          </div>
         </div>
       </Formik>
     )
