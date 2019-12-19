@@ -111,120 +111,117 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   const linksProps = useSpring({ opacity: isAfter("letter-displayed") ? 1 : 0 })
 
   return (
-    <>
-      <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden">
-        <Helmet>
-          <body
-            className="text-gray-900 overflow-hidden"
-            styleName="background"
-          ></body>
-        </Helmet>
-        <div styleName="envelope-outer-wrapper-dimensions">
-          <div styleName="envelope-wrapper-dimensions">
-            <div styleName="envelope-dimensions">
-              <animated.div
-                styleName="flippable"
+    <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden">
+      <Helmet>
+        <body
+          className="text-gray-900 overflow-hidden"
+          styleName="background"
+        ></body>
+      </Helmet>
+      <div styleName="envelope-outer-wrapper-dimensions">
+        <div styleName="envelope-wrapper-dimensions">
+          <div styleName="envelope-dimensions">
+            <animated.div
+              styleName="flippable"
+              style={{
+                transform: interpolate(
+                  [
+                    props.envelopeRotateY,
+                    props.letterProgress.interpolate({
+                      // rotateZ
+                      range: [0, 0.5, 1],
+                      output: [0, 0, -envelopeRotate],
+                    }),
+                    props.letterProgress.interpolate({
+                      // scale
+                      range: [0, 0.5, 1],
+                      output: [1, 1, envelopeScale],
+                    }),
+                  ],
+                  envelopeTransform
+                ),
+              }}
+            >
+              <div
+                className="flex items-center justify-center"
+                styleName="front"
                 style={{
-                  transform: interpolate(
-                    [
-                      props.envelopeRotateY,
-                      props.letterProgress.interpolate({
-                        // rotateZ
-                        range: [0, 0.5, 1],
-                        output: [0, 0, -envelopeRotate],
-                      }),
-                      props.letterProgress.interpolate({
-                        // scale
-                        range: [0, 0.5, 1],
-                        output: [1, 1, envelopeScale],
-                      }),
-                    ],
-                    envelopeTransform
-                  ),
+                  backgroundImage: "url('/invitation/front-base.png')",
                 }}
               >
-                <div
-                  className="flex items-center justify-center"
-                  styleName="front"
+                <p className="font-serif text-lg text-yellow-200 text-center sm:text-xl">
+                  {invitation.partyName}
+                </p>
+              </div>
+              <div
+                styleName="back"
+                style={{
+                  backgroundImage: "url('/invitation/back-base.png')",
+                }}
+              >
+                <animated.div
+                  className="border border-orange-800 shadow-lg p-cover"
+                  styleName="letter-dimensions"
                   style={{
-                    backgroundImage: "url('/invitation/front-base.png')",
+                    transform: interpolate(
+                      [
+                        props.letterProgress.interpolate(interpolateYOffset),
+                        props.letterProgress.interpolate({
+                          // rotateZ
+                          range: [0, 0.5, 1],
+                          output: [0, 0, -envelopeRotate + 90],
+                        }),
+                        props.letterProgress.interpolate({
+                          // scale
+                          range: [0, 0.5, 1],
+                          output: [1, 1, (1 / envelopeScale) * letterScale],
+                        }),
+                      ],
+                      letterTransform
+                    ),
+                    zIndex: props.letterProgress.interpolate(p =>
+                      p > 0.5 ? 1 : 0
+                    ),
                   }}
                 >
-                  <p className="font-serif text-lg text-yellow-200 text-center sm:text-xl">
-                    {invitation.partyName}
-                  </p>
-                </div>
+                  <BackgroundImage
+                    style={{ width: "100%", height: "100%" }}
+                    fluid={imageData.invitation.childImageSharp.fluid}
+                    onLoad={() => setLetterLoaded(true)}
+                  />
+                </animated.div>
                 <div
-                  styleName="back"
+                  styleName="full-area"
                   style={{
-                    backgroundImage: "url('/invitation/back-base.png')",
+                    backgroundImage: "url('/invitation/back-bottom-flaps.png')",
+                  }}
+                ></div>
+                <animated.div
+                  styleName="flippable"
+                  style={{
+                    transform: props.flapRotateX.interpolate(flapTransform),
+                    transformOrigin: "center top",
+                    zIndex: props.flapZIndex,
                   }}
                 >
-                  <animated.div
-                    className="border border-orange-800 shadow-lg"
-                    styleName="letter-dimensions"
-                    style={{
-                      transform: interpolate(
-                        [
-                          props.letterProgress.interpolate(interpolateYOffset),
-                          props.letterProgress.interpolate({
-                            // rotateZ
-                            range: [0, 0.5, 1],
-                            output: [0, 0, -envelopeRotate + 90],
-                          }),
-                          props.letterProgress.interpolate({
-                            // scale
-                            range: [0, 0.5, 1],
-                            output: [1, 1, (1 / envelopeScale) * letterScale],
-                          }),
-                        ],
-                        letterTransform
-                      ),
-                      zIndex: props.letterProgress.interpolate(p =>
-                        p > 0.5 ? 1 : 0
-                      ),
-                    }}
-                  >
-                    <BackgroundImage
-                      style={{ width: "100%", height: "100%" }}
-                      fluid={imageData.invitation.childImageSharp.fluid}
-                      onLoad={() => setLetterLoaded(true)}
-                    />
-                  </animated.div>
                   <div
-                    styleName="full-area"
+                    styleName="front"
                     style={{
-                      backgroundImage:
-                        "url('/invitation/back-bottom-flaps.png')",
+                      backgroundImage: "url('/invitation/front-flap.png')",
                     }}
                   ></div>
-                  <animated.div
-                    styleName="flippable"
+                  <div
+                    styleName="back"
                     style={{
-                      transform: props.flapRotateX.interpolate(flapTransform),
-                      transformOrigin: "center top",
-                      zIndex: props.flapZIndex,
+                      backgroundImage: "url('/invitation/back-flap.png')",
                     }}
-                  >
-                    <div
-                      styleName="front"
-                      style={{
-                        backgroundImage: "url('/invitation/front-flap.png')",
-                      }}
-                    ></div>
-                    <div
-                      styleName="back"
-                      style={{
-                        backgroundImage: "url('/invitation/back-flap.png')",
-                      }}
-                    ></div>
-                  </animated.div>
-                </div>
-              </animated.div>
-            </div>
+                  ></div>
+                </animated.div>
+              </div>
+            </animated.div>
           </div>
         </div>
-      </Div100vh>
+      </div>
       <animated.div
         className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white z-10 font-sans text-sm border-t border-gray-subtle shadow-inner"
         style={linksProps}
@@ -242,7 +239,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
           Download invitation
         </button>
       </animated.div>
-    </>
+    </Div100vh>
   )
 }
 export default InvitationCard

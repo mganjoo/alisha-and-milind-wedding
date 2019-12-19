@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react"
-import { InvitationContext } from "./Authenticated"
+import { InvitationContext } from "../Authenticated"
 import RsvpForm from "./RsvpForm"
 import RsvpInfo from "./RsvpInfo"
 
-const RsvpSection: React.FC = () => {
+const ReeditableRsvpForm: React.FC = () => {
   const { invitation } = useContext(InvitationContext)
   const [editingForm, setEditingForm] = useState(false)
 
@@ -14,4 +14,4 @@ const RsvpSection: React.FC = () => {
   )
 }
 
-export default RsvpSection
+export default ReeditableRsvpForm

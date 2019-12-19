@@ -1,9 +1,9 @@
 import React from "react"
 
 const LeafSpacer: React.FC = () => (
-  <div aria-hidden>
+  <div aria-hidden className="my-2 flex justify-center">
     <svg
-      className="inline-block text-gray-600 stroke-current"
+      className="text-gray-600 stroke-current"
       width="70"
       height="28"
       fill="none"

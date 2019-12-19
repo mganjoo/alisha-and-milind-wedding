@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState, useContext, useMemo } from "react"
-import AttendanceItem from "./AttendanceItem"
+import AttendanceItem from "../AttendanceItem"
 import { useFormikContext } from "formik"
-import { RsvpFormValues, GuestMap } from "../../interfaces/RsvpFormValues"
-import Alert from "../ui/Alert"
-import { InvitationContext } from "./Authenticated"
-import { useEvents } from "../../interfaces/Event"
-import { filterNonEmptyKeys } from "../../utils/Utils"
+import { RsvpFormValues, GuestMap } from "../../../interfaces/RsvpFormValues"
+import Alert from "../../ui/Alert"
+import { InvitationContext } from "../Authenticated"
+import { useEvents } from "../../../interfaces/Event"
+import { filterNonEmptyKeys } from "../../../utils/Utils"
 import "./RsvpForm.module.css"
-import FormDescription from "../form/FormDescription"
 
 interface AttendanceGroupProps {
   guests: GuestMap
 }
 
-const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
+const RsvpAttendanceSection = React.forwardRef<
+  HTMLDivElement,
+  AttendanceGroupProps
+>(({ guests }, ref) => {
   const events = useEvents()
   const { invitation } = useContext(InvitationContext)
   const { errors, submitCount } = useFormikContext<RsvpFormValues>()
@@ -43,22 +45,22 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
   }, [submitCount, errors.attendees])
 
   return (
-    <div
-      role="group"
-      aria-labelledby="confirm-events-heading"
-      aria-describedby="confirm-events-description"
+    <section
+      ref={ref}
+      aria-labelledby="attendance-heading"
+      aria-describedby="attendance-description"
     >
       {showError && <Alert>{errors.attendees}</Alert>}
-      <h2 styleName="section-heading" id="confirm-events-heading">
+      <h2 styleName="section-heading" id="attendance-heading">
         Specific events
       </h2>
-      <FormDescription id="confirm-events-description">
+      <p className="c-form-description" id="attendance-description">
         Please select the{" "}
         {options.length > 1
           ? "names of the guests attending each event"
           : "events you'll be attending"}
         . You can always come back and edit this later if your plans change.
-      </FormDescription>
+      </p>
       {eventsToShow.map(event => (
         <AttendanceItem
           key={event.frontmatter.shortName}
@@ -66,7 +68,8 @@ const AttendanceGroup: React.FC<AttendanceGroupProps> = ({ guests }) => {
           guestOptions={options}
         />
       ))}
-    </div>
+    </section>
   )
-}
-export default AttendanceGroup
+})
+
+export default RsvpAttendanceSection

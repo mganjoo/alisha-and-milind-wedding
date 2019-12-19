@@ -1,8 +1,8 @@
 version: 1
 snapshot:
-  widths: [375, 768, 1280]
+  widths: [375, 1280]
   percy-css: |
-    .full-screen-hero::after, .hero::after, .letter-dimensions::after {
+    .p-cover::after {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -13,6 +13,6 @@ snapshot:
       content: " ";
     }
 
-    .rsvp-received-date {
+    .p-hide {
       display: none;
     }

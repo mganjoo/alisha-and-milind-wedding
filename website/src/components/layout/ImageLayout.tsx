@@ -13,8 +13,7 @@ const ImageLayout: React.FC<ImageLayoutProps> = ({ fluidImage, children }) => {
         <Img
           fluid={fluidImage}
           alt=""
-          className="mb-8 shadow-md w-full"
-          style={{ maxHeight: "24rem" }}
+          className="mb-8 shadow-md w-full c-hero p-cover"
         />
         <div className="px-8 sm:px-0">{children}</div>
       </main>

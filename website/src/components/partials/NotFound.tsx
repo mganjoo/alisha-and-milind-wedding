@@ -21,14 +21,16 @@ const NotFound: React.FC = ({ children }) => {
   return (
     <BaseLayout>
       <SEO title="Not Found" />
-      <main className="p-6 max-w-md c-article">
-        <h1>Oops!</h1>
-        {children}
-        <Img
-          className="mt-6 w-5/6"
-          fluid={imageData.image.childImageSharp.fluid}
-          alt=""
-        />
+      <main className="flex p-3 mx-auto justify-center items-center max-w-lg min-h-screen">
+        <div className="c-article c-shadow-box">
+          <h1>Oops!</h1>
+          {children}
+          <Img
+            className="mt-6 w-full"
+            fluid={imageData.image.childImageSharp.fluid}
+            alt=""
+          />
+        </div>
       </main>
     </BaseLayout>
   )

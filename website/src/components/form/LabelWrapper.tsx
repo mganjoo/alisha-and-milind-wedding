@@ -31,7 +31,10 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
       aria-label={group && labelType === "aria" ? label : undefined}
     >
       {labelType === "text" && (
-        <span className="block mb-1 text-gray-700 text-sm font-sans" id={uid}>
+        <span
+          className="block mb-1 text-left text-gray-700 text-sm font-sans"
+          id={uid}
+        >
           {label}
         </span>
       )}
@@ -39,7 +42,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
       {errorMessage && (
         <span
           aria-live="assertive"
-          className="block my-1 text-red-700 text-sm font-medium"
+          className="block my-1 text-left text-red-700 text-sm font-medium"
         >
           {errorMessage}
         </span>

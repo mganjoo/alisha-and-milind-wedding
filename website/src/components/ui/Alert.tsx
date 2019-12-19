@@ -21,7 +21,7 @@ const Alert: React.FC = ({ children }) => {
   return (
     <div
       role="alert"
-      className="block my-4 px-3 py-2 bg-red-100 border border-l-4 border-invalid text-red-800 font-sans text-sm shadow-md"
+      className="block my-4 px-3 py-2 bg-red-100 border border-l-4 border-invalid text-left text-red-800 font-sans text-sm shadow-md"
       styleName="alert"
       ref={mounted.current ? laterRef : initialRef}
     >

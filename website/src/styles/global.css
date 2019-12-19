@@ -72,6 +72,10 @@
   }
 }
 
+.c-form-description {
+  @apply font-serif mb-6 text-gray-800;
+}
+
 .c-article {
   & > h1 {
     @apply text-2xl font-sans mb-2;
@@ -88,10 +92,22 @@
   & > p {
     @extend .c-body-text;
   }
+
+  & strong {
+    @apply font-semibold;
+  }
 }
 
-.full-screen-hero {
+.c-shadow-box {
+  @apply p-6 border border-gray-subtle rounded-lg shadow-lg;
+}
+
+.c-hero {
   max-height: 24rem;
+}
+
+.c-full-screen-hero {
+  @extend .c-hero;
 
   @screen lg {
     @apply max-h-full;

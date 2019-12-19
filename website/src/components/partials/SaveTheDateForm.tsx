@@ -11,6 +11,7 @@ import classnames from "classnames"
 import { Contact } from "../../interfaces/Contact"
 import Symbol from "../ui/Symbol"
 import SaveTheDateLinks from "./SaveTheDateLinks"
+import ButtonRow from "../form/ButtonRow"
 
 const validationSchema = object<Contact>({
   name: string().required("Name is required."),
@@ -36,23 +37,29 @@ const SaveTheDateForm: React.FC = () => {
   }
 
   return (
-    <>
+    <section
+      className="relative"
+      aria-label="Confirm contact details"
+      aria-describedby="save-the-date-instructions"
+    >
+      {/* Padding needed at bottom for confirmation page to fit properly */}
       <div
-        className={classnames({
+        className={classnames("lg:pb-16", {
           "hidden lg:block lg:invisible": submitted,
         })}
       >
-        <p className="c-body-text text-center" id="save-the-date-instructions">
-          We&apos;re going green! Please confirm your preferred email address
-          for the digital invitation to follow.
-        </p>
+        <div className="c-article text-center mb-6">
+          <p id="save-the-date-instructions">
+            We&apos;re going green! Please confirm your preferred email address
+            for the digital invitation to follow.
+          </p>
+        </div>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={submitInfo}
         >
-          {/* Padding needed here for confirmation page to work */}
-          <BaseForm className="flex flex-col items-center pt-4 pb-16 lg:pb-20">
+          <BaseForm>
             <LabelledTextInput
               label="Name"
               name="name"
@@ -65,7 +72,9 @@ const SaveTheDateForm: React.FC = () => {
               type="email"
               autoComplete="email"
             />
-            <SubmitButton label="Submit info" className="my-4 shadow-lg" />
+            <ButtonRow shadow>
+              <SubmitButton label="Submit info" />
+            </ButtonRow>
             {submitError && (
               <Alert>
                 There was a problem submitting your info. Please email us at{" "}
@@ -80,8 +89,12 @@ const SaveTheDateForm: React.FC = () => {
           role="status"
           className="flex flex-col text-center items-center lg:absolute lg:inset-0"
         >
-          <Symbol symbol="check" className="w-12 h-12 mb-4 text-green-700" />
-          <div className="c-article mb-2">
+          <Symbol
+            symbol="check"
+            className="text-green-700"
+            svgClassName="w-12 h-12"
+          />
+          <div className="c-article my-4">
             <p>
               Thank you for confirming your email! Stay tuned for the invitation
               and wedding website.
@@ -91,7 +104,7 @@ const SaveTheDateForm: React.FC = () => {
           <SaveTheDateLinks />
         </div>
       )}
-    </>
+    </section>
   )
 }
 export default SaveTheDateForm

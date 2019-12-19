@@ -1,0 +1,10 @@
+.full {
+  @apply -mb-4;
+  & > button {
+    @apply flex-auto mx-2 mb-4;
+  }
+}
+
+.shadow > button {
+  @apply shadow-lg;
+}

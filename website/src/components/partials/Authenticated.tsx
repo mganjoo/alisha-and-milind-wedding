@@ -12,7 +12,7 @@ import BaseForm from "../form/BaseForm"
 import LabelledTextInput from "../form/LabelledTextInput"
 import SubmitButton from "../form/SubmitButton"
 import { Invitation } from "../../interfaces/Invitation"
-import FormDescription from "../form/FormDescription"
+import ButtonRow from "../form/ButtonRow"
 
 interface LoginFormValues {
   code: string
@@ -131,12 +131,17 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         validationSchema={validationSchema}
         onSubmit={login}
       >
-        <div className="p-4">
-          <BaseForm className="max-w-sm mx-auto w-full border rounded-lg p-6 border-gray-subtle">
-            <FormDescription>
+        <div
+          role="dialog"
+          aria-label="Enter code"
+          aria-describedby="enter-code-description"
+          className="max-w-sm mx-auto my-6 text-center c-shadow-box"
+        >
+          <BaseForm>
+            <p className="c-form-description" id="enter-code-description">
               To view this page, please use the invitation code included in your
               wedding invitation email.
-            </FormDescription>
+            </p>
             {(isError || isMissing) && (
               <Alert>
                 {isError && "There was an error retrieving your invitation. "}
@@ -144,16 +149,16 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
                 Please try again, or email us at <ContactEmail />.
               </Alert>
             )}
-            <div>
-              <LabelledTextInput
-                name="code"
-                type="text"
-                label="Invitation code"
-                autoCapitalize="none"
-                autoCorrect="off"
-              />
-              <SubmitButton label="Submit" className="mt-1 shadow-lg" />
-            </div>
+            <LabelledTextInput
+              name="code"
+              type="text"
+              label="Invitation code"
+              autoCapitalize="none"
+              autoCorrect="off"
+            />
+            <ButtonRow shadow>
+              <SubmitButton label="Submit" />
+            </ButtonRow>
           </BaseForm>
         </div>
       </Formik>

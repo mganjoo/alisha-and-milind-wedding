@@ -3,7 +3,7 @@ import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
 import { useStaticQuery, graphql } from "gatsby"
 import ImageLayout from "../components/layout/ImageLayout"
-import RsvpSection from "../components/partials/RsvpSection"
+import ReeditableRsvpForm from "../components/partials/rsvp/ReeditableRsvpForm"
 import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
 import PageHeading from "../components/ui/PageHeading"
 
@@ -30,12 +30,12 @@ const RsvpPage = () => {
           <div>
             <WeddingMetadataContext.Consumer>
               {value => (
-                <div className="mb-4">
-                  <p className="c-body-text">
+                <div className="c-article mb-8">
+                  <p>
                     We hope to see you at our wedding! Please RSVP by{" "}
-                    <span className="font-semibold">{value.deadline}</span>.
+                    <strong>{value.deadline}</strong>.
                   </p>
-                  <p className="c-body-text">
+                  <p>
                     Any member of your party can submit for the whole group, and
                     you can edit your RSVP as many times as you like before{" "}
                     {value.shortDeadline}.
@@ -43,7 +43,7 @@ const RsvpPage = () => {
                 </div>
               )}
             </WeddingMetadataContext.Consumer>
-            <RsvpSection />
+            <ReeditableRsvpForm />
           </div>
         </Authenticated>
       </section>
