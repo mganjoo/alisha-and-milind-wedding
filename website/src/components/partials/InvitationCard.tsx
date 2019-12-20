@@ -257,12 +257,6 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
         >
           Enter website
         </Link>
-        <button
-          className="mx-2 text-gray-800 font-semibold hover:text-orange-500"
-          disabled
-        >
-          Download invitation
-        </button>
       </animated.div>
     </div>
   )
