@@ -24,11 +24,18 @@ function contacts(): firebase.firestore.CollectionReference {
   return firestore().collection("contacts")
 }
 
+function invitations(): firebase.firestore.CollectionReference {
+  return firestore().collection("invitations")
+}
+
 function rsvps(invitationId: string): firebase.firestore.CollectionReference {
-  return firestore()
-    .collection("invitations")
+  return invitations()
     .doc(invitationId)
     .collection("rsvps")
+}
+
+function invitees(): firebase.firestore.CollectionReference {
+  return firestore().collection("invitees")
 }
 
 describe("Firestore rules", () => {
@@ -95,10 +102,64 @@ describe("Firestore rules", () => {
       )
     })
 
+    it("should reject writes with special field", async () => {
+      await firebase.assertFails(
+        contacts().add({
+          name: "__reject_submission__",
+          email: "lorem@example.com",
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
     it("should reject all reads", async () => {
       await firebase.assertFails(
         contacts()
           .where("name", "==", "Jack Jones")
+          .get()
+      )
+    })
+  })
+
+  describe("for Invitations collection", () => {
+    it("should allow query for any code", async () => {
+      await firebase.assertSucceeds(
+        invitations()
+          .doc("abc")
+          .get()
+      )
+    })
+
+    it("should reject query for special code", async () => {
+      await firebase.assertFails(
+        invitations()
+          .doc("__reject_request__")
+          .get()
+      )
+    })
+  })
+
+  describe("for Invitees collection", () => {
+    it("should allow query for any code", async () => {
+      await firebase.assertSucceeds(
+        invitees()
+          .where("email", "==", "abc")
+          .get()
+      )
+    })
+
+    it("should reject query for special email", async () => {
+      await firebase.assertFails(
+        invitees()
+          .where("email", "==", "__reject_request__@example.com")
+          .get()
+      )
+    })
+
+    it("should reject query for ID directly", async () => {
+      await firebase.assertFails(
+        invitees()
+          .doc("abc")
           .get()
       )
     })

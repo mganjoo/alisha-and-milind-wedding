@@ -19,9 +19,16 @@ export type FindByIdFnType = (
   id: string
 ) => Promise<QueryResult | undefined>
 
+export type FindUniqueByKeyFnType = (
+  collection: string,
+  key: string,
+  value: any
+) => Promise<QueryResult | undefined>
+
 interface LoadFirestoreImplFunctions {
   mockAddWithTimestamp?: jest.MockedFunction<AddWithTimestampFnType>
   mockFindById?: jest.MockedFunction<FindByIdFnType>
+  mockFindUniqueByKey?: jest.MockedFunction<FindUniqueByKeyFnType>
 }
 
 export function mockLoadFirestoreImpl(mocks: LoadFirestoreImplFunctions) {
@@ -35,6 +42,9 @@ export function mockLoadFirestoreImpl(mocks: LoadFirestoreImplFunctions) {
         : (jest.fn() as jest.MockedFunction<AddWithTimestampFnType>),
       findById: mocks.mockFindById
         ? mocks.mockFindById
+        : (jest.fn() as jest.MockedFunction<FindByIdFnType>),
+      findUniqueByKey: mocks.mockFindUniqueByKey
+        ? mocks.mockFindUniqueByKey
         : (jest.fn() as jest.MockedFunction<FindByIdFnType>),
     })
   })

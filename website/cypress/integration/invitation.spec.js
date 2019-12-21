@@ -1,13 +1,17 @@
 /// <reference types="Cypress" />
 
 describe("invitation tests", function() {
-  let invitations
+  let invitation
+  let invitee
 
   before(function() {
     cy.request("POST", Cypress.env("SEED_URL"))
       .as("getInvitations")
       .then(response => {
-        invitations = response.body.records
+        invitee = response.body.invitees[0].data
+        invitation = response.body.invitations.find(
+          invitation => invitation.data.code === invitee.code
+        ).data
       })
   })
 
@@ -17,62 +21,54 @@ describe("invitation tests", function() {
 
   describe("load code page", function() {
     it("should load an invitation correctly", function() {
-      cy.visit(`/load?c=${invitations[0].data.code}`)
-      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
-        "exist"
-      )
+      cy.visit(`/load?c=${invitation.code}`)
+      cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
       cy.percySnapshot()
     })
 
     it("should show the full invitation correctly", function() {
-      cy.visit(`/load?c=${invitations[0].data.code}&immediate=1`)
+      cy.visit(`/load?c=${invitation.code}&immediate=1`)
       cy.findByText(/enter website/i).should("exist")
       cy.percySnapshot()
     })
 
     it("should load a cached invitation when possible", function() {
-      cy.visit(`/load?c=${invitations[0].data.code}`)
-      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
-        "exist"
-      )
+      cy.visit(`/load?c=${invitation.code}`)
+      cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
       cy.visit(`/invitation`)
-      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
-        "exist"
-      )
+      cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
     })
   })
 
   describe("login page", function() {
     this.beforeEach(function() {
       cy.visit(`/invitation`)
-      cy.findByLabelText(/invitation code/i).as("code_input")
+      cy.findByLabelText(/email address/i).as("email_input")
       cy.findByText(/submit/i).as("button")
     })
 
     it("should load an invitation correctly", function() {
-      cy.get("@code_input").type(invitations[0].data.code)
+      cy.get("@email_input").type(invitee.email)
       cy.get("@button").click()
-      cy.findByText(new RegExp(invitations[0].data.partyName, "i")).should(
-        "exist"
-      )
+      cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
     })
 
     it("should validate empty input", function() {
       cy.get("@button").click()
-      cy.findByText(/please enter your invitation code/i).should("exist")
+      cy.findByText(/please enter a valid email/i).should("exist")
       cy.percySnapshot()
     })
 
-    it("should show error on invalid code", function() {
-      cy.get("@code_input").type("bla")
+    it("should show error on invalid email", function() {
+      cy.get("@email_input").type("bla@example.com")
       cy.get("@button").click()
-      cy.findByText(/couldn't find that invitation code/i).should("exist")
+      cy.findByText(/couldn't find an invitation/i).should("exist")
       cy.percySnapshot()
     })
 
-    it("should redirect to code entry page on error", function() {
+    it("should redirect to email entry page on error", function() {
       // Special trigger code for Firestore
-      cy.get("@code_input").type("__reject_request__")
+      cy.get("@email_input").type("__reject_request__@example.com")
       cy.get("@button").click()
       cy.findByText(/error retrieving/i).should("exist")
     })

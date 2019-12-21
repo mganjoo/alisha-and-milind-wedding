@@ -55,15 +55,16 @@ export const updateLatestRsvp = functions.firestore
     }
   })
 
-interface InvitationFixture {
+interface Fixture {
   id: string
   data: Record<string, any>
 }
 
-const invitations = require("../fixtures/invitation-fixtures.json") as InvitationFixture[]
+const invitations = require("../fixtures/invitation-fixtures.json") as Fixture[]
+const invitees = require("../fixtures/invitees-fixtures.json") as Fixture[]
 
 /**
- * Seed invitations into the test Firestore database, using a fixtures file.
+ * Seed invitations and invitees into the test Firestore database, using a fixtures file.
  */
 export const seedInvitations = functions.https.onRequest(async (req, res) => {
   if (req.method === "POST") {
@@ -74,16 +75,17 @@ export const seedInvitations = functions.https.onRequest(async (req, res) => {
         invitation.data
       )
     )
+    invitees.forEach(invitee =>
+      batch.set(db.collection("invitees").doc(invitee.id), invitee.data)
+    )
     try {
       await batch.commit()
-      res.send({ records: invitations })
+      res.send({ invitations: invitations, invitees: invitees })
     } catch (error) {
       console.error(error)
-      res
-        .status(500)
-        .send({ error: "error occurred while seeding invitations" })
+      res.status(500).send({ error: "error occurred while seeding data" })
     }
   } else {
-    res.status(404).send({ error: "must seed invitations using POST" })
+    res.status(404).send({ error: "must seed data using POST" })
   }
 })

@@ -12,6 +12,12 @@ export interface Rsvp {
   guests: Guest[]
 }
 
+export interface Invitee {
+  name: string
+  email: string
+  code: string
+}
+
 interface Guest {
   name: string
   events: string[]

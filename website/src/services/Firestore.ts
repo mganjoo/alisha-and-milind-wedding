@@ -9,6 +9,10 @@ export interface HasServerTimestamp {
 }
 
 export interface Firestore {
+  /**
+   * Add `data` to `collection`, optionally under the document
+   * referenced by `docRef`.
+   */
   addWithTimestamp: (
     collection: string,
     data: Record<string, any>,
@@ -16,7 +20,21 @@ export interface Firestore {
       db: firebase.firestore.Firestore
     ) => firebase.firestore.DocumentReference
   ) => Promise<Record<string, any> & HasServerTimestamp>
+
+  /**
+   * Find a document with ID `id` in `collection`.
+   */
   findById: (collection: string, id: string) => Promise<QueryResult | undefined>
+
+  /**
+   * Find a document where `key` has value `value`. Looks for a unique result,
+   * and throws an error if more than one result is found for `value`.
+   */
+  findUniqueByKey: (
+    collection: string,
+    key: string,
+    value: any
+  ) => Promise<QueryResult | undefined>
 }
 
 function makeFirestore(
@@ -56,6 +74,23 @@ function makeFirestore(
         .then(doc =>
           doc.exists ? { data: doc.data()!, ref: doc.ref } : undefined
         )
+        .catch(observeAndRethrow),
+    findUniqueByKey: async (collection: string, key: string, value: any) =>
+      firebaseInstance
+        .firestore()
+        .collection(collection)
+        .where(key, "==", value)
+        .get()
+        .then(snapshot => {
+          if (snapshot.docs.length > 1) {
+            throw new Error("non-unique match on key `key`")
+          } else {
+            const doc = snapshot.docs[0]
+            return snapshot.docs.length > 0
+              ? { data: doc.data(), ref: doc.ref }
+              : undefined
+          }
+        })
         .catch(observeAndRethrow),
   }
 }

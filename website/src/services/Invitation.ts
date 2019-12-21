@@ -1,5 +1,5 @@
 import { loadFirestore } from "./Firestore"
-import { Invitation, Rsvp } from "../interfaces/Invitation"
+import { Invitation, Rsvp, Invitee } from "../interfaces/Invitation"
 import {
   saveInvitationData,
   loadInvitationData,
@@ -8,6 +8,7 @@ import {
 } from "./Storage"
 
 const invitationsCollection = "invitations"
+const inviteesCollection = "invitees"
 const rsvpsCollection = "rsvps"
 
 function saveInvitation(invitation: Invitation): Promise<void> {
@@ -27,7 +28,7 @@ function saveInvitation(invitation: Invitation): Promise<void> {
  *
  * @param code invitation code to fetch
  */
-export async function fetchAndSaveInvitation(
+export async function fetchAndSaveInvitationByCode(
   code: string
 ): Promise<Invitation | undefined> {
   const firestore = await loadFirestore()
@@ -36,6 +37,23 @@ export async function fetchAndSaveInvitation(
     const invitation = result.data as Invitation
     await saveInvitation(invitation)
     return invitation
+  }
+  return undefined
+}
+
+export async function fetchAndSaveInvitationByEmail(
+  email: string
+): Promise<Invitation | undefined> {
+  const firestore = await loadFirestore()
+  const result = await firestore.findUniqueByKey(
+    inviteesCollection,
+    "email",
+    email
+  )
+  if (result) {
+    const { code } = result.data as Invitee
+    console.log(result)
+    return fetchAndSaveInvitationByCode(code)
   }
   return undefined
 }
@@ -59,7 +77,7 @@ export async function loadSavedInvitation(
         now - savedInvitation.lastFetched.getTime() >
           refreshOlderThanSecs * 1000)
     ) {
-      return fetchAndSaveInvitation(savedInvitation.invitation.code)
+      return fetchAndSaveInvitationByCode(savedInvitation.invitation.code)
     } else {
       return savedInvitation.invitation
     }

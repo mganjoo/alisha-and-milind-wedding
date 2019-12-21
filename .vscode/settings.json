@@ -15,7 +15,7 @@
   "json.schemas": [
     {
       "fileMatch": ["cli/fixtures/*.json"],
-      "url": "cli/fixture-schema.json"
+      "url": "./cli/fixture-schema.json"
     }
   ]
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, createContext, useMemo } from "react"
 import {
-  fetchAndSaveInvitation,
+  fetchAndSaveInvitationByCode,
   loadSavedInvitation,
+  fetchAndSaveInvitationByEmail,
 } from "../../services/Invitation"
 import Loading from "../ui/Loading"
 import Alert from "../ui/Alert"
@@ -15,15 +16,17 @@ import { Invitation } from "../../interfaces/Invitation"
 import ButtonRow from "../form/ButtonRow"
 
 interface LoginFormValues {
-  code: string
+  email: string
 }
 
 const initialValues: LoginFormValues = {
-  code: "",
+  email: "",
 }
 
 const validationSchema = object<LoginFormValues>({
-  code: string().required("Please enter your invitation code."),
+  email: string()
+    .email("Please enter a valid email.")
+    .required("Please enter a valid email."),
 })
 
 export interface InvitationContextWrapper {
@@ -73,10 +76,12 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   const [didInitialFetch, setDidInitialFetch] = useState(false)
   const [initialFetchError, setInitialFetchError] = useState(false)
   const [invitation, setInvitation] = useState<Invitation>()
+  const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   useEffect(() => {
     const loadedInvitationPromise = initialCode
-      ? fetchAndSaveInvitation(initialCode)
+      ? fetchAndSaveInvitationByCode(initialCode)
       : Promise.resolve(undefined)
     loadedInvitationPromise
       .then(
@@ -87,12 +92,11 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
   }, [initialCode, refreshOlderThanSecs])
-  const [submitted, setSubmitted] = useState(false)
-  const [submitError, setSubmitError] = useState(false)
 
   async function login(submission: LoginFormValues) {
     setInitialFetchError(false) // after first submit, form will handle error handling
-    return fetchAndSaveInvitation(submission.code)
+    setSubmitError(false)
+    return fetchAndSaveInvitationByEmail(submission.email)
       .then(setInvitation)
       .then(() => setSubmitted(true))
       .catch(() => setSubmitError(true))
@@ -109,8 +113,10 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   )
 
   const isError = initialFetchError || submitError
-  const isMissing =
-    !isError && (initialCode !== undefined || submitted) && !invitation
+  const isMissing = !isError && submitted && !invitation
+  const isInitialMissing =
+    !isError && !isMissing && initialCode !== undefined && !invitation
+  const showAlert = isError || isMissing || isInitialMissing
 
   if (invitation) {
     const invitationContextWrapper: InvitationContextWrapper = {
@@ -131,38 +137,43 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         validationSchema={validationSchema}
         onSubmit={login}
       >
-        <div
-          role="dialog"
-          aria-label="Enter code"
-          aria-describedby="enter-code-description"
-          className="max-w-sm mx-auto text-center"
-        >
-          <div className="c-shadow-box mx-4 my-6">
-            <BaseForm>
-              <p className="c-form-description" id="enter-code-description">
-                To view this page, please use the invitation code included in
-                your wedding invitation email.
-              </p>
-              {(isError || isMissing) && (
-                <Alert>
-                  {isError && "There was an error retrieving your invitation. "}
-                  {isMissing && "Hmm, we couldn't find that invitation code. "}
-                  Please try again, or email us at <ContactEmail />.
-                </Alert>
-              )}
-              <LabelledTextInput
-                name="code"
-                type="text"
-                label="Invitation code"
-                autoCapitalize="none"
-                autoCorrect="off"
-              />
-              <ButtonRow shadow>
-                <SubmitButton label="Submit" />
-              </ButtonRow>
-            </BaseForm>
+        {({ isSubmitting }) => (
+          <div
+            role="dialog"
+            aria-label="Enter email"
+            aria-describedby="enter-email-description"
+            className="max-w-sm mx-auto text-center"
+          >
+            <div className="c-shadow-box mx-4 my-6">
+              <BaseForm>
+                {!isSubmitting && showAlert && (
+                  <Alert>
+                    {isError &&
+                      "There was an error retrieving your invitation. "}
+                    {isInitialMissing &&
+                      "Hmm, we couldn't find that invitation code. "}
+                    {isMissing &&
+                      "Hmm, we couldn't find an invitation under that email. "}
+                    Please try again, or email us at <ContactEmail />.
+                  </Alert>
+                )}
+                <p className="c-form-description" id="enter-email-description">
+                  To view this page, please enter the email address that your
+                  invitation was sent to.
+                </p>
+                <LabelledTextInput
+                  name="email"
+                  type="email"
+                  label="Email address"
+                  autoComplete="email"
+                />
+                <ButtonRow shadow>
+                  <SubmitButton label="Submit" />
+                </ButtonRow>
+              </BaseForm>
+            </div>
           </div>
-        </div>
+        )}
       </Formik>
     )
   }
