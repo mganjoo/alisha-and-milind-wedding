@@ -24,29 +24,27 @@ const RsvpPage = () => {
   return (
     <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
       <SEO title="RSVP" />
-      <section className="max-w-lg mx-auto">
-        <PageHeading>RSVP</PageHeading>
-        <Authenticated refreshOlderThanSecs={90}>
-          <div>
-            <WeddingMetadataContext.Consumer>
-              {value => (
-                <div className="c-article mb-8">
-                  <p>
-                    We hope to see you at our wedding! Please RSVP by{" "}
-                    <strong>{value.deadline}</strong>.
-                  </p>
-                  <p>
-                    Any member of your party can submit for the whole group, and
-                    you can edit your RSVP as many times as you like before{" "}
-                    {value.shortDeadline}.
-                  </p>
-                </div>
-              )}
-            </WeddingMetadataContext.Consumer>
-            <ReeditableRsvpForm />
-          </div>
-        </Authenticated>
-      </section>
+      <PageHeading>RSVP</PageHeading>
+      <Authenticated refreshOlderThanSecs={90}>
+        <div className="max-w-xl mx-auto">
+          <WeddingMetadataContext.Consumer>
+            {value => (
+              <div className="c-article mb-8">
+                <p>
+                  We hope to see you at our wedding! Please RSVP by{" "}
+                  <strong>{value.deadline}</strong>.
+                </p>
+                <p>
+                  Any member of your party can submit for the whole group, and
+                  you can edit your RSVP as many times as you like before{" "}
+                  {value.shortDeadline}.
+                </p>
+              </div>
+            )}
+          </WeddingMetadataContext.Consumer>
+          <ReeditableRsvpForm />
+        </div>
+      </Authenticated>
     </ImageLayout>
   )
 }

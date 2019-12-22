@@ -14,7 +14,9 @@ const NavLayout: React.FC = ({ children }) => {
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      {children}
+      <main className="-mt-4 max-w-4xl flex flex-col mb-10 mx-auto sm:mt-0 sm:px-4">
+        {children}
+      </main>
     </BaseLayout>
   )
 }

@@ -62,7 +62,7 @@ describe("invitation tests", function() {
     it("should show error on invalid email", function() {
       cy.get("@email_input").type("bla@example.com")
       cy.get("@button").click()
-      cy.findByText(/couldn't find an invitation/i).should("exist")
+      cy.findByText(/couldn’t find an invitation/i).should("exist")
       cy.percySnapshot()
     })
 

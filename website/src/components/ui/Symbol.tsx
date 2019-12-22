@@ -1,7 +1,7 @@
 import React from "react"
 import classnames from "classnames"
 
-type SymbolName =
+export type SymbolName =
   | "check"
   | "question-mark"
   | "cross"
@@ -62,7 +62,7 @@ const Symbol: React.FC<SymbolProps> = ({
 }) => {
   const Elem = inline ? "span" : "div"
   return (
-    <Elem className={className} aria-hidden={!!label}>
+    <Elem className={className} aria-hidden={!label}>
       <svg
         aria-label={label}
         xmlns="http://www.w3.org/2000/svg"

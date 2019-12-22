@@ -103,11 +103,12 @@
 }
 
 .c-hero {
+  @apply max-w-xl;
   max-height: 24rem;
 }
 
 .c-full-screen-hero {
-  @extend .c-hero;
+  max-height: 24rem;
 
   @screen lg {
     @apply max-h-full;

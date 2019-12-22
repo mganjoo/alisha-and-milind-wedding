@@ -50,6 +50,7 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-transformer-remark-plaintext`,
     `gatsby-remark-source-name`,
+    `gatsby-plugin-catch-links`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-react-css-modules`,
     {

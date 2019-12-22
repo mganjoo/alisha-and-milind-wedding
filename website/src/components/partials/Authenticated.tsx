@@ -151,9 +151,9 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
                     {isError &&
                       "There was an error retrieving your invitation. "}
                     {isInitialMissing &&
-                      "Hmm, we couldn't find that invitation code. "}
+                      "Hmm, we couldn’t find that invitation code. "}
                     {isMissing &&
-                      "Hmm, we couldn't find an invitation under that email. "}
+                      "Hmm, we couldn’t find an invitation under that email. "}
                     Please try again, or email us at <ContactEmail />.
                   </Alert>
                 )}

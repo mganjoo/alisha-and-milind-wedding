@@ -1,11 +1,13 @@
 import React from "react"
-import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
+import PageHeading from "../components/ui/PageHeading"
+import NoImageLayout from "../components/layout/NoImageLayout"
 
 const FaqPage = () => (
-  <NavLayout>
+  <NoImageLayout>
     <SEO title="FAQ" />
+    <PageHeading>FAQ</PageHeading>
     <p>TODO</p>
-  </NavLayout>
+  </NoImageLayout>
 )
 export default FaqPage

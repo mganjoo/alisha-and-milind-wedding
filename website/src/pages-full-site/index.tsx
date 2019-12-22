@@ -7,7 +7,7 @@ const IndexPage = () => {
   const imageData = useStaticQuery(
     graphql`
       query {
-        heroImage: file(relativePath: { eq: "wedding-hero.jpg" }) {
+        heroImage: file(relativePath: { eq: "main-hero.jpg" }) {
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid
@@ -18,29 +18,31 @@ const IndexPage = () => {
     `
   )
   return (
-    <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
-      <>
-        <SEO title="Home" />
-        <div className="c-article">
-          <p>
-            Welcome to our wedding website! We are so excited to celebrate this
-            weekend with you!
-            <br />
-            <br />
-            Love,
-            <br />
-            Alisha &amp; Milind
-          </p>
-          <div className="mt-8">
-            <Link
-              to="/rsvp"
-              className="c-button c-button-primary c-button-comfortable"
-            >
-              RSVP
-            </Link>
-          </div>
+    <ImageLayout
+      fluidImage={imageData.heroImage.childImageSharp.fluid}
+      objectPosition="50% 32%"
+      full
+    >
+      <SEO title="Home" />
+      <div className="c-article max-w-xl mx-auto">
+        <p>
+          Welcome to our wedding website! We are so excited to celebrate this
+          weekend with you!
+          <br />
+          <br />
+          Love,
+          <br />
+          Alisha &amp; Milind
+        </p>
+        <div className="mt-8">
+          <Link
+            to="/rsvp"
+            className="c-button c-button-primary c-button-comfortable"
+          >
+            RSVP
+          </Link>
         </div>
-      </>
+      </div>
     </ImageLayout>
   )
 }

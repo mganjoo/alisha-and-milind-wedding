@@ -40,7 +40,7 @@ const SaveTheDatePage: React.FC = () => {
           className="c-full-screen-hero flex-1 p-cover"
           fluid={data.weddingHeroImage.childImageSharp.fluid}
           backgroundColor="#ece5df"
-          alt=""
+          alt="Milind and Alisha taking a selfie in a car side mirror."
           imgStyle={{ objectPosition: "36% 50%" }}
         />
         <section

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import InvitationCard from "../components/partials/InvitationCard"
 import BaseLayout from "../components/layout/BaseLayout"
+import Emoji from "../components/ui/Emoji"
 
 const DemoPage: React.FC = () => {
   const [playing, setPlaying] = useState(false)
@@ -17,17 +18,11 @@ const DemoPage: React.FC = () => {
         >
           {!playing ? (
             <>
-              <span aria-hidden="true" className="mr-1">
-                ▶️
-              </span>{" "}
-              Play
+              <Emoji className="mr-1" symbol="▶️" /> Play
             </>
           ) : (
             <>
-              <span aria-hidden="true" className="mr-1">
-                ⏸️
-              </span>{" "}
-              Pause
+              <Emoji className="mr-1" symbol="⏸️" /> Pause
             </>
           )}
         </button>
@@ -37,13 +32,9 @@ const DemoPage: React.FC = () => {
         >
           Switch Direction{" "}
           {reverse ? (
-            <span role="img" aria-label="Reverse">
-              ⬅️
-            </span>
+            <Emoji label="Reverse" symbol="⬅️" />
           ) : (
-            <span role="img" aria-label="Forward">
-              ➡️
-            </span>
+            <Emoji label="Forward" symbol="➡️" />
           )}
         </button>
       </div>

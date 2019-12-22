@@ -166,7 +166,7 @@ describe("Authenticated", () => {
       </Authenticated>
     )
     await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/couldn't find that invitation code/i)).toBeInTheDocument()
+    expect(getByText(/couldn’t find that invitation code/i)).toBeInTheDocument()
   })
 
   it("should show login page when no code is provided, with no error", async () => {
@@ -178,7 +178,7 @@ describe("Authenticated", () => {
     )
     await waitForElementToBeRemoved(() => queryByText(/Loading/i))
     expect(
-      queryByText(/couldn't find that invitation code/i)
+      queryByText(/couldn’t find that invitation code/i)
     ).not.toBeInTheDocument()
   })
 

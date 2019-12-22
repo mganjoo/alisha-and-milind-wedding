@@ -10,7 +10,7 @@ const EventsPage = () => {
   const data = useStaticQuery(
     graphql`
       query {
-        heroImage: file(relativePath: { eq: "rsvp-hero.jpg" }) {
+        heroImage: file(relativePath: { eq: "events-hero.jpg" }) {
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid
@@ -21,7 +21,10 @@ const EventsPage = () => {
     `
   )
   return (
-    <ImageLayout fluidImage={data.heroImage.childImageSharp.fluid}>
+    <ImageLayout
+      fluidImage={data.heroImage.childImageSharp.fluid}
+      objectPosition="50% 5%"
+    >
       <SEO title="Events" />
       <PageHeading>Events</PageHeading>
       <Authenticated>

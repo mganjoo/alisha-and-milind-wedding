@@ -13,6 +13,12 @@ export interface WeddingEventMarkdown {
     longDateOnly: string
     timeOnly: string
     location: string
+    attire: string
+    subLocations?: {
+      name: string
+      location: string
+      time: string
+    }[]
   }
 }
 
@@ -50,6 +56,12 @@ export function useEvents() {
               shortName
               name: title
               location
+              attire
+              subLocations {
+                name
+                location
+                time: date(formatString: "h:mma")
+              }
             }
           }
         }

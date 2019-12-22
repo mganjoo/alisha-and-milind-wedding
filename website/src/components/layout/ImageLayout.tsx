@@ -1,22 +1,34 @@
 import React from "react"
 import NavLayout from "./NavLayout"
 import Img, { FluidObject } from "gatsby-image"
+import classnames from "classnames"
 
 interface ImageLayoutProps {
   fluidImage: FluidObject | FluidObject[]
+  alt?: string
+  objectPosition?: string
+  full?: boolean
 }
 
-const ImageLayout: React.FC<ImageLayoutProps> = ({ fluidImage, children }) => {
+const ImageLayout: React.FC<ImageLayoutProps> = ({
+  fluidImage,
+  children,
+  alt,
+  objectPosition,
+  full,
+}) => {
   return (
     <NavLayout>
-      <main className="-mt-4 max-w-3xl flex flex-col mb-10 mx-auto sm:mt-0 sm:px-4">
-        <Img
-          fluid={fluidImage}
-          alt=""
-          className="mb-8 shadow-md w-full c-hero p-cover"
-        />
-        <div className="px-8 sm:px-0">{children}</div>
-      </main>
+      <Img
+        fluid={fluidImage}
+        alt={alt || ""}
+        className={classnames(
+          "mb-8 mx-auto shadow-md w-full p-cover",
+          full ? "c-full-screen-hero" : "c-hero"
+        )}
+        imgStyle={objectPosition ? { objectPosition } : undefined}
+      />
+      <div className="px-8 sm:px-0">{children}</div>
     </NavLayout>
   )
 }
