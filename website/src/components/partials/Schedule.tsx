@@ -1,9 +1,9 @@
+import { Link } from "gatsby"
 import React, { useContext } from "react"
 import { useEvents } from "../../interfaces/Event"
+import LeafSpacer from "../ui/LeafSpacer"
 import { InvitationContext } from "./Authenticated"
 import ScheduleItem from "./ScheduleItem"
-import { Link } from "gatsby"
-import LeafSpacer from "../ui/LeafSpacer"
 
 const Schedule: React.FC = () => {
   const events = useEvents()

@@ -1,10 +1,7 @@
-import React, { useContext, useState, useRef, useEffect, useMemo } from "react"
-import { InvitationContext } from "../Authenticated"
-import { scrollIntoView, stringEmpty } from "../../../utils/Utils"
-import BaseForm from "../../form/BaseForm"
 import { Formik, useFormikContext, setNestedObjectValues } from "formik"
-import SubmitButton from "../../form/SubmitButton"
-import LeafSpacer from "../../ui/LeafSpacer"
+import React, { useContext, useState, useRef, useEffect, useMemo } from "react"
+import { WeddingEventMarkdown, useEvents } from "../../../interfaces/Event"
+import { Invitation } from "../../../interfaces/Invitation"
 import {
   RsvpFormValues,
   validationSchema,
@@ -12,15 +9,18 @@ import {
   makeInitialRsvpFormValues,
   toRsvp,
 } from "../../../interfaces/RsvpFormValues"
-import Button from "../../ui/Button"
-import RsvpGuestsSection from "./RsvpGuestsSection"
-import RsvpAttendanceSection from "./RsvpAttendanceSection"
-import { WeddingEventMarkdown, useEvents } from "../../../interfaces/Event"
-import { Invitation } from "../../../interfaces/Invitation"
 import { addRsvp } from "../../../services/Invitation"
-import Alert from "../../ui/Alert"
-import ContactEmail from "../ContactEmail"
+import { scrollIntoView, stringEmpty } from "../../../utils/Utils"
+import BaseForm from "../../form/BaseForm"
 import ButtonRow from "../../form/ButtonRow"
+import SubmitButton from "../../form/SubmitButton"
+import Alert from "../../ui/Alert"
+import Button from "../../ui/Button"
+import LeafSpacer from "../../ui/LeafSpacer"
+import { InvitationContext } from "../Authenticated"
+import ContactEmail from "../ContactEmail"
+import RsvpAttendanceSection from "./RsvpAttendanceSection"
+import RsvpGuestsSection from "./RsvpGuestsSection"
 
 type Page = 1 | 2
 

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react"
-import { scrollIntoView } from "../../utils/Utils"
 import { useRegisteredRef } from "react-register-nodes"
 import { useUID } from "react-uid"
+import { scrollIntoView } from "../../utils/Utils"
 import "./Alert.module.css"
 
 const Alert: React.FC = ({ children }) => {

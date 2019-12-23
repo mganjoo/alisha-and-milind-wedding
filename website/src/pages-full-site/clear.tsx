@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
 import { navigate } from "@reach/router"
-import Loading from "../components/ui/Loading"
+import React, { useEffect } from "react"
 import BaseLayout from "../components/layout/BaseLayout"
+import Loading from "../components/ui/Loading"
 import { clearInvitationData } from "../services/Storage"
 
 const ClearPage: React.FC = () => {

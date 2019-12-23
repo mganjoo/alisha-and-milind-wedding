@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
-import AddToCalendarLinks from "../ui/AddToCalendarLinks"
 import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
+import AddToCalendarLinks from "../ui/AddToCalendarLinks"
 
 const SaveTheDateLinks = () => {
   const data = useContext(WeddingMetadataContext)

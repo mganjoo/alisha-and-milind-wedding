@@ -1,7 +1,7 @@
-import React from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
-import SEO from "../components/meta/SEO"
+import React from "react"
 import ImageLayout from "../components/layout/ImageLayout"
+import SEO from "../components/meta/SEO"
 
 const IndexPage = () => {
   const imageData = useStaticQuery(

@@ -1,10 +1,10 @@
+import firebase from "firebase"
 import {
   loadFirestore,
   Firestore,
   HasServerTimestamp,
   QueryResult,
 } from "../services/Firestore"
-import firebase from "firebase"
 
 export type AddWithTimestampFnType = (
   collection: string,

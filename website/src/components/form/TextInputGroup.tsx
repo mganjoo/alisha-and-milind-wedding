@@ -1,9 +1,9 @@
-import React from "react"
-import TextInput from "./TextInput"
 import { useFormikContext } from "formik"
+import React from "react"
 import { useRegisteredRef } from "react-register-nodes"
-import LabelledTextField from "./LabelledTextField"
 import InputGroup from "./InputGroup"
+import LabelledTextField from "./LabelledTextField"
+import TextInput from "./TextInput"
 
 interface TextInputGroupProps {
   label: string

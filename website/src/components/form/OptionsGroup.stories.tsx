@@ -1,7 +1,7 @@
 import React from "react"
-import OptionsGroup, { Option } from "./OptionsGroup"
 import FormikStoryWrapper from "../../utils/FormikStoryWrapper"
 import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
+import OptionsGroup, { Option } from "./OptionsGroup"
 
 export default {
   title: "OptionsGroup",

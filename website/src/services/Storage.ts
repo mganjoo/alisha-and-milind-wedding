@@ -1,5 +1,5 @@
-import { Invitation } from "../interfaces/Invitation"
 import { set, del, get, Store } from "idb-keyval"
+import { Invitation } from "../interfaces/Invitation"
 
 const InvitationKey = "invitation"
 

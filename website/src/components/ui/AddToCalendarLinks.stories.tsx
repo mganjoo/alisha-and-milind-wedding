@@ -1,7 +1,7 @@
-import React from "react"
-import AddToCalendarLinks from "./AddToCalendarLinks"
 import { date, withKnobs, boolean } from "@storybook/addon-knobs"
+import React from "react"
 import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
+import AddToCalendarLinks from "./AddToCalendarLinks"
 
 export default {
   title: "AddToCalendarLinks",

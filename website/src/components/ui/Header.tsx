@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
 import classnames from "classnames"
+import { Link, useStaticQuery, graphql } from "gatsby"
+import React, { useEffect, useRef, useState } from "react"
 
 interface HeaderLink {
   text: string

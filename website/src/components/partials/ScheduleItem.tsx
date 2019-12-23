@@ -1,8 +1,8 @@
 import React, { useContext } from "react"
 import { WeddingEventMarkdown } from "../../interfaces/Event"
-import Symbol, { SymbolName } from "../ui/Symbol"
-import AddToCalendarLinks from "../ui/AddToCalendarLinks"
 import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
+import AddToCalendarLinks from "../ui/AddToCalendarLinks"
+import Symbol, { SymbolName } from "../ui/Symbol"
 
 interface ScheduleItemProps {
   event: WeddingEventMarkdown

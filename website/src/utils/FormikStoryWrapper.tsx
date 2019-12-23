@@ -1,6 +1,6 @@
-import React from "react"
-import { Formik, FormikValues, FormikConfig } from "formik"
 import { decorate } from "@storybook/addon-actions"
+import { Formik, FormikValues, FormikConfig } from "formik"
+import React from "react"
 import BaseForm from "../components/form/BaseForm"
 import SubmitButton from "../components/form/SubmitButton"
 

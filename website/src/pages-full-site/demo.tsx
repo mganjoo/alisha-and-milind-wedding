@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import InvitationCard from "../components/partials/InvitationCard"
 import BaseLayout from "../components/layout/BaseLayout"
+import InvitationCard from "../components/partials/InvitationCard"
 import Emoji from "../components/ui/Emoji"
 
 const DemoPage: React.FC = () => {

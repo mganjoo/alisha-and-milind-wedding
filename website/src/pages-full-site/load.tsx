@@ -1,8 +1,8 @@
-import React, { useEffect } from "react"
 import { RouteComponentProps, navigate } from "@reach/router"
-import queryString from "query-string"
-import Loading from "../components/ui/Loading"
+import { parse } from "query-string"
+import React, { useEffect } from "react"
 import BaseLayout from "../components/layout/BaseLayout"
+import Loading from "../components/ui/Loading"
 
 interface InvitationPageQueryParams {
   c?: string
@@ -11,7 +11,7 @@ interface InvitationPageQueryParams {
 
 const LoadPage: React.FC<RouteComponentProps> = ({ location }) => {
   const pageArguments: InvitationPageQueryParams = location
-    ? queryString.parse(location.search)
+    ? parse(location.search)
     : {}
   useEffect(() => {
     navigate("/invitation", {

@@ -1,7 +1,7 @@
-import React from "react"
-import { useField } from "formik"
-import "./TextInput.module.css"
 import classnames from "classnames"
+import { useField } from "formik"
+import React from "react"
+import "./TextInput.module.css"
 
 interface TextAreaProps
   extends React.DetailedHTMLProps<

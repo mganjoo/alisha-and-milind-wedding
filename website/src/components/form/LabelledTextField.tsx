@@ -1,9 +1,9 @@
-import React from "react"
-import LabelWrapper from "./LabelWrapper"
 import { useField } from "formik"
-import TextInput from "./TextInput"
+import React from "react"
 import { useRegisteredRef } from "react-register-nodes"
+import LabelWrapper from "./LabelWrapper"
 import TextArea from "./TextArea"
+import TextInput from "./TextInput"
 
 interface CommonProps {
   label: string

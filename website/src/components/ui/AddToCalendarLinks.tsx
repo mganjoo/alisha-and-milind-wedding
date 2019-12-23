@@ -1,4 +1,6 @@
+import { Menu, MenuButton, MenuList, MenuLink } from "@reach/menu-button"
 import React from "react"
+import { useUID } from "react-uid"
 import {
   CalendarEvent,
   ical,
@@ -6,8 +8,6 @@ import {
   outlook,
   yahoo,
 } from "../../utils/AddToCalendarUtils"
-import { useUID } from "react-uid"
-import { Menu, MenuButton, MenuList, MenuLink } from "@reach/menu-button"
 import Symbol from "./Symbol"
 import "./AddToCalendarLinks.module.css"
 

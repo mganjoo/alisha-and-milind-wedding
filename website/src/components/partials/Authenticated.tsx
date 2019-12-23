@@ -1,19 +1,19 @@
+import { Formik } from "formik"
 import React, { useState, useEffect, createContext, useMemo } from "react"
+import { object, string } from "yup"
+import { Invitation } from "../../interfaces/Invitation"
 import {
   fetchAndSaveInvitationByCode,
   loadSavedInvitation,
   fetchAndSaveInvitationByEmail,
 } from "../../services/Invitation"
-import Loading from "../ui/Loading"
-import Alert from "../ui/Alert"
-import ContactEmail from "./ContactEmail"
-import { Formik } from "formik"
-import { object, string } from "yup"
 import BaseForm from "../form/BaseForm"
+import ButtonRow from "../form/ButtonRow"
 import LabelledTextField from "../form/LabelledTextField"
 import SubmitButton from "../form/SubmitButton"
-import { Invitation } from "../../interfaces/Invitation"
-import ButtonRow from "../form/ButtonRow"
+import Alert from "../ui/Alert"
+import Loading from "../ui/Loading"
+import ContactEmail from "./ContactEmail"
 
 interface LoginFormValues {
   email: string

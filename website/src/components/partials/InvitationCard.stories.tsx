@@ -1,6 +1,6 @@
+import { boolean, withKnobs, number } from "@storybook/addon-knobs"
 import React from "react"
 import InvitationCard from "./InvitationCard"
-import { boolean, withKnobs, number } from "@storybook/addon-knobs"
 
 export default {
   title: "InvitationCard",

@@ -1,6 +1,6 @@
+import classnames from "classnames"
 import React from "react"
 import Helmet from "react-helmet"
-import classnames from "classnames"
 import { useWeddingMetadata } from "../../interfaces/WeddingMetadata"
 import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
 

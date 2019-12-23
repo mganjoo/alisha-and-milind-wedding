@@ -1,6 +1,6 @@
+import { Link } from "gatsby"
 import React from "react"
 import NotFound from "../components/partials/NotFound"
-import { Link } from "gatsby"
 
 const NotFoundPage = () => (
   <NotFound>

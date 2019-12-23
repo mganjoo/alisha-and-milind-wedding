@@ -1,11 +1,11 @@
+import { useStaticQuery, graphql, Link } from "gatsby"
 import React from "react"
+import ImageLayout from "../components/layout/ImageLayout"
 import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
-import { useStaticQuery, graphql, Link } from "gatsby"
-import ImageLayout from "../components/layout/ImageLayout"
 import ReeditableRsvpForm from "../components/partials/rsvp/ReeditableRsvpForm"
-import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
 import PageHeading from "../components/ui/PageHeading"
+import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
 
 const RsvpPage = () => {
   const imageData = useStaticQuery(

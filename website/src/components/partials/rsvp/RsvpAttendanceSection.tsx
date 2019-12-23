@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState, useContext, useMemo } from "react"
-import AttendanceItem from "../AttendanceItem"
 import { useFormikContext } from "formik"
-import { RsvpFormValues, GuestMap } from "../../../interfaces/RsvpFormValues"
-import Alert from "../../ui/Alert"
-import { InvitationContext } from "../Authenticated"
+import React, { useEffect, useRef, useState, useContext, useMemo } from "react"
 import { useEvents } from "../../../interfaces/Event"
+import { RsvpFormValues, GuestMap } from "../../../interfaces/RsvpFormValues"
 import { filterNonEmptyKeys } from "../../../utils/Utils"
+import Alert from "../../ui/Alert"
+import AttendanceItem from "../AttendanceItem"
+import { InvitationContext } from "../Authenticated"
 import "./RsvpForm.module.css"
 
 interface AttendanceGroupProps {

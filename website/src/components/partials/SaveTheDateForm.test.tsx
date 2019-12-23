@@ -1,12 +1,12 @@
 import { render, fireEvent, waitForElement } from "@testing-library/react"
-import SaveTheDateForm from "./SaveTheDateForm"
-import React from "react"
 import firebase from "firebase"
+import React from "react"
 import "@testing-library/jest-dom/extend-expect"
 import {
   mockLoadFirestoreImpl,
   AddWithTimestampFnType,
 } from "../../utils/FirestoreMocks"
+import SaveTheDateForm from "./SaveTheDateForm"
 
 // Mock Firestore to replace submission function
 jest.mock("../../services/Firestore")

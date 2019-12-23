@@ -1,12 +1,12 @@
-import React, { useContext } from "react"
-import { InvitationContext } from "../Authenticated"
-import TextInputGroup from "../../form/TextInputGroup"
-import OptionsGroup from "../../form/OptionsGroup"
-import { useFormikContext } from "formik"
-import { RsvpFormValues } from "../../../interfaces/RsvpFormValues"
 import classnames from "classnames"
+import { useFormikContext } from "formik"
+import React, { useContext } from "react"
+import { RsvpFormValues } from "../../../interfaces/RsvpFormValues"
 import "./RsvpForm.module.css"
 import LabelledTextField from "../../form/LabelledTextField"
+import OptionsGroup from "../../form/OptionsGroup"
+import TextInputGroup from "../../form/TextInputGroup"
+import { InvitationContext } from "../Authenticated"
 
 function ordinalSuffix(i: number) {
   const ones = i % 10

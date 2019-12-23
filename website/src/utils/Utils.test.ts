@@ -1,3 +1,4 @@
+import shortid from "shortid"
 import {
   range,
   makeIdMap,
@@ -5,7 +6,6 @@ import {
   recordsEqual,
   stringEmpty,
 } from "./Utils"
-import shortid from "shortid"
 
 describe("Utils", () => {
   describe("makeIdMap()", () => {

@@ -1,6 +1,6 @@
+import classnames from "classnames"
 import React from "react"
 import LabelWrapper, { LabelWrapperProps } from "./LabelWrapper"
-import classnames from "classnames"
 
 type InputGroupProps = Omit<LabelWrapperProps, "group">
 

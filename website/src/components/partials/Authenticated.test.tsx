@@ -1,20 +1,20 @@
-import React, { useContext } from "react"
 import { render, waitForElementToBeRemoved } from "@testing-library/react"
+import dayjs from "dayjs"
+import React, { useContext } from "react"
 import "@testing-library/jest-dom/extend-expect"
-import Authenticated, { InvitationContext } from "./Authenticated"
+import { Invitation } from "../../interfaces/Invitation"
+import { loadFirestore } from "../../services/Firestore"
 import {
   loadInvitationData,
   parseInvitationData,
   isCurrentVersion,
   saveInvitationData,
 } from "../../services/Storage"
-import { Invitation } from "../../interfaces/Invitation"
-import dayjs from "dayjs"
 import {
   mockLoadFirestoreImpl,
   FindByIdFnType,
 } from "../../utils/FirestoreMocks"
-import { loadFirestore } from "../../services/Firestore"
+import Authenticated, { InvitationContext } from "./Authenticated"
 
 // Mock core services
 jest.mock("../../services/Firestore")

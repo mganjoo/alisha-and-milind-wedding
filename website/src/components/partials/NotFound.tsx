@@ -1,8 +1,8 @@
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import React from "react"
-import SEO from "../meta/SEO"
 import BaseLayout from "../layout/BaseLayout"
+import SEO from "../meta/SEO"
 
 const NotFound: React.FC = ({ children }) => {
   const imageData = useStaticQuery(

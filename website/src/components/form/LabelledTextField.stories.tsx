@@ -1,7 +1,7 @@
 import React from "react"
-import LabelledTextField from "./LabelledTextField"
 import FormikStoryWrapper from "../../utils/FormikStoryWrapper"
 import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
+import LabelledTextField from "./LabelledTextField"
 
 export default {
   title: "LabelledTextInput",

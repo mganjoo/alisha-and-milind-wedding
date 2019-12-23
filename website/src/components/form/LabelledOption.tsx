@@ -1,6 +1,6 @@
+import classnames from "classnames"
 import React from "react"
 import { assertNever } from "../../utils/Utils"
-import classnames from "classnames"
 
 type OptionType = "checkbox" | "radio"
 

@@ -1,10 +1,10 @@
-import React, { useMemo, useCallback } from "react"
-import { useField, useFormikContext } from "formik"
 import classnames from "classnames"
+import { useField, useFormikContext } from "formik"
+import React, { useMemo, useCallback } from "react"
 import { useRegisteredRef } from "react-register-nodes"
 import ControlledLabelledOption from "./ControlledLabelledOption"
-import LabelledOption from "./LabelledOption"
 import InputGroup from "./InputGroup"
+import LabelledOption from "./LabelledOption"
 
 export interface Option {
   value: string

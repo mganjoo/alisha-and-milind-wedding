@@ -1,7 +1,7 @@
-import FormikStoryWrapper from "../../utils/FormikStoryWrapper"
 import React from "react"
-import TextInputGroup from "./TextInputGroup"
+import FormikStoryWrapper from "../../utils/FormikStoryWrapper"
 import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
+import TextInputGroup from "./TextInputGroup"
 
 export default {
   title: "TextInputGroup",

@@ -1,7 +1,7 @@
-import React from "react"
-import Alert from "./Alert"
 import { action } from "@storybook/addon-actions"
+import React from "react"
 import StoryPaddingWrapper from "../../utils/StoryPaddingWrapper"
+import Alert from "./Alert"
 
 export default {
   title: "Alert",

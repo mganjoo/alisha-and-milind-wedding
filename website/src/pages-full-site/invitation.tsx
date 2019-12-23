@@ -1,5 +1,5 @@
-import React from "react"
 import { RouteComponentProps } from "@reach/router"
+import React from "react"
 import BaseLayout from "../components/layout/BaseLayout"
 import InvitationCard from "../components/partials/InvitationCard"
 

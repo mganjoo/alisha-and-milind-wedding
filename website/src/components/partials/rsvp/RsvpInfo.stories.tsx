@@ -1,11 +1,11 @@
+import { action } from "@storybook/addon-actions"
 import React from "react"
+import { Invitation, RsvpWithTimestamp } from "../../../interfaces/Invitation"
 import {
   InvitationContext,
   makeDummyInvitationContextWrapper,
 } from "../Authenticated"
-import { Invitation, RsvpWithTimestamp } from "../../../interfaces/Invitation"
 import RsvpInfo from "./RsvpInfo"
-import { action } from "@storybook/addon-actions"
 
 const rsvp: RsvpWithTimestamp = {
   attending: true,

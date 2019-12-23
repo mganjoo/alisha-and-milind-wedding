@@ -1,7 +1,7 @@
-import React from "react"
-import Button from "./Button"
 import { action } from "@storybook/addon-actions"
 import { withKnobs, text, boolean, optionsKnob } from "@storybook/addon-knobs"
+import React from "react"
+import Button from "./Button"
 
 export default {
   title: "Button",

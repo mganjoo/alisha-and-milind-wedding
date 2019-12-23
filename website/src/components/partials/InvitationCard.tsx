@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import Authenticated, { InvitationContext } from "./Authenticated"
-import { useSpring, animated, interpolate } from "react-spring"
-import { useStateList } from "../../utils/UtilHooks"
+import { graphql, useStaticQuery, Link } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
+import React, { useContext, useEffect, useState } from "react"
 import Div100vh from "react-div-100vh"
 import Helmet from "react-helmet"
-import { Link } from "gatsby"
+import { useSpring, animated, interpolate } from "react-spring"
+import { useStateList } from "../../utils/UtilHooks"
+import Authenticated, { InvitationContext } from "./Authenticated"
 import "./InvitationCard.module.css"
 
 type AnimationState =

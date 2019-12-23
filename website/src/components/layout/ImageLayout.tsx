@@ -1,7 +1,7 @@
+import classnames from "classnames"
+import Img, { FluidObject } from "gatsby-image"
 import React from "react"
 import NavLayout from "./NavLayout"
-import Img, { FluidObject } from "gatsby-image"
-import classnames from "classnames"
 import "./ImageLayout.module.css"
 
 interface ImageLayoutProps {

@@ -1,10 +1,10 @@
-import React, { useContext } from "react"
-import { InvitationContext } from "../Authenticated"
-import Button from "../../ui/Button"
 import classnames from "classnames"
-import Symbol from "../../ui/Symbol"
 import dayjs from "dayjs"
+import React, { useContext } from "react"
 import ButtonRow from "../../form/ButtonRow"
+import Button from "../../ui/Button"
+import Symbol from "../../ui/Symbol"
+import { InvitationContext } from "../Authenticated"
 
 function formatDate(timestampMillis: number) {
   return dayjs(timestampMillis).format("MMM D [at] h:mm a")

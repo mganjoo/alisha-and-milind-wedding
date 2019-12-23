@@ -1,5 +1,5 @@
-import { loadFirestore } from "./Firestore"
 import { Invitation, Rsvp, Invitee } from "../interfaces/Invitation"
+import { loadFirestore } from "./Firestore"
 import {
   saveInvitationData,
   loadInvitationData,

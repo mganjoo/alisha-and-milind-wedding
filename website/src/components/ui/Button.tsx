@@ -1,5 +1,5 @@
-import React from "react"
 import classnames from "classnames"
+import React from "react"
 
 type ButtonPurpose = "submit" | "primary" | "secondary" | "tertiary"
 type ButtonFit = "comfortable" | "compact"

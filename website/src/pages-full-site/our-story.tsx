@@ -1,10 +1,10 @@
-import React from "react"
-import SEO from "../components/meta/SEO"
 import { useStaticQuery, graphql } from "gatsby"
+import React from "react"
 import ImageLayout from "../components/layout/ImageLayout"
-import PageHeading from "../components/ui/PageHeading"
+import SEO from "../components/meta/SEO"
 import Emoji from "../components/ui/Emoji"
 import ImageGrid from "../components/ui/ImageGrid"
+import PageHeading from "../components/ui/PageHeading"
 
 const OurStoryPage = () => {
   const data = useStaticQuery(

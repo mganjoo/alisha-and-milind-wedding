@@ -1,7 +1,7 @@
 import React from "react"
+import NoImageLayout from "../components/layout/NoImageLayout"
 import SEO from "../components/meta/SEO"
 import PageHeading from "../components/ui/PageHeading"
-import NoImageLayout from "../components/layout/NoImageLayout"
 
 const FaqPage = () => (
   <NoImageLayout>
