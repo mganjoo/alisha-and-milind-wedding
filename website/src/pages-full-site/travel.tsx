@@ -19,7 +19,10 @@ const TravelPage = () => {
     `
   )
   return (
-    <ImageLayout fluidImage={data.heroImage.childImageSharp.fluid}>
+    <ImageLayout
+      fluidImage={data.heroImage.childImageSharp.fluid}
+      alt="Picture of Alisha pointing at something in the distance and Milind looking on"
+    >
       <SEO title="Travel" />
       <PageHeading>Travel</PageHeading>
       <p>TODO</p>

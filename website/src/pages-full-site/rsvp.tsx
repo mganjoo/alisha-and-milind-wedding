@@ -22,14 +22,17 @@ const RsvpPage = () => {
     `
   )
   return (
-    <ImageLayout fluidImage={imageData.heroImage.childImageSharp.fluid}>
+    <ImageLayout
+      fluidImage={imageData.heroImage.childImageSharp.fluid}
+      alt="Picture of Alisha and Milind laughing at the camera"
+    >
       <SEO title="RSVP" />
       <PageHeading>RSVP</PageHeading>
       <Authenticated refreshOlderThanSecs={90}>
         <div className="max-w-xl mx-auto">
           <WeddingMetadataContext.Consumer>
             {value => (
-              <div className="c-article mb-8">
+              <div className="c-article mb-10">
                 <p>
                   We hope to see you at our wedding! Please RSVP by{" "}
                   <strong>{value.deadline}</strong>.

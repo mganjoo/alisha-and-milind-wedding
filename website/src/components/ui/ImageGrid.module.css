@@ -1,0 +1,8 @@
+.image {
+  @apply h-full;
+  max-height: 24rem;
+
+  @screen sm {
+    min-width: 16rem;
+  }
+}

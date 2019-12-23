@@ -10,7 +10,7 @@ const Schedule: React.FC = () => {
   const { invitation } = useContext(InvitationContext)
   return (
     <div className="sm:px-10 md:px-0">
-      <div className="c-article mb-6 max-w-xl mx-auto">
+      <div className="c-article mb-8 max-w-xl mx-auto">
         {invitation.preEvents ? (
           <>
             <p>

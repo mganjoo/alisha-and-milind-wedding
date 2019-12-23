@@ -24,6 +24,7 @@ const EventsPage = () => {
     <ImageLayout
       fluidImage={data.heroImage.childImageSharp.fluid}
       objectPosition="50% 5%"
+      alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
     >
       <SEO title="Events" />
       <PageHeading>Events</PageHeading>

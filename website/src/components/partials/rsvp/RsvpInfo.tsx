@@ -20,7 +20,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
     <section
       aria-label="RSVP status"
       aria-describedby="rsvp-info-name rsvp-info-description"
-      className="flex flex-col items-center justify-center font-serif c-shadow-box"
+      className="flex flex-col items-center justify-center font-serif max-w-md mx-auto c-shadow-box"
     >
       <div className="flex flex-col items-center sm:flex-row">
         <Symbol

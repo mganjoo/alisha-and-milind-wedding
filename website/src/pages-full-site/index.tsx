@@ -20,8 +20,8 @@ const IndexPage = () => {
   return (
     <ImageLayout
       fluidImage={imageData.heroImage.childImageSharp.fluid}
+      alt="Alisha and Milind posing in front of the sunset in Monterey, California"
       objectPosition="50% 32%"
-      full
     >
       <SEO title="Home" />
       <div className="c-article max-w-xl mx-auto">
