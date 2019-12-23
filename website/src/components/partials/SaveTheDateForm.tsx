@@ -4,7 +4,7 @@ import { object, string } from "yup"
 import Alert from "../ui/Alert"
 import { loadFirestore } from "../../services/Firestore"
 import ContactEmail from "./ContactEmail"
-import LabelledTextInput from "../form/LabelledTextInput"
+import LabelledTextField from "../form/LabelledTextField"
 import SubmitButton from "../form/SubmitButton"
 import BaseForm from "../form/BaseForm"
 import classnames from "classnames"
@@ -60,13 +60,13 @@ const SaveTheDateForm: React.FC = () => {
           onSubmit={submitInfo}
         >
           <BaseForm>
-            <LabelledTextInput
+            <LabelledTextField
               label="Name"
               name="name"
               type="text"
               autoComplete="name"
             />
-            <LabelledTextInput
+            <LabelledTextField
               label="Email address"
               name="email"
               type="email"

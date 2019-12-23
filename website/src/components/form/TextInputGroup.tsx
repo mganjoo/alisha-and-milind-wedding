@@ -2,7 +2,7 @@ import React from "react"
 import TextInput from "./TextInput"
 import { useFormikContext } from "formik"
 import { useRegisteredRef } from "react-register-nodes"
-import LabelledTextInput from "./LabelledTextInput"
+import LabelledTextField from "./LabelledTextField"
 import InputGroup from "./InputGroup"
 
 interface TextInputGroupProps {
@@ -25,7 +25,7 @@ const TextInputGroup: React.FC<TextInputGroupProps> = ({
   const makeFieldKey = (fieldKey: string) => `${groupName}.${fieldKey}`
 
   return fieldKeys.length === 0 ? null : fieldKeys.length === 1 ? (
-    <LabelledTextInput
+    <LabelledTextField
       label={label}
       name={makeFieldKey(fieldKeys[0])}
       type="text"

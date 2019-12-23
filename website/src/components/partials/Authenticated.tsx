@@ -10,7 +10,7 @@ import ContactEmail from "./ContactEmail"
 import { Formik } from "formik"
 import { object, string } from "yup"
 import BaseForm from "../form/BaseForm"
-import LabelledTextInput from "../form/LabelledTextInput"
+import LabelledTextField from "../form/LabelledTextField"
 import SubmitButton from "../form/SubmitButton"
 import { Invitation } from "../../interfaces/Invitation"
 import ButtonRow from "../form/ButtonRow"
@@ -161,7 +161,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
                   To view this page, please enter the email address that your
                   invitation was sent to.
                 </p>
-                <LabelledTextInput
+                <LabelledTextField
                   name="email"
                   type="email"
                   label="Email address"

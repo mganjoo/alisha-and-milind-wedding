@@ -10,6 +10,7 @@ export interface Invitation {
 export interface Rsvp {
   attending: boolean
   guests: Guest[]
+  comments?: string
 }
 
 export interface Invitee {

@@ -6,6 +6,7 @@ import { useFormikContext } from "formik"
 import { RsvpFormValues } from "../../../interfaces/RsvpFormValues"
 import classnames from "classnames"
 import "./RsvpForm.module.css"
+import LabelledTextField from "../../form/LabelledTextField"
 
 function ordinalSuffix(i: number) {
   const ones = i % 10
@@ -80,12 +81,18 @@ const RsvpGuestsSection = React.forwardRef<HTMLDivElement>((_props, ref) => {
         values.attending === "yes" && (
           <div
             role="status"
-            className="mb-1 font-sans text-center text-sm text-orange-900 italic"
+            className="mb-4 font-sans text-center text-sm text-orange-900 italic"
           >
             Yay! One more step: confirm attendance for specific events on the
             next page.
           </div>
         )}
+      <LabelledTextField
+        name="comments"
+        type="textarea"
+        label="Comments"
+        placeholder="Any comments or questions for us?"
+      />
     </section>
   )
 })

@@ -1,4 +1,4 @@
-import { mixed, object, InferType, ObjectSchema } from "yup"
+import { mixed, object, InferType, ObjectSchema, string } from "yup"
 import {
   filterNonEmptyKeys,
   makeIdMap,
@@ -43,6 +43,7 @@ export const validationSchema = object().shape({
         : schema
     }
   ),
+  comments: string().notRequired(),
 })
 
 /**
@@ -105,6 +106,11 @@ export function makeInitialRsvpFormValues(
               )
           : []
     ),
+    comments:
+      (invitation.latestRsvp &&
+        invitation.latestRsvp.comments &&
+        invitation.latestRsvp.comments.trim()) ||
+      "",
   }
 }
 
@@ -118,5 +124,13 @@ export function toRsvp(values: RsvpFormValues): Rsvp {
       ),
     }))
     .filter(guest => !stringEmpty(guest.name))
-  return { guests, attending: attending }
+  return Object.assign(
+    {
+      guests,
+      attending,
+    },
+    !values.comments || values.comments.trim() === ""
+      ? {}
+      : { comments: values.comments }
+  )
 }

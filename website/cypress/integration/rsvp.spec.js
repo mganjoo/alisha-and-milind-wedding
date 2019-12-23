@@ -189,15 +189,25 @@ describe("RSVP page", function() {
 
   it("should submit a no response correctly", function() {
     // 3 person invitation
-    openInvitation("test3")
+    const { invitation } = openInvitation("test3")
 
     // names should be pre-filled, so just clicking RSVP is sufficient
     cy.findByLabelText(/no, will celebrate/i).check()
+    cy.findByLabelText(/comments/i).type("Lorem ipsum dolor")
 
     cy.findByText(/submit rsvp/i).click()
     cy.findByText(/not attending/i).should("exist")
     cy.percySnapshot()
     cy.checkA11y()
+
+    // Responses should be sticky
+    cy.findByText(/edit rsvp/i).click()
+    cy.findByLabelText(/1st guest/i).should(
+      "have.value",
+      invitation.knownGuests[0]
+    )
+    cy.findByLabelText(/no, will celebrate/i).should("be.checked")
+    cy.findByLabelText(/comments/i).should("have.value", "Lorem ipsum dolor")
   })
 
   it("should submit a yes response correctly", function() {
@@ -209,6 +219,7 @@ describe("RSVP page", function() {
       .type("Jack Jones")
     cy.findByLabelText(/yes/i).check()
     cy.findByText(/one more step/i).should("exist")
+    cy.findByLabelText(/comments/i).type("Lorem ipsum dolor")
     cy.findByText(/next: specific events/i).click()
 
     // 5 event sections including mehndi and haldi
@@ -237,6 +248,7 @@ describe("RSVP page", function() {
     cy.findByText(/edit rsvp/i).click()
     cy.findByLabelText(/2nd guest/i).should("have.value", "Jack Jones")
     cy.findByLabelText(/yes, excited to attend/i).should("be.checked")
+    cy.findByLabelText(/comments/i).should("have.value", "Lorem ipsum dolor")
     cy.findByText(/next: specific events/i).click()
 
     cy.findByLabelText(/haldi/i).within(() => {

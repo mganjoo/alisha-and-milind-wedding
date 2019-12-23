@@ -3,32 +3,30 @@ import { useField } from "formik"
 import "./TextInput.module.css"
 import classnames from "classnames"
 
-interface TextInputProps
+interface TextAreaProps
   extends React.DetailedHTMLProps<
     Omit<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      "type" | "name" | "className"
+      React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+      "name" | "className"
     >,
-    HTMLInputElement
+    HTMLTextAreaElement
   > {
   name: string
-  type: "text" | "email"
   invalid?: boolean
 }
 
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  ({ type, invalid, name, ...otherProps }, ref) => {
+const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  ({ invalid, name, ...otherProps }, ref) => {
     const [field] = useField<string>(name)
     return (
-      <input
+      <textarea
         {...field}
         ref={ref}
-        type={type}
-        className="block w-full form-input"
+        className="block w-full form-textarea resize-none"
         styleName={classnames({ invalid: invalid })}
         {...otherProps}
       />
     )
   }
 )
-export default TextInput
+export default TextArea
