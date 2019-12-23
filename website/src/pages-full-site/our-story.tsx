@@ -143,7 +143,7 @@ const OurStoryPage = () => {
           <a href="https://en.wikipedia.org/wiki/Hamilton_(musical)">
             Hamilton
           </a>{" "}
-          the musical, so that the photo caption would have been “
+          the musical, so that the photo caption could have been “
           <a href="https://www.youtube.com/watch?v=WySzEXKUSZw">
             The Room Where It Happened
           </a>{" "}
