@@ -5,6 +5,7 @@ import SEO from "../components/meta/SEO"
 import BaseLayout from "../components/layout/BaseLayout"
 import SaveTheDateForm from "../components/partials/SaveTheDateForm"
 import LeafSpacer from "../components/ui/LeafSpacer"
+import "../components/partials/SaveTheDate.module.css"
 
 const SaveTheDatePage: React.FC = () => {
   const data = useStaticQuery(
@@ -37,7 +38,9 @@ const SaveTheDatePage: React.FC = () => {
       />
       <main className="lg:flex lg:flex-row-reverse">
         <Img
-          className="c-full-screen-hero flex-1 p-cover"
+          className="flex-1 p-cover"
+          // @ts-ignore styleName not supported on Gatsby image
+          styleName="hero"
           fluid={data.weddingHeroImage.childImageSharp.fluid}
           backgroundColor="#ece5df"
           alt="Selfie of Milind and Alisha taken in a car side mirror"

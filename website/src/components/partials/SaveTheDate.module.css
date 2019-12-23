@@ -1,0 +1,7 @@
+.hero {
+  max-height: 24rem;
+
+  @screen lg {
+    @apply max-h-full;
+  }
+}

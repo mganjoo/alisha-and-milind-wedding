@@ -60,18 +60,6 @@
   @apply px-3 py-1;
 }
 
-.c-body-text {
-  @apply font-serif text-lg mb-4;
-
-  & > a {
-    @apply border-b border-gray-800 border-dotted font-semibold;
-
-    &:hover {
-      @apply bg-orange-200;
-    }
-  }
-}
-
 .c-form-description {
   @apply font-serif mb-6 text-gray-800;
 }
@@ -90,7 +78,15 @@
   }
 
   & > p {
-    @extend .c-body-text;
+    @apply font-serif text-lg mb-4;
+
+    & > a {
+      @apply border-b border-gray-800 border-dotted font-semibold;
+
+      &:hover {
+        @apply bg-orange-200;
+      }
+    }
   }
 
   & strong {
@@ -100,19 +96,6 @@
 
 .c-shadow-box {
   @apply p-6 bg-off-white border border-gray-subtle rounded-lg shadow-lg;
-}
-
-.c-hero {
-  @apply max-w-xl;
-  max-height: 24rem;
-}
-
-.c-full-screen-hero {
-  max-height: 24rem;
-
-  @screen lg {
-    @apply max-h-full;
-  }
 }
 
 @tailwind utilities;

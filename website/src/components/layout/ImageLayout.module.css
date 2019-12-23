@@ -1,0 +1,4 @@
+.hero {
+  @apply max-w-xl;
+  max-height: 24rem;
+}
