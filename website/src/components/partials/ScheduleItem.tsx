@@ -9,7 +9,7 @@ interface ScheduleItemProps {
 }
 
 const ScheduleInfoRow: React.FC = ({ children }) => (
-  <div className="flex flex-wrap items-center font-sans text-gray-700 md:justify-center">
+  <div className="flex flex-wrap items-center md:justify-center">
     {children}
   </div>
 )
@@ -24,7 +24,7 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
   symbol,
   label,
 }) => (
-  <span className="flex items-center mx-2 mb-2">
+  <span className="flex items-center mx-2 mb-2 font-sans text-gray-700">
     <Symbol
       symbol={symbol}
       className="mr-2"
@@ -77,13 +77,17 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
       <div className="-mb-4 md:pl-4 md:pt-4 md:w-3/5 md:border-l md:border-orange-500">
         {event.frontmatter.subLocations && (
           <div className="mt-6 mb-2 md:mt-0">
-            {event.frontmatter.subLocations.map(location => (
-              <ScheduleInfoRow key={location.name}>
-                <ScheduleInfoItem label="Event" symbol="location">
+            <div className="mb-4">
+              {event.frontmatter.subLocations.map(location => (
+                <ScheduleInfoItem
+                  key={location.name}
+                  label="Event"
+                  symbol="location"
+                >
                   {location.name}: {location.location} at {location.time}
                 </ScheduleInfoItem>
-              </ScheduleInfoRow>
-            ))}
+              ))}
+            </div>
           </div>
         )}
         <div
