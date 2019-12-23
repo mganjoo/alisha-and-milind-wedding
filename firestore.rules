@@ -78,12 +78,16 @@ service cloud.firestore {
           )
         }
         allow create:
-          // ensure no extra fields
-          if request.resource.data.keys().size() == 3
-          // ensure exactly these fields
+          // ensure fields only include the following
+          if request.resource.data.keys().hasOnly(["attending", "guests", "createdAt", "comments"])
+          // ensure these required keys are always present
           && request.resource.data.keys().hasAll(["attending", "guests", "createdAt"])
           && attending() is bool
           && request.resource.data.createdAt is timestamp
+          && (
+            !("comments" in request.resource.data.keys())
+            || request.resource.data.comments is string
+          )
           && guests() is list
           && guestsCount() > 0
           && validGuestsFromInvitation(get(/databases/$(database)/documents/invitations/$(code)).data);

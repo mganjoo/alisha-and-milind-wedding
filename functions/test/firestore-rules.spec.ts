@@ -208,6 +208,27 @@ describe("Firestore rules", () => {
       )
     })
 
+    it("should allow writes containing attending, guests, comments and createdAt timestamp", async () => {
+      await firebase.assertSucceeds(
+        rsvps("abc").add({
+          attending: true,
+          guests: [
+            {
+              name: "Terry Gordon",
+              events: ["sangeet", "mehndi", "ceremony"],
+            },
+            { name: "Allison Little", events: ["sangeet"] },
+            {
+              name: "Vishal Shekhar",
+              events: ["sangeet", "ceremony"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+          comments: "Hope to have a fun time!",
+        })
+      )
+    })
+
     it("should reject writes containing missing timestamp", async () => {
       await firebase.assertFails(
         rsvps("abc").add({
@@ -242,6 +263,23 @@ describe("Firestore rules", () => {
       await firebase.assertFails(
         rsvps("abc").add({
           attending: true,
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should reject writes containing comments of invalid type", async () => {
+      await firebase.assertFails(
+        rsvps("abc").add({
+          attending: true,
+          guests: [
+            {
+              name: "Terry Gordon",
+              events: ["sangeet", "ceremony"],
+            },
+            { name: "Allison Little", events: ["sangeet"] },
+          ],
+          comments: 1234,
           createdAt: firebase.firestore.Timestamp.now(),
         })
       )
