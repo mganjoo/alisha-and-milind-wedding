@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "1.22.2",
-    "@types/node": "12.12.21",
+    "@types/node": "12.12.22",
     "ajv-cli": "3.0.0",
     "globby": "10.0.1",
     "ts-node": "8.5.4",
