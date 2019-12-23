@@ -44,6 +44,14 @@ interface InvitationCardInnerProps {
    * Whether to skip through all the animation.
    */
   skipAnimation?: boolean
+
+  /**
+   * Optional link for navigation from card to main website. By default, links to home page.
+   */
+  navLink?: {
+    label: string
+    url: string
+  }
 }
 
 interface InvitationCardProps extends InvitationCardInnerProps {
@@ -81,6 +89,7 @@ const flapTransform = (rotateX: any) =>
 
 const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
   playing,
+  navLink,
   startDelayMs = 0,
   reverse = false,
   skipAnimation = false,
@@ -253,9 +262,9 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
       >
         <Link
           className="c-button c-button-primary py-1 px-2 mx-2 font-semibold"
-          to="/"
+          to={navLink ? navLink.url : "/"}
         >
-          Enter website
+          {navLink ? navLink.label : "Enter website"}
         </Link>
       </animated.div>
     </div>
