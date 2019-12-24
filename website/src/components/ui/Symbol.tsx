@@ -62,8 +62,8 @@ function getPath(symbol: SymbolName) {
 
 interface SymbolProps {
   symbol: SymbolName
+  size: "s" | "m" | "l"
   className?: string
-  svgClassName?: string
   inline?: boolean
   label?: string
 }
@@ -71,7 +71,7 @@ interface SymbolProps {
 const Symbol: React.FC<SymbolProps> = ({
   symbol,
   className,
-  svgClassName,
+  size,
   inline,
   label,
 }) => {
@@ -82,7 +82,12 @@ const Symbol: React.FC<SymbolProps> = ({
         aria-label={label}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
-        className={classnames("fill-current", svgClassName)}
+        className={classnames(
+          "fill-current",
+          { "w-3 h-3": size === "s" },
+          { "w-4 h-4": size === "m" },
+          { "w-12 h-12": size === "l" }
+        )}
       >
         {getPath(symbol)}
       </svg>

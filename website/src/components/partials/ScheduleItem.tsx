@@ -25,13 +25,7 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
   label,
 }) => (
   <span className="flex items-center mx-2 mb-2 font-sans text-gray-700">
-    <Symbol
-      symbol={symbol}
-      className="mr-2"
-      svgClassName="w-3"
-      label={label}
-      inline
-    />
+    <Symbol symbol={symbol} className="mr-2" size="s" label={label} inline />
     {children}
   </span>
 )
@@ -77,24 +71,22 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
           </div>
         </div>
       </div>
-      <div className="-mb-4 md:pl-4 md:pt-4 md:w-3/5 md:border-l md:border-orange-500">
+      <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-orange-500">
         {event.frontmatter.subLocations && (
-          <div className="mt-6 mb-2 md:mt-0">
-            <div className="mb-4">
-              {event.frontmatter.subLocations.map(location => (
-                <ScheduleInfoItem
-                  key={location.name}
-                  label="Event"
-                  symbol="location"
-                >
-                  {location.name}: {location.location} at {location.time}
-                </ScheduleInfoItem>
-              ))}
-            </div>
+          <div className="mt-6 mb-4 md:mt-0">
+            {event.frontmatter.subLocations.map(location => (
+              <ScheduleInfoItem
+                key={location.name}
+                label="Event"
+                symbol="location"
+              >
+                {location.name}: {location.location} at {location.time}
+              </ScheduleInfoItem>
+            ))}
           </div>
         )}
         <div
-          className="c-article"
+          className="c-body-text-container -mb-2"
           dangerouslySetInnerHTML={{ __html: event.html }}
         />
       </div>

@@ -60,8 +60,8 @@ const RsvpGuestsSection = React.forwardRef<HTMLDivElement>((_props, ref) => {
           </>
         ) : (
           <>
-            We&apos;ve filled out some information based on what we know. Please
-            edit or correct anything we may have missed.
+            We&rsquo;ve filled out some information based on what we know.
+            Please edit or correct anything we may have missed.
           </>
         )}
       </p>

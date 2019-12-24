@@ -1,6 +1,6 @@
 import { useStaticQuery, graphql } from "gatsby"
 import React from "react"
-import ImageLayout from "../components/layout/ImageLayout"
+import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import ContactEmail from "../components/partials/ContactEmail"
 import PageHeading from "../components/ui/PageHeading"
@@ -13,7 +13,7 @@ interface HeadingSymbolProps {
 
 const HeadingSymbol: React.FC<HeadingSymbolProps> = ({ symbol, children }) => (
   <h2 className="flex items-center">
-    <Symbol symbol={symbol} className="mr-2" svgClassName="w-4" inline />
+    <Symbol symbol={symbol} className="mr-2" size="m" inline />
     {children}
   </h2>
 )
@@ -38,8 +38,8 @@ const TravelPage = () => {
     `
   )
   return (
-    <ImageLayout
-      fluidImage={data.heroImage.childImageSharp.fluid}
+    <NavLayout
+      heroImage={data.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha pointing at something in the distance and Milind looking on"
     >
       <SEO title="Travel & Accommodation" />
@@ -99,7 +99,7 @@ const TravelPage = () => {
             </a>
             . More details about the shuttle service can be found on the{" "}
             <a href="https://www.marriott.com/hotels/maps/travel/sfosa-san-mateo-marriott-san-francisco-airport/">
-              hotel’s website
+              hotel&rsquo;s website
             </a>
             .
           </dd>
@@ -122,7 +122,7 @@ const TravelPage = () => {
           Other airports: SJC and OAK
         </HeadingSymbol>
         <p>
-          If you’re flying into{" "}
+          If you&rsquo;re flying into{" "}
           <a href="https://www.flysanjose.com/">
             San Jose International Airport (SJC)
           </a>{" "}
@@ -167,11 +167,11 @@ const TravelPage = () => {
           by <strong>{data.site.siteMetadata.deadline}</strong>.
         </p>
         <p>
-          Please don’t hesitate to reach out to us (<ContactEmail />) if any
-          questions come up about travel or booking your stay!
+          Please don&rsquo;t hesitate to reach out to us (<ContactEmail />) if
+          any questions come up about travel or booking your stay!
         </p>
       </section>
-    </ImageLayout>
+    </NavLayout>
   )
 }
 export default TravelPage

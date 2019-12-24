@@ -26,11 +26,8 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
         <Symbol
           aria-hidden
           symbol={invitation.latestRsvp.attending ? "check" : "cross"}
-          className={classnames(
-            "mb-4 sm:w-12 sm:h-12 sm:mr-4",
-            "text-gray-600"
-          )}
-          svgClassName={classnames("w-10 h-10")}
+          className={classnames("mb-4 sm:mr-4", "text-gray-600")}
+          size="l"
         />
         <div className="text-center mb-6 sm:text-left">
           <h2 className="font-display mb-1 text-2xl" id="rsvp-info-name">

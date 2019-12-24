@@ -50,7 +50,7 @@ const SaveTheDateForm: React.FC = () => {
       >
         <div className="c-article text-center">
           <p id="save-the-date-instructions">
-            We&apos;re going green! Please confirm your preferred email address
+            We&rsquo;re going green! Please confirm your preferred email address
             for the digital invitation to follow.
           </p>
         </div>
@@ -89,17 +89,13 @@ const SaveTheDateForm: React.FC = () => {
           role="status"
           className="flex flex-col text-center items-center lg:absolute lg:inset-0"
         >
-          <Symbol
-            symbol="check"
-            className="text-green-700"
-            svgClassName="w-12 h-12"
-          />
+          <Symbol symbol="check" className="text-green-700" size="l" />
           <div className="c-body-text-container my-4">
             <p>
               Thank you for confirming your email! Stay tuned for the invitation
               and wedding website.
             </p>
-            <p>We&apos;re so excited to celebrate with you!</p>
+            <p>We&rsquo;re so excited to celebrate with you!</p>
           </div>
           <SaveTheDateLinks />
         </div>

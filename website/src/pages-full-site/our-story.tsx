@@ -1,6 +1,6 @@
 import { useStaticQuery, graphql } from "gatsby"
 import React from "react"
-import ImageLayout from "../components/layout/ImageLayout"
+import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Emoji from "../components/ui/Emoji"
 import ImageGrid from "../components/ui/ImageGrid"
@@ -81,8 +81,8 @@ const OurStoryPage = () => {
     `
   )
   return (
-    <ImageLayout
-      fluidImage={data.heroImage.childImageSharp.fluid}
+    <NavLayout
+      heroImage={data.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha and Milind in front of a large stone rock face"
     >
       <SEO title="Our Story" />
@@ -140,18 +140,19 @@ const OurStoryPage = () => {
       <section className="c-article" aria-labelledby="heading-proposal">
         <h2 id="heading-proposal">The Proposal</h2>
         <p>
-          Alisha’s friends thought Milind would certainly propose when the
+          Alisha&rsquo;s friends thought Milind would certainly propose when the
           couple went to see{" "}
           <a href="https://en.wikipedia.org/wiki/Hamilton_(musical)">
             Hamilton
           </a>{" "}
-          the musical, so that the photo caption could have been “
+          the musical, so that the photo caption could have been &ldquo;
           <a href="https://www.youtube.com/watch?v=WySzEXKUSZw">
             The Room Where It Happened
           </a>{" "}
-          {<Emoji symbol="💎" label="diamond emoji" />}” &mdash; but Milind has
-          never been one to take the obvious route. Instead, he patiently waited
-          until a few weeks later when Milind and Alisha visited the{" "}
+          {<Emoji symbol="💎" label="diamond emoji" />}&rdquo; &mdash; but
+          Milind has never been one to take the obvious route. Instead, he
+          patiently waited until a few weeks later when Milind and Alisha
+          visited the{" "}
           <a href="https://legionofhonor.famsf.org/">Legion of Honor Museum</a>.
           Alisha, unsuspecting as ever after spending hours underground at a
           mummies exhibit, led Milind straight to the proposal spot so that she
@@ -176,7 +177,7 @@ const OurStoryPage = () => {
           ]}
         />
       </section>
-    </ImageLayout>
+    </NavLayout>
   )
 }
 export default OurStoryPage

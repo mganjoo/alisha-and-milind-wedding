@@ -1,6 +1,6 @@
 import { useStaticQuery, graphql } from "gatsby"
 import React from "react"
-import ImageLayout from "../components/layout/ImageLayout"
+import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
 import Schedule from "../components/partials/Schedule"
@@ -21,8 +21,8 @@ const SchedulePage = () => {
     `
   )
   return (
-    <ImageLayout
-      fluidImage={data.heroImage.childImageSharp.fluid}
+    <NavLayout
+      heroImage={data.heroImage.childImageSharp.fluid}
       objectPosition="50% 5%"
       alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
     >
@@ -31,7 +31,7 @@ const SchedulePage = () => {
       <Authenticated>
         <Schedule />
       </Authenticated>
-    </ImageLayout>
+    </NavLayout>
   )
 }
 export default SchedulePage

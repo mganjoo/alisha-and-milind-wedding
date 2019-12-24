@@ -1,6 +1,6 @@
 import { useStaticQuery, graphql, Link } from "gatsby"
 import React from "react"
-import ImageLayout from "../components/layout/ImageLayout"
+import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
 import ReeditableRsvpForm from "../components/partials/rsvp/ReeditableRsvpForm"
@@ -22,14 +22,14 @@ const RsvpPage = () => {
     `
   )
   return (
-    <ImageLayout
-      fluidImage={imageData.heroImage.childImageSharp.fluid}
+    <NavLayout
+      heroImage={imageData.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha and Milind laughing at the camera"
     >
       <SEO title="RSVP" />
       <PageHeading>RSVP</PageHeading>
       <Authenticated refreshOlderThanSecs={90}>
-        <div className="max-w-xl mx-auto">
+        <div className="c-narrow-body">
           <WeddingMetadataContext.Consumer>
             {value => (
               <>
@@ -59,7 +59,7 @@ const RsvpPage = () => {
           <ReeditableRsvpForm />
         </div>
       </Authenticated>
-    </ImageLayout>
+    </NavLayout>
   )
 }
 

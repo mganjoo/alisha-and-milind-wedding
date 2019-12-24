@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery, Link } from "gatsby"
 import React from "react"
-import ImageLayout from "../components/layout/ImageLayout"
+import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 
 const IndexPage = () => {
@@ -18,8 +18,8 @@ const IndexPage = () => {
     `
   )
   return (
-    <ImageLayout
-      fluidImage={imageData.heroImage.childImageSharp.fluid}
+    <NavLayout
+      heroImage={imageData.heroImage.childImageSharp.fluid}
       alt="Alisha and Milind posing in front of the sunset in Monterey, California"
       objectPosition="50% 32%"
     >
@@ -43,7 +43,7 @@ const IndexPage = () => {
           RSVP
         </Link>
       </div>
-    </ImageLayout>
+    </NavLayout>
   )
 }
 export default IndexPage
