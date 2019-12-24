@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@firebase/testing": "0.16.3",
-    "@types/mocha": "5.2.7",
+    "@types/jest": "24.0.24",
     "@types/yup": "0.26.26",
     "@typescript-eslint/eslint-plugin": "2.12.0",
     "@typescript-eslint/parser": "2.12.0",
@@ -22,8 +22,8 @@
     "eslint-plugin-no-only-tests": "2.4.0",
     "firebase-functions-test": "0.1.7",
     "firebase-tools": "7.11.0",
-    "mocha": "6.2.2",
-    "ts-node": "8.5.4",
+    "jest": "24.9.0",
+    "ts-jest": "24.2.0",
     "typescript": "3.7.3"
   },
   "scripts": {
@@ -37,9 +37,9 @@
     "check:types": "tsc --noEmit",
     "check:lint": "eslint --cache --ignore-path .gitignore . --ext ts",
     "test": "firebase emulators:exec --only firestore 'npm run test:unit'",
-    "test:unit": "FIRESTORE_EMULATOR_HOST=localhost:8080 mocha",
+    "test:unit": "FIRESTORE_EMULATOR_HOST=localhost:8080 jest",
     "test:ci": "npm run check && npm run test",
-    "test:watch": "mocha --watch",
+    "test:watch": "jest --watch",
     "firestore": "firebase emulators:start --only firestore",
     "deploy": "firebase -P staging deploy"
   }
