@@ -1,0 +1,7 @@
+:root {
+  --map-aspect-ratio: calc(4 / 3);
+}
+
+.container {
+  padding-bottom: calc(100% * 1 / var(--map-aspect-ratio));
+}

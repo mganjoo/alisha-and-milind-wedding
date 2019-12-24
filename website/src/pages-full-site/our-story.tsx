@@ -87,7 +87,7 @@ const OurStoryPage = () => {
     >
       <SEO title="Our Story" />
       <PageHeading>Our Story</PageHeading>
-      <div className="c-article">
+      <section className="c-article">
         <p>
           When Milind and Alisha met, he was struck by her passion and
           wittiness; she was impressed by his encyclopedic knowledge of obscure
@@ -136,7 +136,9 @@ const OurStoryPage = () => {
             },
           ]}
         />
-        <h2>The Proposal</h2>
+      </section>
+      <section className="c-article" aria-labelledby="heading-proposal">
+        <h2 id="heading-proposal">The Proposal</h2>
         <p>
           Alisha’s friends thought Milind would certainly propose when the
           couple went to see{" "}
@@ -173,7 +175,7 @@ const OurStoryPage = () => {
             },
           ]}
         />
-      </div>
+      </section>
     </ImageLayout>
   )
 }

@@ -161,7 +161,7 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onDone }) => {
       onSubmit={submitRsvp}
     >
       <BaseForm>
-        <LeafSpacer />
+        <LeafSpacer wide />
         <SectionWrapper
           invitation={invitation}
           events={events}

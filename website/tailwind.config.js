@@ -35,6 +35,10 @@ module.exports = {
             borderRadius: theme("borderRadius.lg"),
             ...sharedStyles,
           },
+          textarea: {
+            borderRadius: theme("borderRadius.lg"),
+            ...sharedStyles,
+          },
           radio: {
             color: checkboxColor,
             ...sharedStyles,

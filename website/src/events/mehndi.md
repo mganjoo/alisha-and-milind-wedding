@@ -5,6 +5,7 @@ date: "2020-04-30T18:00:00"
 endDate: "2020-04-30T21:00:00"
 preEvent: true
 location: 16 Jenna Lane, Half Moon Bay, CA 94019
+locationUrl: https://goo.gl/maps/Z5iAGhLtKx1UQwSg6
 attire: Indian or casual
 ---
 

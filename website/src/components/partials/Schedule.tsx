@@ -9,8 +9,8 @@ const Schedule: React.FC = () => {
   const events = useEvents()
   const { invitation } = useContext(InvitationContext)
   return (
-    <div className="sm:px-10 md:px-0">
-      <div className="c-article mb-8 max-w-xl mx-auto">
+    <>
+      <section className="c-article c-narrow-body">
         {invitation.preEvents ? (
           <>
             <p>
@@ -28,14 +28,16 @@ const Schedule: React.FC = () => {
             <Link to="/travel">San Mateo Marriott hotel</Link>.
           </p>
         )}
-        <LeafSpacer />
+        <LeafSpacer wide />
+      </section>
+      <div className="">
+        {events
+          .filter(e => !e.frontmatter.preEvent || invitation.preEvents)
+          .map(event => (
+            <ScheduleItem key={event.frontmatter.shortName} event={event} />
+          ))}
       </div>
-      {events
-        .filter(e => !e.frontmatter.preEvent || invitation.preEvents)
-        .map(event => (
-          <ScheduleItem key={event.frontmatter.shortName} event={event} />
-        ))}
-    </div>
+    </>
   )
 }
 

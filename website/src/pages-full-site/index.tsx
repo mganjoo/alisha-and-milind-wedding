@@ -24,7 +24,7 @@ const IndexPage = () => {
       objectPosition="50% 32%"
     >
       <SEO title="Home" />
-      <div className="c-article max-w-xl mx-auto">
+      <div className="c-article c-narrow-body">
         <p>
           Welcome to our wedding website! We are so excited to celebrate this
           weekend with you!
@@ -34,14 +34,14 @@ const IndexPage = () => {
           <br />
           Alisha &amp; Milind
         </p>
-        <div className="mt-8">
-          <Link
-            to="/rsvp"
-            className="c-button c-button-primary c-button-comfortable"
-          >
-            RSVP
-          </Link>
-        </div>
+      </div>
+      <div className="c-narrow-body">
+        <Link
+          to="/rsvp"
+          className="c-button c-button-primary c-button-comfortable"
+        >
+          RSVP
+        </Link>
       </div>
     </ImageLayout>
   )

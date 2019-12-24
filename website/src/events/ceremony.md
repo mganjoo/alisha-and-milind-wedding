@@ -5,7 +5,8 @@ date: "2020-05-02T09:00:00"
 endDate: "2020-05-02T13:00:00"
 preEvent: false
 location: San Mateo Marriott Valet Entrance
-attire: Indian or dressy casual
+attire: Indian festive or dressy casual
+locationUrl: https://goo.gl/maps/2PnhXrqWcrBB2snc8
 subLocations:
   - { name: Baraat, date: "2020-05-02T09:00:00", location: "Valet Entrance" }
   - { name: "Ceremony", date: "2020-05-02T11:00:00", location: "The Courtyard" }

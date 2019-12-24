@@ -1,7 +1,15 @@
+import classnames from "classnames"
 import React from "react"
 
-const LeafSpacer: React.FC = () => (
-  <div aria-hidden className="my-2 flex justify-center">
+interface LeafSpacerProps {
+  wide?: boolean
+}
+
+const LeafSpacer: React.FC<LeafSpacerProps> = ({ wide }) => (
+  <div
+    aria-hidden
+    className={classnames("flex justify-center", wide ? "my-6" : "my-2")}
+  >
     <svg
       className="text-gray-600 stroke-current"
       width="70"

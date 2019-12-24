@@ -33,7 +33,7 @@ const RsvpPage = () => {
           <WeddingMetadataContext.Consumer>
             {value => (
               <>
-                <div className="c-article mb-8">
+                <div className="c-article">
                   <p>
                     We hope to see you at our wedding! Please RSVP by{" "}
                     <strong>{value.deadline}</strong>.
@@ -43,7 +43,7 @@ const RsvpPage = () => {
                     you can edit your RSVP as many times as you like before{" "}
                     {value.shortDeadline}.
                   </p>
-                  <div className="flex justify-center py-2">
+                  <div className="flex justify-center my-6">
                     <Link
                       to="/invitation"
                       state={{ fromRsvp: true }}

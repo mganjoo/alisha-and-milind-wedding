@@ -17,6 +17,7 @@ module.exports = {
     displayTitle: `Alisha & Milind`,
     displayDates: `May 1 & 2, 2020`,
     rsvpDeadline: `2020-03-15`,
+    bookingDeadline: `2020-04-15`,
     location: `San Mateo, CA`,
   },
   plugins: [

@@ -48,7 +48,7 @@ const SaveTheDateForm: React.FC = () => {
           "hidden lg:block lg:invisible": submitted,
         })}
       >
-        <div className="c-article text-center mb-6">
+        <div className="c-article text-center">
           <p id="save-the-date-instructions">
             We&apos;re going green! Please confirm your preferred email address
             for the digital invitation to follow.
@@ -94,7 +94,7 @@ const SaveTheDateForm: React.FC = () => {
             className="text-green-700"
             svgClassName="w-12 h-12"
           />
-          <div className="c-article my-4">
+          <div className="c-body-text-container my-4">
             <p>
               Thank you for confirming your email! Stay tuned for the invitation
               and wedding website.

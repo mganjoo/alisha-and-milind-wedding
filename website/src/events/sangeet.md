@@ -5,7 +5,8 @@ date: "2020-05-01T19:00:00"
 endDate: "2020-05-02T00:00:00"
 preEvent: false
 location: Inspire Ballroom, San Mateo Marriott
-attire: Indian or smart casual
+locationUrl: https://goo.gl/maps/2PnhXrqWcrBB2snc8
+attire: Indian festive or smart casual
 ---
 
 The Sangeet is all about music, dance, performances by friends and family,

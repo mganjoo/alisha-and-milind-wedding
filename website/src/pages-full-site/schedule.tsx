@@ -6,7 +6,7 @@ import Authenticated from "../components/partials/Authenticated"
 import Schedule from "../components/partials/Schedule"
 import PageHeading from "../components/ui/PageHeading"
 
-const EventsPage = () => {
+const SchedulePage = () => {
   const data = useStaticQuery(
     graphql`
       query {
@@ -27,11 +27,11 @@ const EventsPage = () => {
       alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
     >
       <SEO title="Events" />
-      <PageHeading>Events</PageHeading>
+      <PageHeading>Schedule</PageHeading>
       <Authenticated>
         <Schedule />
       </Authenticated>
     </ImageLayout>
   )
 }
-export default EventsPage
+export default SchedulePage

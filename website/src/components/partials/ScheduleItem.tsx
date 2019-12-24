@@ -39,7 +39,7 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   const metadata = useContext(WeddingMetadataContext)
   return (
-    <div className="mb-16 md:flex md:items-center">
+    <div className="mb-12 md:flex md:items-center">
       <div className="mb-3 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
         <h2 className="text-orange-800 font-sans text-2xl font-semibold mb-3">
           {event.frontmatter.name}
@@ -71,6 +71,9 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               }}
               dropdown
             />
+            <a href={event.frontmatter.locationUrl} className="c-inline-button">
+              Open Map
+            </a>
           </div>
         </div>
       </div>

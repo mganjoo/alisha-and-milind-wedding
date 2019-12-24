@@ -60,11 +60,34 @@
   @apply px-3 py-1;
 }
 
+.c-inline-button {
+  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold;
+
+  &:focus {
+    @apply outline-none shadow-outline-light;
+  }
+  &:hover {
+    @apply text-orange-700;
+  }
+}
+
 .c-form-description {
   @apply font-serif mb-6 text-gray-800;
 }
 
-.c-article {
+.c-body-text {
+  @apply font-serif text-lg mb-4;
+
+  & > a {
+    @apply border-b border-gray-800 border-dotted font-semibold;
+
+    &:hover {
+      @apply bg-orange-200;
+    }
+  }
+}
+
+.c-body-text-container {
   & > h1 {
     @apply text-2xl font-sans mb-2;
 
@@ -73,25 +96,38 @@
     }
   }
 
+  & > p {
+    @extend .c-body-text;
+  }
+}
+
+.c-article {
+  @extend .c-body-text-container;
+  @apply mb-8;
+
   & > h2 {
-    @apply font-sans text-xl mb-2 font-semibold;
+    @apply font-sans text-2xl text-orange-800 mb-2 font-semibold;
   }
 
-  & > p {
-    @apply font-serif text-lg mb-4;
+  & > dl {
+    @apply px-4 my-4;
 
-    & > a {
-      @apply border-b border-gray-800 border-dotted font-semibold;
+    & > dt {
+      @apply font-semibold font-sans text-gray-800;
+    }
 
-      &:hover {
-        @apply bg-orange-200;
-      }
+    & > dd {
+      @extend .c-body-text;
     }
   }
 
   & strong {
     @apply font-semibold;
   }
+}
+
+.c-narrow-body {
+  @apply max-w-xl mx-auto;
 }
 
 .c-shadow-box {

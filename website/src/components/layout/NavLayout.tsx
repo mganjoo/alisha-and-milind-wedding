@@ -8,13 +8,13 @@ const NavLayout: React.FC = ({ children }) => {
       <Header
         links={[
           { text: "Our Story", to: "/our-story" },
-          { text: "Events", to: "/events" },
-          { text: "Travel", to: "/travel" },
+          { text: "Schedule", to: "/schedule" },
+          { text: "Travel & Accommodation", to: "/travel" },
           { text: "FAQ", to: "/faq" },
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      <main className="-mt-4 max-w-4xl flex flex-col mb-10 mx-auto sm:mt-0 sm:px-4">
+      <main className="-mt-4 max-w-4xl flex flex-col mx-auto pb-8 sm:mt-0 sm:px-6">
         {children}
       </main>
     </BaseLayout>

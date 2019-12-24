@@ -22,7 +22,7 @@ const NotFound: React.FC = ({ children }) => {
     <BaseLayout>
       <SEO title="Not Found" />
       <main className="flex p-3 mx-auto justify-center items-center max-w-lg min-h-screen">
-        <div className="c-article c-shadow-box">
+        <div className="c-body-text-container c-shadow-box">
           <h1>Oops!</h1>
           {children}
           <Img

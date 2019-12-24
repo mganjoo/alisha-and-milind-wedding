@@ -154,7 +154,7 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
     </section>
   ) : (
     <Menu>
-      <MenuButton styleName="menu-button">
+      <MenuButton className="c-inline-button">
         {label}{" "}
         <Symbol
           symbol="chevron-down"
