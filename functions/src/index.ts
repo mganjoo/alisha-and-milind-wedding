@@ -16,7 +16,7 @@ export const updateLatestRsvp = functions.firestore
     const code = context.params.code
     const dataWithTimestamp = {
       ...data,
-      timestampMillis: new Date().getTime(),
+      timestampMillis: createdAt.toMillis(),
     }
     console.info(`Received RSVP for code ${code}`, dataWithTimestamp)
 

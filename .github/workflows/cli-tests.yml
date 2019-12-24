@@ -1,14 +1,12 @@
-name: Firebase tests
+name: CLI tests
 on:
   push:
     branches-ignore:
-      - 'develop'
       - 'staging'
       - 'master'
     paths:
-      - 'functions/**'
-      - 'firestore.rules'
-      - '.github/workflows/firebase-tests.yml'
+      - 'cli/**'
+      - '.github/workflows/cli-tests.yml'
 jobs:
   deploy:
     name: Run tests
@@ -23,10 +21,10 @@ jobs:
     - name: Install packages
       run: |
         npm ci
-      working-directory: ./functions
+      working-directory: ./cli
     - name: Run tests
       run: |
-        npm run test:ci
-      working-directory: ./functions
+        npm run test
+      working-directory: ./cli
       env:
         CI: true
