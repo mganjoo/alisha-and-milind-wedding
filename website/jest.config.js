@@ -15,4 +15,7 @@ module.exports = {
     __PATH_PREFIX__: ``,
   },
   setupFiles: [`<rootDir>/jest-setupFiles.js`],
+  collectCoverage: true,
+  coverageDirectory: "jest-coverage",
+  testEnvironment: "jsdom",
 }

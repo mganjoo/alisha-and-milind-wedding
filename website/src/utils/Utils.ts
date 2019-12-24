@@ -66,5 +66,6 @@ export function recordsEqual<T>(
  * Type guard for default case in tests. Can be used to match "never" TS type.
  */
 export function assertNever(t: never): never {
+  /* istanbul ignore next */
   throw new Error(`Unexpected object: ${t}`)
 }

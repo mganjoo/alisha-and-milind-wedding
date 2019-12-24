@@ -2,9 +2,6 @@
   "name": "@alisha-and-milind-wedding/website",
   "private": true,
   "version": "0.1.0",
-  "jest": {
-    "testEnvironment": "node"
-  },
   "dependencies": {
     "@reach/menu-button": "0.7.0",
     "classnames": "2.2.6",
