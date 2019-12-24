@@ -1,22 +1,10 @@
-import * as functions from "firebase-functions"
 import * as admin from "firebase-admin"
-import { object, boolean, array, string, InferType } from "yup"
+import * as functions from "firebase-functions"
 
 admin.initializeApp()
-
 const db = admin.firestore()
 
-const rsvpSchema = object({
-  attending: boolean(),
-  guests: array().of(
-    object({
-      name: string(),
-      events: array().of(string()),
-    })
-  ),
-}).noUnknown()
-
-type Rsvp = InferType<typeof rsvpSchema>
+type Data = Record<string, any> & { createdAt: admin.firestore.Timestamp }
 
 /**
  * Update the "latestRsvp" field of the invitation when a new RSVP is received.
@@ -24,34 +12,28 @@ type Rsvp = InferType<typeof rsvpSchema>
 export const updateLatestRsvp = functions.firestore
   .document("invitations/{code}/rsvps/{rsvpId}")
   .onCreate(async (snapshot, context) => {
-    const data = snapshot.data()
-    const valid = await rsvpSchema.isValid(data)
-    if (valid) {
-      const rsvp: Rsvp = rsvpSchema.cast(data)
-      const code = context.params.code
-      const rsvpWithTimestamp = {
-        ...rsvp,
-        timestampMillis: new Date().getTime(),
-      }
-      console.info(`Received valid RSVP for code ${code}`, rsvpWithTimestamp)
+    const { createdAt, ...data } = snapshot.data() as Data
+    const code = context.params.code
+    const dataWithTimestamp = {
+      ...data,
+      timestampMillis: new Date().getTime(),
+    }
+    console.info(`Received RSVP for code ${code}`, dataWithTimestamp)
 
-      // Write latestRsvp to invitation
-      try {
-        await db
-          .collection("invitations")
-          .doc(code)
-          .update({
-            latestRsvp: rsvpWithTimestamp,
-          })
-        console.info(`Updated latest RSVP for code ${code}`)
-      } catch (error) {
-        console.error(
-          `Could not update invitation for code ${code} with latestRsvp`,
-          error
-        )
-      }
-    } else {
-      console.error("Invalid RSVP:", data, new Error("Invalid RSVP received"))
+    // Write latestRsvp to invitation
+    try {
+      await db
+        .collection("invitations")
+        .doc(code)
+        .update({
+          latestRsvp: dataWithTimestamp,
+        })
+      console.info(`Updated latest RSVP for code ${code}`)
+    } catch (error) {
+      console.error(
+        `Could not update invitation for code ${code} with latestRsvp`,
+        error
+      )
     }
   })
 
@@ -83,9 +65,9 @@ export const seedInvitations = functions.https.onRequest(async (req, res) => {
       res.send({ invitations: invitations, invitees: invitees })
     } catch (error) {
       console.error(error)
-      res.status(500).send({ error: "error occurred while seeding data" })
+      res.status(500).send({ error: "Error occurred while seeding data" })
     }
   } else {
-    res.status(404).send({ error: "must seed data using POST" })
+    res.status(404).send({ error: "Must seed data using POST" })
   }
 })
