@@ -9,10 +9,15 @@ import Symbol, { SymbolName } from "../components/ui/Symbol"
 
 interface HeadingSymbolProps {
   symbol: SymbolName
+  id: string
 }
 
-const HeadingSymbol: React.FC<HeadingSymbolProps> = ({ symbol, children }) => (
-  <h2 className="flex items-center">
+const HeadingSymbol: React.FC<HeadingSymbolProps> = ({
+  symbol,
+  id,
+  children,
+}) => (
+  <h2 className="flex items-center" id={id}>
     <Symbol symbol={symbol} className="mr-2" size="m" inline />
     {children}
   </h2>
@@ -77,7 +82,7 @@ const TravelPage = () => {
         </div>
       </section>
       <section className="c-article">
-        <HeadingSymbol symbol="airplane">
+        <HeadingSymbol symbol="airplane" id="recommended-airport">
           Recommended airport: SFO
         </HeadingSymbol>
         <p>
@@ -118,7 +123,7 @@ const TravelPage = () => {
         </dl>
       </section>
       <section className="c-article">
-        <HeadingSymbol symbol="airplane">
+        <HeadingSymbol symbol="airplane" id="other-airports">
           Other airports: SJC and OAK
         </HeadingSymbol>
         <p>
@@ -141,7 +146,9 @@ const TravelPage = () => {
         </p>
       </section>
       <section className="c-article">
-        <HeadingSymbol symbol="travel-car">Driving in</HeadingSymbol>
+        <HeadingSymbol symbol="travel-car" id="driving-in">
+          Driving in
+        </HeadingSymbol>
         <p>
           The San Mateo Marriott is located right off Highway 101. We have
           arranged for complimentary self-parking and discounted valet parking
@@ -149,14 +156,16 @@ const TravelPage = () => {
         </p>
       </section>
       <section className="c-article">
-        <HeadingSymbol symbol="location-hotel">Hotel Block</HeadingSymbol>
+        <HeadingSymbol symbol="location-hotel" id="hotel-block">
+          Hotel Block
+        </HeadingSymbol>
         <p>
           We have negotiated the best available rate for our guests who will be
           staying overnight at the venue.
         </p>
         <div className="my-4 w-full block">
           <a
-            className="c-button c-button-primary c-button-compact inline-block"
+            className="c-button c-button-primary c-button-compact inline-block shadow-lg"
             href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1561574654973&key=GRP&app=resvlink"
           >
             Book a room at the special rate

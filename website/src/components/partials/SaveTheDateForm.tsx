@@ -89,8 +89,8 @@ const SaveTheDateForm: React.FC = () => {
           role="status"
           className="flex flex-col text-center items-center lg:absolute lg:inset-0"
         >
-          <Symbol symbol="check" className="text-green-700" size="l" />
-          <div className="c-body-text-container my-4">
+          <Symbol symbol="check" className="text-green-700 mb-4" size="l" />
+          <div className="c-article">
             <p>
               Thank you for confirming your email! Stay tuned for the invitation
               and wedding website.

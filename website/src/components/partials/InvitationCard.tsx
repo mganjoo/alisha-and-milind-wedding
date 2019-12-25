@@ -260,7 +260,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
         style={linksProps}
       >
         <Link
-          className="c-button c-button-primary py-1 px-2 mx-2 font-semibold"
+          className="c-button c-button-primary py-1 px-2 mx-2"
           to={navLink ? navLink.url : "/"}
         >
           {navLink ? navLink.label : "Enter website"}

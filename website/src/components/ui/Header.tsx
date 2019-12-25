@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
   }, [dropdownVisible, menuButtonRef, navRef])
 
   return (
-    <header className="border-b border-gray-subtle mb-4">
+    <header className="relative border-b border-gray-subtle mb-4">
       <div className="relative">
         <div className="absolute mx-1 h-full flex items-center sm:hidden">
           <button
@@ -74,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
             </svg>
           </button>
         </div>
-        <div className="py-5 text-center sm:pt-8 sm:pb-2">
+        <div className="py-3 text-center sm:pt-6 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-4xl">
             <Link
               to="/"
@@ -92,11 +92,11 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       <nav
         ref={navRef}
         className={classnames(
-          dropdownVisible ? "block" : "hidden",
-          "py-3 border-t border-gray-subtle font-sans font-semibold text-gray-900 text-sm shadow-inner sm:shadow-none sm:block sm:py-0 sm:border-t-0 sm:text-base"
+          dropdownVisible ? "visible" : "invisible",
+          "absolute w-full z-10 bg-off-white border-b border-gray-subtle font-sans font-semibold text-gray-900 text-sm shadow-lg sm:shadow-none sm:static sm:visible sm:w-auto sm:border-b-0 sm:text-base"
         )}
       >
-        <ul className="sm:flex sm:flex-row sm:justify-center sm:items-center">
+        <ul className="py-3 shadow-inner border-t border-gray-subtle sm:py-0 sm:flex sm:flex-row sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none">
           {links.map((link, index) => (
             <li key={index} className="text-center sm:inline-block sm:mx-2">
               <Link

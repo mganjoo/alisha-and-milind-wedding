@@ -34,8 +34,8 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   const metadata = useContext(WeddingMetadataContext)
   return (
     <div className="mb-12 md:flex md:items-center">
-      <div className="mb-3 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
-        <h2 className="text-orange-800 font-sans text-2xl font-semibold mb-3">
+      <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
+        <h2 className="text-orange-800 font-sans text-2xl font-semibold mb-2">
           {event.frontmatter.name}
         </h2>
         <div className="pl-2 border-l border-orange-500 w-full md:pl-0 md:border-0">
@@ -52,7 +52,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               {event.frontmatter.location}
             </ScheduleInfoItem>
           </ScheduleInfoRow>
-          <div className="flex mt-1 md:justify-center">
+          <div className="flex py-1 md:justify-center">
             <AddToCalendarLinks
               label="Add to calendar"
               event={{
@@ -73,7 +73,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
       </div>
       <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-orange-500">
         {event.frontmatter.subLocations && (
-          <div className="mt-6 mb-4 md:mt-0">
+          <div className="my-4 md:mt-0">
             {event.frontmatter.subLocations.map(location => (
               <ScheduleInfoItem
                 key={location.name}
@@ -86,7 +86,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
           </div>
         )}
         <div
-          className="c-body-text-container -mb-2"
+          className="c-body-text-container -mb-4"
           dangerouslySetInnerHTML={{ __html: event.html }}
         />
       </div>

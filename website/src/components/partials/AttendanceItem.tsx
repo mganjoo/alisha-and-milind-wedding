@@ -18,7 +18,7 @@ const AttendanceItem: React.FC<AttendanceItemProps> = ({
       : guestOptions
 
   return (
-    <div className="mb-2 sm:flex sm:items-center">
+    <div className="mb-4 sm:flex sm:items-center">
       <p
         className="flex flex-wrap items-baseline pb-1 border-b border-gray-subtle sm:border-0 sm:mr-4 sm:w-2/5 sm:flex-col sm:items-end sm:pb-0"
         id={headingId}
@@ -26,11 +26,11 @@ const AttendanceItem: React.FC<AttendanceItemProps> = ({
         <span className="pr-3 text-lg font-sans font-semibold text-orange-800 font-sans sm:pr-0 sm:mb-1 sm:text-xl">
           {event.frontmatter.name}
         </span>
-        <span className="text-gray-700 text-sm font-serif sm:text-base sm:mb-6">
+        <span className="text-gray-700 text-sm font-serif sm:text-base">
           {event.frontmatter.shortDate}
         </span>
       </p>
-      <div className="mt-2 sm:w-3/5 sm:mt-0">
+      <div className="mt-2 sm:-mb-4 sm:w-3/5 sm:mt-0">
         <OptionsGroup
           name={`attendees.${event.frontmatter.shortName}`}
           type="checkbox"

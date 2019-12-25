@@ -57,7 +57,7 @@ export const withSelectAll = () => (
 
 export const withCustomLabelId = () => (
   <FormikStoryWrapper initialValues={{ choice: "" }}>
-    <p id="custom-label" className="mb-3">
+    <p id="custom-label" className="mb-2">
       Custom checkbox
     </p>
     <OptionsGroup

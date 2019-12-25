@@ -142,7 +142,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
             role="dialog"
             aria-label="Enter email"
             aria-describedby="enter-email-description"
-            className="max-w-sm mx-auto text-center"
+            className="max-w-sm mx-auto"
           >
             <div className="c-shadow-box mx-4 my-6">
               <BaseForm>

@@ -1,4 +1,3 @@
-import classnames from "classnames"
 import dayjs from "dayjs"
 import React, { useContext } from "react"
 import ButtonRow from "../../form/ButtonRow"
@@ -20,16 +19,16 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
     <section
       aria-label="RSVP status"
       aria-describedby="rsvp-info-name rsvp-info-description"
-      className="flex flex-col items-center justify-center font-serif max-w-md mx-auto c-shadow-box"
+      className="flex flex-col items-center justify-center font-serif max-w-sm mx-auto c-shadow-box"
     >
-      <div className="flex flex-col items-center sm:flex-row">
+      <div className="flex flex-wrap items-center justify-center mb-6">
         <Symbol
           aria-hidden
           symbol={invitation.latestRsvp.attending ? "check" : "cross"}
-          className={classnames("mb-4 sm:mr-4", "text-gray-600")}
+          className="m-2 text-gray-600"
           size="l"
         />
-        <div className="text-center mb-6 sm:text-left">
+        <div className="mx-2 text-center">
           <h2 className="font-display mb-1 text-2xl" id="rsvp-info-name">
             {invitation.partyName}
           </h2>
@@ -44,7 +43,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
           </p>
         </div>
       </div>
-      <div className="mb-3 flex flex-col items-center">
+      <div className="mb-4 flex flex-col items-center">
         <h3 className="font-sans font-semibold text-center text-orange-800 mb-1">
           {invitation.latestRsvp.attending
             ? `${invitation.latestRsvp.guests.length} ${

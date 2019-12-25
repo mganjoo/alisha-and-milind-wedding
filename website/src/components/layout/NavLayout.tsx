@@ -1,3 +1,4 @@
+import { SkipNavLink, SkipNavContent } from "@reach/skip-nav"
 import classnames from "classnames"
 import Img, { FluidObject } from "gatsby-image"
 import React from "react"
@@ -19,6 +20,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
 }) => {
   return (
     <BaseLayout>
+      <SkipNavLink />
       <Header
         links={[
           { text: "Our Story", to: "/our-story" },
@@ -28,18 +30,25 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      <main className="-mt-4 max-w-4xl flex flex-col mx-auto pb-8 sm:mt-0 sm:px-6">
+      <main className="-mt-4 flex flex-col pb-8 sm:mt-0 sm:px-6">
+        <SkipNavContent />
         {heroImage && (
-          <Img
-            fluid={heroImage}
-            alt={alt || ""}
-            className="mb-8 mx-auto shadow-md w-full p-cover"
-            // @ts-ignore styleName not supported on Gatsby image
-            styleName="hero"
-            imgStyle={objectPosition ? { objectPosition } : undefined}
-          />
+          <div className="mb-8">
+            <Img
+              fluid={heroImage}
+              alt={alt || ""}
+              className="p-cover"
+              // @ts-ignore styleName not supported on Gatsby image
+              styleName="hero"
+              imgStyle={objectPosition ? { objectPosition } : undefined}
+            />
+          </div>
         )}
-        <div className={classnames("px-6 sm:px-0", { "mt-4": !heroImage })}>
+        <div
+          className={classnames("max-w-4xl mx-auto px-6 sm:px-0", {
+            "mt-4": !heroImage,
+          })}
+        >
           {children}
         </div>
       </main>

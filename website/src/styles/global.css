@@ -75,27 +75,28 @@
   @apply font-serif mb-6 text-gray-800;
 }
 
-.c-body-text {
-  @apply font-serif text-lg mb-4;
+.c-text {
+  @apply font-serif text-lg;
 
   & > a {
     @apply border-b border-gray-800 border-dotted font-semibold;
 
     &:hover {
-      @apply bg-orange-200;
+      @apply text-orange-900 border-orange-900;
+    }
+
+    &:focus {
+      @apply outline-none bg-orange-200;
     }
   }
 }
 
+.c-body-text {
+  @extend .c-text;
+  @apply mb-4;
+}
+
 .c-body-text-container {
-  & > h1 {
-    @apply text-2xl font-sans mb-2;
-
-    @screen sm {
-      @apply text-3xl;
-    }
-  }
-
   & > p {
     @extend .c-body-text;
   }
@@ -105,8 +106,17 @@
   @extend .c-body-text-container;
   @apply mb-8;
 
+  & > h2,
+  & > h3 {
+    @apply mb-2 font-sans font-semibold text-orange-800;
+  }
+
   & > h2 {
-    @apply font-sans text-2xl text-orange-800 mb-2 font-semibold;
+    @apply text-2xl;
+  }
+
+  & > h3 {
+    @apply text-xl;
   }
 
   & > dl {
@@ -123,6 +133,15 @@
 
   & strong {
     @apply font-semibold;
+  }
+
+  & > ul {
+    @apply mb-4 pl-6;
+
+    & > li {
+      @extend .c-text;
+      @apply list-disc list-outside mb-2;
+    }
   }
 }
 

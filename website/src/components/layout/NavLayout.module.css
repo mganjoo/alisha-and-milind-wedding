@@ -1,4 +1,14 @@
+@import "@reach/skip-nav/styles.css";
+
 .hero {
-  @apply max-w-xl;
+  @apply max-w-xl mx-auto w-full shadow-md;
   max-height: 24rem;
+}
+
+[data-reach-skip-link] {
+  @apply font-sans text-sm rounded-lg;
+}
+
+[data-reach-skip-link]:focus {
+  @apply outline-none shadow-outline-light p-3;
 }

@@ -134,8 +134,8 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
 }) => {
   const id = `addToCalendar-${useUID()}`
   return !dropdown ? (
-    <section aria-labelledby={id} className="flex flex-col items-center py-2">
-      <h2 className="my-2 text-sm font-sans font-semibold" id={id}>
+    <section aria-labelledby={id} className="flex flex-col items-center">
+      <h2 className="mb-2 text-sm font-sans font-semibold" id={id}>
         {label}
       </h2>
       <ul className="flex flex-wrap justify-center">
@@ -155,7 +155,7 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
   ) : (
     <Menu>
       <MenuButton className="c-inline-button">
-        {label}{" "}
+        {label}
         <Symbol symbol="chevron-down" className="ml-1" size="s" inline />
       </MenuButton>
       <MenuList>

@@ -86,7 +86,7 @@ const Symbol: React.FC<SymbolProps> = ({
           "fill-current",
           { "w-3 h-3": size === "s" },
           { "w-4 h-4": size === "m" },
-          { "w-12 h-12": size === "l" }
+          { "w-10 h-10": size === "l" }
         )}
       >
         {getPath(symbol)}

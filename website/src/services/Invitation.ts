@@ -52,7 +52,6 @@ export async function fetchAndSaveInvitationByEmail(
   )
   if (result) {
     const { code } = result.data as Invitee
-    console.log(result)
     return fetchAndSaveInvitationByCode(code)
   }
   return undefined
