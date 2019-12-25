@@ -24,6 +24,7 @@ const RsvpPage = () => {
   return (
     <NavLayout
       heroImage={imageData.heroImage.childImageSharp.fluid}
+      heroBackground="#D7CDC0"
       alt="Picture of Alisha and Milind laughing at the camera"
     >
       <SEO title="RSVP" />

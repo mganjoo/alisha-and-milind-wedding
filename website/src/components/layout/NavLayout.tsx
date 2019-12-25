@@ -8,6 +8,7 @@ import "./NavLayout.module.css"
 
 interface NavLayoutProps {
   heroImage?: FluidObject | FluidObject[]
+  heroBackground?: string
   alt?: string
   objectPosition?: string
 }
@@ -15,6 +16,7 @@ interface NavLayoutProps {
 const NavLayout: React.FC<NavLayoutProps> = ({
   children,
   heroImage,
+  heroBackground,
   alt,
   objectPosition,
 }) => {
@@ -30,10 +32,10 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      <main className="-mt-4 flex flex-col pb-8 sm:mt-0 sm:px-6">
+      <main className="flex flex-col pb-8">
         <SkipNavContent />
         {heroImage && (
-          <div className="mb-8">
+          <div className="mb-8" style={{ backgroundColor: heroBackground }}>
             <Img
               fluid={heroImage}
               alt={alt || ""}
@@ -45,7 +47,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           </div>
         )}
         <div
-          className={classnames("max-w-4xl mx-auto px-6 sm:px-0", {
+          className={classnames("max-w-4xl mx-auto px-12 sm:px-6", {
             "mt-4": !heroImage,
           })}
         >

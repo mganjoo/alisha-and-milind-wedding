@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
   }, [dropdownVisible, menuButtonRef, navRef])
 
   return (
-    <header className="relative border-b border-gray-subtle mb-4">
+    <header className="relative border-b border-gray-subtle">
       <div className="relative">
         <div className="absolute mx-1 h-full flex items-center sm:hidden">
           <button

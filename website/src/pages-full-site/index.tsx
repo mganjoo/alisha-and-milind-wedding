@@ -20,6 +20,7 @@ const IndexPage = () => {
   return (
     <NavLayout
       heroImage={imageData.heroImage.childImageSharp.fluid}
+      heroBackground="#D6D6D6"
       alt="Alisha and Milind posing in front of the sunset in Monterey, California"
       objectPosition="50% 32%"
     >

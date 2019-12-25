@@ -45,6 +45,7 @@ const TravelPage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.fluid}
+      heroBackground="#E6C9BD"
       alt="Picture of Alisha pointing at something in the distance and Milind looking on"
     >
       <SEO title="Travel & Accommodation" />
