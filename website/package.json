@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@reach/menu-button": "0.7.0",
-    "@reach/skip-nav": "^0.7.0",
+    "@reach/skip-nav": "0.7.0",
     "classnames": "2.2.6",
     "dayjs": "1.8.17",
     "firebase": "7.6.0",
