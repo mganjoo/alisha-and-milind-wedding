@@ -10,7 +10,7 @@ const NotFound: React.FC = ({ children }) => {
       query {
         image: file(relativePath: { eq: "where-am-i.jpg" }) {
           childImageSharp {
-            fluid {
+            fluid(maxWidth: 576) {
               ...GatsbyImageSharpFluid
             }
           }

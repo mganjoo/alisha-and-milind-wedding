@@ -12,9 +12,7 @@ const OurStoryPage = () => {
       query {
         heroImage: file(relativePath: { eq: "our-story-hero.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...HeroImage
           }
         }
         redRock: file(relativePath: { eq: "our-story-travel-red-rock.jpg" }) {
@@ -86,7 +84,7 @@ const OurStoryPage = () => {
       heroBackground="#E0DFE4"
       alt="Picture of Alisha and Milind in front of a large stone rock face"
     >
-      <SEO title="Our Story" />
+      <SEO title="Our Story" image="/meta-our-story-hero.jpg" />
       <PageHeading>Our Story</PageHeading>
       <section className="c-article">
         <p>

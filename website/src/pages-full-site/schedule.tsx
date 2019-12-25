@@ -10,11 +10,9 @@ const SchedulePage = () => {
   const data = useStaticQuery(
     graphql`
       query {
-        heroImage: file(relativePath: { eq: "events-hero.jpg" }) {
+        heroImage: file(relativePath: { eq: "schedule-hero.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...HeroImage
           }
         }
       }
@@ -27,7 +25,7 @@ const SchedulePage = () => {
       objectPosition="50% 5%"
       alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
     >
-      <SEO title="Events" />
+      <SEO title="Events" image="/meta-schedule-hero.jpg" />
       <PageHeading>Schedule</PageHeading>
       <Authenticated>
         <Schedule />

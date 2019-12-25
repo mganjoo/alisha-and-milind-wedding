@@ -9,9 +9,7 @@ const IndexPage = () => {
       query {
         heroImage: file(relativePath: { eq: "main-hero.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...HeroImage
           }
         }
       }
@@ -24,7 +22,7 @@ const IndexPage = () => {
       alt="Alisha and Milind posing in front of the sunset in Monterey, California"
       objectPosition="50% 32%"
     >
-      <SEO title="Home" />
+      <SEO title="Home" image="/meta-main-hero.jpg" />
       <div className="c-article c-narrow-body">
         <p>
           Welcome to our wedding website! We are so excited to celebrate this

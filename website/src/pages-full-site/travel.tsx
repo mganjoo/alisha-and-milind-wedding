@@ -29,9 +29,7 @@ const TravelPage = () => {
       query {
         heroImage: file(relativePath: { eq: "travel-hero.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...HeroImage
           }
         }
         site {
@@ -48,7 +46,7 @@ const TravelPage = () => {
       heroBackground="#E6C9BD"
       alt="Picture of Alisha pointing at something in the distance and Milind looking on"
     >
-      <SEO title="Travel & Accommodation" />
+      <SEO title="Travel & Accommodation" image="/meta-travel-hero.jpg" />
       <PageHeading>Travel &amp; Accommodation</PageHeading>
       <section
         className="c-shadow-box mb-8 sm:flex sm:items-center"

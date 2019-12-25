@@ -33,7 +33,7 @@ const SaveTheDatePage: React.FC = () => {
     <BaseLayout>
       <SEO
         title="Save the Date"
-        image="/alisha-and-milind-mirror.jpg"
+        image="/meta-save-the-date-hero.jpg"
         description="Please save the date for Alisha & Milind's wedding: May 1 & 2, 2020 in San Mateo, CA."
       />
       <main className="lg:flex lg:flex-row-reverse">

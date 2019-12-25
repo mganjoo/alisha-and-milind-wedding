@@ -13,9 +13,7 @@ const RsvpPage = () => {
       query {
         heroImage: file(relativePath: { eq: "rsvp-hero.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...HeroImage
           }
         }
       }
@@ -27,7 +25,7 @@ const RsvpPage = () => {
       heroBackground="#D7CDC0"
       alt="Picture of Alisha and Milind laughing at the camera"
     >
-      <SEO title="RSVP" />
+      <SEO title="RSVP" image="/meta-rsvp-hero.jpg" />
       <PageHeading>RSVP</PageHeading>
       <Authenticated refreshOlderThanSecs={90}>
         <div className="c-narrow-body">
