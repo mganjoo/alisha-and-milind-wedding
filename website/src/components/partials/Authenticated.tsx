@@ -141,7 +141,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
           <div
             role="dialog"
             aria-label="Enter email"
-            aria-describedby="enter-email-description"
+            aria-describedby="authenticated-description"
             className="max-w-sm mx-auto"
           >
             <div className="c-shadow-box mx-4 my-6">
@@ -157,7 +157,10 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
                     Please try again, or email us at <ContactEmail />.
                   </Alert>
                 )}
-                <p className="c-form-description" id="enter-email-description">
+                <p
+                  className="c-form-description"
+                  id="authenticated-description"
+                >
                   To view this page, please enter the email address that your
                   invitation was sent to.
                 </p>

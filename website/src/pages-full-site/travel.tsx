@@ -81,7 +81,7 @@ const TravelPage = () => {
           </div>
         </div>
       </section>
-      <section className="c-article">
+      <section className="c-article" aria-labelledby="recommended-airport">
         <HeadingSymbol symbol="airplane" id="recommended-airport">
           Recommended airport: SFO
         </HeadingSymbol>
@@ -122,7 +122,7 @@ const TravelPage = () => {
           </dd>
         </dl>
       </section>
-      <section className="c-article">
+      <section className="c-article" aria-labelledby="other-airports">
         <HeadingSymbol symbol="airplane" id="other-airports">
           Other airports: SJC and OAK
         </HeadingSymbol>
@@ -145,7 +145,7 @@ const TravelPage = () => {
           coming in from Oakland.
         </p>
       </section>
-      <section className="c-article">
+      <section className="c-article" aria-labelledby="driving-in">
         <HeadingSymbol symbol="travel-car" id="driving-in">
           Driving in
         </HeadingSymbol>
@@ -155,7 +155,7 @@ const TravelPage = () => {
           for our guests.
         </p>
       </section>
-      <section className="c-article">
+      <section className="c-article" aria-labelledby="hotel-block">
         <HeadingSymbol symbol="location-hotel" id="hotel-block">
           Hotel Block
         </HeadingSymbol>

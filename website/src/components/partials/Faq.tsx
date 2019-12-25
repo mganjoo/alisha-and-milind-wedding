@@ -1,15 +1,17 @@
 import React from "react"
+import { useUID } from "react-uid"
 
 interface FaqProps {
   question: string
 }
 
 const Faq: React.FC<FaqProps> = ({ question, children }) => {
+  const id = `faq-${useUID()}`
   return (
-    <div className="c-article">
-      <h3>{question}</h3>
+    <section className="c-article" aria-labelledby={id}>
+      <h3 id={id}>{question}</h3>
       {children}
-    </div>
+    </section>
   )
 }
 
