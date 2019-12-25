@@ -20,6 +20,14 @@ service cloud.firestore {
       allow read: if resource.data.email != "__reject_request__@example.com";
     }
 
+    match /opened/{code} {
+      allow update:
+        if request.resource.data.keys().size() == 2
+        && request.resource.data.keys().hasAll(["openCount", "updatedAt"])
+        && request.resource.data.openCount is int
+        && request.resource.data.updatedAt is timestamp;
+    }
+
     match /invitations/{code} {
       allow read: if code != "__reject_request__";
 

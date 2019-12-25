@@ -25,17 +25,26 @@ export type FindUniqueByKeyFnType = (
   value: any
 ) => Promise<QueryResult | undefined>
 
+export type IncrementWithTimestampFnType = (
+  docRef: (
+    db: firebase.firestore.Firestore
+  ) => firebase.firestore.DocumentReference,
+  field: string,
+  n: number
+) => Promise<void>
+
 interface LoadFirestoreImplFunctions {
   mockAddWithTimestamp?: jest.MockedFunction<AddWithTimestampFnType>
   mockFindById?: jest.MockedFunction<FindByIdFnType>
   mockFindUniqueByKey?: jest.MockedFunction<FindUniqueByKeyFnType>
+  mockIncrementWithTimestamp?: jest.MockedFunction<IncrementWithTimestampFnType>
 }
 
 export function mockLoadFirestoreImpl(mocks: LoadFirestoreImplFunctions) {
   const mockLoadFirestore = loadFirestore as jest.MockedFunction<
     typeof loadFirestore
   >
-  mockLoadFirestore.mockImplementationOnce(() => {
+  mockLoadFirestore.mockImplementation(() => {
     return Promise.resolve<Firestore>({
       addWithTimestamp: mocks.mockAddWithTimestamp
         ? mocks.mockAddWithTimestamp
@@ -46,6 +55,9 @@ export function mockLoadFirestoreImpl(mocks: LoadFirestoreImplFunctions) {
       findUniqueByKey: mocks.mockFindUniqueByKey
         ? mocks.mockFindUniqueByKey
         : (jest.fn() as jest.MockedFunction<FindByIdFnType>),
+      incrementWithTimestamp: mocks.mockIncrementWithTimestamp
+        ? mocks.mockIncrementWithTimestamp
+        : (jest.fn() as jest.MockedFunction<IncrementWithTimestampFnType>),
     })
   })
 }

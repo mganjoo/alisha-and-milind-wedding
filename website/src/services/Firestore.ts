@@ -35,11 +35,25 @@ export interface Firestore {
     key: string,
     value: any
   ) => Promise<QueryResult | undefined>
+
+  /**
+   * Updates a record, incrementing field `field`, and setting an `updatedAt`
+   * server timestamp in the process.
+   */
+  incrementWithTimestamp: (
+    docRef: (
+      db: firebase.firestore.Firestore
+    ) => firebase.firestore.DocumentReference,
+    field: string,
+    n: number
+  ) => Promise<void>
 }
 
 function makeFirestore(
   firebaseInstance: firebase.app.App,
-  makeTimestamp: (date: Date) => firebase.firestore.Timestamp
+  makeTimestamp: (date: Date) => firebase.firestore.Timestamp,
+  makeServerTimestamp: () => firebase.firestore.FieldValue,
+  increment: (n: number) => firebase.firestore.FieldValue
 ): Firestore {
   return {
     addWithTimestamp: async (
@@ -92,6 +106,17 @@ function makeFirestore(
           }
         })
         .catch(observeAndRethrow),
+    incrementWithTimestamp: async (
+      docRef: (
+        db: firebase.firestore.Firestore
+      ) => firebase.firestore.DocumentReference,
+      field: string,
+      n: number
+    ) =>
+      docRef(firebaseInstance.firestore()).update({
+        [field]: increment(n),
+        updatedAt: makeServerTimestamp(),
+      }),
   }
 }
 
@@ -124,5 +149,13 @@ export async function loadFirestore() {
       : loadedFirebase.initializeApp(firebaseConfig)
   const makeTimestamp = (date: Date) =>
     loadedFirebase.firestore.Timestamp.fromDate(date)
-  return makeFirestore(firebaseInstance, makeTimestamp)
+  const makeServerTimestamp =
+    loadedFirebase.firestore.FieldValue.serverTimestamp
+  const increment = loadedFirebase.firestore.FieldValue.increment
+  return makeFirestore(
+    firebaseInstance,
+    makeTimestamp,
+    makeServerTimestamp,
+    increment
+  )
 }

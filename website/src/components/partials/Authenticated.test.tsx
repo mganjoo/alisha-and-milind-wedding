@@ -13,6 +13,7 @@ import {
 import {
   mockLoadFirestoreImpl,
   FindByIdFnType,
+  IncrementWithTimestampFnType,
 } from "../../utils/FirestoreMocks"
 import Authenticated, { InvitationContext } from "./Authenticated"
 
@@ -68,10 +69,16 @@ function mockReturnValues(
   mockSaveInvitationData.mockReturnValue(Promise.resolve())
 
   const mockFindById = jest.fn() as jest.MockedFunction<FindByIdFnType>
+  const mockIncrementWithTimestamp = jest.fn() as jest.MockedFunction<
+    IncrementWithTimestampFnType
+  >
 
   mockLoadFirestoreImpl({
     mockFindById: mockFindById.mockReturnValueOnce(
       Promise.resolve(fetchValue).then(v => (v ? { data: v } : undefined))
+    ),
+    mockIncrementWithTimestamp: mockIncrementWithTimestamp.mockReturnValueOnce(
+      Promise.resolve()
     ),
   })
 }

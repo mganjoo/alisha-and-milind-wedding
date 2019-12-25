@@ -81,7 +81,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
 
   useEffect(() => {
     const loadedInvitationPromise = initialCode
-      ? fetchAndSaveInvitationByCode(initialCode)
+      ? fetchAndSaveInvitationByCode(initialCode, true)
       : Promise.resolve(undefined)
     loadedInvitationPromise
       .then(

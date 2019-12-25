@@ -1,5 +1,5 @@
 import { Invitation, Rsvp, Invitee } from "../interfaces/Invitation"
-import { loadFirestore } from "./Firestore"
+import { loadFirestore, Firestore } from "./Firestore"
 import {
   saveInvitationData,
   loadInvitationData,
@@ -8,6 +8,7 @@ import {
 } from "./Storage"
 
 const invitationsCollection = "invitations"
+const openedCollection = "opened"
 const inviteesCollection = "invitees"
 const rsvpsCollection = "rsvps"
 
@@ -21,21 +22,35 @@ function saveInvitation(invitation: Invitation): Promise<void> {
   })
 }
 
+async function writeOpened(firestore: Firestore, invitation: Invitation) {
+  await firestore.incrementWithTimestamp(
+    db => db.collection(openedCollection).doc(invitation.code),
+    "openCount",
+    1
+  )
+}
+
 /**
  * Attempts to fetch invitation with provided code and save into indexed DB.
  * Returns a Promise of retrieved invitation, if it exists, or Promise<null>
  * otherwise.
  *
  * @param code invitation code to fetch
+ * @aparam trackOpened whether to write opened record
  */
 export async function fetchAndSaveInvitationByCode(
-  code: string
+  code: string,
+  trackOpened?: boolean
 ): Promise<Invitation | undefined> {
   const firestore = await loadFirestore()
   const result = await firestore.findById(invitationsCollection, code)
   if (result) {
     const invitation = result.data as Invitation
-    await saveInvitation(invitation)
+    const savedPromise = saveInvitation(invitation)
+    const openedPromise = trackOpened
+      ? writeOpened(firestore, invitation)
+      : Promise.resolve()
+    await Promise.all([savedPromise, openedPromise])
     return invitation
   }
   return undefined
@@ -52,7 +67,7 @@ export async function fetchAndSaveInvitationByEmail(
   )
   if (result) {
     const { code } = result.data as Invitee
-    return fetchAndSaveInvitationByCode(code)
+    return fetchAndSaveInvitationByCode(code, true)
   }
   return undefined
 }
