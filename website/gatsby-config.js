@@ -6,6 +6,22 @@ const sharedConstants = require("./shared-constants")
 
 const longTitle = "Alisha & Milind Wedding"
 
+const googleAnalyticsPlugin = process.env.GA_TRACKING_ID
+  ? [
+      {
+        resolve: `gatsby-plugin-google-gtag`,
+        options: {
+          trackingIds: [process.env.GA_TRACKING_ID],
+          gtagConfig: {
+            anonymize_ip: true,
+            allow_ad_personalization_signals: false,
+            custom_map: { dimension1: "branch" },
+          },
+        },
+      },
+    ]
+  : []
+
 module.exports = {
   siteMetadata: {
     title: longTitle,
@@ -84,7 +100,7 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-remove-console`,
+    ...googleAnalyticsPlugin,
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-purgecss`,

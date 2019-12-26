@@ -1,3 +1,4 @@
+import { OutboundLink } from "gatsby-plugin-google-gtag"
 import React, { useContext } from "react"
 import { WeddingEventMarkdown } from "../../interfaces/Event"
 import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
@@ -71,9 +72,12 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               }}
               dropdown
             />
-            <a href={event.frontmatter.locationUrl} className="c-inline-button">
+            <OutboundLink
+              href={event.frontmatter.locationUrl}
+              className="c-inline-button"
+            >
               Open Map
-            </a>
+            </OutboundLink>
           </div>
         </div>
       </div>

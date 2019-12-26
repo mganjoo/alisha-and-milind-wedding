@@ -1,4 +1,5 @@
 import { Menu, MenuButton, MenuList, MenuLink } from "@reach/menu-button"
+import { OutboundLink } from "gatsby-plugin-google-gtag"
 import React from "react"
 import { useUID } from "react-uid"
 import {
@@ -143,7 +144,7 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
           <li className="mx-2 mt-1 mb-2" key={eventType}>
             {
               // eslint-disable-next-line jsx-a11y/anchor-has-content
-              <a
+              <OutboundLink
                 className="c-button c-button-tertiary c-button-compact flex items-center"
                 {...getLinkProps(event, eventType)}
               />

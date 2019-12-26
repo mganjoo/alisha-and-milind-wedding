@@ -12,7 +12,9 @@
 [context.production.environment]
   DISABLE_FULL_SITE = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
+  GATSBY_BRANCH = "master"
 
 [context.staging.environment]
   DISABLE_FULL_SITE = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
+  GATSBY_BRANCH = "staging"

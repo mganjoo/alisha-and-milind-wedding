@@ -1,4 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby"
+import { OutboundLink } from "gatsby-plugin-google-gtag"
 import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
@@ -163,12 +164,12 @@ const TravelPage = () => {
           staying overnight at the venue.
         </p>
         <div className="my-4 w-full block">
-          <a
-            className="c-button c-button-primary c-button-compact inline-block shadow-lg"
+          <OutboundLink
             href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1561574654973&key=GRP&app=resvlink"
+            className="c-button c-button-primary c-button-compact inline-block shadow-lg"
           >
             Book a room at the special rate
-          </a>
+          </OutboundLink>
         </div>
         <p>
           Please use the above link to book your stay at the San Mateo Marriott
