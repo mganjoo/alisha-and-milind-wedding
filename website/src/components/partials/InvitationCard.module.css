@@ -30,6 +30,26 @@
   transform: rotateY(180deg);
 }
 
+.back-base {
+  background-image: url("../../images/invitation/back-base.png");
+}
+
+.back-flap {
+  background-image: url("../../images/invitation/back-flap.png");
+}
+
+.back-bottom-flaps {
+  background-image: url("../../images/invitation/back-bottom-flaps.png");
+}
+
+.front-base {
+  background-image: url("../../images/invitation/front-base.png");
+}
+
+.front-flap {
+  background-image: url("../../images/invitation/front-flap.png");
+}
+
 /* Allows sizing of the entire animation to the height of the viewport. */
 .outer-wrapper {
   @apply mx-4;

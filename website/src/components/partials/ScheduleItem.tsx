@@ -25,7 +25,13 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
   label,
 }) => (
   <span className="flex items-center mx-2 mb-2 font-sans text-gray-700">
-    <Symbol symbol={symbol} className="mr-2" size="s" label={label} inline />
+    <Symbol
+      symbol={symbol}
+      className="mr-2 print:hidden"
+      size="s"
+      label={label}
+      inline
+    />
     {children}
   </span>
 )
@@ -35,7 +41,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
-        <h2 className="text-orange-800 font-sans text-2xl font-semibold mb-2">
+        <h2 className="text-orange-800 font-sans text-2xl font-semibold mb-2 print:text-gray-900">
           {event.frontmatter.name}
         </h2>
         <div className="pl-2 border-l border-orange-500 w-full md:pl-0 md:border-0">

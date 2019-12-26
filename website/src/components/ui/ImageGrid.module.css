@@ -5,9 +5,15 @@
   --modal-translucent-bg: rgb(26, 32, 44, 0.75);
 }
 
-.grid-wrapper {
-  & > div:focus {
+.image-wrapper {
+  @apply mx-4 my-4 rounded-lg overflow-hidden flex flex-col flex-auto;
+
+  &:focus {
     @apply outline-none shadow-outline-bold;
+  }
+
+  @screen print {
+    @apply rounded-none w-64 flex-none mx-auto;
   }
 }
 
@@ -17,6 +23,10 @@
 
   @screen sm {
     min-width: 16rem;
+  }
+
+  @screen print {
+    @apply max-h-full mx-4;
   }
 }
 
@@ -42,8 +52,16 @@
   }
 }
 
+[data-reach-dialog-overlay] {
+  @apply z-20;
+
+  @screen print {
+    @apply hidden;
+  }
+}
+
 [data-reach-dialog-content] {
-  @apply max-w-3xl w-full p-0 bg-black;
+  @apply max-w-3xl w-full p-0 bg-black relative;
   height: calc(100vh - 2 * var(--image-modal-y-padding));
   margin: var(--image-modal-y-padding) auto;
 }

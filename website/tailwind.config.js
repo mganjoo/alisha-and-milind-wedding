@@ -8,6 +8,7 @@ module.exports = {
         "off-white": sharedConstants.offWhite,
         invalid: defaultTheme.colors.red["400"],
         "gray-subtle": defaultTheme.colors.gray["400"],
+        "red-subtle": "#e6c9bd",
       },
       fontFamily: {
         sans: ["Raleway", ...defaultTheme.fontFamily.sans],
@@ -18,6 +19,9 @@ module.exports = {
       boxShadow: {
         "outline-light": "0 0 0 3px rgba(237, 137, 54, 0.5)",
         "outline-bold": "0 0 0 5px rgba(237, 137, 54, 0.5)",
+      },
+      screens: {
+        print: { raw: "print" },
       },
     },
     customForms: theme => {

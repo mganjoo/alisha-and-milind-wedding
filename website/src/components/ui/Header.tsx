@@ -56,9 +56,9 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
   }, [dropdownVisible, menuButtonRef, navRef])
 
   return (
-    <header className="relative border-b border-gray-subtle">
+    <header className="sticky top-0 z-10 border-b border-gray-subtle bg-off-white sm:static sm:z-0 print:static">
       <div className="relative">
-        <div className="absolute mx-1 h-full flex items-center sm:hidden">
+        <div className="absolute mx-1 h-full flex items-center sm:hidden print:hidden">
           <button
             className="ml-1 p-2 focus:outline-none focus:shadow-outline-light"
             ref={menuButtonRef}
@@ -93,7 +93,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         ref={navRef}
         className={classnames(
           dropdownVisible ? "visible" : "invisible",
-          "absolute w-full z-10 bg-off-white border-b border-gray-subtle font-sans font-semibold text-gray-900 text-sm shadow-lg sm:shadow-none sm:static sm:visible sm:w-auto sm:border-b-0 sm:text-base"
+          "absolute w-full z-10 bg-off-white border-b border-gray-subtle font-sans font-semibold text-gray-900 text-sm shadow-lg sm:shadow-none sm:static sm:visible sm:w-auto sm:border-b-0 sm:text-base print:hidden"
         )}
       >
         <ul className="py-3 shadow-inner border-t border-gray-subtle sm:py-0 sm:flex sm:flex-row sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none">

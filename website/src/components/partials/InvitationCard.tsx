@@ -104,7 +104,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
   const imageData = useStaticQuery(
     graphql`
       query {
-        invitation: file(relativePath: { eq: "invitation.jpg" }) {
+        invitation: file(relativePath: { eq: "invitation/invitation.jpg" }) {
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid
@@ -178,21 +178,13 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
           >
             <div
               className="flex items-center justify-center"
-              styleName="front"
-              style={{
-                backgroundImage: "url('/invitation/front-base.png')",
-              }}
+              styleName="front front-base"
             >
               <p className="font-serif text-lg text-yellow-200 text-center sm:text-xl">
                 {invitation.partyName}
               </p>
             </div>
-            <div
-              styleName="back"
-              style={{
-                backgroundImage: "url('/invitation/back-base.png')",
-              }}
-            >
+            <div styleName="back back-base">
               <animated.div
                 className="border border-orange-800 shadow-lg p-cover"
                 styleName="letter"
@@ -224,12 +216,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                   onLoad={() => setLetterLoaded(true)}
                 />
               </animated.div>
-              <div
-                styleName="full-area"
-                style={{
-                  backgroundImage: "url('/invitation/back-bottom-flaps.png')",
-                }}
-              ></div>
+              <div styleName="full-area back-bottom-flaps"></div>
               <animated.div
                 styleName="flippable"
                 style={{
@@ -238,18 +225,8 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                   zIndex: props.flapZIndex,
                 }}
               >
-                <div
-                  styleName="front"
-                  style={{
-                    backgroundImage: "url('/invitation/front-flap.png')",
-                  }}
-                ></div>
-                <div
-                  styleName="back"
-                  style={{
-                    backgroundImage: "url('/invitation/back-flap.png')",
-                  }}
-                ></div>
+                <div styleName="front front-flap"></div>
+                <div styleName="back back-flap"></div>
               </animated.div>
             </div>
           </animated.div>

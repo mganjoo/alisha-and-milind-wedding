@@ -3,6 +3,10 @@
 .hero {
   @apply max-w-xl mx-auto w-full shadow-md;
   max-height: 24rem;
+
+  @screen print {
+    @apply hidden;
+  }
 }
 
 [data-reach-skip-link] {

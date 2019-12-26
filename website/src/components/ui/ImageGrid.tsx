@@ -1,4 +1,4 @@
-import { Dialog } from "@reach/dialog"
+import { DialogOverlay, DialogContent } from "@reach/dialog"
 import Img, { FluidObject } from "gatsby-image"
 import React, { useState } from "react"
 import "./ImageGrid.module.css"
@@ -34,14 +34,11 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
   const close = () => setDialogOpen(false)
 
   return (
-    <div
-      className="my-6 sm:flex sm:flex-wrap sm:justify-center"
-      styleName="grid-wrapper"
-    >
+    <div className="my-6 sm:flex sm:flex-wrap sm:justify-center">
       {images.map((image, i) => (
         <div
           key={image.image.src}
-          className="mx-4 my-4 rounded-lg overflow-hidden flex flex-col flex-auto"
+          styleName="image-wrapper"
           onClick={() => handleClick(i)}
           onKeyPress={e => handleKeyPress(e, i)}
           role="button"
@@ -59,35 +56,37 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             }
           />
           {image.caption && (
-            <div className="text-center font-sans text-sm py-2 bg-gray-900 text-gray-100">
+            <div className="text-center font-sans text-sm py-2 bg-gray-900 text-gray-100 print:text-gray-700 print:bg-transparent">
               {image.caption}
             </div>
           )}
         </div>
       ))}
       {dialogOpen && dialogImage && (
-        <Dialog
-          onDismiss={close}
-          className="relative"
-          aria-labelledby="caption-dialog"
-        >
-          <div styleName="close-button-wrapper">
-            <button aria-label="Close" onClick={close}>
-              <Symbol symbol="close" size="m" />
-            </button>
-          </div>
-          <Img
-            fluid={dialogImage.image}
-            alt={dialogImage.alt}
-            className="w-full h-full"
-            imgStyle={{ objectFit: "contain" }}
-          />
-          {dialogImage.fullCaption && (
-            <p styleName="modal-caption" id="caption-dialog">
-              {dialogImage.fullCaption}
-            </p>
-          )}
-        </Dialog>
+        <DialogOverlay onDismiss={close}>
+          <DialogContent
+            aria-label={
+              dialogImage.fullCaption || dialogImage.caption || dialogImage.alt
+            }
+          >
+            <div styleName="close-button-wrapper">
+              <button aria-label="Close" onClick={close}>
+                <Symbol symbol="close" size="m" />
+              </button>
+            </div>
+            <Img
+              fluid={dialogImage.image}
+              alt={dialogImage.alt}
+              className="w-full h-full"
+              imgStyle={{ objectFit: "contain" }}
+            />
+            {dialogImage.fullCaption && (
+              <p styleName="modal-caption" id="caption-dialog">
+                {dialogImage.fullCaption}
+              </p>
+            )}
+          </DialogContent>
+        </DialogOverlay>
       )}
     </div>
   )

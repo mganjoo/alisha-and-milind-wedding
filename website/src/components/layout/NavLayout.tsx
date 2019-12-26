@@ -32,10 +32,12 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      <main className="flex flex-col pb-8">
+      <main className="flex flex-col pb-10">
         <SkipNavContent />
         {heroImage && (
-          <div className="mb-8" style={{ backgroundColor: heroBackground }}>
+          <div
+            className={classnames("mb-8 print:bg-transparent", heroBackground)}
+          >
             <Img
               fluid={heroImage}
               alt={alt || ""}
@@ -47,7 +49,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           </div>
         )}
         <div
-          className={classnames("max-w-4xl mx-auto px-12 sm:px-6", {
+          className={classnames("max-w-4xl mx-auto px-8 sm:px-6", {
             "mt-4": !heroImage,
           })}
         >

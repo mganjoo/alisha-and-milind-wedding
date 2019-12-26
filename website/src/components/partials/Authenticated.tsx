@@ -6,6 +6,7 @@ import {
   fetchAndSaveInvitationByCode,
   loadSavedInvitation,
   fetchAndSaveInvitationByEmail,
+  writeOpened,
 } from "../../services/Invitation"
 import BaseForm from "../form/BaseForm"
 import ButtonRow from "../form/ButtonRow"
@@ -81,13 +82,15 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
 
   useEffect(() => {
     const loadedInvitationPromise = initialCode
-      ? fetchAndSaveInvitationByCode(initialCode, true)
+      ? fetchAndSaveInvitationByCode(initialCode)
       : Promise.resolve(undefined)
     loadedInvitationPromise
-      .then(
-        loadedInvitation =>
-          loadedInvitation || loadSavedInvitation(refreshOlderThanSecs)
-      )
+      .then(loadedInvitation => {
+        if (loadedInvitation) {
+          writeOpened(loadedInvitation)
+        }
+        return loadedInvitation || loadSavedInvitation(refreshOlderThanSecs)
+      })
       .then(loadedInvitation => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
@@ -97,7 +100,12 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
     setInitialFetchError(false) // after first submit, form will handle error handling
     setSubmitError(false)
     return fetchAndSaveInvitationByEmail(submission.email)
-      .then(setInvitation)
+      .then(invitation => {
+        setInvitation(invitation)
+        if (invitation) {
+          writeOpened(invitation)
+        }
+      })
       .then(() => setSubmitted(true))
       .catch(() => setSubmitError(true))
   }

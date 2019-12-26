@@ -18,15 +18,19 @@ const IndexPage = () => {
   return (
     <NavLayout
       heroImage={imageData.heroImage.childImageSharp.fluid}
-      heroBackground="#D6D6D6"
+      heroBackground="bg-gray-200"
       alt="Alisha and Milind posing in front of the sunset in Monterey, California"
       objectPosition="50% 32%"
     >
       <SEO title="Home" image="/meta-main-hero.jpg" />
       <div className="c-article c-narrow-body">
         <p>
-          Welcome to our wedding website! We are so excited to celebrate this
-          weekend with you!
+          Welcome to our wedding website! This is where you will find the most
+          up-to-date information about the wedding weekend, including event
+          schedule and travel details.
+        </p>
+        <p>
+          We are so excited to celebrate with you!
           <br />
           <br />
           Love,

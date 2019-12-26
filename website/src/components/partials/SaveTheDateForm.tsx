@@ -1,4 +1,3 @@
-import classnames from "classnames"
 import { Formik } from "formik"
 import React, { useState } from "react"
 import { object, string } from "yup"
@@ -42,53 +41,47 @@ const SaveTheDateForm: React.FC = () => {
       aria-label="Confirm contact details"
       aria-describedby="save-the-date-instructions"
     >
-      {/* Padding needed at bottom for confirmation page to fit properly */}
-      <div
-        className={classnames("lg:pb-16", {
-          "hidden lg:block lg:invisible": submitted,
-        })}
-      >
-        <div className="c-article text-center">
-          <p id="save-the-date-instructions">
-            We&rsquo;re going green! Please confirm your preferred email address
-            for the digital invitation to follow.
-          </p>
+      {!submitted && (
+        <div>
+          <div className="c-article text-center">
+            <p id="save-the-date-instructions">
+              We&rsquo;re going green! Please confirm your preferred email
+              address for the digital invitation to follow.
+            </p>
+          </div>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={submitInfo}
+          >
+            <BaseForm>
+              <LabelledTextField
+                label="Name"
+                name="name"
+                type="text"
+                autoComplete="name"
+              />
+              <LabelledTextField
+                label="Email address"
+                name="email"
+                type="email"
+                autoComplete="email"
+              />
+              <ButtonRow shadow>
+                <SubmitButton label="Submit info" />
+              </ButtonRow>
+              {submitError && (
+                <Alert>
+                  There was a problem submitting your info. Please email us at{" "}
+                  <ContactEmail />.
+                </Alert>
+              )}
+            </BaseForm>
+          </Formik>
         </div>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={submitInfo}
-        >
-          <BaseForm>
-            <LabelledTextField
-              label="Name"
-              name="name"
-              type="text"
-              autoComplete="name"
-            />
-            <LabelledTextField
-              label="Email address"
-              name="email"
-              type="email"
-              autoComplete="email"
-            />
-            <ButtonRow shadow>
-              <SubmitButton label="Submit info" />
-            </ButtonRow>
-            {submitError && (
-              <Alert>
-                There was a problem submitting your info. Please email us at{" "}
-                <ContactEmail />.
-              </Alert>
-            )}
-          </BaseForm>
-        </Formik>
-      </div>
+      )}
       {submitted && (
-        <div
-          role="status"
-          className="flex flex-col text-center items-center lg:absolute lg:inset-0"
-        >
+        <div role="status" className="flex flex-col text-center items-center">
           <Symbol symbol="check" className="text-green-700 mb-4" size="l" />
           <div className="c-article">
             <p>

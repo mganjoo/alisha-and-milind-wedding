@@ -14,8 +14,9 @@ const Schedule: React.FC = () => {
         {invitation.preEvents ? (
           <>
             <p>
-              The weekend events are at the{" "}
-              <Link to="/travel">San Mateo Marriott</Link> hotel.
+              The weekend events are at the San Mateo Marriott hotel. You can
+              find more information about the venue on the{" "}
+              <Link to="/travel">Travel &amp; Accommodation</Link> page.
             </p>
             <p>
               We would also love for you to join us at the Haldi and Mehndi

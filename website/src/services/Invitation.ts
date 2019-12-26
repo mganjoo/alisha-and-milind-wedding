@@ -1,5 +1,5 @@
 import { Invitation, Rsvp, Invitee } from "../interfaces/Invitation"
-import { loadFirestore, Firestore } from "./Firestore"
+import { loadFirestore } from "./Firestore"
 import {
   saveInvitationData,
   loadInvitationData,
@@ -22,7 +22,11 @@ function saveInvitation(invitation: Invitation): Promise<void> {
   })
 }
 
-async function writeOpened(firestore: Firestore, invitation: Invitation) {
+/**
+ * Increment counter for invitation open.
+ */
+export async function writeOpened(invitation: Invitation) {
+  const firestore = await loadFirestore()
   await firestore.incrementWithTimestamp(
     db => db.collection(openedCollection).doc(invitation.code),
     "openCount",
@@ -36,21 +40,15 @@ async function writeOpened(firestore: Firestore, invitation: Invitation) {
  * otherwise.
  *
  * @param code invitation code to fetch
- * @aparam trackOpened whether to write opened record
  */
 export async function fetchAndSaveInvitationByCode(
-  code: string,
-  trackOpened?: boolean
+  code: string
 ): Promise<Invitation | undefined> {
   const firestore = await loadFirestore()
   const result = await firestore.findById(invitationsCollection, code)
   if (result) {
     const invitation = result.data as Invitation
-    const savedPromise = saveInvitation(invitation)
-    const openedPromise = trackOpened
-      ? writeOpened(firestore, invitation)
-      : Promise.resolve()
-    await Promise.all([savedPromise, openedPromise])
+    await saveInvitation(invitation)
     return invitation
   }
   return undefined
@@ -67,7 +65,7 @@ export async function fetchAndSaveInvitationByEmail(
   )
   if (result) {
     const { code } = result.data as Invitee
-    return fetchAndSaveInvitationByCode(code, true)
+    return fetchAndSaveInvitationByCode(code)
   }
   return undefined
 }

@@ -44,7 +44,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
         </div>
       </div>
       <div className="mb-4 flex flex-col items-center">
-        <h3 className="font-sans font-semibold text-center text-orange-800 mb-1">
+        <h3 className="font-sans font-semibold text-center text-orange-800 mb-1 print:text-gray-700">
           {invitation.latestRsvp.attending
             ? `${invitation.latestRsvp.guests.length} ${
                 invitation.latestRsvp.guests.length > 1 ? "guests" : "guest"
