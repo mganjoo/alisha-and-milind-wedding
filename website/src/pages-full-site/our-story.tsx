@@ -3,6 +3,7 @@ import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Emoji from "../components/ui/Emoji"
+import IframeContainer from "../components/ui/IframeContainer"
 import ImageGrid from "../components/ui/ImageGrid"
 import PageHeading from "../components/ui/PageHeading"
 
@@ -137,7 +138,7 @@ const OurStoryPage = () => {
         />
       </section>
       <section className="c-article" aria-labelledby="heading-proposal">
-        <h2 id="heading-proposal">The Proposal</h2>
+        <h2 id="heading-proposal">The proposal</h2>
         <p>
           Alisha&rsquo;s friends thought Milind would certainly propose when the
           couple went to see{" "}
@@ -175,6 +176,29 @@ const OurStoryPage = () => {
             },
           ]}
         />
+      </section>
+      <section className="c-article" aria-labelledby="heading-video">
+        <h2 id="heading-video">Video: 16 questions from Alisha &amp; Milind</h2>
+        <p>
+          We are so thrilled to celebrate our wedding weekend with you and could
+          not be more thankful for your presence in our lives. In our own
+          excitement, we decided that we wanted to be like those famous YouTube
+          vloggers for a day.
+        </p>
+        <p>
+          Who do you think is the pickier eater? Who will survive longer on a
+          deserted island? Watch this video to find out!
+        </p>
+        <div className="w-full px-2 py-3">
+          <IframeContainer
+            width={560}
+            height={315}
+            src="https://www.youtube.com/embed/Qf-f7i0WZkY"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Video: 16 Questions with Alisha and Milind"
+          />
+        </div>
       </section>
     </NavLayout>
   )

@@ -4,8 +4,8 @@ import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import ContactEmail from "../components/partials/ContactEmail"
+import IframeContainer from "../components/ui/IframeContainer"
 import PageHeading from "../components/ui/PageHeading"
-import "../components/partials/Travel.module.css"
 import Symbol, { SymbolName } from "../components/ui/Symbol"
 
 interface HeadingSymbolProps {
@@ -67,18 +67,12 @@ const TravelPage = () => {
           </div>
         </div>
         <div className="sm:w-1/2">
-          <div
-            styleName="container"
-            className="relative overflow-hidden w-full"
-          >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.938066288461!2d-122.30303634928676!3d37.55652293236051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f9ef215a3c707%3A0xe6ecedc27fd6f6b6!2sSan%20Mateo%20Marriott%20San%20Francisco%20Airport!5e0!3m2!1sen!2sus!4v1577156578989!5m2!1sen!2sus"
-              width="400"
-              height="300"
-              className="absolute inset-0 w-full h-full"
-              title="Wedding Venue: San Mateo Marriott San Francisco Airport"
-            />
-          </div>
+          <IframeContainer
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.938066288461!2d-122.30303634928676!3d37.55652293236051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f9ef215a3c707%3A0xe6ecedc27fd6f6b6!2sSan%20Mateo%20Marriott%20San%20Francisco%20Airport!5e0!3m2!1sen!2sus!4v1577156578989!5m2!1sen!2sus"
+            width={400}
+            height={300}
+            title="Wedding Venue: San Mateo Marriott San Francisco Airport"
+          />
         </div>
       </section>
       <section className="c-article" aria-labelledby="recommended-airport">
@@ -157,7 +151,7 @@ const TravelPage = () => {
       </section>
       <section className="c-article" aria-labelledby="hotel-block">
         <HeadingSymbol symbol="location-hotel" id="hotel-block">
-          Hotel Block
+          Hotel block
         </HeadingSymbol>
         <p>
           We have negotiated the best available rate for our guests who will be
