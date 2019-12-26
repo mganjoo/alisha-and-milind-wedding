@@ -73,14 +73,17 @@ function mockReturnValues(
     IncrementWithTimestampFnType
   >
 
-  mockLoadFirestoreImpl({
+  const mocks = {
     mockFindById: mockFindById.mockReturnValueOnce(
       Promise.resolve(fetchValue).then(v => (v ? { data: v } : undefined))
     ),
     mockIncrementWithTimestamp: mockIncrementWithTimestamp.mockReturnValueOnce(
       Promise.resolve()
     ),
-  })
+  }
+
+  mockLoadFirestoreImpl(mocks)
+  return mocks
 }
 
 // ContactEmail has some GraphQL queries that must be mocked out
@@ -88,7 +91,7 @@ jest.mock("./ContactEmail")
 
 describe("Authenticated", () => {
   it("should load an invitation correctly", async () => {
-    mockReturnValues(undefined, {
+    const { mockIncrementWithTimestamp } = mockReturnValues(undefined, {
       code: "abcde",
       partyName: "Cece Parekh & Winston Schmidt",
       numGuests: 2,
@@ -101,6 +104,7 @@ describe("Authenticated", () => {
     )
     await waitForElementToBeRemoved(() => queryByText(/Loading/i))
     expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
+    expect(mockIncrementWithTimestamp).toHaveBeenCalled()
   })
 
   it("should try to load a cached invitation when no code is provided", async () => {
