@@ -47,12 +47,23 @@
     }
   },
   {
-    "id": "atest3",
+    "id": "t:iHqfOorR",
     "data": {
-      "code": "atest3",
-      "partyName": "Raj Kapoor & Family",
+      "code": "t:iHqfOorR",
+      "partyName": "The Raj Family",
       "numGuests": 3,
-      "knownGuests": ["Raj Kapoor", "Kareena Kapoor", "Ranbir Kapoor"]
+      "knownGuests": ["Vishal Raj", "Priya Raj", "Vidya Saxena"],
+      "preEvents": true
+    }
+  },
+  {
+    "id": "t:M3AxoQSl",
+    "data": {
+      "code": "t:M3AxoQSl",
+      "partyName": "The Suraj Family",
+      "numGuests": 3,
+      "knownGuests": ["Vishal Suraj", "Dadlani Suraj", "Bharat Suraj"],
+      "preEvents": true
     }
   }
 ]

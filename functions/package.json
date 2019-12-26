@@ -39,6 +39,7 @@
     "test:ci": "npm run check && npm run test",
     "test:watch": "jest --watch",
     "firestore": "firebase emulators:start --only firestore",
-    "deploy": "firebase -P staging deploy"
+    "deploy": "firebase -P staging deploy",
+    "deploy:prod": "firebase -P production deploy"
   }
 }

@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 'develop'
+      - 'staging'
     paths:
       - 'functions/**'
       - 'firestore.rules'
@@ -22,10 +23,25 @@ jobs:
       run: |
         npm ci
       working-directory: ./functions
-    - name: Run tests and deploy
+    - name: Run tests
       run: |
-        npm run test:ci && npm run deploy
+        npm run test:ci
       working-directory: ./functions
+      env:
+        CI: true
+    - name: Deploy (staging)
+      run: |
+        npm run deploy
+      working-directory: ./functions
+      if: github.ref == "refs/heads/develop"
+      env:
+        CI: true
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    - name: Deploy (prod)
+      run: |
+        npm run deploy:prod
+      working-directory: ./functions
+      if: github.ref == "refs/heads/staging"
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
