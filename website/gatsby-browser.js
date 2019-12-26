@@ -5,7 +5,7 @@ import "typeface-eb-garamond" // serif font
 import "./src/styles/global.css"
 
 export const onRouteUpdate = () => {
-  const branch = process.env.GATSBY_BRANCH
+  const branch = process.env.GATSBY_GA_BRANCH
   typeof window !== "undefined" &&
     window.gtag &&
     branch &&

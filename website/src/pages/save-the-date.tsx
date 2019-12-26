@@ -1,6 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import React from "react"
+import yn from "yn"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
 import SaveTheDateForm from "../components/partials/SaveTheDateForm"
@@ -75,7 +76,9 @@ const SaveTheDatePage: React.FC = () => {
             className="my-8 inline-block w-24 border-subtle-gray"
             aria-hidden
           />
-          <SaveTheDateForm />
+          <SaveTheDateForm
+            redirect={yn(process.env.GATSBY_SAVE_THE_DATE_REDIRECT)}
+          />
         </section>
       </main>
     </BaseLayout>

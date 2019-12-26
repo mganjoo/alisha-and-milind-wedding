@@ -3,7 +3,7 @@ import BaseLayout from "../components/layout/BaseLayout"
 import InvitationCard from "../components/partials/InvitationCard"
 import Emoji from "../components/ui/Emoji"
 
-const DemoPage: React.FC = () => {
+const DemoCardPage: React.FC = () => {
   const [playing, setPlaying] = useState(false)
   const [reverse, setReverse] = useState(false)
 
@@ -42,4 +42,4 @@ const DemoPage: React.FC = () => {
     </BaseLayout>
   )
 }
-export default DemoPage
+export default DemoCardPage

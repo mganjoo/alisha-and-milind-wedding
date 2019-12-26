@@ -6,11 +6,13 @@ interface SubmitButtonProps
   extends Omit<ButtonProps, "type" | "disabled" | "purpose"> {
   label: string
   loading?: boolean
+  forceDisabled?: boolean
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   label,
   loading,
+  forceDisabled,
   ...otherProps
 }) => {
   const formik = useFormikContext()
@@ -18,7 +20,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     <Button
       {...otherProps}
       purpose="submit"
-      disabled={loading || formik.isSubmitting}
+      disabled={forceDisabled || loading || formik.isSubmitting}
     >
       {formik.isSubmitting ? "Submitting..." : label}
     </Button>

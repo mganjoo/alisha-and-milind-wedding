@@ -22,6 +22,17 @@ const googleAnalyticsPlugin = process.env.GA_TRACKING_ID
     ]
   : []
 
+const demoPagePlugin = yn(process.env.DISABLE_DEMO_PAGES)
+  ? []
+  : [
+      {
+        resolve: `gatsby-plugin-page-creator`,
+        options: {
+          path: `${__dirname}/src/pages-demo`,
+        },
+      },
+    ]
+
 module.exports = {
   siteMetadata: {
     title: longTitle,
@@ -48,6 +59,7 @@ module.exports = {
         }`,
       },
     },
+    ...demoPagePlugin,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,

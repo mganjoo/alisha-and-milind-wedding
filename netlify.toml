@@ -11,10 +11,15 @@
 
 [context.production.environment]
   DISABLE_FULL_SITE = "1"
+  DISABLE_DEMO_PAGES = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
-  GATSBY_BRANCH = "master"
+  GATSBY_GA_BRANCH = "master"
 
 [context.staging.environment]
-  DISABLE_FULL_SITE = "1"
+  DISABLE_DEMO_PAGES = "1"
+  GATSBY_SAVE_THE_DATE_REDIRECT = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
-  GATSBY_BRANCH = "staging"
+  GATSBY_GA_BRANCH = "staging"
+
+[context.branch-deploy.environment]
+  GATSBY_GA_BRANCH = "develop"

@@ -1,5 +1,6 @@
 import { Formik } from "formik"
-import React, { useState } from "react"
+import { navigate } from "gatsby"
+import React, { useState, useEffect } from "react"
 import { object, string } from "yup"
 import { Contact } from "../../interfaces/Contact"
 import { loadFirestore } from "../../services/Firestore"
@@ -24,9 +25,19 @@ const initialValues: Contact = {
   email: "",
 }
 
-const SaveTheDateForm: React.FC = () => {
+interface SaveTheDateFormProps {
+  redirect?: boolean
+}
+
+const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ redirect }) => {
   const [submitError, setSubmitError] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (submitted && redirect) {
+      navigate("/")
+    }
+  }, [submitted, redirect])
 
   async function submitInfo(values: Contact) {
     return loadFirestore()
@@ -68,7 +79,16 @@ const SaveTheDateForm: React.FC = () => {
                 autoComplete="email"
               />
               <ButtonRow shadow>
-                <SubmitButton label="Submit info" />
+                <SubmitButton
+                  label={
+                    submitted
+                      ? "Submitted!"
+                      : redirect
+                      ? "Submit and go to website"
+                      : "Submit info"
+                  }
+                  forceDisabled={submitted}
+                />
               </ButtonRow>
               {submitError && (
                 <Alert>
@@ -80,7 +100,7 @@ const SaveTheDateForm: React.FC = () => {
           </Formik>
         </div>
       )}
-      {submitted && (
+      {submitted && !redirect && (
         <div role="status" className="flex flex-col text-center items-center">
           <Symbol symbol="check" className="text-green-700 mb-4" size="l" />
           <div className="c-article">
