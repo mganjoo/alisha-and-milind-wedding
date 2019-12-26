@@ -33,7 +33,7 @@ jobs:
       run: |
         npm run deploy
       working-directory: ./functions
-      if: github.ref == "refs/heads/develop"
+      if: github.ref == 'refs/heads/develop'
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
       run: |
         npm run deploy:prod
       working-directory: ./functions
-      if: github.ref == "refs/heads/staging"
+      if: github.ref == 'refs/heads/staging'
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
