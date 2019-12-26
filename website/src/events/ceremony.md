@@ -8,7 +8,7 @@ location: San Mateo Marriott Valet Entrance
 attire: Indian festive or Western daytime formal
 locationUrl: https://goo.gl/maps/2PnhXrqWcrBB2snc8
 subLocations:
-  - { name: Baraat, date: "2020-05-02T09:00:00", location: "Valet Entrance" }
+  - { name: Baraat, date: "2020-05-02T09:30:00", location: "Valet Entrance" }
   - { name: "Ceremony", date: "2020-05-02T11:00:00", location: "The Courtyard" }
   - { name: "Lunch", date: "2020-05-02T13:00:00", location: "Engage Ballroom" }
 ---

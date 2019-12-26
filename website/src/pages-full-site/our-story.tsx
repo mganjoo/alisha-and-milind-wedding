@@ -133,6 +133,7 @@ const OurStoryPage = () => {
               alt:
                 "Picture of Milind in a Tapatio t-shirt and Alisha in a Sriracha t-shirt at Halloween in San Francisco",
               caption: "“Hot sauce” Halloween",
+              objectPosition: "50% 5%",
             },
           ]}
         />

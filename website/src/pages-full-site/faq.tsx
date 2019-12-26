@@ -187,7 +187,7 @@ const FaqPage = () => {
           <li>
             Run/bike/walk across the Golden Gate Bridge (if you&rsquo;re like
             Milind) or gaze upon it from a{" "}
-            <a href="https://www.presidio.gov/places/golden-gate-bridge-welcome-center=">
+            <a href="https://www.presidio.gov/places/golden-gate-bridge-welcome-center">
               scenic viewpoint
             </a>{" "}
             (if you&rsquo;re like Alisha).

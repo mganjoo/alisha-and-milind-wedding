@@ -11,22 +11,18 @@ const Schedule: React.FC = () => {
   return (
     <>
       <section className="c-article c-narrow-body">
-        {invitation.preEvents ? (
-          <>
-            <p>
-              The weekend events are at the San Mateo Marriott hotel. You can
-              find more information about the venue on the{" "}
-              <Link to="/travel">Travel &amp; Accommodation</Link> page.
-            </p>
-            <p>
-              We would also love for you to join us at the Haldi and Mehndi
-              events, which will be at our rental home in Half Moon Bay.
-            </p>
-          </>
-        ) : (
+        <p>
+          {invitation.preEvents
+            ? "The weekend events are "
+            : "All events will be held "}
+          at the San Mateo Marriott hotel. You can find more information about
+          the venue on the <Link to="/travel">Travel &amp; Accommodation</Link>{" "}
+          page.
+        </p>
+        {invitation.preEvents && (
           <p>
-            All events will be held at the{" "}
-            <Link to="/travel">San Mateo Marriott hotel</Link>.
+            We would also love for you to join us at the Haldi and Mehndi
+            events, which will be at our rental home in Half Moon Bay.
           </p>
         )}
         <LeafSpacer wide />
