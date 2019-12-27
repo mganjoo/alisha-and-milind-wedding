@@ -68,7 +68,7 @@
     "@types/react-helmet": "5.0.14",
     "@types/shortid": "0.0.29",
     "@types/yup": "0.26.26",
-    "axe-core": "3.4.0",
+    "axe-core": "3.4.1",
     "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
     "babel-plugin-react-css-modules": "5.2.6",
