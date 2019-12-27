@@ -90,8 +90,10 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 label="Event"
                 symbol="location"
               >
-                <strong>{location.name}</strong>: {location.location} at{" "}
-                {location.time}
+                <span>
+                  <strong>{location.name}</strong>: {location.location} at{" "}
+                  {location.time}
+                </span>
               </ScheduleInfoItem>
             ))}
           </div>
