@@ -45,7 +45,7 @@
     "yup": "0.28.0"
   },
   "devDependencies": {
-    "@babel/core": "7.7.5",
+    "@babel/core": "7.7.7",
     "@percy/cypress": "2.2.0",
     "@storybook/addon-actions": "5.2.8",
     "@storybook/addon-backgrounds": "5.2.8",
