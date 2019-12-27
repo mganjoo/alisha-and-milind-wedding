@@ -2,7 +2,7 @@ name: Website tests
 on:
   push:
     branches-ignore:
-      - 'staging'
+      - 'develop'
       - 'master'
     paths:
       - 'website/**'
