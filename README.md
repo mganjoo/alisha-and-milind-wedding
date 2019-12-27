@@ -53,6 +53,7 @@ never in CI or test environments.
 
 - `DISABLE_FULL_SITE`: When set to `"1"`, builds only the Save the Date page (instead of the full site).
 - `DISABLE_DEMO_PAGES`: When set to `"1"`, disables building any demo pages in `pages-demo/`.
+- `DISABLE_BOOKING_LINK`: When set to `"1"`, disables the link to book hotel accommodation at discounted rates.
 - `GATSBY_SAVE_THE_DATE_REDIRECT`: When set to `"1"`, redirects to / after submitting save the date form.
 - `GA_TRACKING_ID`: Tracking code for Google Analytics.
   If unset, the website will build, but no analytics will be logged. It is

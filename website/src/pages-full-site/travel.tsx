@@ -36,6 +36,7 @@ const TravelPage = () => {
         site {
           siteMetadata {
             deadline: bookingDeadline(formatString: "MMMM D, YYYY")
+            bookingLink
           }
         }
       }
@@ -160,7 +161,7 @@ const TravelPage = () => {
         </p>
         <div className="my-4 w-full block">
           <ExternalLink
-            href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1561574654973&key=GRP&app=resvlink"
+            href={data.site.siteMetadata.bookingLink}
             className="c-button c-button-primary c-button-compact inline-block shadow-lg"
           >
             Book a room at the special rate
