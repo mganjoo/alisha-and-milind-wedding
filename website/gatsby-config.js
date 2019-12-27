@@ -46,9 +46,6 @@ module.exports = {
     rsvpDeadline: `2020-03-15`,
     bookingDeadline: `2020-04-15`,
     location: `San Mateo, CA`,
-    bookingLink: yn(process.env.DISABLE_BOOKING_LINK)
-      ? `https://example.com`
-      : `https://www.marriott.com/event-reservations/reservation-link.mi?id=1561574654973&key=GRP&app=resvlink`,
   },
   plugins: [
     `gatsby-plugin-typescript`,
