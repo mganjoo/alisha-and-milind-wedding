@@ -67,7 +67,6 @@ const OurStoryPage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.fluid}
-      heroBackground="bg-gray-300"
       alt="Picture of Alisha and Milind in front of a large stone rock face"
     >
       <SEO title="Our Story" image="/meta-our-story-hero.jpg" />

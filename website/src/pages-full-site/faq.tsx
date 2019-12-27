@@ -50,7 +50,6 @@ const FaqPage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.fluid}
-      heroBackground="bg-gray-200"
       alt="Milind and Alisha wearing sunglasses, posing among plants in a nursery"
     >
       <SEO title="Frequently Asked Questions" image="/meta-faq-hero.jpg" />

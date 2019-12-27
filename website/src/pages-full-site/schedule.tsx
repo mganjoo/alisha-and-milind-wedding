@@ -21,7 +21,6 @@ const SchedulePage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.fluid}
-      heroBackground="bg-orange-200"
       objectPosition="50% 5%"
       alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
     >

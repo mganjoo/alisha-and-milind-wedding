@@ -1,7 +1,7 @@
 @import "@reach/skip-nav/styles.css";
 
 .hero {
-  @apply max-w-xl mx-auto w-full shadow-md;
+  @apply max-w-xl mx-auto w-full;
   max-height: 24rem;
 
   @screen print {

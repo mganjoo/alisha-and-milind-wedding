@@ -8,7 +8,6 @@ import "./NavLayout.module.css"
 
 interface NavLayoutProps {
   heroImage?: FluidObject | FluidObject[]
-  heroBackground?: string
   alt?: string
   objectPosition?: string
   hideBackToTop?: boolean
@@ -17,7 +16,6 @@ interface NavLayoutProps {
 const NavLayout: React.FC<NavLayoutProps> = ({
   children,
   heroImage,
-  heroBackground,
   alt,
   objectPosition,
   hideBackToTop,
