@@ -74,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         </div>
         <div className="absolute top-0 right-0 ml-1 mr-2 h-full flex items-center sm:hidden print:hidden">
           <button
-            className="p-2 focus:outline-none focus:shadow-outline-light"
+            className="p-2 flex flex-col items-center justify-center bg-off-white focus:outline-none focus:shadow-outline-light"
             ref={menuButtonRef}
             onClick={() => setDropdownVisible(!dropdownVisible)}
             aria-label="Toggle Menu"
@@ -86,6 +86,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
             >
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
+            <span className="font-sans text-xs w-full">Menu</span>
           </button>
         </div>
       </div>
