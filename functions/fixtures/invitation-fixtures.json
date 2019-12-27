@@ -40,9 +40,9 @@
     "id": "atest2",
     "data": {
       "code": "atest2",
-      "partyName": "Deepika Padukone & Ranveer Singh",
+      "partyName": "Jack & Jill Gupta",
       "numGuests": 2,
-      "knownGuests": ["Deepika Padukone", "Ranveer Singh"],
+      "knownGuests": ["Jack Gupta", "Jill Gupta"],
       "preEvents": true
     }
   },
