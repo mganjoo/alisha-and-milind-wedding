@@ -59,9 +59,9 @@ const FaqPage = () => {
         <p>
           Please visit the <Link to="/rsvp">RSVP</Link> page to fill out the
           form online (your email address may be required). Please confirm the
-          spellings for the guests in your party and confirm your attendance.
-          You will then be able to indicate specifically which events you will
-          be attending on the next page.
+          spellings of the names for the guests in your party and confirm your
+          attendance. You will then be able to indicate specifically which
+          events each guest will be attending on the next page.
         </p>
         <p>
           You will be able to edit your RSVP once you have submitted the form,

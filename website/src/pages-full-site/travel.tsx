@@ -135,7 +135,7 @@ const TravelPage = () => {
         </p>
         <p>
           Unfortunately, the hotel does not have a shuttle service to or from
-          either of these airports; the best way to get to the San Mateo
+          either of these airports. The best way to get to the San Mateo
           Marriott would be through a paid shuttle, rideshare, or rental car.
           Please note that the San Mateo-Hayward Bridge is a toll route when
           coming in from Oakland.
