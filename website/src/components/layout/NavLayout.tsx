@@ -38,7 +38,8 @@ const NavLayout: React.FC<NavLayoutProps> = ({
         <SkipNavContent />
         {heroImage && (
           <div
-            className={classnames("mb-8 print:bg-transparent", heroBackground)}
+            className="mb-8 border-b border-gray-subtle print:bg-transparent"
+            styleName="page-bg"
           >
             <Img
               fluid={heroImage}
