@@ -1,5 +1,4 @@
 import { Menu, MenuButton, MenuList, MenuLink } from "@reach/menu-button"
-import { OutboundLink } from "gatsby-plugin-google-gtag"
 import React from "react"
 import { useUID } from "react-uid"
 import {
@@ -9,6 +8,7 @@ import {
   outlook,
   yahoo,
 } from "../../utils/AddToCalendarUtils"
+import ExternalLink from "./ExternalLink"
 import Symbol from "./Symbol"
 import "./AddToCalendarLinks.module.css"
 
@@ -75,7 +75,7 @@ function getLinkOpenProps(event: CalendarEvent, type: CalendarType) {
     case "ical":
       return { download: `${event.shortName || "event"}.ics` }
     default:
-      return { target: "_blank", rel: "noopener noreferrer" }
+      return {}
   }
 }
 
@@ -110,6 +110,7 @@ function getLinkProps(event: CalendarEvent, type: CalendarType) {
         {getLabel(type)}
       </>
     ),
+    track: true,
     ...getLinkOpenProps(event, type),
   }
 }
@@ -143,8 +144,7 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
         {eventTypes.map(eventType => (
           <li className="mx-2 mt-1 mb-2" key={eventType}>
             {
-              // eslint-disable-next-line jsx-a11y/anchor-has-content
-              <OutboundLink
+              <ExternalLink
                 className="c-button c-button-tertiary c-button-compact flex items-center"
                 {...getLinkProps(event, eventType)}
               />
@@ -161,7 +161,11 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
       </MenuButton>
       <MenuList>
         {eventTypes.map(eventType => (
-          <MenuLink key={eventType} {...getLinkProps(event, eventType)} />
+          <MenuLink
+            as={ExternalLink}
+            key={eventType}
+            {...getLinkProps(event, eventType)}
+          />
         ))}
       </MenuList>
     </Menu>

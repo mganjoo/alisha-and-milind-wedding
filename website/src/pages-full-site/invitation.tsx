@@ -13,7 +13,7 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
   const state: InvitationPageNavigationState =
     location && location.state ? location.state : {}
   const returnLink = state.fromRsvp
-    ? { label: "RSVP", url: "/rsvp" }
+    ? { label: "Back to website", url: "/rsvp" }
     : undefined
   return (
     <BaseLayout>

@@ -5,6 +5,7 @@ import SEO from "../components/meta/SEO"
 import ContactEmail from "../components/partials/ContactEmail"
 import Faq from "../components/partials/Faq"
 import Emoji from "../components/ui/Emoji"
+import ExternalLink from "../components/ui/ExternalLink"
 import ImageGrid from "../components/ui/ImageGrid"
 import PageHeading from "../components/ui/PageHeading"
 
@@ -19,35 +20,28 @@ const FaqPage = () => {
         }
         clothes1: file(relativePath: { eq: "faq-clothes-1.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         clothes2: file(relativePath: { eq: "faq-clothes-2.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         clothes3: file(relativePath: { eq: "faq-clothes-3.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         clothes4: file(relativePath: { eq: "faq-clothes-4.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         site {
           siteMetadata {
             rsvpDeadline(formatString: "MMMM D, YYYY")
+            bookingDeadline(formatString: "MMMM D, YYYY")
           }
         }
       }
@@ -59,8 +53,8 @@ const FaqPage = () => {
       heroBackground="bg-gray-200"
       alt="Milind and Alisha wearing sunglasses, posing among plants in a nursery"
     >
-      <SEO title="FAQ" />
-      <PageHeading>FAQ</PageHeading>
+      <SEO title="Frequently Asked Questions" image="/meta-faq-hero.jpg" />
+      <PageHeading>Frequently Asked Questions</PageHeading>
       <Faq question="How should I RSVP?">
         <p>
           Please visit the <Link to="/rsvp">RSVP</Link> page to fill out the
@@ -143,6 +137,9 @@ const FaqPage = () => {
           We sure do! Please see the{" "}
           <Link to="/travel#hotel-block">Travel &amp; Accommodations</Link> page
           for details, as well as the link to book with our discounted rate.
+          Please book by{" "}
+          <strong>{data.site.siteMetadata.bookingDeadline}</strong> to ensure
+          room availability.
         </p>
       </Faq>
       <Faq question="What will the weather be like this time of year?">
@@ -159,10 +156,9 @@ const FaqPage = () => {
       </Faq>
       <Faq question="Is it okay to take photos or videos during the wedding events?">
         <p>
-          Absolutely! (We are in the market for hashtag suggestions, but for now
-          we&rsquo;re going with <strong>#AlishaWinsAMil</strong>) And certainly
-          no pressure to capture. We will share our photographer&rsquo;s shots
-          with you as well.
+          Absolutely! Our social media hashtag is{" "}
+          <strong>#AlishaWinsAMil</strong>. Certainly no pressure to capture,
+          though! We will share our photographer&rsquo;s shots with you as well.
         </p>
       </Faq>
       <Faq question="What will the cuisine be at the wedding events?">
@@ -187,24 +183,24 @@ const FaqPage = () => {
           <li>
             Run/bike/walk across the Golden Gate Bridge (if you&rsquo;re like
             Milind) or gaze upon it from a{" "}
-            <a href="https://www.presidio.gov/places/golden-gate-bridge-welcome-center">
+            <ExternalLink href="https://www.presidio.gov/places/golden-gate-bridge-welcome-center">
               scenic viewpoint
-            </a>{" "}
+            </ExternalLink>{" "}
             (if you&rsquo;re like Alisha).
           </li>
           <li>
             We love the{" "}
-            <a href="https://www.everywhereist.com/2012/08/the-view-from-the-hamon-observation-tower-san-francisco/">
+            <ExternalLink href="https://www.everywhereist.com/2012/08/the-view-from-the-hamon-observation-tower-san-francisco/">
               Hamon Observation Tower
-            </a>{" "}
+            </ExternalLink>{" "}
             in the de Young Museum (free admission to the top!), the{" "}
-            <a href="https://www.japaneseteagardensf.com/">
+            <ExternalLink href="https://www.japaneseteagardensf.com/">
               Japanese Tea Garden
-            </a>
+            </ExternalLink>
             , and the{" "}
-            <a href="https://www.calacademy.org/exhibits/osher-rainforest">
+            <ExternalLink href="https://www.calacademy.org/exhibits/osher-rainforest">
               Osher Rainforest
-            </a>{" "}
+            </ExternalLink>{" "}
             at the California Academy of Sciences that are all located next to
             each other in Golden Gate Park.
           </li>
@@ -212,20 +208,22 @@ const FaqPage = () => {
             If you enjoy touring university campuses as much as our parents do,
             Stanford University is highly photogenic. Milind recommends getting
             a sandwich at his tried-and-true favorite{" "}
-            <a href="https://www.cohostanford.com/">CoHo</a>, taking in the
-            views from the top of{" "}
-            <a href="https://visit.stanford.edu/plan/guides/hoover.html">
+            <ExternalLink href="https://www.cohostanford.com/">
+              CoHo
+            </ExternalLink>
+            , taking in the views from the top of{" "}
+            <ExternalLink href="https://visit.stanford.edu/plan/guides/hoover.html">
               Hoover Tower
-            </a>
+            </ExternalLink>
             , and walking around the Main Quad. Alisha recommends strolling
             through the little-known{" "}
-            <a href="https://lbre.stanford.edu/bgm/what-we-do/grounds-services/horticulture-and-landscape/points-interest/arizona-garden">
+            <ExternalLink href="https://lbre.stanford.edu/bgm/what-we-do/grounds-services/horticulture-and-landscape/points-interest/arizona-garden">
               Arizona Garden
-            </a>{" "}
+            </ExternalLink>{" "}
             as well as the well-known{" "}
-            <a href="https://web.stanford.edu/dept/suma/view/rodin.html">
+            <ExternalLink href="https://web.stanford.edu/dept/suma/view/rodin.html">
               Rodin Sculpture Garden
-            </a>{" "}
+            </ExternalLink>{" "}
             in the Cantor Arts Center.
           </li>
         </ul>
@@ -235,18 +233,24 @@ const FaqPage = () => {
           <li>Sip the best wine in Napa Valley or Sonoma Valley.</li>
           <li>
             Don&rsquo;t miss the jellyfish at the{" "}
-            <a href="https://www.montereybayaquarium.org/">
+            <ExternalLink href="https://www.montereybayaquarium.org/">
               Monterey Bay Aquarium
-            </a>
+            </ExternalLink>
             !
           </li>
           <li>
             Hike amidst the redwoods at{" "}
-            <a href="https://www.nps.gov/muwo/index.htm">Muir Woods</a>.
+            <ExternalLink href="https://www.nps.gov/muwo/index.htm">
+              Muir Woods
+            </ExternalLink>
+            .
           </li>
           <li>
             Soak up the sun at the{" "}
-            <a href="https://beachboardwalk.com/">Santa Cruz Boardwalk</a>.
+            <ExternalLink href="https://beachboardwalk.com/">
+              Santa Cruz Boardwalk
+            </ExternalLink>
+            .
           </li>
         </ul>
 
@@ -267,8 +271,10 @@ const FaqPage = () => {
           <li>
             You just spent all weekend dancing on those feet and now you want to
             sit back and relax. For a quirky, indoor experience, we love{" "}
-            <a href="https://drafthouse.com/sf">Alamo Drafthouse Cinema</a>.
-            They create their own trailers relevant to the movie you&rsquo;re
+            <ExternalLink href="https://drafthouse.com/sf">
+              Alamo Drafthouse Cinema
+            </ExternalLink>
+            . They create their own trailers relevant to the movie you&rsquo;re
             there to see, and food and drinks get delivered directly to your
             seat.
           </li>
@@ -278,25 +284,31 @@ const FaqPage = () => {
         <ul>
           <li>
             Alisha&rsquo;s favorite sweet treat: the baklava frozen Greek yogurt
-            at <a href="https://www.souvla.com/">Souvla</a> (but all the food
-            there is delicious).
+            at{" "}
+            <ExternalLink href="https://www.souvla.com/">Souvla</ExternalLink>{" "}
+            (but all the food there is delicious).
           </li>
           <li>
             Milind&rsquo;s favorite savory treats: the Mission burrito (try{" "}
-            <a href="https://www.yelp.com/biz/el-farolito-san-francisco-2">
+            <ExternalLink href="https://www.yelp.com/biz/el-farolito-san-francisco-2">
               El Farolito
-            </a>
+            </ExternalLink>
             !) or the burger at{" "}
-            <a href="https://www.yelp.com/biz/nopa-san-francisco">Nopa</a>.
+            <ExternalLink href="https://www.yelp.com/biz/nopa-san-francisco">
+              Nopa
+            </ExternalLink>
+            .
           </li>
           <li>
             San Francisco is known for the sourdough bread bowls with clam
             chowder, for which{" "}
-            <a href="https://boudinbakery.com/home/">Boudin Bakery</a> is
-            popular! For seafood aficionados, keep{" "}
-            <a href="https://www.yelp.com/biz/hog-island-oyster-co-san-francisco">
+            <ExternalLink href="https://boudinbakery.com/home/">
+              Boudin Bakery
+            </ExternalLink>{" "}
+            is popular! For seafood aficionados, keep{" "}
+            <ExternalLink href="https://www.yelp.com/biz/hog-island-oyster-co-san-francisco">
               Hog Island Oyster Co
-            </a>{" "}
+            </ExternalLink>{" "}
             on your radar.
           </li>
         </ul>

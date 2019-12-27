@@ -1,9 +1,9 @@
 import { useStaticQuery, graphql } from "gatsby"
-import { OutboundLink } from "gatsby-plugin-google-gtag"
 import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import ContactEmail from "../components/partials/ContactEmail"
+import ExternalLink from "../components/ui/ExternalLink"
 import IframeContainer from "../components/ui/IframeContainer"
 import PageHeading from "../components/ui/PageHeading"
 import Symbol, { SymbolName } from "../components/ui/Symbol"
@@ -82,9 +82,9 @@ const TravelPage = () => {
         <p>
           For our friends and family flying in for the festivities, the closest
           airport is{" "}
-          <a href="https://www.flysfo.com/">
+          <ExternalLink href="https://www.flysfo.com/">
             San Francisco International Airport (SFO)
-          </a>
+          </ExternalLink>
           , which is around 8 miles from the hotel.
         </p>
         <dl>
@@ -97,16 +97,18 @@ const TravelPage = () => {
               +1 (650) 653-6000
             </a>
             . More details about the shuttle service can be found on the{" "}
-            <a href="https://www.marriott.com/hotels/maps/travel/sfosa-san-mateo-marriott-san-francisco-airport/">
+            <ExternalLink href="https://www.marriott.com/hotels/maps/travel/sfosa-san-mateo-marriott-san-francisco-airport/">
               hotel&rsquo;s website
-            </a>
+            </ExternalLink>
             .
           </dd>
           <dt>Paid Shuttles</dt>
           <dd>
             Paid shuttle services, such as{" "}
-            <a href="https://www.supershuttle.com/">SuperShuttle</a>, can also
-            be booked ahead of time.
+            <ExternalLink href="https://www.supershuttle.com/">
+              SuperShuttle
+            </ExternalLink>
+            , can also be booked ahead of time.
           </dd>
           <dt>Rideshares &amp; Taxis</dt>
           <dd>
@@ -122,18 +124,18 @@ const TravelPage = () => {
         </HeadingSymbol>
         <p>
           If you&rsquo;re flying into{" "}
-          <a href="https://www.flysanjose.com/">
+          <ExternalLink href="https://www.flysanjose.com/">
             San Jose International Airport (SJC)
-          </a>{" "}
+          </ExternalLink>{" "}
           or{" "}
-          <a href="https://www.oaklandairport.com/">
+          <ExternalLink href="https://www.oaklandairport.com/">
             Oakland International Airport (OAK)
-          </a>
+          </ExternalLink>
           , the distance from each airport is about 25 miles to our venue.
         </p>
         <p>
           Unfortunately, the hotel does not have a shuttle service to or from
-          either of these airports, so the best way to get to the San Mateo
+          either of these airports; the best way to get to the San Mateo
           Marriott would be through a paid shuttle, rideshare, or rental car.
           Please note that the San Mateo-Hayward Bridge is a toll route when
           coming in from Oakland.
@@ -158,12 +160,12 @@ const TravelPage = () => {
           staying overnight at the venue.
         </p>
         <div className="my-4 w-full block">
-          <OutboundLink
+          <ExternalLink
             href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1561574654973&key=GRP&app=resvlink"
             className="c-button c-button-primary c-button-compact inline-block shadow-lg"
           >
             Book a room at the special rate
-          </OutboundLink>
+          </ExternalLink>
         </div>
         <p>
           Please use the above link to book your stay at the San Mateo Marriott

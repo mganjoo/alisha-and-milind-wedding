@@ -21,6 +21,7 @@ const IndexPage = () => {
       heroBackground="bg-gray-200"
       alt="Alisha and Milind posing in front of the sunset in Monterey, California"
       objectPosition="50% 32%"
+      hideBackToTop
     >
       <SEO title="Home" image="/meta-main-hero.jpg" />
       <div className="c-article c-narrow-body">

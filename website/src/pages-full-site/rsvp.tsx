@@ -3,6 +3,7 @@ import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
+import ContactEmail from "../components/partials/ContactEmail"
 import ReeditableRsvpForm from "../components/partials/rsvp/ReeditableRsvpForm"
 import PageHeading from "../components/ui/PageHeading"
 import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
@@ -40,7 +41,8 @@ const RsvpPage = () => {
                   <p>
                     Any member of your party can submit for the whole group, and
                     you can edit your RSVP as many times as you like before{" "}
-                    {value.shortDeadline}.
+                    {value.shortDeadline}. If you need to make changes after
+                    that, just send us an email at <ContactEmail />.
                   </p>
                   <div className="flex justify-center my-6">
                     <Link

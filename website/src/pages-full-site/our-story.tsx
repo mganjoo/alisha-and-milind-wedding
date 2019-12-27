@@ -3,6 +3,7 @@ import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Emoji from "../components/ui/Emoji"
+import ExternalLink from "../components/ui/ExternalLink"
 import IframeContainer from "../components/ui/IframeContainer"
 import ImageGrid from "../components/ui/ImageGrid"
 import PageHeading from "../components/ui/PageHeading"
@@ -18,62 +19,46 @@ const OurStoryPage = () => {
         }
         redRock: file(relativePath: { eq: "our-story-travel-red-rock.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         tahoe: file(relativePath: { eq: "our-story-travel-tahoe.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         edinburgh: file(
           relativePath: { eq: "our-story-travel-edinburgh.jpg" }
         ) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         yosemite: file(relativePath: { eq: "our-story-travel-yosemite.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         chicago: file(relativePath: { eq: "our-story-travel-chicago.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         halloween: file(
           relativePath: { eq: "our-story-travel-halloween.jpg" }
         ) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         proposal1: file(relativePath: { eq: "our-story-proposal-1.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
         proposal2: file(relativePath: { eq: "our-story-proposal-2.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
-            }
+            ...GridImage
           }
         }
       }
@@ -143,19 +128,21 @@ const OurStoryPage = () => {
         <p>
           Alisha&rsquo;s friends thought Milind would certainly propose when the
           couple went to see{" "}
-          <a href="https://en.wikipedia.org/wiki/Hamilton_(musical)">
+          <ExternalLink href="https://en.wikipedia.org/wiki/Hamilton_(musical)">
             Hamilton
-          </a>{" "}
+          </ExternalLink>{" "}
           the musical, so that the photo caption could have been &ldquo;
-          <a href="https://www.youtube.com/watch?v=WySzEXKUSZw">
+          <ExternalLink href="https://www.youtube.com/watch?v=WySzEXKUSZw">
             The Room Where It Happened
-          </a>{" "}
+          </ExternalLink>{" "}
           {<Emoji symbol="💎" label="diamond emoji" />}&rdquo; &mdash; but
           Milind has never been one to take the obvious route. Instead, he
           patiently waited until a few weeks later when Milind and Alisha
           visited the{" "}
-          <a href="https://legionofhonor.famsf.org/">Legion of Honor Museum</a>.
-          Alisha, unsuspecting as ever after spending hours underground at a
+          <ExternalLink href="https://legionofhonor.famsf.org/">
+            Legion of Honor Museum
+          </ExternalLink>
+          . Alisha, unsuspecting as ever after spending hours underground at a
           mummies exhibit, led Milind straight to the proposal spot so that she
           could take a photo of that VIEW (you know, the one with the bridge).
           He had smoothly arranged for their friend to already be there,

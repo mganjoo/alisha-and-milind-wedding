@@ -11,6 +11,7 @@ interface NavLayoutProps {
   heroBackground?: string
   alt?: string
   objectPosition?: string
+  hideBackToTop?: boolean
 }
 
 const NavLayout: React.FC<NavLayoutProps> = ({
@@ -19,6 +20,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
   heroBackground,
   alt,
   objectPosition,
+  hideBackToTop,
 }) => {
   return (
     <BaseLayout>
@@ -56,6 +58,16 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           {children}
         </div>
       </main>
+      {!hideBackToTop && (
+        <footer className="hidden pb-6 text-gray-700 sm:flex sm:justify-center">
+          <button
+            className="c-inline-button"
+            onClick={() => window.scrollTo({ top: 0 })}
+          >
+            Back to top
+          </button>
+        </footer>
+      )}
     </BaseLayout>
   )
 }

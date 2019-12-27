@@ -9,7 +9,7 @@ locationUrl: https://goo.gl/maps/2PnhXrqWcrBB2snc8
 attire: Indian festive or Western semi-formal
 ---
 
-The Sangeet is all about music, dance, performances by friends and family,
+The _sangeet_ is all about music, dance, performances by friends and family,
 food, and drinks to kick off the wedding celebrations. We’ll all be tearing
 up the dance floor with our DJ to close out the night.
 

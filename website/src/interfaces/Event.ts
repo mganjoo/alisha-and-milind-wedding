@@ -48,9 +48,9 @@ export function useEvents() {
             html
             plainText
             frontmatter {
-              shortDate: date(formatString: "ddd MMM D, h:mma")
+              shortDate: date(formatString: "ddd MMM D, h:mm a")
               longDateOnly: date(formatString: "dddd, MMMM D")
-              timeOnly: date(formatString: "h:mma")
+              timeOnly: date(formatString: "h:mm a")
               startDate: date(formatString: "YYYY-MM-DDTHH:mm:ss-07:00")
               endDate: endDate(formatString: "YYYY-MM-DDTHH:mm:ss-07:00")
               preEvent
@@ -62,7 +62,7 @@ export function useEvents() {
               subLocations {
                 name
                 location
-                time: date(formatString: "h:mma")
+                time: date(formatString: "h:mm a")
               }
             }
           }
