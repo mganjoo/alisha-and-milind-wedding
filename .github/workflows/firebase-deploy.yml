@@ -2,7 +2,6 @@ name: Firebase staging deploy
 on:
   push:
     branches:
-      - 'develop'
       - 'staging'
     paths:
       - 'functions/**'
@@ -33,7 +32,6 @@ jobs:
       run: |
         npm run deploy
       working-directory: ./functions
-      if: github.ref == 'refs/heads/develop'
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
@@ -45,3 +43,7 @@ jobs:
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    - name: Seed data (prod)
+      run: |
+        curl -X POST -d {} https://us-central1-alisha-and-milind-wedding.cloudfunctions.net/seedInvitations
+      if: github.ref == 'refs/heads/staging'

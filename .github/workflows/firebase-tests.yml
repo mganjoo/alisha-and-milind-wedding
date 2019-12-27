@@ -2,7 +2,6 @@ name: Firebase tests
 on:
   push:
     branches-ignore:
-      - 'develop'
       - 'staging'
       - 'master'
     paths:

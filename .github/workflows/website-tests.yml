@@ -2,7 +2,6 @@ name: Website tests
 on:
   push:
     branches-ignore:
-      - 'develop'
       - 'master'
     paths:
       - 'website/**'
@@ -22,8 +21,8 @@ jobs:
       if: github.event_name == 'repository_dispatch'
       uses: actions/checkout@v1
       with:
-        # Always build and run external dispatch tests on 'develop' branch
-        ref: develop
+        # Always build and run external dispatch tests on 'staging' branch
+        ref: staging
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
@@ -65,6 +64,13 @@ jobs:
         echo "Running tests with external URL ${CYPRESS_baseUrl}..."
         npm run cy:run:ci
       working-directory: ./website
+    - name: Deploy to Netlify
+      run: |
+        echo "Triggering build via ${NETLIFY_BUILD_HOOK_URL}..."
+        curl -X POST -d {} $NETLIFY_BUILD_HOOK_URL
+      if: github.ref == 'refs/heads/staging'
+      env:
+        NETLIFY_BUILD_HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
     - name: Archive Cypress videos
       if: failure()
       uses: actions/upload-artifact@v1
