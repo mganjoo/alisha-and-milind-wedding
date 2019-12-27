@@ -1,6 +1,7 @@
 import { RouteComponentProps } from "@reach/router"
 import React from "react"
 import BaseLayout from "../components/layout/BaseLayout"
+import SEO from "../components/meta/SEO"
 import InvitationCard from "../components/partials/InvitationCard"
 
 interface InvitationPageNavigationState {
@@ -17,6 +18,7 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
     : undefined
   return (
     <BaseLayout>
+      <SEO title="Welcome" image="/meta-main-hero.jpg" />
       <main>
         <InvitationCard
           playing
