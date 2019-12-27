@@ -58,22 +58,6 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
   return (
     <header className="sticky top-0 z-10 border-b border-gray-subtle bg-off-white sm:static sm:z-0 print:static">
       <div className="relative">
-        <div className="absolute mx-1 h-full flex items-center sm:hidden print:hidden">
-          <button
-            className="ml-1 p-2 focus:outline-none focus:shadow-outline-light"
-            ref={menuButtonRef}
-            onClick={() => setDropdownVisible(!dropdownVisible)}
-            aria-label="Toggle Menu"
-          >
-            <svg
-              className="w-5 h-5"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
-          </button>
-        </div>
         <div className="py-3 text-center sm:pt-6 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-4xl">
             <Link
@@ -87,6 +71,22 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
             {data && data.site.siteMetadata.displayDates} &middot;{" "}
             {data && data.site.siteMetadata.location}
           </h2>
+        </div>
+        <div className="absolute top-0 right-0 ml-1 mr-2 h-full flex items-center sm:hidden print:hidden">
+          <button
+            className="p-2 focus:outline-none focus:shadow-outline-light"
+            ref={menuButtonRef}
+            onClick={() => setDropdownVisible(!dropdownVisible)}
+            aria-label="Toggle Menu"
+          >
+            <svg
+              className="w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+          </button>
         </div>
       </div>
       <nav
