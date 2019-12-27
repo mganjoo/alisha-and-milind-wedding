@@ -61,8 +61,13 @@
     "data": {
       "code": "t:M3AxoQSl",
       "partyName": "The Suraj Family",
-      "numGuests": 3,
-      "knownGuests": ["Vishal Suraj", "Dadlani Suraj", "Bharat Suraj"],
+      "numGuests": 4,
+      "knownGuests": [
+        "Vishal Suraj",
+        "Dadlani Suraj",
+        "Raji Suraj",
+        "Bharat Suraj"
+      ],
       "preEvents": true
     }
   }
