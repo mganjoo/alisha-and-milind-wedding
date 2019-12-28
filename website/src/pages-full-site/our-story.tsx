@@ -184,6 +184,7 @@ const OurStoryPage = () => {
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="Video: 16 Questions with Alisha and Milind"
+            containerClassName="bg-black"
           />
         </div>
       </section>

@@ -1,3 +1,4 @@
+import classnames from "classnames"
 import React from "react"
 
 interface IframeContainerProps
@@ -7,18 +8,23 @@ interface IframeContainerProps
   > {
   width: number
   height: number
+  containerClassName?: string
 }
 
 const IframeContainer: React.FC<IframeContainerProps> = ({
   width,
   height,
   title,
+  containerClassName,
   ...otherProps
 }) => {
   const paddingBottom = `${((100 * height) / width).toFixed(5)}%`
   return (
     <div
-      className="relative overflow-hidden w-full"
+      className={classnames(
+        "relative overflow-hidden w-full",
+        containerClassName
+      )}
       style={{ paddingBottom: paddingBottom }}
     >
       <iframe
