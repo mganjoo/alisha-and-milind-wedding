@@ -35,12 +35,12 @@ const RsvpPage = () => {
                 <div className="c-article">
                   <p>
                     We hope to see you at our wedding! Please RSVP by{" "}
-                    <strong>{value.deadline}</strong>.
+                    <strong>{value.rsvpDeadline}</strong>.
                   </p>
                   <p>
                     Any member of your party can submit for the whole group, and
                     you can edit your RSVP as many times as you like before{" "}
-                    {value.shortDeadline}. If you need to make changes after
+                    {value.shortRsvpDeadline}. If you need to make changes after
                     that, just send us an email at <ContactEmail />.
                   </p>
                   <div className="flex justify-center my-6">
