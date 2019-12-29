@@ -28,38 +28,36 @@ const RsvpPage = () => {
     >
       <SEO title="RSVP" image="/meta-rsvp-hero.jpg" />
       <PageHeading>RSVP</PageHeading>
-      <Authenticated refreshOlderThanSecs={90}>
-        <div className="c-narrow-body">
-          <WeddingMetadataContext.Consumer>
-            {value => (
-              <>
-                <div className="c-article">
-                  <p>
-                    We hope to see you at our wedding! Please RSVP by{" "}
-                    <strong>{value.rsvpDeadline}</strong>.
-                  </p>
-                  <p>
-                    Any member of your party can submit for the whole group, and
-                    you can edit your RSVP as many times as you like before{" "}
-                    {value.shortRsvpDeadline}. If you need to make changes after
-                    that, just send us an email at <ContactEmail />.
-                  </p>
-                  <div className="flex justify-center my-6">
-                    <Link
-                      to="/invitation"
-                      state={{ fromRsvp: true } as InvitationNavigationState}
-                      className="c-button c-button-secondary c-button-compact shadow-md"
-                    >
-                      View your invitation
-                    </Link>
-                  </div>
-                </div>
-              </>
-            )}
-          </WeddingMetadataContext.Consumer>
+      <div className="c-narrow-body">
+        <WeddingMetadataContext.Consumer>
+          {value => (
+            <div className="c-article">
+              <p>
+                We hope to see you at our wedding! Please RSVP by{" "}
+                <strong>{value.rsvpDeadline}</strong>.
+              </p>
+              <p>
+                Any member of your party can submit for the whole group, and you
+                can edit your RSVP as many times as you like before{" "}
+                {value.shortRsvpDeadline}. If you need to make changes after
+                that, just send us an email at <ContactEmail />.
+              </p>
+              <div className="flex justify-center my-6">
+                <Link
+                  to="/invitation"
+                  state={{ fromRsvp: true } as InvitationNavigationState}
+                  className="c-button c-button-secondary c-button-compact shadow-md"
+                >
+                  View your invitation
+                </Link>
+              </div>
+            </div>
+          )}
+        </WeddingMetadataContext.Consumer>
+        <Authenticated refreshOlderThanSecs={90}>
           <ReeditableRsvpForm />
-        </div>
-      </Authenticated>
+        </Authenticated>
+      </div>
     </NavLayout>
   )
 }
