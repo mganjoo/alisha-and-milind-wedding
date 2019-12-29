@@ -1,3 +1,4 @@
+import classnames from "classnames"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
 import React, { useContext, useEffect, useState } from "react"
@@ -107,7 +108,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
         invitation: file(relativePath: { eq: "invitation/invitation.jpg" }) {
           childImageSharp {
             fluid {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_noBase64
             }
           }
         }
@@ -127,7 +128,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
       return
     }
     return
-  }, [startDelayMs, started, playing, reverse, skipAnimation, state])
+  }, [startDelayMs, started, playing, reverse, state])
 
   function transition() {
     if (letterLoaded && (skipAnimation || (playing && started))) {
@@ -186,7 +187,9 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
             </div>
             <div styleName="back back-base">
               <animated.div
-                className="border border-orange-800 shadow-lg p-cover"
+                className={classnames("p-cover", {
+                  "border border-orange-800 shadow-lg": letterLoaded,
+                })}
                 styleName="letter"
                 style={{
                   transform: interpolate(

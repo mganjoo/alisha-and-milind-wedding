@@ -4,6 +4,7 @@ import React, { useEffect } from "react"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
 import Loading from "../components/ui/Loading"
+import { InvitationNavigationState } from "../interfaces/InvitationNavigationState"
 
 interface InvitationPageQueryParams {
   c?: string
@@ -19,8 +20,8 @@ const LoadPage: React.FC<RouteComponentProps> = ({ location }) => {
       replace: true,
       state: {
         code: pageArguments.c,
-        immediate: pageArguments.immediate && pageArguments.immediate > 0,
-      },
+        animate: !pageArguments.immediate,
+      } as InvitationNavigationState,
     })
   }, [pageArguments])
   return (

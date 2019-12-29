@@ -3,15 +3,10 @@ import React from "react"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
 import InvitationCard from "../components/partials/InvitationCard"
-
-interface InvitationPageNavigationState {
-  code?: string
-  immediate?: boolean
-  fromRsvp?: boolean
-}
+import { InvitationNavigationState } from "../interfaces/InvitationNavigationState"
 
 const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
-  const state: InvitationPageNavigationState =
+  const state: InvitationNavigationState =
     location && location.state ? location.state : {}
   const returnLink = state.fromRsvp
     ? { label: "Back to website", url: "/rsvp" }
@@ -23,7 +18,7 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
         <InvitationCard
           playing
           startDelayMs={2000}
-          skipAnimation={state.immediate}
+          skipAnimation={!state.animate}
           initialCode={state.code}
           navLink={returnLink}
         />
