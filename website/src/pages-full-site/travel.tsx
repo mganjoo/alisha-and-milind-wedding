@@ -70,7 +70,7 @@ const TravelPage = () => {
                   width={400}
                   height={300}
                   title="Wedding Venue: San Mateo Marriott San Francisco Airport"
-                  containerClassName="bg-gray-200"
+                  containerClassName="bg-gray-200 text-gray-900"
                 />
               </div>
             </section>
