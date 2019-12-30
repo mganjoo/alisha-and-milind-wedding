@@ -157,10 +157,8 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
               <BaseForm>
                 {!isSubmitting && showAlert && (
                   <Alert>
-                    {isError &&
+                    {(isError || isInitialMissing) &&
                       "There was an error retrieving your invitation. "}
-                    {isInitialMissing &&
-                      "Hmm, we couldn’t find that invitation code. "}
                     {isMissing &&
                       "Hmm, we couldn’t find an invitation under that email. "}
                     Please try again, or email us at <ContactEmail />.
