@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react"
 import Alert from "../../ui/Alert"
 import Loading from "../../ui/Loading"
 import { InvitationContext } from "../Authenticated"
-import ContactEmail from "../ContactEmail"
 import RsvpForm from "./RsvpForm"
 import RsvpInfo from "./RsvpInfo"
 
@@ -31,8 +30,8 @@ const ReeditableRsvpForm: React.FC = () => {
   } else if (refetchStatus === "error" && !invitation.latestRsvp) {
     return (
       <Alert>
-        Could not load the RSVP form (maybe your device is offline?) Please try
-        again, or email us at <ContactEmail />.
+        There was an error retrieving your latest RSVP information (maybe your
+        device is offline?) The RSVP form is temporarily disabled.
       </Alert>
     )
   } else {
@@ -41,10 +40,15 @@ const ReeditableRsvpForm: React.FC = () => {
         {refetchStatus === "error" && (
           <Alert>
             There was an error retrieving your latest RSVP information (maybe
-            your device is offline?). This information might be out-of-date.
+            your device is offline?) Editing the RSVP has been temporarily
+            disabled, and the information below might be out-of-date.
           </Alert>
         )}
-        <RsvpInfo handleEditRsvp={() => setEditingForm(true)} />
+        <RsvpInfo
+          handleEditRsvp={
+            refetchStatus === "error" ? undefined : () => setEditingForm(true)
+          }
+        />
       </>
     )
   }

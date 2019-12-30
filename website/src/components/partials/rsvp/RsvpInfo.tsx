@@ -10,7 +10,7 @@ function formatDate(timestampMillis: number) {
 }
 
 interface RsvpInfoProps {
-  handleEditRsvp: () => void
+  handleEditRsvp?: () => void
 }
 
 const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
@@ -60,7 +60,12 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
         )}
       </div>
       <ButtonRow full>
-        <Button onClick={handleEditRsvp}>Edit RSVP</Button>
+        <Button
+          onClick={handleEditRsvp}
+          disabled={handleEditRsvp === undefined}
+        >
+          Edit RSVP
+        </Button>
       </ButtonRow>
     </section>
   )

@@ -6,7 +6,7 @@
   @apply text-sm font-sans;
 
   &:disabled {
-    @apply opacity-50 cursor-wait;
+    @apply opacity-50 cursor-not-allowed;
   }
 }
 
