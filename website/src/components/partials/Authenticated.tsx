@@ -34,9 +34,12 @@ export interface InvitationContextWrapper {
   invitation: Invitation
 
   /**
-   * Force a reload from cache (no change to current invitation if unsuccessful)
+   * Force a reload from cache (no change to current invitation if unsuccessful).
+   *
+   * Optionally forces refetch from server if invitation was last fetched `olderThanSecs` seconds ago.
+   * Propagates errors on fetch failure.
    */
-  reloadSaved: () => Promise<void>
+  reloadSaved: (olderThanSecs?: number) => Promise<void>
 }
 
 // Used only to seed the context for cases when there is no provider
@@ -53,7 +56,7 @@ export function makeDummyInvitationContextWrapper(
 ): InvitationContextWrapper {
   return {
     invitation: invitation,
-    reloadSaved: () => Promise.resolve(),
+    reloadSaved: (_olderThanSecs?: number) => Promise.resolve(),
   }
 }
 
@@ -66,13 +69,11 @@ export const InvitationContext = createContext<InvitationContextWrapper>(
 
 interface AuthenticatedProps {
   initialCode?: string
-  refreshOlderThanSecs?: number
 }
 
 const Authenticated: React.FC<AuthenticatedProps> = ({
   children,
   initialCode,
-  refreshOlderThanSecs = 0,
 }) => {
   const [didInitialFetch, setDidInitialFetch] = useState(false)
   const [initialFetchError, setInitialFetchError] = useState(false)
@@ -89,12 +90,12 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
         if (loadedInvitation) {
           writeOpened(loadedInvitation)
         }
-        return loadedInvitation || loadSavedInvitation(refreshOlderThanSecs)
+        return loadedInvitation || loadSavedInvitation()
       })
       .then(loadedInvitation => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
-  }, [initialCode, refreshOlderThanSecs])
+  }, [initialCode])
 
   async function login(submission: LoginFormValues) {
     setInitialFetchError(false) // after first submit, form will handle error handling
@@ -111,8 +112,8 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   }
 
   const loadInvitation = useMemo(
-    () => async () => {
-      const loaded = await loadSavedInvitation()
+    () => async (olderThanSecs?: number) => {
+      const loaded = await loadSavedInvitation(olderThanSecs)
       if (loaded) {
         setInvitation(loaded)
       }

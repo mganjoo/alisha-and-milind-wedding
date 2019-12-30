@@ -74,10 +74,10 @@ export async function fetchAndSaveInvitationByEmail(
  * Retrieves a saved invitation from cache, if it exists.
  *
  * @param refreshOlderThanSecs if the cached invitation was fetched older than this duration (in secs), fetch again.
- *                             if the value is 0, then will never re-fetch.
+ *                             if the value is undefined, then will never re-fetch.
  */
 export async function loadSavedInvitation(
-  refreshOlderThanSecs: number = 0
+  refreshOlderThanSecs?: number
 ): Promise<Invitation | undefined> {
   const data = await loadInvitationData()
   if (data) {
@@ -85,7 +85,7 @@ export async function loadSavedInvitation(
     const now = new Date().getTime()
     if (
       !isCurrentVersion(data) ||
-      (refreshOlderThanSecs > 0 &&
+      (refreshOlderThanSecs &&
         now - savedInvitation.lastFetched.getTime() >
           refreshOlderThanSecs * 1000)
     ) {

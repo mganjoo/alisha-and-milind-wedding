@@ -28,7 +28,7 @@ const RsvpPage = () => {
     >
       <SEO title="RSVP" image="/meta-rsvp-hero.jpg" />
       <PageHeading>RSVP</PageHeading>
-      <Authenticated refreshOlderThanSecs={90}>
+      <Authenticated>
         <div className="c-narrow-body">
           <WeddingMetadataContext.Consumer>
             {value => (

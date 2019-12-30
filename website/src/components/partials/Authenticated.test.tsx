@@ -1,9 +1,7 @@
 import { render, waitForElementToBeRemoved } from "@testing-library/react"
-import dayjs from "dayjs"
 import React, { useContext } from "react"
 import "@testing-library/jest-dom/extend-expect"
 import { Invitation } from "../../interfaces/Invitation"
-import { loadFirestore } from "../../services/Firestore"
 import {
   loadInvitationData,
   parseInvitationData,
@@ -202,59 +200,5 @@ describe("Authenticated", () => {
     )
     await waitForElementToBeRemoved(() => queryByText(/Loading/i))
     expect(getByText(/error retrieving/i)).toBeInTheDocument()
-  })
-
-  it("should not re-fetch invitation that is within fetch window", async () => {
-    const invitation = {
-      code: "abcde",
-      partyName: "Cece Parekh & Winston Schmidt",
-      numGuests: 2,
-      knownGuests: [],
-    }
-    mockReturnValues(
-      invitation,
-      invitation,
-      dayjs()
-        .subtract(3, "minute")
-        .toDate()
-    )
-    const { getByText, queryByText } = render(
-      <Authenticated refreshOlderThanSecs={1000}>
-        <ShowInvitation />
-      </Authenticated>
-    )
-    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
-    const mockLoadFirestore = loadFirestore as jest.MockedFunction<
-      typeof loadFirestore
-    >
-    expect(mockLoadFirestore).not.toHaveBeenCalled()
-  })
-
-  it("should re-fetch invitation that is sufficiently old", async () => {
-    const invitation = {
-      code: "abcde",
-      partyName: "Cece Parekh & Winston Schmidt",
-      numGuests: 2,
-      knownGuests: [],
-    }
-    mockReturnValues(
-      invitation,
-      invitation,
-      dayjs()
-        .subtract(3, "minute")
-        .toDate()
-    )
-    const { getByText, queryByText } = render(
-      <Authenticated refreshOlderThanSecs={60}>
-        <ShowInvitation />
-      </Authenticated>
-    )
-    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
-    const mockLoadFirestore = loadFirestore as jest.MockedFunction<
-      typeof loadFirestore
-    >
-    expect(mockLoadFirestore).toHaveBeenCalled()
   })
 })
