@@ -4,7 +4,14 @@ import { useUID } from "react-uid"
 import { scrollIntoView } from "../../utils/Utils"
 import "./Alert.module.css"
 
-const Alert: React.FC = ({ children }) => {
+interface AlertProps {
+  action?: {
+    label: string
+    onClick: () => void
+  }
+}
+
+const Alert: React.FC<AlertProps> = ({ children, action }) => {
   const initialRef = useRef<HTMLDivElement>(null)
   const mounted = useRef(false)
   const refName = useUID()
@@ -26,6 +33,11 @@ const Alert: React.FC = ({ children }) => {
       ref={mounted.current ? laterRef : initialRef}
     >
       {children}
+      {action && (
+        <div className="my-2">
+          <button onClick={action.onClick}>{action.label}</button>
+        </div>
+      )}
     </div>
   )
 }

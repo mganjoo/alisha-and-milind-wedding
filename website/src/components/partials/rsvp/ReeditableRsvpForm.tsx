@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect, useCallback } from "react"
 import Alert from "../../ui/Alert"
 import Loading from "../../ui/Loading"
 import { InvitationContext } from "../Authenticated"
@@ -11,14 +11,23 @@ const ReeditableRsvpForm: React.FC = () => {
   const { invitation, reloadSaved } = useContext(InvitationContext)
   const [editingForm, setEditingForm] = useState(false)
   const [refetchStatus, setRefetchStatus] = useState<RefetchStatus>("fetching")
+  const refetch = useCallback(
+    () =>
+      reloadSaved(90)
+        .then(() => {
+          setRefetchStatus("fetched")
+        })
+        .catch(() => setRefetchStatus("error")),
+    [reloadSaved]
+  )
+  const retry = useCallback(() => {
+    setRefetchStatus("fetching")
+    refetch()
+  }, [refetch])
 
   useEffect(() => {
-    reloadSaved(90)
-      .then(() => {
-        setRefetchStatus("fetched")
-      })
-      .catch(() => setRefetchStatus("error"))
-  }, [reloadSaved])
+    refetch()
+  }, [refetch])
 
   if (refetchStatus === "fetching") {
     return <Loading />
@@ -29,7 +38,7 @@ const ReeditableRsvpForm: React.FC = () => {
     return <RsvpForm onDone={() => setEditingForm(false)} />
   } else if (refetchStatus === "error" && !invitation.latestRsvp) {
     return (
-      <Alert>
+      <Alert action={{ label: "Retry", onClick: retry }}>
         There was an error retrieving your latest RSVP information (maybe your
         device is offline?) The RSVP form is temporarily disabled.
       </Alert>
@@ -38,7 +47,7 @@ const ReeditableRsvpForm: React.FC = () => {
     return (
       <>
         {refetchStatus === "error" && (
-          <Alert>
+          <Alert action={{ label: "Retry", onClick: retry }}>
             There was an error retrieving your latest RSVP information (maybe
             your device is offline?) Editing the RSVP has been temporarily
             disabled, and the information below might be out-of-date.
