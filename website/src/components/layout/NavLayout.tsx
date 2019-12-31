@@ -3,6 +3,7 @@ import classnames from "classnames"
 import Img, { FluidObject } from "gatsby-image"
 import React from "react"
 import Header from "../ui/Header"
+import WeddingLogo from "../ui/WeddingLogo"
 import BaseLayout from "./BaseLayout"
 import "./NavLayout.module.css"
 
@@ -32,7 +33,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      <main className="flex flex-col pb-10">
+      <main className="flex flex-col pb-8">
         <SkipNavContent />
         {heroImage && (
           <div
@@ -57,16 +58,20 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           {children}
         </div>
       </main>
-      {!hideBackToTop && (
-        <footer className="hidden pb-6 text-gray-700 sm:flex sm:justify-center">
+      <footer className="pb-8 text-gray-600 font-serif flex flex-col items-center">
+        {!hideBackToTop && (
           <button
-            className="c-inline-button"
+            className="c-inline-button text-gray-700 hidden sm:block"
             onClick={() => window.scrollTo({ top: 0 })}
           >
             Back to top
           </button>
-        </footer>
-      )}
+        )}
+        <div className="my-2">
+          <WeddingLogo />
+        </div>
+        <p className="text-sm">#AlishaWinsAMil</p>
+      </footer>
     </BaseLayout>
   )
 }
