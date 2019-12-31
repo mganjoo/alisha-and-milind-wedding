@@ -58,10 +58,10 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           {children}
         </div>
       </main>
-      <footer className="pb-8 text-gray-600 font-serif flex flex-col items-center">
+      <footer className="pb-8 text-gray-700 font-serif flex flex-col items-center">
         {!hideBackToTop && (
           <button
-            className="c-inline-button text-gray-700 hidden sm:block"
+            className="c-inline-button hidden sm:block"
             onClick={() => window.scrollTo({ top: 0 })}
           >
             Back to top
