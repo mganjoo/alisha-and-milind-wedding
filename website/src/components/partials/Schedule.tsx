@@ -17,6 +17,7 @@ const Schedule: React.FC = () => {
             : "All events will be held "}
           at the San Mateo Marriott hotel. You can find more information about
           the venue on the <Link to="/travel">Travel &amp; Accommodation</Link>{" "}
+          page, and more details about attire on the <Link to="/faq">FAQ</Link>{" "}
           page.
         </p>
         {invitation.preEvents && (

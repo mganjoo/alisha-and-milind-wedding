@@ -37,6 +37,10 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
   </span>
 )
 
+function makeDescription(event: WeddingEventMarkdown) {
+  return `${event.plainText}\nAttire: ${event.frontmatter.attire}`
+}
+
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   const metadata = useContext(WeddingMetadataContext)
   return (
@@ -65,7 +69,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               event={{
                 title: `${event.frontmatter.name}: Alisha & Milind's Wedding`,
                 location: event.frontmatter.location,
-                description: event.plainText,
+                description: makeDescription(event),
                 startTime: event.frontmatter.startDate,
                 endTime: event.frontmatter.endDate,
                 url: metadata.siteUrl,
@@ -91,17 +95,23 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 symbol="location"
               >
                 <span>
-                  <strong>{location.name}</strong>: {location.location} at{" "}
-                  {location.time}
+                  <span className="font-semibold">{location.name}</span>:{" "}
+                  {location.location} at {location.time}
                 </span>
               </ScheduleInfoItem>
             ))}
           </div>
         )}
         <div
-          className="c-body-text-container -mb-4"
+          className="c-body-text-container"
           dangerouslySetInnerHTML={{ __html: event.html }}
         />
+        <div className="c-body-text-container -mb-4">
+          <p>
+            <span className="font-semibold">Attire</span>:{" "}
+            {event.frontmatter.attire}
+          </p>
+        </div>
       </div>
     </div>
   )
