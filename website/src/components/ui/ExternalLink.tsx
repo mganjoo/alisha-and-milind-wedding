@@ -1,10 +1,11 @@
 import React from "react"
 
-interface ExternalLinkProps {
+type ExternalLinkProps = Pick<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  "download" | "className" | "onClick"
+> & {
   href: string
   track?: boolean
-  download?: string
-  className?: string
 }
 
 function clickTracker(url: string): React.MouseEventHandler<HTMLAnchorElement> {
@@ -18,7 +19,7 @@ function clickTracker(url: string): React.MouseEventHandler<HTMLAnchorElement> {
         event_callback: () => {},
       })
     }
-    return false
+    return true
   }
 }
 
@@ -27,12 +28,15 @@ const newWindowProps = { target: "_blank", rel: "noopener noreferrer" }
 const ExternalLink: React.FC<ExternalLinkProps> = React.forwardRef<
   HTMLAnchorElement,
   ExternalLinkProps
->(({ track, children, ...otherProps }, ref) => {
+>(({ track, children, onClick, ...otherProps }, ref) => {
   // Download links should open in the same window
   const targetProps = otherProps.download ? {} : newWindowProps
   const clickHandlerProps =
     track && !otherProps.download
-      ? { onClick: clickTracker(otherProps.href) }
+      ? {
+          onClick: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>
+            (!onClick || onClick(e)) && clickTracker(otherProps.href),
+        }
       : {}
   const props = Object.assign({ ...otherProps }, targetProps, clickHandlerProps)
   return (
