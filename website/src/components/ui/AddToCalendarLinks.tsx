@@ -8,6 +8,7 @@ import {
   outlook,
   yahoo,
 } from "../../utils/AddToCalendarUtils"
+import { assertNever } from "../../utils/Utils"
 import ExternalLink from "./ExternalLink"
 import Symbol from "./Symbol"
 import "./AddToCalendarLinks.module.css"
@@ -69,16 +70,6 @@ function getIcon(icon: CalendarType) {
   }
 }
 
-function getLinkOpenProps(event: CalendarEvent, type: CalendarType) {
-  switch (type) {
-    case "apple":
-    case "ical":
-      return { download: `${event.shortName || "event"}.ics` }
-    default:
-      return {}
-  }
-}
-
 function getUrl(event: CalendarEvent, type: CalendarType) {
   switch (type) {
     case "apple":
@@ -91,6 +82,8 @@ function getUrl(event: CalendarEvent, type: CalendarType) {
       return outlook(event)
     case "yahoo":
       return yahoo(event)
+    default:
+      assertNever(type)
   }
 }
 
@@ -111,7 +104,11 @@ function getLinkProps(event: CalendarEvent, type: CalendarType) {
       </>
     ),
     track: true,
-    ...getLinkOpenProps(event, type),
+    trackKey: `${event.title}_${type}`,
+    download:
+      type === "apple" || type === "ical"
+        ? `${event.shortName || "event"}.ics`
+        : undefined,
   }
 }
 
