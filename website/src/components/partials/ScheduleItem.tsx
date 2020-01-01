@@ -38,7 +38,15 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
 )
 
 function makeDescription(event: WeddingEventMarkdown) {
-  return `${event.plainText}\nAttire: ${event.frontmatter.attire}`
+  const subEventDescription = event.frontmatter.subLocations
+    ? event.frontmatter.subLocations
+        .map(
+          location =>
+            `* ${location.name}: ${location.location} at ${location.time}`
+        )
+        .join("\n") + "\n\n"
+    : ""
+  return `${subEventDescription}${event.plainText}\nAttire: ${event.frontmatter.attire}`
 }
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
