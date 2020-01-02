@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       >
         <ul className="pt-3 pb-4 shadow-inner border-t border-gray-subtle sm:py-0 sm:flex sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none">
           {links.map((link, index) => (
-            <li key={index} className="text-center sm:mx-1">
+            <li key={index} className="text-center sm:mx-2">
               <Link
                 onClick={closeDropdown}
                 to={link.to}

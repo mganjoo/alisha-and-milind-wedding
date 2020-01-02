@@ -42,11 +42,11 @@ const TravelPage = () => {
       heroImage={data.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha pointing at something in the distance and Milind looking on"
     >
-      <SEO title="Travel & Accommodation" image="/meta-travel-hero.jpg" />
+      <SEO title="Travel" image="/meta-travel-hero.jpg" />
       <WeddingMetadataContext.Consumer>
         {value => (
           <>
-            <PageHeading>Travel &amp; Accommodation</PageHeading>
+            <PageHeading>Travel</PageHeading>
             <section
               className="c-shadow-box mb-8 sm:flex sm:items-center"
               aria-labelledby="venue-heading"

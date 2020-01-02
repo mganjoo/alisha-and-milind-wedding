@@ -134,12 +134,9 @@ const FaqPage = () => {
             <Faq question="Do you have a hotel room block?">
               <p>
                 We sure do! Please see the{" "}
-                <Link to="/travel#hotel-block">
-                  Travel &amp; Accommodations
-                </Link>{" "}
-                page for details, as well as the link to book with our
-                discounted rate. Please book by{" "}
-                <strong>{value.bookingDeadline}</strong> to ensure room
+                <Link to="/travel#hotel-block">Travel</Link> page for details,
+                as well as the link to book with our discounted rate. Please
+                book by <strong>{value.bookingDeadline}</strong> to ensure room
                 availability.
               </p>
             </Faq>
@@ -316,9 +313,9 @@ const FaqPage = () => {
                     Salt &amp; Straw
                   </ExternalLink>{" "}
                   has some delicious and exotic ice cream flavors that change
-                  monthly. In the past, we&rsquo;ve tried ice creams that include
-                  sunflower seeds, banana peanut butter, tofu pudding, and olive
-                  oil!
+                  monthly. In the past, we&rsquo;ve tried ice creams that
+                  include sunflower seeds, banana peanut butter, tofu pudding,
+                  and olive oil!
                 </li>
               </ul>
 
