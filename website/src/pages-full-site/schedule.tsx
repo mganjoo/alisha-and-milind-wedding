@@ -21,8 +21,7 @@ const SchedulePage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.fluid}
-      objectPosition="50% 5%"
-      alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
+      alt="Picture of Alisha and Milind laughing at the camera"
     >
       <SEO title="Events" image="/meta-schedule-hero.jpg" />
       <PageHeading>Schedule</PageHeading>

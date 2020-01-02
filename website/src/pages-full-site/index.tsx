@@ -18,8 +18,8 @@ const IndexPage = () => {
   return (
     <NavLayout
       heroImage={imageData.heroImage.childImageSharp.fluid}
-      alt="Alisha and Milind posing in front of the sunset in Monterey, California"
-      objectPosition="50% 32%"
+      alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
+      objectPosition="50% 5%"
       hideBackToTop
     >
       <SEO title="Home" image="/meta-main-hero.jpg" />
