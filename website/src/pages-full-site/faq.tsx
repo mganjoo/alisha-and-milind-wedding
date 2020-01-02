@@ -316,7 +316,7 @@ const FaqPage = () => {
                     Salt &amp; Straw
                   </ExternalLink>{" "}
                   has some delicious and exotic ice cream flavors that change
-                  monthly. In the past, we&apos;ve tried ice creams that include
+                  monthly. In the past, we&rsquo;ve tried ice creams that include
                   sunflower seeds, banana peanut butter, tofu pudding, and olive
                   oil!
                 </li>
