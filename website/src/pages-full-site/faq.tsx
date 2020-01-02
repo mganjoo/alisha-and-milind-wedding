@@ -154,7 +154,12 @@ const FaqPage = () => {
               </p>
             </Faq>
             <Faq question="Are you accepting gifts?">
-              <p>We humbly request no boxed gifts at the wedding.</p>
+              <p>We truly value your presence more than any gift!</p>
+              <p>
+                If you&rsquo;d like to give, we will have a registry up on the
+                website soon. We also humbly request no boxed gifts at the
+                wedding, though we will keep a box for cards.
+              </p>
             </Faq>
             <Faq question="Is it okay to take photos or videos during the wedding events?">
               <p>
@@ -178,7 +183,19 @@ const FaqPage = () => {
                 will provide you with great guidance, especially for first-time
                 visitors! For our guests who are spending some extra time in the
                 area (great choice!), here is the Alisha &amp; Milind edition of
-                top things to do in the Bay Area.
+                top things to do in San Francisco and the Bay Area.
+              </p>
+              <p>
+                San Francisco is a half hour drive north from San Mateo on US
+                101. You can also take{" "}
+                <ExternalLink href="http://www.caltrain.com/schedules.html">
+                  Caltrain
+                </ExternalLink>{" "}
+                into the city (the closest station from the hotel is{" "}
+                <ExternalLink href="https://goo.gl/maps/d2oNAYcK9aYZH2Nd9">
+                  Hayward Park
+                </ExternalLink>
+                ).
               </p>
 
               <h4>The Abridged List of Essentials</h4>
@@ -205,12 +222,14 @@ const FaqPage = () => {
                     Osher Rainforest
                   </ExternalLink>{" "}
                   at the California Academy of Sciences that are all located
-                  next to each other in Golden Gate Park.
+                  next to each other at the Golden Gate Park in San Francisco.
                 </li>
                 <li>
                   If you enjoy touring university campuses as much as our
-                  parents do, Stanford University is highly photogenic. Milind
-                  recommends getting a sandwich at his tried-and-true favorite{" "}
+                  parents do, Stanford University is highly photogenic (a half
+                  hour drive south from San Mateo). We both have our own
+                  favorite spots from our time there. Milind recommends getting
+                  a sandwich at his tried-and-true favorite{" "}
                   <ExternalLink href="https://www.cohostanford.com/">
                     CoHo
                   </ExternalLink>
@@ -228,32 +247,6 @@ const FaqPage = () => {
                     Rodin Sculpture Garden
                   </ExternalLink>{" "}
                   in the Cantor Arts Center.
-                </li>
-              </ul>
-
-              <h4>The Short Road Trip List</h4>
-              <ul>
-                <li>Sip the best wine in Napa Valley or Sonoma Valley.</li>
-                <li>
-                  Don&rsquo;t miss the jellyfish at the{" "}
-                  <ExternalLink href="https://www.montereybayaquarium.org/">
-                    Monterey Bay Aquarium
-                  </ExternalLink>
-                  !
-                </li>
-                <li>
-                  Hike amidst the redwoods at{" "}
-                  <ExternalLink href="https://www.nps.gov/muwo/index.htm">
-                    Muir Woods
-                  </ExternalLink>
-                  .
-                </li>
-                <li>
-                  Soak up the sun at the{" "}
-                  <ExternalLink href="https://beachboardwalk.com/">
-                    Santa Cruz Boardwalk
-                  </ExternalLink>
-                  .
                 </li>
               </ul>
 
@@ -318,6 +311,53 @@ const FaqPage = () => {
                   </ExternalLink>{" "}
                   on your radar.
                 </li>
+                <li>
+                  <ExternalLink href="https://www.yelp.com/biz/salt-and-straw-san-francisco-5">
+                    Salt &amp; Straw
+                  </ExternalLink>{" "}
+                  has some delicious and exotic ice cream flavors that change
+                  monthly. In the past, we&apos;ve tried ice creams that include
+                  sunflower seeds, banana peanut butter, tofu pudding, and olive
+                  oil!
+                </li>
+              </ul>
+
+              <h4>The Short Road Trip List</h4>
+              <p>
+                If you have some more time to explore the Bay Area, here are a
+                few ideas for places a short journey away from San Mateo.
+              </p>
+              <ul>
+                <li>
+                  Sip the best wine in Napa Valley or Sonoma Valley (a half day
+                  to full day trip depending on how many wineries you want to
+                  visit).
+                </li>
+                <li>
+                  Don&rsquo;t miss the jellyfish at the{" "}
+                  <ExternalLink href="https://www.montereybayaquarium.org/">
+                    Monterey Bay Aquarium
+                  </ExternalLink>
+                  ! (full day trip)
+                </li>
+                <li>
+                  Hike amidst the redwoods at{" "}
+                  <ExternalLink href="https://www.nps.gov/muwo/index.htm">
+                    Muir Woods
+                  </ExternalLink>{" "}
+                  (half day trip).
+                </li>
+                <li>
+                  Soak up the sun at the{" "}
+                  <ExternalLink href="https://beachboardwalk.com/">
+                    Santa Cruz Boardwalk
+                  </ExternalLink>{" "}
+                  (full day trip). Bonus: check out the{" "}
+                  <ExternalLink href="https://www.mysteryspot.com/">
+                    Mystery Spot
+                  </ExternalLink>{" "}
+                  while you&rsquo;re down there!
+                </li>
               </ul>
             </Faq>
             <Faq question="Anything else I should know?">
@@ -328,7 +368,7 @@ const FaqPage = () => {
                 photo updates!
               </p>
             </Faq>
-            <Faq question="How do I contact you if I have other questions?">
+            <Faq question="What if I have other questions?">
               <p>
                 The best way to reach us is at <ContactEmail />. There are two
                 types of people in this world, and Alisha is the zero-inbox

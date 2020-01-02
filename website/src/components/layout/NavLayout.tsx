@@ -26,9 +26,10 @@ const NavLayout: React.FC<NavLayoutProps> = ({
       <SkipNavLink />
       <Header
         links={[
-          { text: "Our Story", to: "/our-story" },
           { text: "Schedule", to: "/schedule" },
           { text: "Travel & Accommodation", to: "/travel" },
+          { text: "The Story", to: "/story" },
+          { text: "Video", to: "/video" },
           { text: "FAQ", to: "/faq" },
           { text: "RSVP", to: "/rsvp" },
         ]}
@@ -67,9 +68,14 @@ const NavLayout: React.FC<NavLayoutProps> = ({
             Back to top
           </button>
         )}
+        <hr
+          className="mt-4 mb-1 inline-block w-10 border-gray-500"
+          aria-hidden
+        />
         <div className="my-2">
           <WeddingLogo />
         </div>
+        <p className="text-sm">Designed with love by Milind &amp; Alisha</p>
         <p className="text-sm">#AlishaWinsAMil</p>
       </footer>
     </BaseLayout>

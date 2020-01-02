@@ -53,13 +53,13 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       }
     }
     return
-  }, [dropdownVisible, menuButtonRef, navRef])
+  }, [dropdownVisible])
 
   return (
     <header className="sticky top-0 z-10 border-b border-gray-subtle bg-off-white sm:static sm:z-0 print:static">
       <div className="relative">
-        <div className="py-3 text-center sm:pt-6 sm:pb-2">
-          <h1 className="font-display text-2xl sm:text-4xl">
+        <div className="py-3 text-center sm:pt-4 sm:pb-2">
+          <h1 className="font-display text-2xl sm:text-3xl">
             <Link
               to="/"
               className="focus:outline-none focus:shadow-outline-light px-1"
@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
               {data && data.site.siteMetadata.displayTitle}
             </Link>
           </h1>
-          <h2 className="font-serif text-sm sm:text-xl">
+          <h2 className="font-serif text-sm sm:text-lg">
             {data && data.site.siteMetadata.displayDates} &middot;{" "}
             {data && data.site.siteMetadata.location}
           </h2>
@@ -99,13 +99,13 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       >
         <ul className="pt-3 pb-4 shadow-inner border-t border-gray-subtle sm:py-0 sm:flex sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none">
           {links.map((link, index) => (
-            <li key={index} className="text-center sm:mx-2">
+            <li key={index} className="text-center sm:mx-1">
               <Link
                 onClick={closeDropdown}
                 to={link.to}
                 getProps={({ isCurrent, isPartiallyCurrent }) => ({
                   className: classnames(
-                    "inline-block px-1 pt-4 pb-1 border-b-4 focus:outline-none focus:border-orange-300 hover:border-orange-500 hover:text-orange-700 sm:px-2 sm:py-3 sm:border-b-4",
+                    "inline-block px-1 pt-4 pb-1 border-b-4 focus:outline-none focus:border-orange-300 hover:border-orange-500 hover:text-orange-700 sm:px-2 sm:pt-3 sm:pb-2 sm:border-b-4",
                     isCurrent || isPartiallyCurrent || link.forceActive
                       ? " border-orange-600"
                       : " border-transparent"

@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik"
 import React, { useRef, useEffect } from "react"
 import { useOrderedNodes } from "react-register-nodes"
-import scrollIntoView from "scroll-into-view-if-needed"
+import { scrollIntoView } from "../../utils/Utils"
 
 const FirstErrorFocuser: React.FC = ({ children }) => {
   const formik = useFormikContext()

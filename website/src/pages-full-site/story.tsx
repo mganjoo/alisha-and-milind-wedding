@@ -4,59 +4,54 @@ import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Emoji from "../components/ui/Emoji"
 import ExternalLink from "../components/ui/ExternalLink"
-import IframeContainer from "../components/ui/IframeContainer"
 import ImageGrid from "../components/ui/ImageGrid"
 import PageHeading from "../components/ui/PageHeading"
 
-const OurStoryPage = () => {
+const StoryPage = () => {
   const data = useStaticQuery(
     graphql`
       query {
-        heroImage: file(relativePath: { eq: "our-story-hero.jpg" }) {
+        heroImage: file(relativePath: { eq: "story-hero.jpg" }) {
           childImageSharp {
             ...HeroImage
           }
         }
-        redRock: file(relativePath: { eq: "our-story-travel-red-rock.jpg" }) {
+        redRock: file(relativePath: { eq: "story-travel-red-rock.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        tahoe: file(relativePath: { eq: "our-story-travel-tahoe.jpg" }) {
+        tahoe: file(relativePath: { eq: "story-travel-tahoe.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        edinburgh: file(
-          relativePath: { eq: "our-story-travel-edinburgh.jpg" }
-        ) {
+        edinburgh: file(relativePath: { eq: "story-travel-edinburgh.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        yosemite: file(relativePath: { eq: "our-story-travel-yosemite.jpg" }) {
+        yosemite: file(relativePath: { eq: "story-travel-yosemite.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        chicago: file(relativePath: { eq: "our-story-travel-chicago.jpg" }) {
+        chicago: file(relativePath: { eq: "story-travel-chicago.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        halloween: file(
-          relativePath: { eq: "our-story-travel-halloween.jpg" }
-        ) {
+        halloween: file(relativePath: { eq: "story-travel-halloween.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        proposal1: file(relativePath: { eq: "our-story-proposal-1.jpg" }) {
+        proposal1: file(relativePath: { eq: "story-proposal-1.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        proposal2: file(relativePath: { eq: "our-story-proposal-2.jpg" }) {
+        proposal2: file(relativePath: { eq: "story-proposal-2.jpg" }) {
           childImageSharp {
             ...GridImage
           }
@@ -69,8 +64,8 @@ const OurStoryPage = () => {
       heroImage={data.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha and Milind in front of a large stone rock face"
     >
-      <SEO title="Our Story" image="/meta-our-story-hero.jpg" />
-      <PageHeading>Our Story</PageHeading>
+      <SEO title="The Story" image="/meta-story-hero.jpg" />
+      <PageHeading>The Story</PageHeading>
       <section className="c-article">
         <p>
           When Milind and Alisha met, he was struck by her passion and
@@ -164,31 +159,7 @@ const OurStoryPage = () => {
           ]}
         />
       </section>
-      <section className="c-article" aria-labelledby="heading-video">
-        <h2 id="heading-video">Video: 16 questions from Alisha &amp; Milind</h2>
-        <p>
-          We are so thrilled to celebrate our wedding weekend with you and could
-          not be more thankful for your presence in our lives. In our own
-          excitement, we decided that we wanted to be like those famous YouTube
-          vloggers for a day.
-        </p>
-        <p>
-          Who do you think is the pickier eater? Who will survive longer on a
-          deserted island? Watch this video to find out!
-        </p>
-        <div className="w-full px-2 py-3">
-          <IframeContainer
-            width={560}
-            height={315}
-            src="https://www.youtube.com/embed/Qf-f7i0WZkY"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Video: 16 Questions with Alisha and Milind"
-            containerClassName="bg-black text-white"
-          />
-        </div>
-      </section>
     </NavLayout>
   )
 }
-export default OurStoryPage
+export default StoryPage

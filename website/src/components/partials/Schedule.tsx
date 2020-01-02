@@ -28,7 +28,7 @@ const Schedule: React.FC = () => {
         )}
         <LeafSpacer wide />
       </section>
-      <div className="-mb-12">
+      <div className="-mb-8">
         {events
           .filter(e => !e.frontmatter.preEvent || invitation.preEvents)
           .map(event => (

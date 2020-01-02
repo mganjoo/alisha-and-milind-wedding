@@ -44,7 +44,7 @@ export function filterNonEmptyKeys(record: Record<string, string>): string[] {
 export function scrollIntoView(target: Element) {
   smoothScrollIntoView(target, {
     scrollMode: "if-needed",
-    block: "start",
+    block: "center",
     inline: "start",
   })
 }

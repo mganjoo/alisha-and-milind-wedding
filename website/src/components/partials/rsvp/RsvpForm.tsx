@@ -47,8 +47,8 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
   } = useFormikContext<RsvpFormValues>()
   const [page, setPage] = useState<Page>(1)
   const previousPageRef = useRef<Page>(1)
-  const page1Ref = useRef<HTMLDivElement>(null)
-  const page2Ref = useRef<HTMLDivElement>(null)
+  const page1Ref = useRef<HTMLHeadingElement>(null)
+  const page2Ref = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
     if (page !== previousPageRef.current) {

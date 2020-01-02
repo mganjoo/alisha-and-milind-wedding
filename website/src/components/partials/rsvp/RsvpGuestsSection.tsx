@@ -26,75 +26,79 @@ const attendingOptions = [
   { value: "no", label: "No, will celebrate from afar." },
 ]
 
-const RsvpGuestsSection = React.forwardRef<HTMLDivElement>((_props, ref) => {
-  const { invitation } = useContext(InvitationContext)
-  const { initialValues, values } = useFormikContext<RsvpFormValues>()
-  const guestKeys = Object.keys(values.guests)
+const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
+  (_props, ref) => {
+    const { invitation } = useContext(InvitationContext)
+    const { initialValues, values } = useFormikContext<RsvpFormValues>()
+    const guestKeys = Object.keys(values.guests)
 
-  return (
-    <section
-      ref={ref}
-      aria-labelledby={classnames("guests-heading-1", {
-        "guests-heading-2": invitation.numGuests > 1,
-      })}
-      aria-describedby="guests-description"
-    >
-      <h2
-        styleName={
-          invitation.numGuests === 1 ? "section-heading" : "section-subheading"
-        }
-        id="guests-heading-1"
+    return (
+      <section
+        aria-labelledby={classnames("guests-heading-1", {
+          "guests-heading-2": invitation.numGuests > 1,
+        })}
+        aria-describedby="guests-description"
       >
-        {invitation.latestRsvp ? "Editing RSVP" : "Welcome"}
-      </h2>
-      {invitation.numGuests > 1 && (
-        <h3 styleName="section-heading" id="guests-heading-2">
-          {invitation.partyName}
-        </h3>
-      )}
-      <p className="c-form-description" id="guests-description">
-        {invitation.latestRsvp ? (
-          <>
-            Here is the information from your previous submission. Feel free to
-            make changes and submit the RSVP again.
-          </>
-        ) : (
-          <>
-            We&rsquo;ve filled out some information based on what we know.
-            Please edit or correct anything we may have missed.
-          </>
+        <h2
+          styleName={
+            invitation.numGuests === 1
+              ? "section-heading"
+              : "section-subheading"
+          }
+          ref={ref}
+          id="guests-heading-1"
+        >
+          {invitation.latestRsvp ? "Editing RSVP" : "Welcome"}
+        </h2>
+        {invitation.numGuests > 1 && (
+          <h3 styleName="section-heading" id="guests-heading-2">
+            {invitation.partyName}
+          </h3>
         )}
-      </p>
-      <TextInputGroup
-        label={guestKeys.length > 1 ? "Names of guests" : "Name"}
-        groupName="guests"
-        fieldKeys={guestKeys}
-        fieldLabelFn={i => `Name of ${ordinalSuffix(i)} guest`}
-      />
-      <OptionsGroup
-        name="attending"
-        type="radio"
-        label="Will you be attending?"
-        options={attendingOptions}
-      />
-      {initialValues.attending !== values.attending &&
-        values.attending === "yes" && (
-          <div
-            role="status"
-            className="mb-4 font-sans text-center text-sm text-orange-900 italic"
-          >
-            Yay! One more step: confirm attendance for specific events on the
-            next page.
-          </div>
-        )}
-      <LabelledTextField
-        name="comments"
-        type="textarea"
-        label="Comments"
-        placeholder="Any comments or questions for us? (optional)"
-      />
-    </section>
-  )
-})
+        <p className="c-form-description" id="guests-description">
+          {invitation.latestRsvp ? (
+            <>
+              Here is the information from your previous submission. Feel free
+              to make changes and submit the RSVP again.
+            </>
+          ) : (
+            <>
+              We&rsquo;ve filled out some information based on what we know.
+              Please edit or correct anything we may have missed.
+            </>
+          )}
+        </p>
+        <TextInputGroup
+          label={guestKeys.length > 1 ? "Names of guests" : "Name"}
+          groupName="guests"
+          fieldKeys={guestKeys}
+          fieldLabelFn={i => `Name of ${ordinalSuffix(i)} guest`}
+        />
+        <OptionsGroup
+          name="attending"
+          type="radio"
+          label="Will you be attending?"
+          options={attendingOptions}
+        />
+        {initialValues.attending !== values.attending &&
+          values.attending === "yes" && (
+            <div
+              role="status"
+              className="mb-4 font-sans text-center text-sm text-orange-900 italic"
+            >
+              Yay! One more step: confirm attendance for specific events on the
+              next page.
+            </div>
+          )}
+        <LabelledTextField
+          name="comments"
+          type="textarea"
+          label="Comments"
+          placeholder="Any comments or questions for us? (optional)"
+        />
+      </section>
+    )
+  }
+)
 
 export default RsvpGuestsSection

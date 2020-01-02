@@ -13,7 +13,7 @@ interface AttendanceGroupProps {
 }
 
 const RsvpAttendanceSection = React.forwardRef<
-  HTMLDivElement,
+  HTMLHeadingElement,
   AttendanceGroupProps
 >(({ guests }, ref) => {
   const events = useEvents()
@@ -46,12 +46,11 @@ const RsvpAttendanceSection = React.forwardRef<
 
   return (
     <section
-      ref={ref}
       aria-labelledby="attendance-heading"
       aria-describedby="attendance-description"
     >
       {showError && <Alert>{errors.attendees}</Alert>}
-      <h2 styleName="section-heading" id="attendance-heading">
+      <h2 styleName="section-heading" id="attendance-heading" ref={ref}>
         Specific events
       </h2>
       <p className="c-form-description" id="attendance-description">

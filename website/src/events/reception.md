@@ -22,4 +22,4 @@ subLocations:
 
 It’s time to dance with us again... this time, as a married couple! We’ll
 start with drinks and appetizers at the cocktail hour followed by the formal
-reception.
+reception and dinner.
