@@ -1,5 +1,5 @@
 import classnames from "classnames"
-import { useField, useFormikContext } from "formik"
+import { useField } from "formik"
 import React, { useMemo, useCallback } from "react"
 import { useRegisteredRef } from "react-register-nodes"
 import ControlledLabelledOption from "./ControlledLabelledOption"
@@ -30,10 +30,9 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   selectAllLabel,
   labelType = "text",
 }) => {
-  const [field, meta] = useField<any>(name)
+  const [field, meta, helpers] = useField<any>(name)
   const ref = useRegisteredRef(name)
   const errorMessage = meta.touched ? meta.error : undefined
-  const { setFieldValue } = useFormikContext<any>()
   const shouldShowSelectAll = !!showSelectAll && type === "checkbox"
   const allSelected = useMemo(
     () =>
@@ -50,8 +49,8 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
 
   const toggleSelectAll = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      setFieldValue(name, e.target.checked ? options.map(o => o.value) : []),
-    [name, options, setFieldValue]
+      helpers.setValue(e.target.checked ? options.map(o => o.value) : []),
+    [options, helpers]
   )
 
   return (
