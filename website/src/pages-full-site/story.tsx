@@ -138,7 +138,7 @@ const StoryPage = () => {
           </ExternalLink>{" "}
           {<Emoji symbol="💎" label="diamond emoji" />}&rdquo; &mdash; but
           Milind has never been one to take the obvious route. Instead, having
-          found the perfect scenic proposal spot while on one of his weekly
+          found the perfect scenic proposal spot while on one of his weekend
           distance runs, he scheduled a trip to the{" "}
           <ExternalLink href="https://legionofhonor.famsf.org/">
             Legion of Honor Museum
