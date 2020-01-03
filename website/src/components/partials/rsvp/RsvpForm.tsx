@@ -13,6 +13,7 @@ import { addRsvp } from "../../../services/Invitation"
 import { scrollIntoView, stringEmpty } from "../../../utils/Utils"
 import BaseForm from "../../form/BaseForm"
 import ButtonRow from "../../form/ButtonRow"
+import { FirstErrorFocuserContext } from "../../form/FirstErrorFocuser"
 import SubmitButton from "../../form/SubmitButton"
 import Alert from "../../ui/Alert"
 import Button from "../../ui/Button"
@@ -49,6 +50,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
   const previousPageRef = useRef<Page>(1)
   const page1Ref = useRef<HTMLHeadingElement>(null)
   const page2Ref = useRef<HTMLHeadingElement>(null)
+  const { forceValidation } = useContext(FirstErrorFocuserContext)
 
   useEffect(() => {
     if (page !== previousPageRef.current) {
@@ -86,6 +88,8 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
           ),
         })
         setPage(2)
+      } else {
+        forceValidation()
       }
     })
   }
