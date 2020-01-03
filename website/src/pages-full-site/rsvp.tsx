@@ -27,7 +27,11 @@ const RsvpPage = () => {
       alt="Alisha and Milind posing in front of the sunset in Monterey, California"
       objectPosition="50% 32%"
     >
-      <SEO title="RSVP" image="/meta-rsvp-hero.jpg" />
+      <SEO
+        title="RSVP"
+        image="/meta-rsvp-hero.jpg"
+        description="We hope to see you at our wedding! Please RSVP on this page."
+      />
       <PageHeading>RSVP</PageHeading>
       <Authenticated>
         <div className="c-narrow-body">

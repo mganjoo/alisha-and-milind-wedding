@@ -23,7 +23,11 @@ const SchedulePage = () => {
       heroImage={data.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha and Milind laughing at the camera"
     >
-      <SEO title="Events" image="/meta-schedule-hero.jpg" />
+      <SEO
+        title="Events"
+        image="/meta-schedule-hero.jpg"
+        description="Schedule of events for the wedding."
+      />
       <PageHeading>Schedule</PageHeading>
       <Authenticated>
         <Schedule />

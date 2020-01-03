@@ -7,7 +7,11 @@ import PageHeading from "../components/ui/PageHeading"
 const VideoPage = () => {
   return (
     <NavLayout>
-      <SEO title="Video" image="/meta-video-hero.jpg" />
+      <SEO
+        title="Video"
+        image="/meta-video-hero.jpg"
+        description="We felt like being vloggers for exactly one day and decided to play a game to share with you all. Hope you enjoy!"
+      />
       <PageHeading>Video: The Alisha &amp; Milind Face-off</PageHeading>
       <div className="c-article">
         <p>

@@ -47,7 +47,11 @@ const FaqPage = () => {
       heroImage={data.heroImage.childImageSharp.fluid}
       alt="Milind and Alisha wearing sunglasses, posing among plants in a nursery"
     >
-      <SEO title="Frequently Asked Questions" image="/meta-faq-hero.jpg" />
+      <SEO
+        title="Frequently Asked Questions"
+        image="/meta-faq-hero.jpg"
+        description="Answers to some common questions about RSVP, attire, and what to do in the Bay Area."
+      />
       <PageHeading>Frequently Asked Questions</PageHeading>
       <WeddingMetadataContext.Consumer>
         {value => (
@@ -133,11 +137,10 @@ const FaqPage = () => {
             />
             <Faq question="Do you have a hotel room block?">
               <p>
-                We sure do! Please see the{" "}
-                <Link to="/travel#hotel-block">Travel</Link> page for details,
-                as well as the link to book with our discounted rate. Please
-                book by <strong>{value.bookingDeadline}</strong> to ensure room
-                availability.
+                We sure do! Please see the <Link to="/travel">Travel</Link> page
+                for details, as well as the link to book with our discounted
+                rate. Please book by <strong>{value.bookingDeadline}</strong> to
+                ensure room availability.
               </p>
             </Faq>
             <Faq question="What will the weather be like this time of year?">

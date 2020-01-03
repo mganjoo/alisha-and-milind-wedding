@@ -64,7 +64,11 @@ const StoryPage = () => {
       heroImage={data.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha and Milind in front of a large stone rock face"
     >
-      <SEO title="Our Story" image="/meta-story-hero.jpg" />
+      <SEO
+        title="Our Story"
+        image="/meta-story-hero.jpg"
+        description="Get to know us as a couple and read about our engagement!"
+      />
       <PageHeading>Our Story</PageHeading>
       <section className="c-article">
         <p>
