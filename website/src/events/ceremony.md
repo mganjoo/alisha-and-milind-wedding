@@ -14,10 +14,10 @@ subLocations:
 ---
 
 The festitivites begin with the _baraat_, or wedding procession, which is
-Milind’s ~grand~ entrance to the ceremony. Guests will meet at the hotel’s
-entrance and then will be guided to the starting point for the baraat.
-Alisha’s family will greet Milind’s family for the _milni_ ceremony, marked
-by the exchange of garlands.
+Milind’s ~grand~ entrance to the ceremony featuring lively music and dance. Guests
+will meet at the hotel’s entrance and then will be guided to the starting
+point for the baraat. Alisha’s family will greet Milind’s family for the
+_milni_ ceremony, with the exchange of garlands.
 
 Following this, guests are invited to the Courtyard for the Hindu wedding
 ceremony &mdash; this is when Alisha and Milind actually get married! Light

@@ -10,7 +10,7 @@ const Schedule: React.FC = () => {
   const { invitation } = useContext(InvitationContext)
   return (
     <>
-      <section className="c-article c-narrow-body">
+      <section className="c-article">
         <p>
           {invitation.preEvents
             ? "The weekend events are "

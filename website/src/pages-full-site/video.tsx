@@ -7,17 +7,18 @@ import PageHeading from "../components/ui/PageHeading"
 const VideoPage = () => {
   return (
     <NavLayout>
-      <SEO title="The Story" image="/meta-video-hero.jpg" />
-      <PageHeading>Video</PageHeading>
+      <SEO title="Video" image="/meta-video-hero.jpg" />
+      <PageHeading>Video: The Alisha &amp; Milind Face-off</PageHeading>
       <div className="c-article">
         <p>
-          We are so thrilled to celebrate our wedding weekend with you and could
-          not be more thankful for your presence in our lives. In our own
-          excitement, we decided that we wanted to be like those famous YouTube
-          vloggers for a day.
+          In our excitement for the wedding, we decided to channel those famous
+          YouTube vloggers for a day. We made this video where we answer
+          questions about each other in an Ellen-inspired challenge, for our
+          friends and family to get to know us as a couple.
         </p>
         <p>
-          Who do you think is the pickier eater? Who will survive longer on a
+          Who do you think is the pickier eater? Who is more likely to talk
+          their way out of a parking ticket? Who will survive longer on a
           deserted island? Watch this video to find out!
         </p>
       </div>
@@ -28,7 +29,7 @@ const VideoPage = () => {
           src="https://www.youtube.com/embed/Qf-f7i0WZkY"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          title="Video: 16 Questions with Alisha and Milind"
+          title="Video: The Alisha &amp; Milind Face-off"
           containerClassName="bg-black text-white"
         />
       </div>

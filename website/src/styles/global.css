@@ -136,7 +136,7 @@
   }
 
   & > dl {
-    @apply px-4 my-4;
+    @apply my-4;
 
     & > dt {
       @apply font-semibold font-sans text-gray-800;

@@ -153,9 +153,9 @@ const FaqPage = () => {
             <Faq question="Are you accepting gifts?">
               <p>We truly value your presence more than any gift!</p>
               <p>
-                If you&rsquo;d like to give, we will have a registry up on the
-                website soon. We also humbly request no boxed gifts at the
-                wedding, though we will keep a box for cards.
+                For those who insist, we will have a registry up on the website
+                soon, and we will also keep a box for cards at the reception. We
+                humbly request no boxed gifts at the event.
               </p>
             </Faq>
             <Faq question="Is it okay to take photos or videos during the wedding events?">

@@ -64,22 +64,24 @@ const StoryPage = () => {
       heroImage={data.heroImage.childImageSharp.fluid}
       alt="Picture of Alisha and Milind in front of a large stone rock face"
     >
-      <SEO title="The Story" image="/meta-story-hero.jpg" />
-      <PageHeading>The Story</PageHeading>
+      <SEO title="Our Story" image="/meta-story-hero.jpg" />
+      <PageHeading>Our Story</PageHeading>
       <section className="c-article">
         <p>
           When Milind and Alisha first met, he was struck by her passion and
           wittiness; she was impressed by his encyclopedic knowledge of obscure
           facts. In the Bay Area, Alisha is finishing up her doctorate in
           clinical psychology, while Milind is a machine learning software
-          engineer &mdash; emotional intelligence, meet artificial intelligence!
+          engineer &mdash; and so emotional intelligence meets artificial
+          intelligence!
         </p>
         <p>
           When they are not debating British vs American grammar rules (truly
           they are 200-year-olds in 20-something-year-old bodies), you will find
           them engrossed in a board game, trying to beat each other&rsquo;s
-          crossword times, stumbling through the wilderness, or yelling out
-          fruits and woods in a feeble attempt at describing wine.
+          crossword times, stumbling through the wilderness while Alisha
+          captures it on camera, or yelling out fruits and woods in a feeble
+          attempt at describing wine.
         </p>
         <ImageGrid
           images={[
@@ -135,18 +137,19 @@ const StoryPage = () => {
             The Room Where It Happened
           </ExternalLink>{" "}
           {<Emoji symbol="💎" label="diamond emoji" />}&rdquo; &mdash; but
-          Milind has never been one to take the obvious route. Instead, he
-          patiently waited until a few weeks later when Milind and Alisha
-          visited the{" "}
+          Milind has never been one to take the obvious route. Instead, having
+          found the perfect scenic proposal spot while on one of his weekly
+          distance runs, he scheduled a trip to the{" "}
           <ExternalLink href="https://legionofhonor.famsf.org/">
             Legion of Honor Museum
-          </ExternalLink>
-          . Alisha, unsuspecting as ever after spending hours underground at a
-          mummies exhibit, led Milind straight to the proposal spot so that she
-          could take a photo of that VIEW (you know, the one with the bridge).
-          He had smoothly arranged for their friend to already be there,
-          incognito, to capture the moment. And well, we know how that story
-          ends. {<Emoji symbol="😊" label="smiley face emoji" />}
+          </ExternalLink>{" "}
+          a few weeks later. Alisha, unsuspecting as ever after spending hours
+          underground at a mummies exhibit, conveniently led Milind straight to
+          the proposal spot so that she could take a photo of that VIEW (you
+          know, the one with the bridge). He had smoothly arranged for their
+          friend to already be there, incognito, to capture the moment. And
+          well, we know how that story ends.{" "}
+          {<Emoji symbol="😊" label="smiley face emoji" />}
         </p>
         <ImageGrid
           images={[

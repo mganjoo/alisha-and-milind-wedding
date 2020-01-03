@@ -27,8 +27,8 @@ const NavLayout: React.FC<NavLayoutProps> = ({
       <Header
         links={[
           { text: "Schedule", to: "/schedule" },
-          { text: "Travel", to: "/travel" },
-          { text: "The Story", to: "/story" },
+          { text: "Travel & Hotel", to: "/travel" },
+          { text: "Our Story", to: "/story" },
           { text: "Video", to: "/video" },
           { text: "FAQ", to: "/faq" },
           { text: "RSVP", to: "/rsvp" },

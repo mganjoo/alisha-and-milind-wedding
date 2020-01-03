@@ -13,7 +13,7 @@ describe("header menu on mobile", function() {
 
   it("toggles correctly when menu button is pressed", function() {
     cy.get("@menu_button").click()
-    cy.findByText(/the story/i).should("be.visible")
+    cy.findByText(/our story/i).should("be.visible")
     cy.get("@menu_button").click()
     cy.get("nav").should("not.be.visible")
   })
