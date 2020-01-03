@@ -87,7 +87,6 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
             <ExternalLink
               href={event.frontmatter.locationUrl}
               className="c-inline-button"
-              track
             >
               Open Map
             </ExternalLink>

@@ -103,7 +103,6 @@ function getLinkProps(event: CalendarEvent, type: CalendarType) {
         {getLabel(type)}
       </>
     ),
-    track: true,
     trackKey: `${event.title}_${type}`,
     download:
       type === "apple" || type === "ical"

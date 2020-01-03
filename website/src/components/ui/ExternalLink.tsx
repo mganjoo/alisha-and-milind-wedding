@@ -2,7 +2,6 @@ import React from "react"
 
 interface ExternalLinkProps {
   href: string
-  track?: boolean
   download?: string
   trackKey?: string
   className?: string
@@ -23,8 +22,6 @@ function makeClickTracker(
       w.gtag(`event`, `click`, {
         event_category: `outbound`,
         event_label: label,
-        transport_type: ``,
-        event_callback: () => {},
       })
     }
   }
@@ -35,12 +32,10 @@ const newWindowProps = { target: "_blank", rel: "noopener noreferrer" }
 const ExternalLink: React.FC<ExternalLinkProps> = React.forwardRef<
   HTMLAnchorElement,
   ExternalLinkProps
->(({ track, trackKey, children, onClick, ...otherProps }, ref) => {
+>(({ trackKey, children, onClick, ...otherProps }, ref) => {
   // Download links should open in the same window
   const targetProps: TargetProps = otherProps.download ? {} : newWindowProps
-  const handleTrackClick = track
-    ? makeClickTracker(trackKey || otherProps.href)
-    : undefined
+  const handleTrackClick = makeClickTracker(trackKey || otherProps.href)
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     onClick && onClick(e)
     if (!e.defaultPrevented && handleTrackClick) {
