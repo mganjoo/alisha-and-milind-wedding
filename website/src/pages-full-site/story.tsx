@@ -68,13 +68,18 @@ const StoryPage = () => {
       <PageHeading>The Story</PageHeading>
       <section className="c-article">
         <p>
-          When Milind and Alisha met, he was struck by her passion and
+          When Milind and Alisha first met, he was struck by her passion and
           wittiness; she was impressed by his encyclopedic knowledge of obscure
-          facts. When they are not debating British vs American grammar rules
-          (truly they are 200-year-olds in 20-something-year-old bodies), you
-          will find them engrossed in a board game, stumbling through the
-          wilderness, or yelling out fruits and woods in a feeble attempt at
-          describing wine.
+          facts. In the Bay Area, Alisha is finishing up her doctorate in
+          clinical psychology, while Milind is a machine learning software
+          engineer &mdash; emotional intelligence, meet artificial intelligence!
+        </p>
+        <p>
+          When they are not debating British vs American grammar rules (truly
+          they are 200-year-olds in 20-something-year-old bodies), you will find
+          them engrossed in a board game, trying to beat each other&rsquo;s
+          crossword times, stumbling through the wilderness, or yelling out
+          fruits and woods in a feeble attempt at describing wine.
         </p>
         <ImageGrid
           images={[

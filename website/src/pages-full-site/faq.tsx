@@ -326,9 +326,9 @@ const FaqPage = () => {
               </p>
               <ul>
                 <li>
-                  Sip the best wine in Napa Valley or Sonoma Valley (a half day
+                  Sip the best wine in Napa Valley or Sonoma Valley. (a half day
                   to full day trip depending on how many wineries you want to
-                  visit).
+                  visit)
                 </li>
                 <li>
                   Don&rsquo;t miss the jellyfish at the{" "}
@@ -341,19 +341,19 @@ const FaqPage = () => {
                   Hike amidst the redwoods at{" "}
                   <ExternalLink href="https://www.nps.gov/muwo/index.htm">
                     Muir Woods
-                  </ExternalLink>{" "}
-                  (half day trip).
+                  </ExternalLink>
+                  . (half day trip)
                 </li>
                 <li>
                   Soak up the sun at the{" "}
                   <ExternalLink href="https://beachboardwalk.com/">
                     Santa Cruz Boardwalk
-                  </ExternalLink>{" "}
-                  (full day trip). Bonus: check out the{" "}
+                  </ExternalLink>
+                  . Bonus: check out the{" "}
                   <ExternalLink href="https://www.mysteryspot.com/">
                     Mystery Spot
                   </ExternalLink>{" "}
-                  while you&rsquo;re down there!
+                  while you&rsquo;re down there! (full day trip)
                 </li>
               </ul>
             </Faq>
