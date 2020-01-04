@@ -1,6 +1,8 @@
 name: Website tests
 on:
   push:
+    branches-ignore:
+      - 'master'
     paths:
       - 'website/**'
       - '.github/workflows/website-tests.yml'
