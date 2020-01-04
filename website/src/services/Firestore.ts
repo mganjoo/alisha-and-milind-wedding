@@ -94,9 +94,9 @@ function makeFirestore(
         .firestore()
         .collection(collection)
         .where(key, "==", value)
-        .get()
+        .get({ source: "server" })
         .then(snapshot => {
-          if (snapshot.docs.length > 1) {
+          if (snapshot.size > 1) {
             throw new Error("non-unique match on key `key`")
           } else {
             const doc = snapshot.docs[0]

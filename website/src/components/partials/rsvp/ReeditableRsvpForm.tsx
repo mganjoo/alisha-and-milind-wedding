@@ -39,8 +39,8 @@ const ReeditableRsvpForm: React.FC = () => {
   } else if (refetchStatus === "error" && !invitation.latestRsvp) {
     return (
       <Alert action={{ label: "Retry", onClick: retry }}>
-        There was an error retrieving your latest RSVP information (maybe your
-        device is offline?) The RSVP form is temporarily disabled.
+        Looks like your device is offline. The RSVP form is temporarily
+        disabled.
       </Alert>
     )
   } else {
@@ -48,9 +48,8 @@ const ReeditableRsvpForm: React.FC = () => {
       <>
         {refetchStatus === "error" && (
           <Alert action={{ label: "Retry", onClick: retry }}>
-            There was an error retrieving your latest RSVP information (maybe
-            your device is offline?) Editing the RSVP has been temporarily
-            disabled, and the information below might be out-of-date.
+            Looks like your device is offline. The information below might be
+            out of date, and editing the RSVP is temporarily disabled.
           </Alert>
         )}
         <RsvpInfo
