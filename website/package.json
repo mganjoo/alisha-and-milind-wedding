@@ -108,7 +108,6 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
-    "build:ci": "npm run check && npm run test:unit && npm run build",
     "serve": "gatsby serve",
     "start": "npm run develop",
     "start:prod": "npm run build && npm run serve",

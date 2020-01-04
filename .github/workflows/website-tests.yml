@@ -33,7 +33,6 @@ jobs:
       env:
         CI: true
     - name: Run tests
-      if: github.event_name == 'push'
       run: |
         export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
         export PERCY_COMMIT="$GITHUB_SHA"
@@ -46,23 +45,22 @@ jobs:
         GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
         CYPRESS_SEED_URL: ${{ secrets.CLOUD_FUNCTIONS_URL }}/seedInvitations
-    ### Temporarily skip these tests
-    # - name: Run tests (external dispatch)
-    #   if: startsWith(github.event.action, 'externalUrl_')
-    #   env:
-    #     PERCY_ENABLE: 0
-    #     CI: true
-    #     ACTION: ${{ github.event.action }}
-    #   run: |
-    #     export CYPRESS_baseUrl="${ACTION#externalUrl_}"
-    #     echo "Running tests with external URL ${CYPRESS_baseUrl}..."
-    #     npm run cy:run
-    #   working-directory: ./website
+    - name: Publish deploy (for external trigger)
+      if: startsWith(github.event.action, 'externalUrl_')
+      run: |
+        export DEPLOY_ID="${ACTION#externalUrl_}"
+        echo "Publishing deploy ID ${DEPLOY_ID}..."
+        curl -X POST -d {} https://api.netlify.com/api/v1/sites/${SITE_ID}/deploys/${DEPLOY_ID}/restore?access_token=${ACCESS_TOKEN}
+      env:
+        CI: true
+        ACTION: ${{ github.event.action }}
+        SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        ACCESS_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
     - name: Deploy to Netlify (staging)
+      if: github.ref == 'refs/heads/staging'
       run: |
         echo "Triggering build via ${NETLIFY_BUILD_HOOK_URL}..."
         curl -X POST -d {} $NETLIFY_BUILD_HOOK_URL
-      if: github.ref == 'refs/heads/staging'
       env:
         NETLIFY_BUILD_HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
     - name: Archive Cypress videos

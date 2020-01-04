@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build:ci"
+  command = "npm run build"
   publish = "public/"
   base = "website/"
   # The functions/ directory does not actually contain Netlify functions
@@ -10,6 +10,10 @@
   CYPRESS_INSTALL_BINARY = "0"
 
 ## Set up environment-specific build options
+
+# Trigger deploy publish via GitHub (after tests)
+[context.production]
+  command = "npm run build && ./trigger-github.sh"
 
 [context.production.environment]
   DISABLE_FULL_SITE = "1"
