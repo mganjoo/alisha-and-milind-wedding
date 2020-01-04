@@ -6,7 +6,6 @@ import {
   fetchAndSaveInvitationByCode,
   loadSavedInvitation,
   fetchAndSaveInvitationByEmail,
-  writeOpened,
 } from "../../services/Invitation"
 import BaseForm from "../form/BaseForm"
 import ButtonRow from "../form/ButtonRow"
@@ -86,12 +85,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
       ? fetchAndSaveInvitationByCode(initialCode)
       : Promise.resolve(undefined)
     loadedInvitationPromise
-      .then(loadedInvitation => {
-        if (loadedInvitation) {
-          writeOpened(loadedInvitation)
-        }
-        return loadedInvitation || loadSavedInvitation()
-      })
+      .then(loadedInvitation => loadedInvitation || loadSavedInvitation())
       .then(loadedInvitation => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
@@ -103,9 +97,6 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
     return fetchAndSaveInvitationByEmail(submission.email)
       .then(invitation => {
         setInvitation(invitation)
-        if (invitation) {
-          writeOpened(invitation)
-        }
       })
       .then(() => setSubmitted(true))
       .catch(() => setSubmitError(true))

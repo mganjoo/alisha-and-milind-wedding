@@ -36,12 +36,6 @@ function invitation(
     .doc(invitationId)
 }
 
-function opened(invitationId: string): firebase.firestore.DocumentReference {
-  return firestore()
-    .collection("opened")
-    .doc(invitationId)
-}
-
 function rsvps(invitationId: string): firebase.firestore.CollectionReference {
   return invitation(invitationId).collection("rsvps")
 }
@@ -398,43 +392,6 @@ describe("Firestore rules", () => {
             },
           ],
           createdAt: firebase.firestore.Timestamp.now(),
-        })
-      )
-    })
-  })
-
-  describe("for Opened collection", () => {
-    beforeEach(async () => {
-      await firestoreAdmin()
-        .collection("opened")
-        .doc("abc")
-        .set({
-          openCount: 0,
-        })
-    })
-
-    it("should allow updating opened record with new timestamp", async () => {
-      await firebase.assertSucceeds(
-        opened("abc").update({
-          openCount: firebase.firestore.FieldValue.increment(1),
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-        })
-      )
-    })
-
-    it("should reject updating record with missing timestamp", async () => {
-      await firebase.assertFails(
-        opened("abc").update({
-          openCount: firebase.firestore.FieldValue.increment(1),
-        })
-      )
-    })
-
-    it("should reject updating record with invalid type for count increment", async () => {
-      await firebase.assertFails(
-        opened("abc").update({
-          openCount: firebase.firestore.FieldValue.increment(1.5),
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       )
     })

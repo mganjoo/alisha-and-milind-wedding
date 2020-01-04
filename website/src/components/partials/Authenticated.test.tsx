@@ -11,7 +11,6 @@ import {
 import {
   mockLoadFirestoreImpl,
   FindByIdFnType,
-  IncrementWithTimestampFnType,
 } from "../../utils/FirestoreMocks"
 import Authenticated, { InvitationContext } from "./Authenticated"
 
@@ -67,16 +66,10 @@ function mockReturnValues(
   mockSaveInvitationData.mockReturnValue(Promise.resolve())
 
   const mockFindById = jest.fn() as jest.MockedFunction<FindByIdFnType>
-  const mockIncrementWithTimestamp = jest.fn() as jest.MockedFunction<
-    IncrementWithTimestampFnType
-  >
 
   const mocks = {
     mockFindById: mockFindById.mockReturnValueOnce(
       Promise.resolve(fetchValue).then(v => (v ? { data: v } : undefined))
-    ),
-    mockIncrementWithTimestamp: mockIncrementWithTimestamp.mockReturnValueOnce(
-      Promise.resolve()
     ),
   }
 
@@ -89,7 +82,7 @@ jest.mock("./ContactEmail")
 
 describe("Authenticated", () => {
   it("should load an invitation correctly", async () => {
-    const { mockIncrementWithTimestamp } = mockReturnValues(undefined, {
+    mockReturnValues(undefined, {
       code: "abcde",
       partyName: "Cece Parekh & Winston Schmidt",
       numGuests: 2,
@@ -102,7 +95,6 @@ describe("Authenticated", () => {
     )
     await waitForElementToBeRemoved(() => queryByText(/Loading/i))
     expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
-    expect(mockIncrementWithTimestamp).toHaveBeenCalled()
   })
 
   it("should try to load a cached invitation when no code is provided", async () => {

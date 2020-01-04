@@ -37,26 +37,6 @@ export const updateLatestRsvp = functions.firestore
     }
   })
 
-/**
- * Create an "opened" record for the invitation when a new invitation is created.
- */
-export const addOpenedRecord = functions.firestore
-  .document("invitations/{code}")
-  .onCreate(async (_snapshot, context) => {
-    const code = context.params.code
-    try {
-      await db
-        .collection("opened")
-        .doc(code)
-        .set({
-          openCount: 0,
-        })
-      console.info(`Created opened record for code ${code}`)
-    } catch (error) {
-      console.error(`Could not create opened record for code ${code}`, error)
-    }
-  })
-
 interface Fixture {
   id: string
   data: Record<string, any>

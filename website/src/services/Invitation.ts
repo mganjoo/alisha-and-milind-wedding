@@ -8,7 +8,6 @@ import {
 } from "./Storage"
 
 const invitationsCollection = "invitations"
-const openedCollection = "opened"
 const inviteesCollection = "invitees"
 const rsvpsCollection = "rsvps"
 
@@ -20,18 +19,6 @@ function saveInvitation(invitation: Invitation): Promise<void> {
       lastFetched: new Date(),
     },
   })
-}
-
-/**
- * Increment counter for invitation open.
- */
-export async function writeOpened(invitation: Invitation) {
-  const firestore = await loadFirestore()
-  await firestore.incrementWithTimestamp(
-    db => db.collection(openedCollection).doc(invitation.code),
-    "openCount",
-    1
-  )
 }
 
 /**
