@@ -102,7 +102,7 @@
     "sharp": "0.23.4",
     "start-server-and-test": "1.10.6",
     "typescript": "3.7.4",
-    "webpack": "4.41.4",
+    "webpack": "4.41.5",
     "yn": "4.0.0"
   },
   "scripts": {
