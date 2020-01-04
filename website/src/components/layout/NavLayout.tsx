@@ -75,7 +75,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
         <div className="my-2">
           <WeddingLogo />
         </div>
-        <p className="text-sm">Designed with love by Milind &amp; Alisha</p>
+        <p className="text-sm">Created with love by Milind &amp; Alisha</p>
         <p className="text-sm">#AlishaWinsAMil</p>
       </footer>
     </BaseLayout>
