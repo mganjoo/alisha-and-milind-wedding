@@ -378,7 +378,8 @@ const FaqPage = () => {
                 Heh, well, our travel and work schedules have been all over the
                 place, so we got a bit delayed in scheduling our pre-wedding
                 photoshoot. Check back here late January/early February for some
-                photo updates!
+                photo updates! We&rsquo;ll also be keeping this FAQ page
+                up-to-date with relevant information for the wedding weekend.
               </p>
             </Faq>
             <Faq question="What if I have other questions?">
