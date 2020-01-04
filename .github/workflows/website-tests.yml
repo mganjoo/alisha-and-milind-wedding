@@ -39,10 +39,6 @@ jobs:
       run: |
         export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
         export PERCY_COMMIT="$GITHUB_SHA"
-        if [[ "$PERCY_BRANCH" = renovate* ]]; then
-          echo "Disabling Percy for renovate branch"
-          export PERCY_ENABLE=0
-        fi
         npm run test:ci
       working-directory: ./website
       env:
@@ -52,7 +48,6 @@ jobs:
         GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
         CYPRESS_SEED_URL: ${{ secrets.SEED_URL }}
-        IS_RENOVATE_BRANCH: ${{ github.ref }}
     - name: Run tests (external dispatch)
       if: startsWith(github.event.action, 'externalUrl_')
       env:
@@ -62,7 +57,7 @@ jobs:
       run: |
         export CYPRESS_baseUrl="${ACTION#externalUrl_}"
         echo "Running tests with external URL ${CYPRESS_baseUrl}..."
-        npm run cy:run:ci
+        npm run cy:run
       working-directory: ./website
     - name: Deploy to Netlify
       run: |
