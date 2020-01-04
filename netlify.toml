@@ -2,6 +2,8 @@
   command = "npm run build"
   publish = "public/"
   base = "website/"
+  # The functions/ directory does not actually contain Netlify functions
+  functions = "nofunctions/"
 
 [build.environment]
   # Disable Cypress binary download since it takes too much time
