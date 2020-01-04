@@ -87,7 +87,7 @@ const TravelPage = () => {
             <ExternalLink href="https://www.flysfo.com/">
               San Francisco International Airport (SFO)
             </ExternalLink>
-            , which is around 8 miles from the hotel.
+            , which is about 8 miles from the hotel.
           </p>
           <dl>
             <dt>Hotel Shuttle</dt>
@@ -140,7 +140,7 @@ const TravelPage = () => {
             either of these airports. The best way to get to the San Mateo
             Marriott would be through a paid shuttle, rideshare, or rental car.
             Please note that the San Mateo-Hayward Bridge is a toll route when
-            coming in from Oakland.
+            coming from Oakland.
           </p>
         </section>
         <section className="c-article" aria-labelledby="driving-in">

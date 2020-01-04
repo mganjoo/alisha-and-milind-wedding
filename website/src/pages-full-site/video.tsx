@@ -15,14 +15,14 @@ const VideoPage = () => {
       <PageHeading>Video: The Alisha &amp; Milind Face-off</PageHeading>
       <div className="c-article">
         <p>
-          In our excitement for the wedding, we decided to channel those famous
-          YouTube vloggers for a day. We made this video where we answer
-          questions about each other in an Ellen-inspired challenge, for our
-          friends and family to get to know us as a couple.
+          In our excitement for the wedding, we decided to channel famous
+          YouTube vloggers for a day. We made this Ellen-inspired challenge
+          video where we answer questions about each other for our friends and
+          family to get to know us as a couple.
         </p>
         <p>
           Who do you think is the pickier eater? Who is more likely to talk
-          their way out of a parking ticket? Who will survive longer on a
+          their way out of a speeding ticket? Who will survive longer on a
           deserted island? Watch this video to find out!
         </p>
       </div>

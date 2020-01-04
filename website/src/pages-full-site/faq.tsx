@@ -61,7 +61,7 @@ const FaqPage = () => {
                 Please visit the <Link to="/rsvp">RSVP</Link> page to fill out
                 the form online (your email address may be required). Please
                 confirm the spellings of the names for the guests in your party
-                and confirm your attendance. You will then be able to indicate
+                and confirm attendance. You will then be able to indicate
                 specifically which events each guest will be attending on the
                 next page.
               </p>
@@ -183,7 +183,7 @@ const FaqPage = () => {
                 will provide you with great guidance, especially for first-time
                 visitors! For our guests who are spending some extra time in the
                 area (great choice!), here is the Alisha &amp; Milind edition of
-                top things to do in San Francisco and the Bay Area.
+                top things to do in the San Francisco Bay Area.
               </p>
               <p>
                 San Francisco is a half hour drive north from San Mateo on US
@@ -242,7 +242,7 @@ const FaqPage = () => {
                   <ExternalLink href="https://lbre.stanford.edu/bgm/what-we-do/grounds-services/horticulture-and-landscape/points-interest/arizona-garden">
                     Arizona Garden
                   </ExternalLink>{" "}
-                  as well as the well-known{" "}
+                  and the well-known{" "}
                   <ExternalLink href="https://web.stanford.edu/dept/suma/view/rodin.html">
                     Rodin Sculpture Garden
                   </ExternalLink>{" "}
@@ -254,15 +254,26 @@ const FaqPage = () => {
               <ul>
                 <li>
                   Lay out on the grass between the palms and take in the
-                  &ldquo;atmosphere&rdquo; of Dolores Park.
+                  &ldquo;atmosphere&rdquo; of{" "}
+                  <ExternalLink href="https://sfrecpark.org/destination/mission-dolores-park/">
+                    Dolores Park
+                  </ExternalLink>
+                  .
                 </li>
                 <li>
-                  Head to Twin Peaks to get incredible views of the city,
-                  mountains, and water.
+                  Head to{" "}
+                  <ExternalLink href="https://sfrecpark.org/destination/twin-peaks/">
+                    Twin Peaks
+                  </ExternalLink>{" "}
+                  to get incredible views of the city, mountains, and water.
                 </li>
                 <li>
                   San Francisco&rsquo;s beaches are gray and cold, but warm up
-                  by the fire pits on Ocean Beach.
+                  by the{" "}
+                  <ExternalLink href="https://www.nps.gov/goga/learn/management/obfireprogram.htm">
+                    fire pits on Ocean Beach
+                  </ExternalLink>
+                  .
                 </li>
                 <li>
                   You just spent all weekend dancing on those feet and now you
@@ -325,38 +336,39 @@ const FaqPage = () => {
               <h4>The Short Road Trip List</h4>
               <p>
                 If you have some more time to explore the Bay Area, here are a
-                few ideas for places a short journey away from San Mateo.
+                few ideas for places that are a short journey away from San
+                Mateo.
               </p>
               <ul>
                 <li>
-                  Sip the best wine in Napa Valley or Sonoma Valley. (a half day
-                  to full day trip depending on how many wineries you want to
-                  visit)
+                  Sip the best wine in Napa Valley or Sonoma Valley (a half to
+                  full day trip depending on how many wineries you want to
+                  visit).
                 </li>
                 <li>
                   Don&rsquo;t miss the jellyfish at the{" "}
                   <ExternalLink href="https://www.montereybayaquarium.org/">
                     Monterey Bay Aquarium
-                  </ExternalLink>
-                  ! (full day trip)
+                  </ExternalLink>{" "}
+                  (full day trip).
                 </li>
                 <li>
                   Hike amidst the redwoods at{" "}
                   <ExternalLink href="https://www.nps.gov/muwo/index.htm">
                     Muir Woods
-                  </ExternalLink>
-                  . (half day trip)
+                  </ExternalLink>{" "}
+                  (half day trip).
                 </li>
                 <li>
                   Soak up the sun at the{" "}
                   <ExternalLink href="https://beachboardwalk.com/">
                     Santa Cruz Boardwalk
-                  </ExternalLink>
-                  . Bonus: check out the{" "}
+                  </ExternalLink>{" "}
+                  (full day trip). Bonus: check out the{" "}
                   <ExternalLink href="https://www.mysteryspot.com/">
                     Mystery Spot
                   </ExternalLink>{" "}
-                  while you&rsquo;re down there! (full day trip)
+                  while you&rsquo;re down there!
                 </li>
               </ul>
             </Faq>

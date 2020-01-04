@@ -13,7 +13,6 @@ The _sangeet_ is all about music, dance, performances by friends and family,
 food, and drinks to kick off the wedding celebrations. We’ll all be tearing
 up the dance floor with our DJ to close out the night.
 
-If you would like to perform a song and dance or share a few words at the
-Sangeet, just let us know at
-[alisha.and.milind@gmail.com](mailto:alisha.and.milind@gmail.com) &mdash; the
-more the merrier!
+If you would like to perform a song, dance, or share a few words at the
+Sangeet, we would love that! Just let us know at
+[alisha.and.milind@gmail.com](mailto:alisha.and.milind@gmail.com).
