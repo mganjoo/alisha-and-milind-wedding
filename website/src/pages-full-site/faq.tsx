@@ -137,10 +137,11 @@ const FaqPage = () => {
             />
             <Faq question="Do you have a hotel room block?">
               <p>
-                We sure do! Please see the <Link to="/travel">Travel</Link> page
-                for details, as well as the link to book with our discounted
-                rate. Please book by <strong>{value.bookingDeadline}</strong> to
-                ensure room availability.
+                We sure do! Please see the{" "}
+                <Link to="/travel">Travel &amp; Hotel</Link> page for details,
+                as well as the link to book with our discounted rate. Please
+                book by <strong>{value.bookingDeadline}</strong> to ensure room
+                availability.
               </p>
             </Faq>
             <Faq question="What will the weather be like this time of year?">
