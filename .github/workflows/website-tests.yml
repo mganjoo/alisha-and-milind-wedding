@@ -1,8 +1,6 @@
 name: Website tests
 on:
   push:
-    branches-ignore:
-      - 'master'
     paths:
       - 'website/**'
       - '.github/workflows/website-tests.yml'
@@ -21,8 +19,8 @@ jobs:
       if: github.event_name == 'repository_dispatch'
       uses: actions/checkout@v1
       with:
-        # Always build and run external dispatch tests on 'staging' branch
-        ref: staging
+        # Always build and run external dispatch tests on 'master' branch
+        ref: master
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
@@ -47,19 +45,20 @@ jobs:
         GATSBY_FIREBASE_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_AUTH_DOMAIN }}
         GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
         PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-        CYPRESS_SEED_URL: ${{ secrets.SEED_URL }}
-    - name: Run tests (external dispatch)
-      if: startsWith(github.event.action, 'externalUrl_')
-      env:
-        PERCY_ENABLE: 0
-        CI: true
-        ACTION: ${{ github.event.action }}
-      run: |
-        export CYPRESS_baseUrl="${ACTION#externalUrl_}"
-        echo "Running tests with external URL ${CYPRESS_baseUrl}..."
-        npm run cy:run
-      working-directory: ./website
-    - name: Deploy to Netlify
+        CYPRESS_SEED_URL: ${{ secrets.CLOUD_FUNCTIONS_URL }}/seedInvitations
+    ### Temporarily skip these tests
+    # - name: Run tests (external dispatch)
+    #   if: startsWith(github.event.action, 'externalUrl_')
+    #   env:
+    #     PERCY_ENABLE: 0
+    #     CI: true
+    #     ACTION: ${{ github.event.action }}
+    #   run: |
+    #     export CYPRESS_baseUrl="${ACTION#externalUrl_}"
+    #     echo "Running tests with external URL ${CYPRESS_baseUrl}..."
+    #     npm run cy:run
+    #   working-directory: ./website
+    - name: Deploy to Netlify (staging)
       run: |
         echo "Triggering build via ${NETLIFY_BUILD_HOOK_URL}..."
         curl -X POST -d {} $NETLIFY_BUILD_HOOK_URL

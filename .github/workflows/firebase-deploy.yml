@@ -1,8 +1,6 @@
-name: Firebase staging deploy
+name: Firebase tests and deploy
 on:
   push:
-    branches:
-      - 'staging'
     paths:
       - 'functions/**'
       - 'firestore.rules'
@@ -28,22 +26,23 @@ jobs:
       working-directory: ./functions
       env:
         CI: true
-    - name: Deploy (staging)
+    - name: Deploy and seed data (staging project)
+      if: github.ref == 'refs/heads/master'
       run: |
         npm run deploy
+        curl -X POST -d {} ${CLOUD_FUNCTIONS_URL}/seedInvitations
       working-directory: ./functions
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    - name: Deploy (prod)
+        CLOUD_FUNCTIONS_URL: ${{ secrets.CLOUD_FUNCTIONS_URL }}
+    - name: Deploy and seed data (production project)
+      if: github.ref == 'refs/heads/master'
       run: |
         npm run deploy:prod
+        curl -X POST -d {} ${CLOUD_FUNCTIONS_URL}/seedInvitations
       working-directory: ./functions
-      if: github.ref == 'refs/heads/staging'
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    - name: Seed data (prod)
-      run: |
-        curl -X POST -d {} https://us-central1-alisha-and-milind-wedding.cloudfunctions.net/seedInvitations
-      if: github.ref == 'refs/heads/staging'
+        CLOUD_FUNCTIONS_URL: ${{ secrets.PROD_CLOUD_FUNCTIONS_URL }}

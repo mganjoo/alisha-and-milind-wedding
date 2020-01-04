@@ -1,9 +1,6 @@
 name: CLI tests
 on:
   push:
-    branches-ignore:
-      - 'staging'
-      - 'master'
     paths:
       - 'cli/**'
       - '.github/workflows/cli-tests.yml'
