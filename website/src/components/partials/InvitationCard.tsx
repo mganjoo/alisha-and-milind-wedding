@@ -188,7 +188,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
             <div styleName="back back-base">
               <animated.div
                 className={classnames("p-cover", {
-                  "border border-orange-800 shadow-lg": letterLoaded,
+                  "shadow-lg": letterLoaded,
                 })}
                 styleName="letter"
                 style={{
@@ -215,6 +215,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
               >
                 <BackgroundImage
                   style={{ width: "100%", height: "100%" }}
+                  fadeIn={false}
                   fluid={imageData.invitation.childImageSharp.fluid}
                   onLoad={() => setLetterLoaded(true)}
                 />
