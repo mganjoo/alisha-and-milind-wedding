@@ -11,11 +11,6 @@ const StoryPage = () => {
   const data = useStaticQuery(
     graphql`
       query {
-        heroImage: file(relativePath: { eq: "story-hero.jpg" }) {
-          childImageSharp {
-            ...HeroImage
-          }
-        }
         redRock: file(relativePath: { eq: "story-travel-red-rock.jpg" }) {
           childImageSharp {
             ...GridImage
@@ -26,7 +21,7 @@ const StoryPage = () => {
             ...GridImage
           }
         }
-        edinburgh: file(relativePath: { eq: "story-travel-edinburgh.jpg" }) {
+        sandiego: file(relativePath: { eq: "story-travel-san-diego.jpg" }) {
           childImageSharp {
             ...GridImage
           }
@@ -60,10 +55,7 @@ const StoryPage = () => {
     `
   )
   return (
-    <NavLayout
-      heroImage={data.heroImage.childImageSharp.fluid}
-      alt="Picture of Alisha and Milind in front of a large stone rock face"
-    >
+    <NavLayout>
       <SEO
         title="Our Story"
         image="/meta-story-hero.jpg"
@@ -108,10 +100,10 @@ const StoryPage = () => {
               caption: "Red Rock Canyon",
             },
             {
-              image: data.edinburgh.childImageSharp.fluid,
-              alt:
-                "Picture of Milind and Alisha in front of a monument on Calton Hill in Edinburgh, Scotland",
-              caption: "Edinburgh, Scotland",
+              image: data.sandiego.childImageSharp.fluid,
+              alt: "Picture of Alisha and Milind laughing at the camera",
+              caption: "San Diego",
+              objectPosition: "15% 50%",
             },
             {
               image: data.tahoe.childImageSharp.fluid,

@@ -18,7 +18,6 @@ const SEO: React.FC<SEOProps> = ({ title, description, image }) => {
             description
             author
             siteUrl
-            image
           }
         }
       }
@@ -26,8 +25,7 @@ const SEO: React.FC<SEOProps> = ({ title, description, image }) => {
   )
 
   const metaDescription = description || site.siteMetadata.description
-  const metaImage = `${site.siteMetadata.siteUrl}${image ||
-    site.siteMetadata.image}`
+  const metaImage = image ? `${site.siteMetadata.siteUrl}${image}` : ``
 
   return (
     <Helmet

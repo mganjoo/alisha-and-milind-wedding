@@ -18,11 +18,14 @@ const IndexPage = () => {
   return (
     <NavLayout
       heroImage={imageData.heroImage.childImageSharp.fluid}
-      alt="Picture of Milind and Alisha smiling at the camera in front of a bouquet of roses"
-      objectPosition="50% 5%"
+      alt="Milind in a maroon sherwani and Alisha in a green salwar kameez"
       hideBackToTop
     >
-      <SEO title="Home" image="/meta-main-hero.jpg" />
+      <SEO
+        title="Home"
+        image="/meta-main-hero.jpg"
+        description="Welcome to our wedding website! Here you will find the most up-to-date information about the wedding weekend, including event schedule and travel details."
+      />
       <div className="c-article c-narrow-body">
         <p>
           Welcome to our wedding website! This is where you will find the most

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const sharp = require(`sharp`)
 const glob = require(`glob`)
 const fs = require(`fs`)

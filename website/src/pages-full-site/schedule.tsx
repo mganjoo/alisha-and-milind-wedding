@@ -21,7 +21,7 @@ const SchedulePage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.fluid}
-      alt="Picture of Alisha and Milind laughing at the camera"
+      alt="Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga"
     >
       <SEO
         title="Events"

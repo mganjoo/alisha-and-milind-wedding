@@ -36,10 +36,9 @@ const demoPagePlugin = yn(process.env.DISABLE_DEMO_PAGES)
 module.exports = {
   siteMetadata: {
     title: longTitle,
-    description: `Welcome to Alisha and Milind's wedding website! We're excited to celebrate with you.`,
+    description: `Welcome to our wedding website! We're excited to celebrate with you.`,
     author: `@mganjoo`,
     siteUrl: `https://alishaandmilind.wedding`, // No trailing slash!
-    image: `/alisha-and-milind-mirror.jpg`,
     contactEmail: `alisha.and.milind@gmail.com`,
     displayTitle: `Alisha & Milind`,
     displayDates: `May 1 & 2, 2020`,

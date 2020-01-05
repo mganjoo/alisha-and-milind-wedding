@@ -29,16 +29,6 @@ const FaqPage = () => {
             ...GridImage
           }
         }
-        clothes3: file(relativePath: { eq: "faq-clothes-3.jpg" }) {
-          childImageSharp {
-            ...GridImage
-          }
-        }
-        clothes4: file(relativePath: { eq: "faq-clothes-4.jpg" }) {
-          childImageSharp {
-            ...GridImage
-          }
-        }
       }
     `
   )
@@ -114,22 +104,11 @@ const FaqPage = () => {
                 {
                   image: data.clothes1.childImageSharp.fluid,
                   alt:
-                    "Alisha dressed in a gold-colored lehenga and Milind dressed in a black kurta and churidar",
-                  objectPosition: "50% 25%",
+                    "Alisha dressed in a red patterned lehenga and Milind dressed in a black kurta and churidar",
+                  objectPosition: "50% 95%",
                 },
                 {
                   image: data.clothes2.childImageSharp.fluid,
-                  alt:
-                    "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga",
-                },
-                {
-                  image: data.clothes3.childImageSharp.fluid,
-                  alt:
-                    "Milind in a maroon sherwani and Alisha in a green salwar kameez",
-                  objectPosition: "50% 35%",
-                },
-                {
-                  image: data.clothes4.childImageSharp.fluid,
                   alt:
                     "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie",
                 },
