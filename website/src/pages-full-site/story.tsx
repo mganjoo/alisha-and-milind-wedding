@@ -68,8 +68,8 @@ const StoryPage = () => {
           wittiness; she was impressed by his encyclopedic knowledge of obscure
           facts. In the Bay Area, Alisha is finishing up her doctorate in
           clinical psychology, while Milind is a machine learning software
-          engineer &mdash; and so, emotional intelligence meets artificial
-          intelligence.
+          engineer &mdash; emotional intelligence meets artificial intelligence,
+          if you will.
         </p>
         <p>
           When they are not debating British vs American grammar rules (truly
