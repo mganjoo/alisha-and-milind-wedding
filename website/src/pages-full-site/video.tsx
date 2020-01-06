@@ -23,7 +23,8 @@ const VideoPage = () => {
         <p>
           Who do you think is the pickier eater? Who is more likely to talk
           their way out of a speeding ticket? Who will survive longer on a
-          deserted island? Watch this video to find out!
+          deserted island? Watch this video to find out! (note: optional
+          subtitles are available via the &ldquo;CC&rdquo; button)
         </p>
       </div>
       <div className="w-full px-2 py-3">

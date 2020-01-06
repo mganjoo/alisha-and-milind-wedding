@@ -38,7 +38,7 @@ const FaqPage = () => {
       alt="Milind and Alisha wearing sunglasses, posing among plants in a nursery"
     >
       <SEO
-        title="Frequently Asked Questions"
+        title="FAQ"
         image="/meta-faq-hero.jpg"
         description="Answers to some common questions about RSVP, attire, and what to do in the Bay Area."
       />
@@ -357,8 +357,8 @@ const FaqPage = () => {
                 Heh, well, our travel and work schedules have been all over the
                 place, so we got a bit delayed in scheduling our pre-wedding
                 photoshoot. Check back here late January/early February for some
-                photo updates! We&rsquo;ll also be keep updating this FAQ page
-                with relevant information for the wedding weekend.
+                photo updates! We&rsquo;ll also keep updating this FAQ page with
+                relevant information for the wedding weekend.
               </p>
             </Faq>
             <Faq question="What if I have other questions?">

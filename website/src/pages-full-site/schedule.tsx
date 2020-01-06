@@ -24,7 +24,7 @@ const SchedulePage = () => {
       alt="Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga"
     >
       <SEO
-        title="Events"
+        title="Schedule"
         image="/meta-schedule-hero.jpg"
         description="Schedule of events for the wedding."
       />
