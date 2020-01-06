@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
       - 'master'
+      - 'staging'
     paths:
       - 'website/**'
       - '.github/workflows/website-tests.yml'
@@ -58,13 +59,6 @@ jobs:
         ACTION: ${{ github.event.action }}
         SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         ACCESS_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-    - name: Deploy to Netlify (staging)
-      if: github.ref == 'refs/heads/staging'
-      run: |
-        echo "Triggering build via ${NETLIFY_BUILD_HOOK_URL}..."
-        curl -X POST -d {} $NETLIFY_BUILD_HOOK_URL
-      env:
-        NETLIFY_BUILD_HOOK_URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
     - name: Archive Cypress videos
       if: failure()
       uses: actions/upload-artifact@v1
