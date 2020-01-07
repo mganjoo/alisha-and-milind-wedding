@@ -13,7 +13,7 @@ jobs:
     - name: Sync branches
       uses: repo-sync/github-sync@v2
       with:
-        source_repo: 'https://mganjoo:${{ secrets.GITHUB_SYNC_REPOS_TOKEN }}@github.com/mganjoo/alisha-and-milind-wedding'
+        source_repo: 'https://mganjoo:${{ secrets.GITHUB_SYNC_REPOS_TOKEN }}@github.com/mganjoo/alisha-and-milind-wedding.git'
         source_branch: master
         destination_branch: staging
         github_token: ${{ secrets.GITHUB_TOKEN }}
