@@ -21,7 +21,7 @@ jobs:
       working-directory: ./cli
     - name: Run tests
       run: |
-        npm run test
+        npm run test:ci
       working-directory: ./cli
       env:
         CI: true
