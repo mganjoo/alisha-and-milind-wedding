@@ -3,29 +3,15 @@ import chalk from "chalk"
 import admin from "firebase-admin"
 import fs from "fs-extra"
 import path from "path"
-import { google } from "googleapis"
 import { OAuth2Client } from "google-auth-library"
 import { cli } from "cli-ux"
+import { getAuthClient } from "./google-auth"
 
 interface Config {
   firebase?: string
   google?: string
-  googleTokenPath?: string
   scopes?: string[]
 }
-
-interface GoogleCredentials {
-  installed: {
-    client_id: string
-    project_id: string
-    client_secret: string
-    redirect_uris: string[]
-  }
-}
-
-// If modifying these scopes, delete token.json in the config dir.
-const GoogleScopes = ["https://www.googleapis.com/auth/spreadsheets"]
-const TokenFilename = "token.json"
 
 export default abstract class BaseCommand extends Command {
   // Flags shareable by all Firebase commands
@@ -136,43 +122,7 @@ export default abstract class BaseCommand extends Command {
         )
       }
     }
-    const credentials = (await fs.readJSON(
-      finalCredentialsPath
-    )) as GoogleCredentials
-    const { client_secret, client_id, redirect_uris } = credentials.installed
-    const oAuth2Client = new google.auth.OAuth2(
-      client_id,
-      client_secret,
-      redirect_uris[0]
-    )
-    const googleTokenPath = path.join(this.config.configDir, TokenFilename)
-
-    try {
-      const credentials = await fs.readJSON(googleTokenPath)
-      oAuth2Client.setCredentials(credentials)
-      return oAuth2Client
-    } catch {
-      return this.getNewToken(oAuth2Client, GoogleScopes, googleTokenPath)
-    }
-  }
-
-  private async getNewToken(
-    oAuth2Client: OAuth2Client,
-    scopes: string[],
-    tokenPath?: string
-  ) {
-    const authUrl = oAuth2Client.generateAuthUrl({
-      access_type: "offline",
-      scope: scopes,
-    })
-    cli.url("Authorize Google Sheets", authUrl)
-    const code = await cli.prompt("Enter the code from that page here")
-    const response = await oAuth2Client.getToken(code)
-    oAuth2Client.setCredentials(response.tokens)
-    if (tokenPath) {
-      await fs.writeJSON(tokenPath, response.tokens)
-    }
-    return oAuth2Client
+    return getAuthClient(finalCredentialsPath, this.config.configDir)
   }
 
   // Color for options and flags in help messages
