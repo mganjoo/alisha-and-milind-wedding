@@ -1,0 +1,19 @@
+name: Sync staging with master
+on:
+  push:
+    branches:
+      - 'master'
+jobs:
+  repo-sync:
+    name: Sync staging with master
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v1
+    - name: Sync branches
+      uses: repo-sync/github-sync@v2
+      with:
+        source_repo: 'https://mganjoo:${{ secrets.GITHUB_SYNC_REPOS_TOKEN }}@github.com/mganjoo/alisha-and-milind-wedding'
+        source_branch: master
+        destination_branch: staging
+        github_token: ${{ secrets.GITHUB_TOKEN }}
