@@ -15,7 +15,6 @@ export interface Rsvp {
 
 export interface Invitee {
   name: string
-  email: string
   code: string
 }
 

@@ -3,14 +3,16 @@ import chalk from "chalk"
 import admin from "firebase-admin"
 import fs from "fs-extra"
 import path from "path"
-import { OAuth2Client } from "google-auth-library"
 import { cli } from "cli-ux"
-import { getAuthClient } from "./google-auth"
+import { getSheets } from "./sheets"
+import Mailchimp from "mailchimp-api-v3"
+import { sheets_v4 } from "googleapis"
 
 interface Config {
   firebase?: string
   google?: string
   scopes?: string[]
+  mailchimp?: string
 }
 
 export default abstract class BaseCommand extends Command {
@@ -25,14 +27,23 @@ export default abstract class BaseCommand extends Command {
       char: "g",
       description: "path to Google API credentials JSON",
     }),
+    mailchimp: flags.string({
+      char: "m",
+      description: "Mailchimp API key",
+    }),
   }
 
   protected configPath = path.join(this.config.configDir, "config.json")
 
   /**
-   * OAuth Client for accessing Google APIs.
+   * Google Sheets client.
    */
-  protected authClient: OAuth2Client | undefined = undefined
+  protected sheets: sheets_v4.Sheets | undefined = undefined
+
+  /**
+   * Client for accessing Mailchimp API.
+   */
+  protected mailchimp: Mailchimp | undefined = undefined
 
   /**
    * Load configuration for command, which is stored in a
@@ -54,10 +65,13 @@ export default abstract class BaseCommand extends Command {
    *
    * Initialize Google Sheets API access, using path to credentials file
    * (from https://developers.google.com/sheets/api/quickstart/nodejs).
+   *
+   * Initialize Mailchimp with API key.
    */
   protected async initializeServices(options: {
-    google?: boolean
+    sheets?: boolean
     firebase?: boolean
+    mailchimp?: boolean
   }) {
     const { flags } = this.parse(this.constructor as any)
 
@@ -66,10 +80,14 @@ export default abstract class BaseCommand extends Command {
       await this.initializeFirebase(flags.firebase)
       cli.action.stop()
     }
-    if (options.google) {
+    if (options.sheets) {
       cli.action.start("initializing Google Sheets")
-      this.authClient = await this.initializeGoogle(flags.google)
+      this.sheets = await this.initializeGoogle(flags.google)
       cli.action.stop()
+    }
+    if (options.mailchimp) {
+      cli.action.start("initializing Mailchimp")
+      this.mailchimp = await this.initializeMailchimp(flags.mailchimp)
     }
   }
 
@@ -122,7 +140,24 @@ export default abstract class BaseCommand extends Command {
         )
       }
     }
-    return getAuthClient(finalCredentialsPath, this.config.configDir)
+    return getSheets(finalCredentialsPath, this.config.configDir)
+  }
+
+  private async initializeMailchimp(apiKey?: string) {
+    if (apiKey) {
+      return new Mailchimp(apiKey)
+    } else {
+      const config = await this.loadConfig()
+      if (config && config.mailchimp) {
+        return new Mailchimp(config.mailchimp)
+      } else {
+        this.error(
+          `Mailchimp API key must be passed via ${this.optionColor(
+            "--mailchimp"
+          )} flag or a "mailchimp" key in ${this.optionColor(this.configPath)}`
+        )
+      }
+    }
   }
 
   // Color for options and flags in help messages

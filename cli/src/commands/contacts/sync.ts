@@ -3,7 +3,6 @@ import cli from "cli-ux"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import customParseFormat from "dayjs/plugin/customParseFormat"
-import { google } from "googleapis"
 import { flags } from "@oclif/command"
 import { getContacts } from "../../util/contacts"
 
@@ -26,7 +25,7 @@ export default class ContactsSync extends BaseCommand {
     }),
     range: flags.string({
       description:
-        "Range of existing table containing 4 rows (e.g. 'Known Emails!A:D')",
+        "Range of existing table spanning 4 columns (e.g. 'Known Emails!A:D')",
       required: true,
     }),
   }
@@ -34,14 +33,15 @@ export default class ContactsSync extends BaseCommand {
   async run() {
     const { flags } = this.parse(ContactsSync)
 
-    await this.initializeServices({ firebase: true, google: true })
+    await this.initializeServices({ firebase: true, sheets: true })
 
-    const auth = this.authClient
-    const sheets = google.sheets({ version: "v4", auth })
+    if (!this.sheets) {
+      this.error("could not initialize Google Sheets")
+    }
 
     // Get existing contacts from Sheets
     cli.action.start("downloading existing contacts from Google Sheets")
-    const response = await sheets.spreadsheets.values.get({
+    const response = await this.sheets.spreadsheets.values.get({
       spreadsheetId: flags.spreadsheetId,
       range: flags.range,
       valueRenderOption: "UNFORMATTED_VALUE",
@@ -86,7 +86,7 @@ export default class ContactsSync extends BaseCommand {
         contact.email,
         contact.created,
       ])
-      const writeResponse = await sheets.spreadsheets.values.append({
+      const writeResponse = await this.sheets.spreadsheets.values.append({
         spreadsheetId: flags.spreadsheetId,
         range: flags.range,
         valueInputOption: "USER_ENTERED",

@@ -23,8 +23,7 @@ async function getNewToken(
   tokenPath?: string
 ) {
   const authUrl = oAuth2Client.generateAuthUrl({
-    // prettier-ignore
-    "access_type": "offline",
+    access_type: "offline",
     scope: scopes,
   })
   cli.url("Authorize Google Sheets", authUrl)
@@ -37,7 +36,7 @@ async function getNewToken(
   return oAuth2Client
 }
 
-export async function getAuthClient(
+export async function getSheets(
   credentialsPath: string,
   tokenBasePath?: string
 ) {
@@ -49,11 +48,13 @@ export async function getAuthClient(
   )
 
   const tokenPath = tokenBasePath ? path.join(tokenBasePath, TokenFilename) : ""
+  let auth: OAuth2Client
   try {
     const credentials = await fs.readJSON(tokenPath)
     oAuth2Client.setCredentials(credentials)
-    return oAuth2Client
+    auth = oAuth2Client
   } catch {
-    return getNewToken(oAuth2Client, GoogleScopes, tokenPath)
+    auth = await getNewToken(oAuth2Client, GoogleScopes, tokenPath)
   }
+  return google.sheets({ version: "v4", auth })
 }
