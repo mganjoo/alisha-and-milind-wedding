@@ -2,15 +2,17 @@
 
 describe("invitation tests", function() {
   let invitation
-  let invitee
+  let code
+  let email
 
   before(function() {
     cy.request("POST", Cypress.env("SEED_URL"))
       .as("getInvitations")
       .then(response => {
-        invitee = response.body.invitees[0].data
+        code = response.body.invitees[0].data.code
+        email = response.body.invitees[0].id
         invitation = response.body.invitations.find(
-          invitation => invitation.data.code === invitee.code
+          invitation => invitation.data.code === code
         ).data
       })
   })
@@ -48,7 +50,7 @@ describe("invitation tests", function() {
     })
 
     it("should load an invitation correctly", function() {
-      cy.get("@email_input").type(invitee.email)
+      cy.get("@email_input").type(email)
       cy.get("@button").click()
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
     })

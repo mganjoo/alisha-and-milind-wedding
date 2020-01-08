@@ -1,74 +1,65 @@
 [
   {
-    "id": "test_Tg8q6lIM",
+    "id": "harsh.kashyap@example.com",
     "data": {
       "code": "test2",
-      "name": "Harsh Kashyap",
-      "email": "harsh.kashyap@example.com"
+      "name": "Harsh Kashyap"
     }
   },
   {
-    "id": "test_r5Ckj4dK",
+    "id": "vicki.mehta@example.com",
     "data": {
       "code": "test2",
-      "name": "Vicki Mehta",
-      "email": "vicki.mehta@example.com"
+      "name": "Vicki Mehta"
     }
   },
   {
-    "id": "test_0swugPeJ",
+    "id": "terry.gordon@example.com",
     "data": {
       "code": "test3",
-      "name": "Terry Gordon",
-      "email": "terry.gordon@example.com"
+      "name": "Terry Gordon"
     }
   },
   {
-    "id": "test_lnS2zm91",
+    "id": "alex.williamson@example.com",
     "data": {
       "code": "test1",
-      "name": "Alex Williamson",
-      "email": "alex.williamson@example.com"
+      "name": "Alex Williamson"
     }
   },
   {
-    "id": "test_vdFT3uZP",
+    "id": "anushka.sharma@example.com",
     "data": {
       "code": "test32",
-      "name": "Anushka Sharma",
-      "email": "anushka.sharma@example.com"
+      "name": "Anushka Sharma"
     }
   },
   {
-    "id": "test_WDU3fCIz",
+    "id": "jill.gupta@example.com",
     "data": {
       "code": "atest2",
-      "name": "Jill Gupta",
-      "email": "jill.gupta@example.com"
+      "name": "Jill Gupta"
     }
   },
   {
-    "id": "test_CyjodLM4",
+    "id": "jack.gupta@example.com",
     "data": {
       "code": "atest2",
-      "name": "Jack Gupta",
-      "email": "jack.gupta@example.com"
+      "name": "Jack Gupta"
     }
   },
   {
-    "id": "test_5Q5U_346",
+    "id": "vishal.raj@example.com",
     "data": {
       "code": "t:iHqfOorR",
-      "name": "Vishal Raj",
-      "email": "vishal.raj@example.com"
+      "name": "Vishal Raj"
     }
   },
   {
-    "id": "test_qCdG1kO1",
+    "id": "vishal.suraj@example.com",
     "data": {
       "code": "t:M3AxoQSl",
-      "name": "Vishal Suraj",
-      "email": "vishal.suraj@example.com"
+      "name": "Vishal Suraj"
     }
   }
 ]

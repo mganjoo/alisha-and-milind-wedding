@@ -45,11 +45,7 @@ export async function fetchAndSaveInvitationByEmail(
   email: string
 ): Promise<Invitation | undefined> {
   const firestore = await loadFirestore()
-  const result = await firestore.findUniqueByKey(
-    inviteesCollection,
-    "email",
-    email
-  )
+  const result = await firestore.findById(inviteesCollection, email)
   if (result) {
     const { code } = result.data as Invitee
     return fetchAndSaveInvitationByCode(code)

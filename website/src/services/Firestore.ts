@@ -25,35 +25,11 @@ export interface Firestore {
    * Find a document with ID `id` in `collection`.
    */
   findById: (collection: string, id: string) => Promise<QueryResult | undefined>
-
-  /**
-   * Find a document where `key` has value `value`. Looks for a unique result,
-   * and throws an error if more than one result is found for `value`.
-   */
-  findUniqueByKey: (
-    collection: string,
-    key: string,
-    value: any
-  ) => Promise<QueryResult | undefined>
-
-  /**
-   * Updates a record, incrementing field `field`, and setting an `updatedAt`
-   * server timestamp in the process.
-   */
-  incrementWithTimestamp: (
-    docRef: (
-      db: firebase.firestore.Firestore
-    ) => firebase.firestore.DocumentReference,
-    field: string,
-    n: number
-  ) => Promise<void>
 }
 
 function makeFirestore(
   firebaseInstance: firebase.app.App,
-  makeTimestamp: (date: Date) => firebase.firestore.Timestamp,
-  makeServerTimestamp: () => firebase.firestore.FieldValue,
-  increment: (n: number) => firebase.firestore.FieldValue
+  makeTimestamp: (date: Date) => firebase.firestore.Timestamp
 ): Firestore {
   return {
     addWithTimestamp: async (
@@ -89,34 +65,6 @@ function makeFirestore(
           doc.exists ? { data: doc.data()!, ref: doc.ref } : undefined
         )
         .catch(observeAndRethrow),
-    findUniqueByKey: async (collection: string, key: string, value: any) =>
-      firebaseInstance
-        .firestore()
-        .collection(collection)
-        .where(key, "==", value)
-        .get({ source: "server" })
-        .then(snapshot => {
-          if (snapshot.size > 1) {
-            throw new Error("non-unique match on key `key`")
-          } else {
-            const doc = snapshot.docs[0]
-            return snapshot.docs.length > 0
-              ? { data: doc.data(), ref: doc.ref }
-              : undefined
-          }
-        })
-        .catch(observeAndRethrow),
-    incrementWithTimestamp: async (
-      docRef: (
-        db: firebase.firestore.Firestore
-      ) => firebase.firestore.DocumentReference,
-      field: string,
-      n: number
-    ) =>
-      docRef(firebaseInstance.firestore()).update({
-        [field]: increment(n),
-        updatedAt: makeServerTimestamp(),
-      }),
   }
 }
 
@@ -149,13 +97,5 @@ export async function loadFirestore() {
       : loadedFirebase.initializeApp(firebaseConfig)
   const makeTimestamp = (date: Date) =>
     loadedFirebase.firestore.Timestamp.fromDate(date)
-  const makeServerTimestamp =
-    loadedFirebase.firestore.FieldValue.serverTimestamp
-  const increment = loadedFirebase.firestore.FieldValue.increment
-  return makeFirestore(
-    firebaseInstance,
-    makeTimestamp,
-    makeServerTimestamp,
-    increment
-  )
+  return makeFirestore(firebaseInstance, makeTimestamp)
 }

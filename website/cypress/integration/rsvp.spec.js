@@ -8,8 +8,8 @@ describe("RSVP page", function() {
     const invitation = invitations.find(
       invitation => invitation.data.code === code
     ).data
-    const invitee = invitees.find(invitee => invitee.data.code === code).data
-    cy.get("@email_input").type(invitee.email)
+    const invitee = invitees.find(invitee => invitee.data.code === code)
+    cy.get("@email_input").type(invitee.id)
     cy.get("@button").click()
     return { invitation, invitee }
   }

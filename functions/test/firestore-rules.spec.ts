@@ -128,7 +128,7 @@ describe("Firestore rules", () => {
   })
 
   describe("for Invitations collection", () => {
-    it("should allow query for any code", async () => {
+    it("should allow reading a single code", async () => {
       await firebase.assertSucceeds(
         invitations()
           .doc("abc")
@@ -143,13 +143,21 @@ describe("Firestore rules", () => {
           .get()
       )
     })
+
+    it("should reject queries for codes", async () => {
+      await firebase.assertFails(
+        invitees()
+          .where("partyName", ">", "a")
+          .get()
+      )
+    })
   })
 
   describe("for Invitees collection", () => {
-    it("should allow query for any code", async () => {
+    it("should allow reading a single email", async () => {
       await firebase.assertSucceeds(
         invitees()
-          .where("email", "==", "abc")
+          .doc("abc")
           .get()
       )
     })
@@ -157,15 +165,15 @@ describe("Firestore rules", () => {
     it("should reject query for special email", async () => {
       await firebase.assertFails(
         invitees()
-          .where("email", "==", "__reject_request__@example.com")
+          .doc("__reject_request__@example.com")
           .get()
       )
     })
 
-    it("should reject query for ID directly", async () => {
+    it("should reject queries for emails", async () => {
       await firebase.assertFails(
         invitees()
-          .doc("abc")
+          .where("email", ">", "a")
           .get()
       )
     })

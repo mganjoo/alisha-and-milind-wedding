@@ -17,11 +17,11 @@ service cloud.firestore {
     }
 
     match /invitees/{invitee} {
-      allow read: if resource.data.email != "__reject_request__@example.com";
+      allow get: if invitee != "__reject_request__@example.com";
     }
 
     match /invitations/{code} {
-      allow read: if code != "__reject_request__";
+      allow get: if code != "__reject_request__";
 
       match /rsvps/{rsvp} {
         function attending() {
