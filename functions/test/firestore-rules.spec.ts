@@ -128,8 +128,43 @@ describe("Firestore rules", () => {
   })
 
   describe("for Invitations collection", () => {
-    it("should allow reading a single code", async () => {
+    it("should allow reading a single non-existent code", async () => {
       await firebase.assertSucceeds(
+        invitations()
+          .doc("abc")
+          .get()
+      )
+    })
+
+    it("should allow reading a single code with 'inactive' unset", async () => {
+      await firestoreAdmin()
+        .collection("invitations")
+        .doc("abc")
+        .set({
+          code: "abc",
+          partyName: "Terry Gordon & Family",
+          numGuests: 3,
+          knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
+        })
+      await firebase.assertSucceeds(
+        invitations()
+          .doc("abc")
+          .get()
+      )
+    })
+
+    it("should reject reading a single code with 'inactive' set", async () => {
+      await firestoreAdmin()
+        .collection("invitations")
+        .doc("abc")
+        .set({
+          code: "abc",
+          partyName: "Terry Gordon & Family",
+          numGuests: 3,
+          knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
+          inactive: true,
+        })
+      await firebase.assertFails(
         invitations()
           .doc("abc")
           .get()
@@ -154,10 +189,41 @@ describe("Firestore rules", () => {
   })
 
   describe("for Invitees collection", () => {
-    it("should allow reading a single email", async () => {
+    it("should allow reading a single non-existent email", async () => {
       await firebase.assertSucceeds(
         invitees()
           .doc("abc")
+          .get()
+      )
+    })
+
+    it("should allow reading a single email with 'inactive' unset", async () => {
+      await firestoreAdmin()
+        .collection("invitees")
+        .doc("abc@example.com")
+        .set({
+          name: "Jack Jones",
+          code: "abc",
+        })
+      await firebase.assertSucceeds(
+        invitees()
+          .doc("abc@example.com")
+          .get()
+      )
+    })
+
+    it("should reject reading a single email with 'inactive' set", async () => {
+      await firestoreAdmin()
+        .collection("invitees")
+        .doc("abc@example.com")
+        .set({
+          name: "Jack Jones",
+          code: "abc",
+          inactive: true,
+        })
+      await firebase.assertFails(
+        invitees()
+          .doc("abc@example.com")
           .get()
       )
     })

@@ -17,11 +17,15 @@ service cloud.firestore {
     }
 
     match /invitees/{invitee} {
-      allow get: if invitee != "__reject_request__@example.com";
+      allow get:
+        if invitee != "__reject_request__@example.com"
+        && (resource == null || !resource.data.get("inactive", false));
     }
 
     match /invitations/{code} {
-      allow get: if code != "__reject_request__";
+      allow get:
+        if code != "__reject_request__"
+        && (resource == null || !resource.data.get("inactive", false));
 
       match /rsvps/{rsvp} {
         function attending() {

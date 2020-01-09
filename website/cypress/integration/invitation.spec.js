@@ -40,6 +40,11 @@ describe("invitation tests", function() {
       cy.visit(`/invitation`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
     })
+
+    it("should show an error when loading an inactive invitation", function() {
+      cy.visit(`/load?c=test_inactive`)
+      cy.findByText(/error retrieving/i).should("exist")
+    })
   })
 
   describe("login page", function() {
@@ -71,6 +76,13 @@ describe("invitation tests", function() {
     it("should redirect to email entry page on error", function() {
       // Special trigger code for Firestore
       cy.get("@email_input").type("__reject_request__@example.com")
+      cy.get("@button").click()
+      cy.findByText(/error retrieving/i).should("exist")
+    })
+
+    it("should show an error for inactive email", function() {
+      // Known inactive email
+      cy.get("@email_input").type("test_inactive@example.com")
       cy.get("@button").click()
       cy.findByText(/error retrieving/i).should("exist")
     })

@@ -35,6 +35,14 @@
     }
   },
   {
+    "id": "test_inactive@example.com",
+    "data": {
+      "code": "test_inactive",
+      "name": "Inactive",
+      "inactive": true
+    }
+  },
+  {
     "id": "jill.gupta@example.com",
     "data": {
       "code": "atest2",

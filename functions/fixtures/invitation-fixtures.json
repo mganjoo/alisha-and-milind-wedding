@@ -37,6 +37,16 @@
     }
   },
   {
+    "id": "test_inactive",
+    "data": {
+      "code": "test_inactive",
+      "partyName": "Inactive",
+      "numGuests": 1,
+      "knownGuests": ["Inactive"],
+      "inactive": true
+    }
+  },
+  {
     "id": "atest2",
     "data": {
       "code": "atest2",
