@@ -106,6 +106,10 @@ export default class InviteUpdate extends BaseCommand {
       description: "Mailchimp list ID for invitees",
       required: true,
     }),
+    preEventSegmentId: flags.string({
+      description: "Mailchimp segment ID for PreEvents tag",
+      required: true,
+    }),
     dryRun: flags.boolean({
       description: "Do not write records to any services",
     }),
@@ -148,12 +152,12 @@ export default class InviteUpdate extends BaseCommand {
 
     const emailsByUniquePartyName = _.groupBy(emails, "uniquePartyName")
 
-    // Read guest information
-    cli.action.start("reading guest information")
-    const guestsContents = await fs.readFile(flags.parties, "utf-8")
+    // Read parties information
+    cli.action.start("reading parties information")
+    const partiesContent = await fs.readFile(flags.parties, "utf-8")
     cli.action.stop()
-    const guests: Party[] = _.chain(
-      Papa.parse(guestsContents, {
+    const parties: Party[] = _.chain(
+      Papa.parse(partiesContent, {
         header: true,
         skipEmptyLines: true,
       }).data
@@ -179,41 +183,41 @@ export default class InviteUpdate extends BaseCommand {
       )
       .value()
 
-    const guestsByUniquePartyName = _.keyBy(guests, "uniquePartyName")
+    const partyByUniqueName = _.keyBy(parties, "uniquePartyName")
 
-    // Validation for guests: known guest count is valid
-    const invalidGuests = guests.filter(
+    // Validation for parties: known guest count is valid
+    const invalidParties = parties.filter(
       guest => guest.numGuests < guest.knownGuests.length
     )
-    if (invalidGuests.length > 0) {
+    if (invalidParties.length > 0) {
       this.error(
-        `Invalid guest records (known guests exceed numGuests): ${invalidGuests.map(
-          guest => guest.uniquePartyName
+        `Invalid guest records (known guests exceed numGuests): ${invalidParties.map(
+          party => party.uniquePartyName
         )}`
       )
     }
 
-    const emailIsSubscribed = (email: Email) =>
-      email.uniquePartyName && email.uniquePartyName in guestsByUniquePartyName
+    const partyForEmail = (email: Email) =>
+      email.uniquePartyName
+        ? partyByUniqueName[email.uniquePartyName]
+        : undefined
 
     const mailchimpRecords = emails.map(email => {
-      const subscribed = emailIsSubscribed(email)
-      return {
-        email_address: email.email,
-        email_type: "html",
-        status: subscribed ? "subscribed" : "unsubscribed",
-        merge_fields: {
-          NAME: email.name,
-          WCODE:
-            email.uniquePartyName && subscribed
-              ? guestsByUniquePartyName[email.uniquePartyName].code
-              : "empty",
-          PARTY:
-            email.uniquePartyName && subscribed
-              ? guestsByUniquePartyName[email.uniquePartyName].partyName
-              : "empty",
-        },
-      }
+      const party = partyForEmail(email)
+      return party
+        ? {
+            email_address: email.email,
+            email_type: "html",
+            status: "subscribed",
+            merge_fields: email.uniquePartyName
+              ? {
+                  NAME: email.name,
+                  WCODE: party.code,
+                  PARTY: party.partyName,
+                }
+              : {},
+          }
+        : { email_address: email.email, status: "unsubscribed" }
     })
 
     cli.action.start(
@@ -232,19 +236,46 @@ export default class InviteUpdate extends BaseCommand {
           }
         ))
     cli.action.stop()
-    this.log(result)
     this.log(
       `${result.total_created} records updated, ${result.total_updated} records created, ${result.error_count} errors`
     )
-    if (result.errors) {
+    if (result.errors.length > 0) {
       this.log(result.errors)
     }
+
+    cli.action.start(`writing tags`)
+    const [toAdd, toRemove] = _.chain(emails)
+      .filter(email => !!partyForEmail(email))
+      .partition(email => {
+        const party = partyForEmail(email)
+        return party && party.preEvents
+      })
+      .value()
+    const tagResult = await (flags.dryRun
+      ? Promise.resolve({ total_added: 0, total_removed: 0, error_count: 0 })
+      : this.mailchimp.post(
+          {
+            path: "/lists/{listId}/segments/{segmentId}",
+            path_params: {
+              listId: flags.listId,
+              segmentId: flags.preEventSegmentId,
+            },
+          },
+          {
+            members_to_add: toAdd.map(email => email.email),
+            members_to_remove: toRemove.map(email => email.email),
+          }
+        ))
+    cli.action.stop()
+    this.log(
+      `${tagResult.total_added} records updated, ${tagResult.total_removed} records created`
+    )
 
     if (flags.dryRun) {
       this.log("skipping firestore writes")
     } else {
       const invitationsRef = admin.firestore().collection("invitations")
-      const firestoreInvitationBatches = _.chain(guests)
+      const firestoreInvitationBatches = _.chain(parties)
         .map(({ code, partyName, numGuests, knownGuests, preEvents }) => ({
           code,
           partyName,
@@ -255,7 +286,7 @@ export default class InviteUpdate extends BaseCommand {
         .chunk(FirestoreChunkSize)
         .value()
 
-      cli.action.start(`writing ${guests.length} invitations to firestore`)
+      cli.action.start(`writing ${parties.length} invitations to firestore`)
       await Promise.all(
         firestoreInvitationBatches.map(records => {
           const batch = admin.firestore().batch()
@@ -269,10 +300,10 @@ export default class InviteUpdate extends BaseCommand {
       )
       cli.action.stop()
 
-      const firestoreInviteeRecords = guests.flatMap(guest =>
-        guest.emails.map(email => ({
+      const firestoreInviteeRecords = parties.flatMap(party =>
+        party.emails.map(email => ({
           id: email.email,
-          data: { name: email.name, code: guest.code },
+          data: { name: email.name, code: party.code },
         }))
       )
       const firestoreInviteeBatches = _.chunk(
