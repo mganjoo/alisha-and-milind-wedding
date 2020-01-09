@@ -26,7 +26,8 @@
     "papaparse": "^5.1.1",
     "shortid": "2.2.15",
     "tslib": "1.10.0",
-    "yn": "^4.0.0"
+    "yn": "^4.0.0",
+    "yup": "0.28.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "1.22.2",
@@ -36,6 +37,7 @@
     "@types/node": "12.12.24",
     "@types/papaparse": "^5.0.3",
     "@types/shortid": "0.0.29",
+    "@types/yup": "^0.26.27",
     "@typescript-eslint/eslint-plugin": "2.14.0",
     "@typescript-eslint/parser": "2.14.0",
     "eslint": "6.8.0",

@@ -6,12 +6,68 @@ import _ from "lodash"
 import { cli } from "cli-ux"
 import yn from "yn"
 import admin from "firebase-admin"
+import { object, string, number, array, InferType } from "yup"
+import shortid from "shortid"
+
+const emailCsvSchema = object()
+  .shape({
+    name: string()
+      .trim()
+      .required(),
+    email: string()
+      .trim()
+      .email(),
+    cleanedName: string()
+      .notRequired()
+      .trim(),
+    skip: string()
+      .notRequired()
+      .oneOf(["y", ""]),
+    uniquePartyName: string()
+      .notRequired()
+      .trim(),
+  })
+  .strict(true)
+
+type EmailCsv = InferType<typeof emailCsvSchema>
 
 interface Email {
   name: string
   email: string
-  uniquePartyName: string
+  uniquePartyName?: string
 }
+
+const MaxNumGuests = 11
+const FirestoreChunkSize = 200
+
+const partySchema = object()
+  .transform(current => ({
+    ...current,
+    knownGuests: _.range(MaxNumGuests)
+      .map(i => (current[`knownGuest${i + 1}`] || "").trim())
+      .filter(guest => !!guest),
+  }))
+  .shape({
+    code: string()
+      .trim()
+      .required()
+      .test("is-shortid", "${path} is not a shortid", value =>
+        shortid.isValid(value)
+      ),
+    uniquePartyName: string()
+      .trim()
+      .required(),
+    partyName: string()
+      .required()
+      .trim(),
+    preEvents: string()
+      .notRequired()
+      .oneOf(["y", ""]),
+    numGuests: number()
+      .required()
+      .integer(),
+    knownGuests: array().of(string().required()),
+  })
 
 interface Invitation {
   code: string
@@ -25,8 +81,6 @@ interface Party extends Invitation {
   uniquePartyName: string
   emails: Email[]
 }
-
-const MaxNumGuests = 11
 
 export default class InviteUpdate extends BaseCommand {
   static description =
@@ -69,13 +123,17 @@ export default class InviteUpdate extends BaseCommand {
     const emailsContents = await fs.readFile(flags.emails, "utf-8")
     cli.action.stop()
     const emails: Email[] = _.chain(
-      Papa.parse(emailsContents, { header: true }).data
+      Papa.parse(emailsContents, { header: true, skipEmptyLines: true }).data
     )
-      .filter(email => !yn(email.skip) && email.email)
+      .map(obj => emailCsvSchema.validateSync(obj) as EmailCsv)
+      // Skip emails manually marked for skipping (duplicates)
+      .filter(email => !yn(email.skip))
       .map(email => ({
         name: (email.cleanedName || email.name).trim(),
         email: email.email.trim(),
-        uniquePartyName: email.uniquePartyName.trim(),
+        uniquePartyName: email.uniquePartyName
+          ? email.uniquePartyName.trim()
+          : undefined,
       }))
       .value()
 
@@ -97,34 +155,39 @@ export default class InviteUpdate extends BaseCommand {
     const guests: Party[] = _.chain(
       Papa.parse(guestsContents, {
         header: true,
+        skipEmptyLines: true,
       }).data
     )
-      .filter(guest => !!guest.code)
-      .map(guest => ({
-        code: guest.code.trim(),
-        uniquePartyName: guest.uniquePartyName.trim(),
-        partyName: guest.partyName.trim(),
-        preEvents: !!yn(guest.preEvents),
-        numGuests: parseInt(guest.numGuests),
-        knownGuests: _.range(MaxNumGuests)
-          .map(i => guest[`knownGuest${i + 1}`].trim() as string)
-          .filter(guest => !!guest),
-        emails: emailsByUniquePartyName[guest.uniquePartyName] || [],
-      }))
+      .map(obj => partySchema.validateSync(obj))
+      .map(
+        ({
+          code,
+          uniquePartyName,
+          partyName,
+          numGuests,
+          knownGuests,
+          ...rest
+        }) => ({
+          code,
+          uniquePartyName,
+          partyName,
+          numGuests,
+          knownGuests,
+          preEvents: !!yn(rest.preEvents),
+          emails: emailsByUniquePartyName[uniquePartyName] || [],
+        })
+      )
       .value()
 
     const guestsByUniquePartyName = _.keyBy(guests, "uniquePartyName")
 
-    // Validation for guests: known guest count is valid, code exists
+    // Validation for guests: known guest count is valid
     const invalidGuests = guests.filter(
-      guest =>
-        guest.numGuests < guest.knownGuests.length ||
-        !guest.code ||
-        !guest.uniquePartyName
+      guest => guest.numGuests < guest.knownGuests.length
     )
     if (invalidGuests.length > 0) {
       this.error(
-        `Invalid guest records: ${invalidGuests.map(
+        `Invalid guest records (known guests exceed numGuests): ${invalidGuests.map(
           guest => guest.uniquePartyName
         )}`
       )
@@ -136,17 +199,19 @@ export default class InviteUpdate extends BaseCommand {
     const mailchimpRecords = emails.map(email => {
       const subscribed = emailIsSubscribed(email)
       return {
-        email_address: email.name,
+        email_address: email.email,
         email_type: "html",
         status: subscribed ? "subscribed" : "unsubscribed",
         merge_fields: {
           NAME: email.name,
-          WCODE: guestsByUniquePartyName[email.uniquePartyName]
-            ? guestsByUniquePartyName[email.uniquePartyName].code
-            : "",
-          PARTY: guestsByUniquePartyName[email.uniquePartyName]
-            ? guestsByUniquePartyName[email.uniquePartyName].partyName
-            : "",
+          WCODE:
+            email.uniquePartyName && subscribed
+              ? guestsByUniquePartyName[email.uniquePartyName].code
+              : "empty",
+          PARTY:
+            email.uniquePartyName && subscribed
+              ? guestsByUniquePartyName[email.uniquePartyName].partyName
+              : "empty",
         },
       }
     })
@@ -155,7 +220,7 @@ export default class InviteUpdate extends BaseCommand {
       `uploading ${mailchimpRecords.length} records to Mailchimp`
     )
     const result = await (flags.dryRun
-      ? Promise.resolve({ updated_members: [], new_members: [] })
+      ? Promise.resolve({ total_updated: 0, total_created: 0, error_count: 0 })
       : this.mailchimp.post(
           {
             path: "/lists/{listId}",
@@ -167,56 +232,69 @@ export default class InviteUpdate extends BaseCommand {
           }
         ))
     cli.action.stop()
+    this.log(result)
     this.log(
-      `${result.updated_members.length} records updated, ${result.new_members.length} records created`
+      `${result.total_created} records updated, ${result.total_updated} records created, ${result.error_count} errors`
     )
+    if (result.errors) {
+      this.log(result.errors)
+    }
 
-    const invitationsRef = admin.firestore().collection("invitations")
-    const firestoreInvitationBatches = _.chain(guests)
-      .map(({ code, partyName, numGuests, knownGuests, preEvents }) => ({
-        code,
-        partyName,
-        numGuests,
-        knownGuests,
-        preEvents,
-      }))
-      .chunk(200)
-      .value()
+    if (flags.dryRun) {
+      this.log("skipping firestore writes")
+    } else {
+      const invitationsRef = admin.firestore().collection("invitations")
+      const firestoreInvitationBatches = _.chain(guests)
+        .map(({ code, partyName, numGuests, knownGuests, preEvents }) => ({
+          code,
+          partyName,
+          numGuests,
+          knownGuests,
+          preEvents,
+        }))
+        .chunk(FirestoreChunkSize)
+        .value()
 
-    cli.action.start(`writing ${guests.length} invitations to firestore`)
-    await Promise.all(
-      firestoreInvitationBatches.map(records => {
-        const batch = admin.firestore().batch()
-        records.forEach(invitation =>
-          batch.set(invitationsRef.doc(invitation.code), invitation, {
-            merge: true,
-          })
-        )
-        return batch.commit()
-      })
-    )
-    cli.action.stop()
+      cli.action.start(`writing ${guests.length} invitations to firestore`)
+      await Promise.all(
+        firestoreInvitationBatches.map(records => {
+          const batch = admin.firestore().batch()
+          records.forEach(invitation =>
+            batch.set(invitationsRef.doc(invitation.code), invitation, {
+              merge: true,
+            })
+          )
+          return batch.commit()
+        })
+      )
+      cli.action.stop()
 
-    const firestoreInviteeRecords = guests.flatMap(guest =>
-      guest.emails.map(email => ({
-        id: email.email,
-        data: { name: email.name, code: guest.code },
-      }))
-    )
-    const firestoreInviteeBatches = _.chunk(firestoreInviteeRecords, 200)
-    const inviteesRef = admin.firestore().collection("invitees")
-    cli.action.start(
-      `writing ${firestoreInviteeRecords.length} invitees to firestore`
-    )
-    await Promise.all(
-      firestoreInviteeBatches.map(records => {
-        const batch = admin.firestore().batch()
-        records.forEach(invitee =>
-          batch.set(inviteesRef.doc(invitee.id), invitee.data, { merge: true })
-        )
-        return batch.commit()
-      })
-    )
-    cli.action.stop()
+      const firestoreInviteeRecords = guests.flatMap(guest =>
+        guest.emails.map(email => ({
+          id: email.email,
+          data: { name: email.name, code: guest.code },
+        }))
+      )
+      const firestoreInviteeBatches = _.chunk(
+        firestoreInviteeRecords,
+        FirestoreChunkSize
+      )
+      const inviteesRef = admin.firestore().collection("invitees")
+      cli.action.start(
+        `writing ${firestoreInviteeRecords.length} invitees to firestore`
+      )
+      await Promise.all(
+        firestoreInviteeBatches.map(records => {
+          const batch = admin.firestore().batch()
+          records.forEach(invitee =>
+            batch.set(inviteesRef.doc(invitee.id), invitee.data, {
+              merge: true,
+            })
+          )
+          return batch.commit()
+        })
+      )
+      cli.action.stop()
+    }
   }
 }
