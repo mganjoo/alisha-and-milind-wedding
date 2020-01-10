@@ -45,6 +45,8 @@ function makeDescription(event: WeddingEventMarkdown) {
             `* ${location.name}: ${location.location} at ${location.time}`
         )
         .join("\n") + "\n\n"
+    : event.frontmatter.calendarLocation
+    ? `* Location: ${event.frontmatter.location}\n\n`
     : ""
   return `${subEventDescription}${event.plainText}\nAttire: ${event.frontmatter.attire}`
 }
@@ -76,7 +78,9 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               label="Add to calendar"
               event={{
                 title: `${event.frontmatter.name}: Alisha & Milind's Wedding`,
-                location: event.frontmatter.location,
+                location:
+                  event.frontmatter.calendarLocation ||
+                  event.frontmatter.location,
                 description: makeDescription(event),
                 startTime: event.frontmatter.startDate,
                 endTime: event.frontmatter.endDate,

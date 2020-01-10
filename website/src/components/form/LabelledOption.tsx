@@ -28,8 +28,8 @@ function getInputClass(type: OptionType) {
 
 const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
   ({ label, type, bold, ...otherProps }, ref) => (
-    <div className="my-2">
-      <label className="inline-flex items-center">
+    <div>
+      <label className="inline-flex items-center py-1">
         <input
           type={type}
           className={getInputClass(type)}

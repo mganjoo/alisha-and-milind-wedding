@@ -13,6 +13,7 @@ export interface WeddingEventMarkdown {
     longDateOnly: string
     timeOnly: string
     location: string
+    calendarLocation?: string
     locationUrl: string
     attire: string
     subLocations?: {
@@ -57,6 +58,7 @@ export function useEvents() {
               shortName
               name: title
               location
+              calendarLocation
               locationUrl
               attire
               subLocations {

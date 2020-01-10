@@ -84,7 +84,7 @@ export function ical(event: CalendarEvent): string {
     "DTSTART:" + formatTime(event.startTime, format),
     "DTEND:" + formatTime(event.endTime, format),
     "SUMMARY:" + event.title,
-    "DESCRIPTION:" + event.description,
+    "DESCRIPTION:" + event.description.replace(/\n/g, "\\n"),
     "LOCATION:" + event.location,
     "END:VEVENT",
     "END:VCALENDAR",
