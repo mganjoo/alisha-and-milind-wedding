@@ -26,9 +26,9 @@ export async function getContacts(after?: string) {
   const contacts = snapshot.docs.map(
     doc => ({ id: doc.ref.id, ...doc.data() } as Contact)
   )
-  return contacts.map(contact => ({
-    ...contact,
-    created: dayjs(contact.createdAt.toDate())
+  return contacts.map(({ createdAt, ...other }) => ({
+    ...other,
+    created: dayjs(createdAt.toDate())
       .utc()
       .format("YYYY-MM-DD HH:mm:ss"),
   }))

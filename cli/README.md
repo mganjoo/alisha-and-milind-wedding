@@ -36,28 +36,31 @@ USAGE
 - [`wedding-manager contacts:export`](#wedding-manager-contactsexport)
 - [`wedding-manager contacts:sync`](#wedding-manager-contactssync)
 - [`wedding-manager help [COMMAND]`](#wedding-manager-help-command)
+- [`wedding-manager invite:gen-codes`](#wedding-manager-invitegen-codes)
+- [`wedding-manager invite:update`](#wedding-manager-inviteupdate)
 - [`wedding-manager shortid [FILE]`](#wedding-manager-shortid-file)
 
 ## `wedding-manager contacts:export`
 
-Export contacts stored in Firestore, as a table
+Export contacts stored in Firestore, as a table.
 
 ```
 USAGE
   $ wedding-manager contacts:export
 
 OPTIONS
-  -f, --firebase=firebase  path to Firebase service account credentials
-  -g, --google=google      path to Google API credentials JSON
-  -h, --help               show CLI help
-  -x, --extended           show extra columns
-  --after=after            ID of document cursor (results will be retrieved after this document)
-  --columns=columns        only show provided columns (comma-separated)
-  --csv                    output is csv format
-  --filter=filter          filter property by partial string matching, ex: name=foo
-  --no-header              hide table header from output
-  --no-truncate            do not truncate output to fit screen
-  --sort=sort              property to sort by (prepend '-' for descending)
+  -f, --firebase=firebase    path to Firebase service account credentials
+  -g, --google=google        path to Google API credentials JSON
+  -h, --help                 show CLI help
+  -m, --mailchimp=mailchimp  Mailchimp API key
+  -x, --extended             show extra columns
+  --after=after              ID of document cursor (results will be retrieved after this document)
+  --columns=columns          only show provided columns (comma-separated)
+  --csv                      output is csv format
+  --filter=filter            filter property by partial string matching, ex: name=foo
+  --no-header                hide table header from output
+  --no-truncate              do not truncate output to fit screen
+  --sort=sort                property to sort by (prepend '-' for descending)
 
 EXAMPLES
   $ wedding-manager contacts:export -f path/to/service-account.json
@@ -78,7 +81,8 @@ OPTIONS
   -f, --firebase=firebase        path to Firebase service account credentials
   -g, --google=google            path to Google API credentials JSON
   -h, --help                     show CLI help
-  --range=range                  (required) Range of existing table containing 4 rows (e.g. 'Known Emails!A:D')
+  -m, --mailchimp=mailchimp      Mailchimp API key
+  --range=range                  (required) Range of existing table spanning 4 columns (e.g. 'Known Emails!A:D')
   --spreadsheetId=spreadsheetId  (required) ID of Google Spreadsheet for existing contacts
 
 EXAMPLE
@@ -102,6 +106,57 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `wedding-manager invite:gen-codes`
+
+Generate invitation codes for a table of guest parties in Google Sheets.
+
+```
+USAGE
+  $ wedding-manager invite:gen-codes
+
+OPTIONS
+  -f, --firebase=firebase        path to Firebase service account credentials
+  -g, --google=google            path to Google API credentials JSON
+  -h, --help                     show CLI help
+  -m, --mailchimp=mailchimp      Mailchimp API key
+
+  --range=range                  (required) Range of existing table spanning 2 columns. The first column is where IDs
+                                 will be written; the second column is used to determine how many IDs to write (e.g.
+                                 'Guest Parties!A:B')
+
+  --spreadsheetId=spreadsheetId  (required) ID of Google Spreadsheet for existing contacts
+
+EXAMPLE
+  $ wedding-manager invite:gen-codes --spreadsheetId 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms --range 'Guest
+  Parties!A:B'
+```
+
+## `wedding-manager invite:update`
+
+Update invitation and invitee records in Firestore and Mailchimp using CSV exports from Google Sheets.
+
+```
+USAGE
+  $ wedding-manager invite:update
+
+OPTIONS
+  -f, --firebase=firebase                path to Firebase service account credentials
+  -g, --google=google                    path to Google API credentials JSON
+  -h, --help                             show CLI help
+  -m, --mailchimp=mailchimp              Mailchimp API key
+  --dryRun                               Do not write records to any services
+  --emails=emails                        (required) CSV containing email information from A+M wedding spreadsheet
+  --listId=listId                        (required) Mailchimp list ID for invitees
+  --parties=parties                      (required) CSV containing party information from A+M wedding spreadsheet
+  --preEventSegmentId=preEventSegmentId  (required) Mailchimp segment ID for PreEvents tag
+
+EXAMPLES
+  $ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId
+  fs92kghse --preEventSegmentId 29671
+  $ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId
+  fs92kghse --preEventSegmentId 29671 --dryRun
+```
 
 ## `wedding-manager shortid [FILE]`
 

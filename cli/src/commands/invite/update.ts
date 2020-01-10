@@ -82,10 +82,11 @@ interface Party extends Invitation {
 
 export default class InviteUpdate extends BaseCommand {
   static description =
-    "Generate invitation codes for a table of guest parties in Google Sheets."
+    "Update invitation and invitee records in Firestore and Mailchimp using CSV exports from Google Sheets."
 
   static examples = [
-    `$ wedding-manager invite:update --spreadsheetId 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms --range 'Guest Parties!A:B'`,
+    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventSegmentId 29671`,
+    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventSegmentId 29671 --dryRun`,
   ]
 
   static flags = {

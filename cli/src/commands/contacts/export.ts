@@ -4,7 +4,7 @@ import cli from "cli-ux"
 import { getContacts } from "../../util/contacts"
 
 export default class ContactsExport extends BaseCommand {
-  static description = "Export contacts stored in Firestore, as a table"
+  static description = "Export contacts stored in Firestore, as a table."
 
   static examples = [
     `$ wedding-manager contacts:export -f path/to/service-account.json`,

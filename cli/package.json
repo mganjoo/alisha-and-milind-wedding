@@ -62,6 +62,9 @@
     "topics": {
       "contacts": {
         "description": "Export/sync contacts collection"
+      },
+      "invite": {
+        "description": "Manage invitations"
       }
     }
   },
