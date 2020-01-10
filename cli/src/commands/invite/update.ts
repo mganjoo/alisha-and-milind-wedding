@@ -9,25 +9,23 @@ import admin from "firebase-admin"
 import { object, string, number, array, InferType } from "yup"
 import shortid from "shortid"
 
-const emailCsvSchema = object()
-  .shape({
-    name: string()
-      .trim()
-      .required(),
-    email: string()
-      .trim()
-      .email(),
-    cleanedName: string()
-      .notRequired()
-      .trim(),
-    skip: string()
-      .notRequired()
-      .oneOf(["y", ""]),
-    uniquePartyName: string()
-      .notRequired()
-      .trim(),
-  })
-  .strict(true)
+const emailCsvSchema = object().shape({
+  name: string()
+    .trim()
+    .required(),
+  email: string()
+    .trim()
+    .email(),
+  cleanedName: string()
+    .notRequired()
+    .trim(),
+  skip: string()
+    .notRequired()
+    .oneOf(["y", ""]),
+  uniquePartyName: string()
+    .notRequired()
+    .trim(),
+})
 
 type EmailCsv = InferType<typeof emailCsvSchema>
 
@@ -268,7 +266,7 @@ export default class InviteUpdate extends BaseCommand {
         ))
     cli.action.stop()
     this.log(
-      `${tagResult.total_added} records updated, ${tagResult.total_removed} records created`
+      `${tagResult.total_added} records added, ${tagResult.total_removed} records removed`
     )
 
     if (flags.dryRun) {
