@@ -24,7 +24,9 @@ const RsvpPage = () => (
               <div className="c-article">
                 <p>
                   We hope to see you at our wedding! Please RSVP by{" "}
-                  <strong>{value.rsvpDeadline}</strong>.
+                  <strong>{value.rsvpDeadline}</strong>. View the{" "}
+                  <Link to="/schedule">Schedule</Link> page for more details
+                  about the wedding events.
                 </p>
                 <p>
                   Any member of your party can submit for the whole group, and
