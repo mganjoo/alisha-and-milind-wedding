@@ -49,3 +49,16 @@ firebase deploy
 # To production
 firebase -P production deploy
 ```
+
+## Other one-time setup
+
+### Configure Google API client ID and secret
+
+Configure the Client ID and Client secret (available from https://console.cloud.google.com/apis/credentials)
+for initializing the OAuth client for Sheets access.
+
+```sh
+firebase functions:config:set googleapi.client_id="YOUR_CLIENT_ID" googleapi.client_secret="YOUR_CLIENT_SECRET"
+```
+
+Full instructions for authorization are derived from https://github.com/firebase/functions-samples/tree/master/google-sheet-sync#deploy-and-test.

@@ -14,6 +14,14 @@
       {
         "source": "/seedInvitations",
         "function": "/seedInvitations"
+      },
+      {
+        "source": "/authGoogleApi",
+        "function": "/authGoogleApi"
+      },
+      {
+        "source": "/oauthCallback",
+        "function": "/oauthCallback"
       }
     ]
   }
