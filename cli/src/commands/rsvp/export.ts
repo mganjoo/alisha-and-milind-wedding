@@ -29,6 +29,7 @@ export default class RsvpExport extends BaseCommand {
       cli.table(
         rsvps,
         {
+          id: { extended: true },
           code: {},
           partyName: { header: "Party Name" },
           attending: {},
@@ -39,6 +40,12 @@ export default class RsvpExport extends BaseCommand {
           sangeet: { extended: true },
           ceremony: { extended: true },
           reception: { extended: true },
+          guest1: { extended: true },
+          guest2: { extended: true },
+          guest3: { extended: true },
+          guest4: { extended: true },
+          guest5: { extended: true },
+          guest6: { extended: true },
         },
         { ...flags, sort: flags.sort || "created" }
       )
