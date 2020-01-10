@@ -5,20 +5,27 @@ import {
   loadInvitationData,
   parseInvitationData,
   isCurrentVersion,
+  saveInvitationCode,
+  loadInvitationCode,
 } from "./Storage"
 
 const invitationsCollection = "invitations"
 const inviteesCollection = "invitees"
 const rsvpsCollection = "rsvps"
 
-function saveInvitation(invitation: Invitation): Promise<void> {
-  return saveInvitationData({
-    version: 1,
-    fetchedInvitation: {
-      invitation: invitation,
-      lastFetched: new Date(),
-    },
-  })
+async function saveInvitation(invitation: Invitation): Promise<void> {
+  try {
+    await saveInvitationData({
+      version: 1,
+      fetchedInvitation: {
+        invitation: invitation,
+        lastFetched: new Date(),
+      },
+    })
+  } catch {
+    // Try saving code to session storage
+    saveInvitationCode(invitation.code)
+  }
 }
 
 /**
@@ -65,22 +72,28 @@ export async function fetchAndSaveInvitationByEmail(
 export async function loadSavedInvitation(
   refreshOlderThanSecs?: number
 ): Promise<Invitation | undefined> {
-  const data = await loadInvitationData()
-  if (data) {
-    const savedInvitation = parseInvitationData(data)
-    const now = new Date().getTime()
-    if (
-      !isCurrentVersion(data) ||
-      (refreshOlderThanSecs &&
-        now - savedInvitation.lastFetched.getTime() >
-          refreshOlderThanSecs * 1000)
-    ) {
-      return fetchAndSaveInvitationByCode(savedInvitation.invitation.code)
+  try {
+    const data = await loadInvitationData()
+    if (data) {
+      const savedInvitation = parseInvitationData(data)
+      const now = new Date().getTime()
+      if (
+        !isCurrentVersion(data) ||
+        (refreshOlderThanSecs &&
+          now - savedInvitation.lastFetched.getTime() >
+            refreshOlderThanSecs * 1000)
+      ) {
+        return fetchAndSaveInvitationByCode(savedInvitation.invitation.code)
+      } else {
+        return savedInvitation.invitation
+      }
     } else {
-      return savedInvitation.invitation
+      return undefined
     }
-  } else {
-    return undefined
+  } catch {
+    // Try fetching code from session storage and retrieving that way
+    const code = loadInvitationCode()
+    return code ? fetchAndSaveInvitationByCode(code) : undefined
   }
 }
 

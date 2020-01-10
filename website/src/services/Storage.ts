@@ -2,6 +2,7 @@ import { set, del, get, Store } from "idb-keyval"
 import { Invitation } from "../interfaces/Invitation"
 
 const InvitationKey = "invitation"
+const InvitationCodeKey = "code"
 
 let store: Store
 
@@ -35,12 +36,34 @@ export function saveInvitationData(data: SavedInvitationDataV1): Promise<void> {
   return set(InvitationKey, data, loadStore())
 }
 
+export function saveInvitationCode(code: string) {
+  try {
+    sessionStorage.setItem(InvitationCodeKey, code)
+  } catch {
+    // Saving invitation code failed; ignore error
+    console.warn("could not acess session storage")
+  }
+}
+
 export function loadInvitationData(): Promise<SavedInvitationData | undefined> {
   return get(InvitationKey, loadStore())
 }
 
-export function clearInvitationData(): Promise<void> {
-  return del(InvitationKey, loadStore())
+export function loadInvitationCode() {
+  try {
+    return sessionStorage.getItem(InvitationCodeKey)
+  } catch {
+    // Loading from session storage failed
+    console.warn("could not access session storage")
+    return null
+  }
+}
+
+export async function clearInvitationData(): Promise<void> {
+  return del(InvitationKey, loadStore()).catch(() =>
+    // Ignore attempts to clear if IndexedDB is inaccessible
+    console.warn("could not access local DB")
+  )
 }
 
 export function parseInvitationData(
