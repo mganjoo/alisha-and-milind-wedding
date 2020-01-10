@@ -60,6 +60,12 @@ describe("invitation tests", function() {
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
     })
 
+    it("should load an invitation correctly when email is different case", function() {
+      cy.get("@email_input").type(email.toUpperCase())
+      cy.get("@button").click()
+      cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
+    })
+
     it("should validate empty input", function() {
       cy.get("@button").click()
       cy.findByText(/please enter a valid email/i).should("exist")

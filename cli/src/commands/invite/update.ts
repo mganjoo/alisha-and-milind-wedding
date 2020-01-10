@@ -235,7 +235,7 @@ export default class InviteUpdate extends BaseCommand {
         ))
     cli.action.stop()
     this.log(
-      `${result.total_created} records updated, ${result.total_updated} records created, ${result.error_count} errors`
+      `${result.total_created} records created, ${result.total_updated} records updated, ${result.error_count} errors`
     )
     if (result.errors.length > 0) {
       this.log(result.errors)
@@ -300,7 +300,7 @@ export default class InviteUpdate extends BaseCommand {
 
       const firestoreInviteeRecords = parties.flatMap(party =>
         party.emails.map(email => ({
-          id: email.email,
+          id: email.email.toLowerCase(),
           data: { name: email.name, code: party.code },
         }))
       )
