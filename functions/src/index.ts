@@ -22,15 +22,9 @@ const ClientSecret = functions.config().googleapi.client_secret
 /**
  * Configuration for sheet to update with RSVP information
  * - rsvps.spreadsheet_id = https://docs.google.com/spreadsheets/d/<spreadsheetId>/...
- * - rsvps.rsvp_sheet_id = gid (from URL) of RSVPs sheet (number)
  * - rsvps.table_range = A1 notation of range containing RSVPs
- * - rsvps.invitation_codes_column_index = index of column containing invitation codes
  */
 const SpreadsheetId = functions.config().rsvps.spreadsheet_id
-const RsvpSheetId = parseInt(functions.config().rsvps.rsvp_sheet_id)
-const InvitationCodesColumnIndex = parseInt(
-  functions.config().rsvps.invitation_codes_column_index
-)
 const TableRange = functions.config().rsvps.table_range
 
 // Redirect URI after authentication is complete. Defined by `oauthCallback` Cloud Function.
@@ -138,51 +132,12 @@ async function appendRsvpToSheet(
           data.guests[5] ? data.guests[5].name : "",
         ]
 
-        // Retrieve existing data and find rows that include the invitation code
-        const response = await sheets.spreadsheets.values.get({
-          spreadsheetId: SpreadsheetId,
-          range: TableRange,
-          valueRenderOption: "UNFORMATTED_VALUE",
-        })
-        const cells = response.data.values
-        const existingRowIndexes = cells
-          ? cells
-              .map((row, i) =>
-                row.length > InvitationCodesColumnIndex &&
-                row[InvitationCodesColumnIndex] &&
-                row[InvitationCodesColumnIndex] === code
-                  ? i
-                  : -1
-              )
-              .filter(i => i !== -1)
-          : []
-        console.info(
-          `Found RSVP codes in existing row indices ${existingRowIndexes.toString()}`
-        )
-        const deleteRequests = existingRowIndexes.map((i, offset) => ({
-          deleteDimension: {
-            range: {
-              sheetId: RsvpSheetId,
-              dimension: "ROWS",
-              // subtract offset from i because prior deletion would shift rows up
-              startIndex: i - offset,
-              endIndex: i - offset + 1,
-            },
-          },
-        }))
-
-        await sheets.spreadsheets.batchUpdate({
-          spreadsheetId: SpreadsheetId,
-          requestBody: {
-            requests: deleteRequests,
-          },
-        })
-
         // Append new row at end
         await sheets.spreadsheets.values.append({
           spreadsheetId: SpreadsheetId,
           range: TableRange,
           valueInputOption: "USER_ENTERED",
+          insertDataOption: "INSERT_ROWS",
           requestBody: {
             values: [row],
           },
