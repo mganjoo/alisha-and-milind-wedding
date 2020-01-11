@@ -1,49 +1,49 @@
 import * as admin from "firebase-admin"
 import * as functions from "firebase-functions"
+import { invitations, invitees } from "./fixtures"
 
 admin.initializeApp()
 const db = admin.firestore()
 
-type Data = Record<string, any> & { createdAt: admin.firestore.Timestamp }
-
 /**
- * Update the "latestRsvp" field of the invitation when a new RSVP is received.
+ * Update the "latestRsvp" field of the invitation with information
+ * from an incoming RSVP.
  */
-export const updateLatestRsvp = functions.firestore
-  .document("invitations/{code}/rsvps/{rsvpId}")
-  .onCreate(async (snapshot, context) => {
-    const { createdAt, ...data } = snapshot.data() as Data
-    const code = context.params.code
-    const dataWithTimestamp = {
-      ...data,
-      timestampMillis: createdAt.toMillis(),
-    }
-    console.info(`Received RSVP for code ${code}`, dataWithTimestamp)
-
-    // Write latestRsvp to invitation
-    try {
-      await db
-        .collection("invitations")
-        .doc(code)
-        .update({
-          latestRsvp: dataWithTimestamp,
-        })
-      console.info(`Updated latest RSVP for code ${code}`)
-    } catch (error) {
-      console.error(
-        `Could not update invitation for code ${code} with latestRsvp`,
-        error
-      )
-    }
-  })
-
-interface Fixture {
-  id: string
-  data: Record<string, any>
+async function writeLatestRsvp(
+  data: admin.firestore.DocumentData,
+  code: string
+) {
+  const { createdAt, ...otherData } = data
+  const dataWithTimestamp = {
+    ...otherData,
+    timestampMillis: (createdAt as admin.firestore.Timestamp).toMillis(),
+  }
+  try {
+    await db
+      .collection("invitations")
+      .doc(code)
+      .update({
+        latestRsvp: dataWithTimestamp,
+      })
+    console.info(`Updated latest RSVP for code ${code}`)
+  } catch (error) {
+    console.error(
+      `Could not update invitation for code ${code} with latestRsvp`,
+      error
+    )
+  }
 }
 
-const invitations = require("../fixtures/invitation-fixtures.json") as Fixture[]
-const invitees = require("../fixtures/invitees-fixtures.json") as Fixture[]
+export const onCreateRsvp = functions.firestore
+  .document("invitations/{code}/rsvps/{rsvpId}")
+  .onCreate(async (snapshot, context) => {
+    const code = context.params.code
+    const data = snapshot.data()
+    if (data) {
+      console.info(`Received RSVP for code ${code}`, data)
+      await writeLatestRsvp(data, code)
+    }
+  })
 
 /**
  * Seed invitations and invitees into the test Firestore database, using a fixtures file.
