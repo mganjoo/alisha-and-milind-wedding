@@ -63,3 +63,9 @@ yarn-error.log
 
 # Incremental buildinfo files
 *.tsbuildinfo
+
+# Functions lib/
+functions/lib
+
+# Firebase
+.firebase

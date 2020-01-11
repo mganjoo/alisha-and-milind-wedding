@@ -4,6 +4,17 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "predeploy": "npm --prefix functions run build"
+    "predeploy": "npm --prefix functions run build",
+    "source": "functions"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/seedInvitations",
+        "function": "/seedInvitations"
+      }
+    ]
   }
 }
