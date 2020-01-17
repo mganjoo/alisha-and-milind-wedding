@@ -42,6 +42,10 @@ const getApiTokensRef = () => db.collection("config").doc("apiTokens")
 // Locally cached oAuth tokens
 let oauthTokens: Credentials | undefined
 
+// Returns true if this is a test project (relevant for seeding fixture data)
+const isTestProject = () =>
+  /^test-[a-zA-z0-9-]+$/.test(process.env.GCLOUD_PROJECT || "")
+
 async function getAuthorizedClient() {
   if (oauthTokens) {
     return oAuth2Client
@@ -172,22 +176,28 @@ export const onCreateRsvp = functions.firestore
  */
 export const seedInvitations = functions.https.onRequest(async (req, res) => {
   if (req.method === "POST") {
-    try {
-      const batch = db.batch()
-      invitations.forEach(invitation =>
-        batch.set(
-          db.collection("invitations").doc(invitation.id),
-          invitation.data
+    if (isTestProject()) {
+      try {
+        const batch = db.batch()
+        invitations.forEach(invitation =>
+          batch.set(
+            db.collection("invitations").doc(invitation.id),
+            invitation.data
+          )
         )
-      )
-      invitees.forEach(invitee =>
-        batch.set(db.collection("invitees").doc(invitee.id), invitee.data)
-      )
-      await batch.commit()
-      res.send({ invitations: invitations, invitees: invitees })
-    } catch (error) {
-      console.error(error)
-      res.status(500).send("Error occurred while seeding data")
+        invitees.forEach(invitee =>
+          batch.set(db.collection("invitees").doc(invitee.id), invitee.data)
+        )
+        await batch.commit()
+        res.send({ invitations: invitations, invitees: invitees })
+      } catch (error) {
+        console.error(error)
+        res.status(500).send("Error occurred while seeding data")
+      }
+    } else {
+      res
+        .status(200)
+        .send("Seeding fixture data is only supported for test projects")
     }
   } else {
     res.status(200).send("Must seed data using POST")
