@@ -148,6 +148,25 @@ async function appendRsvpToSheet(
         })
 
         console.info(`Successfully appended RSVP to sheet`)
+
+        // Append to mail collection
+        await admin
+          .firestore()
+          .collection("mail")
+          .add({
+            to: "alisha.and.milind+rsvps@gmail.com",
+            template: {
+              name: "new_rsvp",
+              data: {
+                party_name: invitation.partyName,
+                code: code,
+                attending: data.attending,
+                comments: data.comments || "",
+              },
+            },
+          })
+
+        console.info(`Successfully queued notification email`)
       } else {
         console.error(`Could not load invitation for code ${code}`)
       }
