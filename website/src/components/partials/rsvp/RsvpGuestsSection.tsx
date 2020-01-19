@@ -93,6 +93,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
         <LabelledTextField
           name="comments"
           type="textarea"
+          rows={3}
           label="Comments"
           placeholder="Any comments or questions for us? (optional)"
         />
