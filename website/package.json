@@ -7,7 +7,7 @@
     "@reach/menu-button": "0.7.0",
     "@reach/skip-nav": "0.7.0",
     "classnames": "2.2.6",
-    "dayjs": "1.8.18",
+    "dayjs": "1.8.19",
     "firebase": "7.6.1",
     "formik": "2.1.1",
     "gatsby": "2.18.21",
