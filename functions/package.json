@@ -13,7 +13,7 @@
     "googleapis": "47.0.0"
   },
   "devDependencies": {
-    "@firebase/testing": "0.16.4",
+    "@firebase/testing": "0.16.6",
     "@types/jest": "24.9.0",
     "@typescript-eslint/eslint-plugin": "2.16.0",
     "@typescript-eslint/parser": "2.16.0",
