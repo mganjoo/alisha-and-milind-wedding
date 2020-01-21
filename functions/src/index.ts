@@ -46,6 +46,11 @@ let oauthTokens: Credentials | undefined
 const isTestProject = () =>
   /^test-[a-zA-z0-9-]+$/.test(process.env.GCLOUD_PROJECT || "")
 
+interface Guest {
+  name: string
+  events: string[]
+}
+
 async function getAuthorizedClient() {
   if (oauthTokens) {
     return oAuth2Client
@@ -155,14 +160,18 @@ async function appendRsvpToSheet(
           .collection("mail")
           .add({
             to: "alisha.and.milind+rsvps@gmail.com",
-            template: {
-              name: "new_rsvp",
-              data: {
-                party_name: invitation.partyName,
-                code: code,
-                attending: data.attending,
-                comments: data.comments || "",
-              },
+            message: {
+              subject: `New RSVP received: ${invitation.partyName}`,
+              html: `
+<p>Attending: ${data.attending ? "yes" : "no"}</p>
+<p>Code: ${code}</p>
+<p>Comments: ${data.comments || "(none)"}</p>
+<ul>
+${data.guests
+  .map((guest: Guest) => `<li>${guest.name}: ${guest.events.join(", ")}</li>`)
+  .join("\n")}
+</ul>
+`,
             },
           })
 
