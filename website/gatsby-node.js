@@ -1,23 +1,14 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
-const yn = require("yn")
-
 exports.createPages = ({ actions }) => {
   const { createRedirect } = actions
-  if (yn(process.env.DISABLE_FULL_SITE)) {
-    // If full site isn't enabled, redirect index page
-    createRedirect({
-      fromPath: "/",
-      toPath: "/save-the-date",
-      isPermanent: false,
-      redirectInBrowser: true,
-      force: true,
-    })
-  }
   createRedirect({
     fromPath: "/savethedate",
-    toPath: "/save-the-date",
+    toPath: "/",
+    isPermanent: true,
+    redirectInBrowser: true,
+  })
+  createRedirect({
+    fromPath: "/save-the-date",
+    toPath: "/",
     isPermanent: true,
     redirectInBrowser: true,
   })

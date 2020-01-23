@@ -51,9 +51,7 @@ These options control how the Gatsby site gets generated. These options
 should only be set on Netlify in staging and production environments,
 never in CI or test environments.
 
-- `DISABLE_FULL_SITE`: When set to `"1"`, builds only the Save the Date page (instead of the full site).
 - `DISABLE_DEMO_PAGES`: When set to `"1"`, disables building any demo pages in `pages-demo/`.
-- `GATSBY_SAVE_THE_DATE_REDIRECT`: When set to `"1"`, redirects to / after submitting save the date form.
 - `GA_TRACKING_ID`: Tracking code for Google Analytics.
   If unset, the website will build, but no analytics will be logged. It is
   better to set this on Netlify than in this repo.

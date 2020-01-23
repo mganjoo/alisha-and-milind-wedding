@@ -48,16 +48,6 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-typescript`,
-    {
-      resolve: `gatsby-plugin-page-creator`,
-      options: {
-        path: `${__dirname}/src/${
-          yn(process.env.DISABLE_FULL_SITE)
-            ? "pages-save-the-date"
-            : "pages-full-site"
-        }`,
-      },
-    },
     ...demoPagePlugin,
     `gatsby-plugin-react-helmet`,
     {
@@ -87,7 +77,7 @@ module.exports = {
         name: longTitle,
         short_name: `A&M Wedding`,
         language: `en`,
-        start_url: yn(process.env.DISABLE_FULL_SITE) ? "/save-the-date" : "/",
+        start_url: "/",
         background_color: sharedConstants.offWhite,
         theme_color: sharedConstants.offWhite,
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
