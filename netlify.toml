@@ -20,9 +20,5 @@
   GATSBY_USE_PROD_FIREBASE = "1"
   GATSBY_GA_BRANCH = "master"
 
-[context.staging.environment]
-  DISABLE_DEMO_PAGES = "1"
-  GATSBY_GA_BRANCH = "staging"
-
-[context.branch-deploy.environment]
+[context.deploy-preview.environment]
   GATSBY_GA_BRANCH = "develop"
