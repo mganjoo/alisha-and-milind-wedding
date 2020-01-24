@@ -23,7 +23,7 @@
     "firebase-functions-test": "0.1.7",
     "firebase-tools": "7.12.1",
     "jest": "25.1.0",
-    "ts-jest": "24.3.0",
+    "ts-jest": "25.0.0",
     "typescript": "3.7.5"
   },
   "scripts": {
