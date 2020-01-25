@@ -30,12 +30,11 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         npm run deploy
-        curl -X POST -d {} ${CLOUD_FUNCTIONS_URL}/seedInvitations
+        curl -X POST -d {} https://test-alisha-and-milind-wedding.firebaseapp.com/seedInvitations
       working-directory: ./functions
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        CLOUD_FUNCTIONS_URL: ${{ secrets.CLOUD_FUNCTIONS_URL }}
     - name: Deploy (production project)
       if: github.ref == 'refs/heads/master'
       run: |
