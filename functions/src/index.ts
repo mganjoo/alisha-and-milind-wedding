@@ -5,6 +5,7 @@ import { google } from "googleapis"
 import { Credentials } from "google-auth-library"
 import * as dayjs from "dayjs"
 import * as utc from "dayjs/plugin/utc"
+import Mailchimp = require("mailchimp-api-v3")
 
 dayjs.extend(utc)
 
@@ -27,6 +28,19 @@ const ClientSecret = functions.config().googleapi.client_secret
 const SpreadsheetId = functions.config().rsvps.spreadsheet_id
 const TableRange = functions.config().rsvps.table_range
 
+/**
+ * Configuration for Mailchimp
+ * - mailchimp.api_key = Mailchimp API key
+ * - mailchimp.list_id = Mailchimp Audience ID
+ * - mailchimp.tag_id.attending = Tag/Segment ID for Attending
+ * - mailchimp.tag_id.not_attending = Tag/Segment ID for Not Attending
+ */
+const MailchimpApiKey = functions.config().mailchimp.api_key
+const MailchimpListId = functions.config().mailchimp.list_id
+const MailchimpTagIdAttending = functions.config().mailchimp.tag_id.attending
+const MailchimpTagIdNotAttending = functions.config().mailchimp.tag_id
+  .not_attending
+
 // Redirect URI after authentication is complete. Defined by `oauthCallback` Cloud Function.
 const RedirectUri = `https://${process.env.GCLOUD_PROJECT}.firebaseapp.com/oauthCallback`
 
@@ -35,6 +49,26 @@ const Scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 
 // OAuth client for Google Sheets access.
 const oAuth2Client = new google.auth.OAuth2(ClientId, ClientSecret, RedirectUri)
+
+// Mailchimp client
+const mailchimpClient = new Mailchimp(MailchimpApiKey)
+
+// Mailchimp segment for attending guests
+const attendingSegment = {
+  path: "/lists/{listId}/segments/{segmentId}",
+  path_params: {
+    listId: MailchimpListId,
+    segmentId: MailchimpTagIdAttending,
+  },
+}
+// Mailchimp segment for non-attending guests
+const notAttendingSegment = {
+  path: "/lists/{listId}/segments/{segmentId}",
+  path_params: {
+    listId: MailchimpListId,
+    segmentId: MailchimpTagIdNotAttending,
+  },
+}
 
 // Reference to Sheets API tokens
 const getApiTokensRef = () => db.collection("config").doc("apiTokens")
@@ -185,6 +219,41 @@ ${data.guests
   }
 }
 
+async function updateContactTags(
+  data: admin.firestore.DocumentData,
+  code: string
+) {
+  if (isTestProject()) {
+    return
+  }
+  try {
+    const snapshot = await db
+      .collection("invitees")
+      .where("code", "==", code)
+      .get()
+    const emails = snapshot.docs.map(doc => doc.id)
+
+    // Add emails to segment corresponding to attending status
+    await mailchimpClient.post(
+      data.attending ? attendingSegment : notAttendingSegment,
+      {
+        members_to_add: emails,
+      }
+    )
+    // Remove emails from segment corresponding to opposite of attending status
+    await mailchimpClient.post(
+      data.attending ? notAttendingSegment : attendingSegment,
+      {
+        members_to_remove: emails,
+      }
+    )
+
+    console.info("Updated attending and not attending segments")
+  } catch (error) {
+    console.error(`Mailchimp segment ID update failed: ${code}`, error)
+  }
+}
+
 export const onCreateRsvp = functions.firestore
   .document("invitations/{code}/rsvps/{rsvpId}")
   .onCreate(async (snapshot, context) => {
@@ -195,6 +264,7 @@ export const onCreateRsvp = functions.firestore
       await Promise.all([
         writeLatestRsvp(data, code),
         appendRsvpToSheet(snapshot.id, data, code),
+        updateContactTags(data, code),
       ])
     }
   })

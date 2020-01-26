@@ -58,7 +58,15 @@ Configure the Client ID and Client secret (available from https://console.cloud.
 for initializing the OAuth client for Sheets access.
 
 ```sh
-firebase functions:config:set googleapi.client_id="YOUR_CLIENT_ID" googleapi.client_secret="YOUR_CLIENT_SECRET"
+firebase -P production functions:config:set googleapi.client_id="YOUR_CLIENT_ID" googleapi.client_secret="YOUR_CLIENT_SECRET"
 ```
 
 Full instructions for authorization are derived from https://github.com/firebase/functions-samples/tree/master/google-sheet-sync#deploy-and-test.
+
+### Configure Mailchimp API credentials
+
+Configure the Mailchimp API credentials, and IDs for the Mailchimp audience and tags related to the wedding.
+
+```sh
+firebase -P production functions:config:set mailchimp.api_key="API_KEY" mailchimp.list_id="LIST_ID" mailchimp.tag_id.attending="TAG_ID_FOR_ATTENDING" mailchimp.tag_id.not_attending="TAG_ID_FOR_NOT_ATTENDING"
+```
