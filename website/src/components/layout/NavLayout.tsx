@@ -31,10 +31,11 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           { text: "Our Story", to: "/story" },
           { text: "Video", to: "/video" },
           { text: "FAQ", to: "/faq" },
+          { text: "Registry", to: "/registry" },
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      <main className="flex flex-col pb-8">
+      <main className="pb-8">
         <SkipNavContent />
         {heroImage && (
           <div
