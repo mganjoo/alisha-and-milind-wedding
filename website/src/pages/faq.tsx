@@ -14,11 +14,6 @@ const FaqPage = () => {
   const data = useStaticQuery(
     graphql`
       query {
-        heroImage: file(relativePath: { eq: "faq-hero.jpg" }) {
-          childImageSharp {
-            ...HeroImage
-          }
-        }
         clothes1: file(relativePath: { eq: "faq-clothes-1.jpg" }) {
           childImageSharp {
             ...GridImage
@@ -29,14 +24,21 @@ const FaqPage = () => {
             ...GridImage
           }
         }
+        clothes3: file(relativePath: { eq: "faq-clothes-3.jpg" }) {
+          childImageSharp {
+            ...GridImage
+          }
+        }
+        clothes4: file(relativePath: { eq: "faq-clothes-4.jpg" }) {
+          childImageSharp {
+            ...GridImage
+          }
+        }
       }
     `
   )
   return (
-    <NavLayout
-      heroImage={data.heroImage.childImageSharp.fluid}
-      alt="Milind and Alisha wearing sunglasses, posing among plants in a nursery"
-    >
+    <NavLayout>
       <SEO
         title="FAQ"
         image="/meta-faq-hero.jpg"
@@ -111,6 +113,18 @@ const FaqPage = () => {
                   image: data.clothes2.childImageSharp.fluid,
                   alt:
                     "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie",
+                },
+                {
+                  image: data.clothes3.childImageSharp.fluid,
+                  alt:
+                    "Milind in a maroon sherwani and Alisha in a green salwar kameez",
+                  objectPosition: "50% 25%",
+                },
+                {
+                  image: data.clothes4.childImageSharp.fluid,
+                  alt:
+                    "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga",
+                  objectPosition: "50% 35%",
                 },
               ]}
             />
@@ -351,15 +365,6 @@ const FaqPage = () => {
                   while you&rsquo;re down there!
                 </li>
               </ul>
-            </Faq>
-            <Faq question="Anything else I should know?">
-              <p>
-                Heh, well, our travel and work schedules have been all over the
-                place, so we got a bit delayed in scheduling our pre-wedding
-                photoshoot. Check back here late January/early February for some
-                photo updates! We&rsquo;ll also keep updating this FAQ page with
-                relevant information for the wedding weekend.
-              </p>
             </Faq>
             <Faq question="What if I have other questions?">
               <p>
