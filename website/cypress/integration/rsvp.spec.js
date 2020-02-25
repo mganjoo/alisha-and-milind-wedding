@@ -272,4 +272,17 @@ describe("RSVP page", function() {
       cy.findByLabelText("Jack Jones").should("not.be.checked")
     })
   })
+
+  it("should update submit count correctly when some guests attend 0 events", function() {
+    // 3 person invitation, only two filled
+    openInvitation("test32")
+
+    cy.findByLabelText(/yes/i).check()
+    cy.findByText(/next: specific events/i).click()
+
+    cy.findAllByLabelText("Virat Kohli").check()
+
+    cy.findByText(/submit rsvp/i).click()
+    cy.findByText(/1 guest attending/i).should("exist")
+  })
 })
