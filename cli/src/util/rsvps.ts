@@ -16,7 +16,11 @@ interface Rsvp {
   createdAt: FirebaseFirestore.Timestamp
 }
 
-export async function getRsvps() {
+interface RsvpWithParty extends Rsvp {
+  partyName: string
+}
+
+async function getRsvps() {
   const invitationsRef = admin.firestore().collection("invitations")
   const rsvpsRef = admin.firestore().collectionGroup("rsvps")
   const snapshot = await rsvpsRef.get()
@@ -43,43 +47,68 @@ export async function getRsvps() {
     )
   )
   const partyNamesByCode = _.keyBy(partyNames, party => party.code)
-  const filteredRsvps = Object.values(
-    _.chain(rsvps)
-      .groupBy(rsvp => rsvp.code)
-      .mapValues(rsvps => _.maxBy(rsvps, "createdAt"))
-      .flatMap(rsvps => rsvps || [])
-      .value()
-  )
-  return _.chain(filteredRsvps)
-    .map(({ createdAt, comments, ...other }) => {
+  return _.chain(rsvps)
+    .groupBy(rsvp => rsvp.code)
+    .mapValues(rsvps => _.maxBy(rsvps, rsvp => rsvp.createdAt.seconds))
+    .flatMap(rsvps => rsvps || [])
+    .map(
+      rsvp =>
+        ({
+          ...rsvp,
+          partyName:
+            rsvp.code in partyNamesByCode
+              ? partyNamesByCode[rsvp.code].partyName
+              : undefined,
+        } as RsvpWithParty)
+    )
+    .value()
+}
+
+export async function getRsvpSummaries() {
+  const rsvps = await getRsvps()
+  return _.chain(rsvps)
+    .map(({ id, code, partyName, attending, createdAt, comments, guests }) => {
       const attendingCountsByEvent = _.chain(events)
         .map(event => ({
           event: event,
-          count: other.guests.filter(guest => guest.events.includes(event))
-            .length,
+          count: guests.filter(guest => guest.events.includes(event)).length,
         }))
         .keyBy(event => event.event)
         .mapValues(value => value.count)
         .value()
       return {
-        ...other,
+        id,
+        code,
+        partyName,
+        attending,
         ...attendingCountsByEvent,
-        partyName:
-          other.code in partyNamesByCode
-            ? partyNamesByCode[other.code].partyName
-            : undefined,
         comments: comments || "",
         created: dayjs(createdAt.toDate())
           .utc()
           .format("YYYY-MM-DD HH:mm:ss"),
-        guest1: other.guests[0] ? other.guests[0].name : "",
-        guest2: other.guests[1] ? other.guests[1].name : "",
-        guest3: other.guests[2] ? other.guests[2].name : "",
-        guest4: other.guests[3] ? other.guests[3].name : "",
-        guest5: other.guests[4] ? other.guests[4].name : "",
-        guest6: other.guests[5] ? other.guests[5].name : "",
-        guest7: other.guests[6] ? other.guests[6].name : "",
+        guest1: guests[0] ? guests[0].name : "",
+        guest2: guests[1] ? guests[1].name : "",
+        guest3: guests[2] ? guests[2].name : "",
+        guest4: guests[3] ? guests[3].name : "",
+        guest5: guests[4] ? guests[4].name : "",
+        guest6: guests[5] ? guests[5].name : "",
+        guest7: guests[6] ? guests[6].name : "",
       }
     })
     .value()
+}
+
+export async function getGuestsByEvent(event: string) {
+  const rsvps = await getRsvps()
+  return rsvps
+    .filter(rsvp => rsvp.attending)
+    .flatMap(rsvp => {
+      return rsvp.guests
+        .filter(guest => guest.events.includes(event))
+        .map(guest => ({
+          guest: guest.name,
+          partyName: rsvp.partyName,
+          code: rsvp.code,
+        }))
+    })
 }
