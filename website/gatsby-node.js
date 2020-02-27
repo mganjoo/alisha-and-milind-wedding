@@ -1,17 +1,24 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+const yn = require("yn")
+
 exports.createPages = ({ actions }) => {
   const { createRedirect } = actions
-  createRedirect({
-    fromPath: "/savethedate",
-    toPath: "/",
-    isPermanent: true,
-    redirectInBrowser: true,
-  })
-  createRedirect({
-    fromPath: "/save-the-date",
-    toPath: "/",
-    isPermanent: true,
-    redirectInBrowser: true,
-  })
+  if (!yn(process.env.ENABLE_DEMO_PAGES)) {
+    createRedirect({
+      fromPath: "/savethedate",
+      toPath: "/",
+      isPermanent: true,
+      redirectInBrowser: true,
+    })
+    createRedirect({
+      fromPath: "/save-the-date",
+      toPath: "/",
+      isPermanent: true,
+      redirectInBrowser: true,
+    })
+  }
 }
 
 exports.onCreateWebpackConfig = ({ stage, actions }) => {

@@ -51,7 +51,8 @@ These options control how the Gatsby site gets generated. These options
 should only be set on Netlify in staging and production environments,
 never in CI or test environments.
 
-- `DISABLE_DEMO_PAGES`: When set to `"1"`, disables building any demo pages in `pages-demo/`.
+- `ENABLE_DEMO_PAGES`: When set to `"1"`, enables building any demo pages in `pages-demo/`.
+- `GATSBY_SAVE_THE_DATE_REDIRECT`: When set to `"1"`, redirects to / after submitting save the date form.
 - `GA_TRACKING_ID`: Tracking code for Google Analytics.
   If unset, the website will build, but no analytics will be logged. It is
   better to set this on Netlify than in this repo.
@@ -67,6 +68,11 @@ never in CI or test environments.
 This project has [Jest](https://jestjs.io/) configured for unit tests and
 [Cypress](https://www.cypress.io) for end-to-end tests. They also include
 visual regression tests set up using [Percy](https://percy.io).
+
+Cypress configuration variables:
+
+- `ENABLE_DEMO_TESTS`: Enable tests for demo pages when set to true.
+- `SEED_URL`: Variable to use for seeding data for tests. This corresponds to function `seedInvitations`.
 
 ### To run the entire test suite (unit + e2e) locally
 

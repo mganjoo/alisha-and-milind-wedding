@@ -16,9 +16,9 @@
   command = "npm run build && ./trigger-github.sh"
 
 [context.production.environment]
-  DISABLE_DEMO_PAGES = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
   GATSBY_GA_BRANCH = "master"
 
 [context.deploy-preview.environment]
+  ENABLE_DEMO_PAGES = "1"
   GATSBY_GA_BRANCH = "develop"
