@@ -9,4 +9,4 @@ locationUrl: https://goo.gl/maps/Z5iAGhLtKx1UQwSg6
 attire: "Indian or Western casual (optional: shades of yellow)"
 ---
 
-Alisha’s family and friends will apply a paste of _haldi_ or turmeric as part of this auspicious pre-wedding event. Come by anytime between 1-3 pm to celebrate! Also, check out the [FAQ](/faq) page for some ideas if you’d like to explore the San Francisco Bay Area that day.
+Alisha’s family and friends will apply a paste of _haldi_ or turmeric as part of this auspicious pre-wedding event. Come by anytime between 9:30-11:30 am to celebrate!
