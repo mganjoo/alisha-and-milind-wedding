@@ -58,12 +58,9 @@ const FaqPage = () => {
                 next page.
               </p>
               <p>
-                You will be able to edit your RSVP once you have submitted the
-                form, but we kindly ask that final RSVPs be submitted by{" "}
-                <strong>{value.rsvpDeadline}</strong>. If you have any questions
-                about the RSVP, or if you notice we have made a mistake (our
-                sincerest apologies!), please reach out to us at{" "}
-                <ContactEmail />.
+                If you have any questions about the RSVP, or if you notice we
+                have made a mistake (our sincerest apologies!), please reach out
+                to us at <ContactEmail />.
               </p>
             </Faq>
             <Faq question="What should I wear?">
