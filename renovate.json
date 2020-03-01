@@ -1,3 +1,10 @@
 {
-  "extends": ["config:semverAllMonthly"]
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "packageNames": ["husky", "lint-staged", "prettier"],
+      "packagePatterns": ["^eslint"],
+      "groupName": "linting packages"
+    }
+  ]
 }
