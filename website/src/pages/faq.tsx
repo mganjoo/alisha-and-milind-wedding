@@ -57,9 +57,15 @@ const FaqPage = () => {
                 COVID-19 outbreak is understandably on all our minds.
               </p>
               <p>
-                We are closely monitoring CDC and the California Department of
-                Public Health websites for the latest updates and
-                recommendations.{" "}
+                We are closely monitoring{" "}
+                <ExternalLink href="https://www.cdc.gov/coronavirus/2019-ncov/summary.html">
+                  CDC
+                </ExternalLink>{" "}
+                and the{" "}
+                <ExternalLink href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/ncov2019.aspx">
+                  California Department of Public Health
+                </ExternalLink>{" "}
+                websites for the latest updates and recommendations.{" "}
                 <strong>
                   As of now, the California public health guidelines are not
                   suggesting cancellation of large events, so we are still
