@@ -40,6 +40,10 @@ const IndexPage = () => {
           <br />
           Alisha &amp; Milind
         </p>
+        <p>
+          <strong>Update:</strong> For the latest information about the COVID-19
+          coronavirus outbreak, please see our <Link to="/faq">FAQ</Link> page.
+        </p>
       </div>
       <div className="c-narrow-body">
         <Link

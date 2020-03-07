@@ -48,6 +48,36 @@ const FaqPage = () => {
       <WeddingMetadataContext.Consumer>
         {value => (
           <>
+            <Faq
+              question="How is the wedding impacted by the current coronavirus (COVID-19) outbreak?"
+              updated={"2020-03-07"}
+            >
+              <p>
+                While we are looking forward to celebrating with you, the
+                COVID-19 outbreak is understandably on all our minds.
+              </p>
+              <p>
+                We are closely monitoring CDC and the California Department of
+                Public Health websites for the latest updates and
+                recommendations.{" "}
+                <strong>
+                  As of now, the California public health guidelines are not
+                  suggesting cancellation of large events, so we are still
+                  planning to have the celebrations as planned on the May 1
+                  &amp; 2 weekend.
+                </strong>{" "}
+                We will continue to monitor for updates, and please let us know
+                as well if you see any specific advisories.
+              </p>
+              <p>
+                The safety and health of our guests are of utmost importance to
+                us. With regards to RSVP deadlines, we understand that some
+                folks may be cautious around booking travel right now. Feel free
+                to take it a day at a time and let us know at your convenience.
+                Please don&rsquo;t hesitate to reach out to us at{" "}
+                <ContactEmail /> with any questions or concerns.
+              </p>
+            </Faq>
             <Faq question="How should I RSVP?">
               <p>
                 Please visit the <Link to="/rsvp">RSVP</Link> page to fill out
