@@ -2,6 +2,7 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
+import Alert from "../components/ui/Alert"
 
 const IndexPage = () => {
   const imageData = useStaticQuery(
@@ -26,32 +27,36 @@ const IndexPage = () => {
         image="/meta-main-hero.jpg"
         description="Welcome to our wedding website! Here you will find the most up-to-date information about the wedding weekend, including event schedule and travel details."
       />
-      <div className="c-article c-narrow-body">
-        <p>
-          Welcome to our wedding website! This is where you will find the most
-          up-to-date information about the wedding weekend, including event
-          schedule and travel details.
-        </p>
-        <p>
-          We are so excited to celebrate with you!
-          <br />
-          <br />
-          Love,
-          <br />
-          Alisha &amp; Milind
-        </p>
-        <p>
-          <strong>Update:</strong> For the latest information about the COVID-19
-          coronavirus outbreak, please see our <Link to="/faq">FAQ</Link> page.
-        </p>
-      </div>
       <div className="c-narrow-body">
-        <Link
-          to="/rsvp"
-          className="c-button c-button-primary c-button-comfortable"
-        >
-          RSVP
-        </Link>
+        <div className="c-article">
+          <p>
+            Welcome to our wedding website! This is where you will find the most
+            up-to-date information about the wedding weekend, including event
+            schedule and travel details.
+          </p>
+          <p>
+            We are so excited to celebrate with you!
+            <br />
+            <br />
+            Love,
+            <br />
+            Alisha &amp; Milind
+          </p>
+        </div>
+        <div>
+          <Link
+            to="/rsvp"
+            className="c-button c-button-primary c-button-comfortable"
+          >
+            RSVP
+          </Link>
+        </div>
+        <div className="py-4">
+          <Alert isInfo>
+            For the latest information about the COVID-19 coronavirus outbreak,
+            please see our <Link to="/faq">FAQ</Link> page.
+          </Alert>
+        </div>
       </div>
     </NavLayout>
   )
