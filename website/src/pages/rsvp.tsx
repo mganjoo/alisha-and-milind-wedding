@@ -2,10 +2,8 @@ import { useStaticQuery, graphql, Link } from "gatsby"
 import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
-import Authenticated from "../components/partials/Authenticated"
-import ReeditableRsvpForm from "../components/partials/rsvp/ReeditableRsvpForm"
+import Alert from "../components/ui/Alert"
 import PageHeading from "../components/ui/PageHeading"
-import { InvitationNavigationState } from "../interfaces/InvitationNavigationState"
 
 const RsvpPage = () => {
   const data = useStaticQuery(
@@ -30,7 +28,14 @@ const RsvpPage = () => {
         description="We hope to see you at our wedding! Please RSVP on this page."
       />
       <PageHeading>RSVP</PageHeading>
-      <Authenticated>
+      <div className="c-narrow-body">
+        <Alert isInfo>
+          Due to ongoing COVID-19 coronavirus concerns, we are postponing the
+          wedding to later in the year (more details on the{" "}
+          <Link to="/faq">FAQ</Link> page). The RSVP form will be temporarily
+          unavailable while we confirm the new dates.
+        </Alert>
+        {/* <Authenticated>
         <div className="c-narrow-body">
           <div className="c-article">
             <p>
@@ -54,7 +59,8 @@ const RsvpPage = () => {
           </div>
           <ReeditableRsvpForm />
         </div>
-      </Authenticated>
+      </Authenticated> */}
+      </div>
     </NavLayout>
   )
 }

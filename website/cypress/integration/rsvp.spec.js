@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe("RSVP page", function() {
+describe.skip("RSVP page", function() {
   let invitations
   let invitees
 

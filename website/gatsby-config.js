@@ -45,6 +45,14 @@ module.exports = {
     rsvpDeadline: `2020-03-15`,
     bookingDeadline: `2020-04-15`,
     location: `San Mateo, CA`,
+    preEventVenue: ["16 Jenna Lane", "Half Moon Bay, CA 94019"],
+    preEventVenueUrl: "https://goo.gl/maps/Z5iAGhLtKx1UQwSg6",
+    mainVenue: [
+      "San Mateo Marriott San Francisco Airport",
+      "1770 S Amphlett Blvd",
+      "San Mateo, CA 94402",
+    ],
+    mainVenueUrl: "https://goo.gl/maps/2PnhXrqWcrBB2snc8",
   },
   plugins: [
     `gatsby-plugin-typescript`,

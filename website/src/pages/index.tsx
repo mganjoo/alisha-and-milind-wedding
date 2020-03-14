@@ -28,6 +28,13 @@ const IndexPage = () => {
         description="Welcome to our wedding website! Here you will find the most up-to-date information about the wedding weekend, including event schedule and travel details."
       />
       <div className="c-narrow-body">
+        <div className="mb-8">
+          <Alert isInfo>
+            Due to ongoing COVID-19 coronavirus concerns, we are postponing the
+            wedding to later in the year. You can find the latest information on
+            our <Link to="/faq">FAQ</Link> page.
+          </Alert>
+        </div>
         <div className="c-article">
           <p>
             Welcome to our wedding website! This is where you will find the most
@@ -50,12 +57,6 @@ const IndexPage = () => {
           >
             RSVP
           </Link>
-        </div>
-        <div className="py-4">
-          <Alert isInfo>
-            For the latest information about the COVID-19 coronavirus outbreak,
-            please see our <Link to="/faq">FAQ</Link> page.
-          </Alert>
         </div>
       </div>
     </NavLayout>

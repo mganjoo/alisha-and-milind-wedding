@@ -45,14 +45,21 @@ function makeDescription(event: WeddingEventMarkdown) {
             `* ${location.name}: ${location.location} at ${location.time}`
         )
         .join("\n") + "\n\n"
-    : event.frontmatter.calendarLocation
-    ? `* Location: ${event.frontmatter.location}\n\n`
+    : event.frontmatter.location
+    ? `Location: ${event.frontmatter.location}\n\n`
     : ""
   return `${subEventDescription}${event.plainText}\nAttire: ${event.frontmatter.attire}`
 }
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   const metadata = useContext(WeddingMetadataContext)
+  const addressLine = (event.frontmatter.preEvent
+    ? metadata.preEventVenue
+    : metadata.mainVenue
+  )?.join(", ")
+  const addressUrl = event.frontmatter.preEvent
+    ? metadata.preEventVenueUrl
+    : metadata.mainVenueUrl
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
@@ -70,7 +77,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
           </ScheduleInfoRow>
           <ScheduleInfoRow>
             <ScheduleInfoItem label="Venue" symbol="location">
-              {event.frontmatter.location}
+              {event.frontmatter.location || addressLine}
             </ScheduleInfoItem>
           </ScheduleInfoRow>
           <div className="flex py-1 md:justify-center">
@@ -78,20 +85,15 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               label="Add to calendar"
               event={{
                 title: `${event.frontmatter.name}: Alisha & Milind's Wedding`,
-                location:
-                  event.frontmatter.calendarLocation ||
-                  event.frontmatter.location,
+                location: addressLine,
                 description: makeDescription(event),
                 startTime: event.frontmatter.startDate,
                 endTime: event.frontmatter.endDate,
-                url: metadata.siteUrl,
+                url: addressUrl,
               }}
               dropdown
             />
-            <ExternalLink
-              href={event.frontmatter.locationUrl}
-              className="c-inline-button"
-            >
+            <ExternalLink href={addressUrl} className="c-inline-button">
               Open Map
             </ExternalLink>
           </div>

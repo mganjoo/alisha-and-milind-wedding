@@ -35,7 +35,7 @@ const SaveTheDatePage: React.FC = () => {
       <SEO
         title="Save the Date"
         image="/meta-save-the-date-hero.jpg"
-        description="Please save the date for Alisha & Milind's wedding: May 1 & 2, 2020 in San Mateo, CA."
+        description={`Please save the date for Alisha & Milind's wedding: ${data.site.siteMetadata.displayDates} in ${data.site.siteMetadata.location}.`}
       />
       <main styleName="main">
         <div styleName="hero-wrapper">

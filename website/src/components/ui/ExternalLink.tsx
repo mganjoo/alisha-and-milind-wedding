@@ -1,7 +1,7 @@
 import React from "react"
 
 interface ExternalLinkProps {
-  href: string
+  href?: string
   download?: string
   trackKey?: string
   className?: string
