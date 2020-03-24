@@ -1,3 +1,8 @@
 {
-  "extends": ["config:semverAllMonthly"]
+  "separateMajorMinor": false,
+  "extends": ["group:all", "schedule:weekly", ":maintainLockFilesWeekly"],
+  "lockFileMaintenance": {
+    "extends": ["group:all"],
+    "commitMessageAction": "Update"
+  }
 }
