@@ -3,7 +3,6 @@ import React, { useState, useEffect, createContext, useMemo } from "react"
 import { object, string } from "yup"
 import { Invitation } from "../../interfaces/Invitation"
 import {
-  fetchAndSaveInvitationByCode,
   loadSavedInvitation,
   fetchAndSaveInvitationByEmail,
 } from "../../services/Invitation"
@@ -66,14 +65,7 @@ export const InvitationContext = createContext<InvitationContextWrapper>(
   fallbackInvitationContextWrapper
 )
 
-interface AuthenticatedProps {
-  initialCode?: string
-}
-
-const Authenticated: React.FC<AuthenticatedProps> = ({
-  children,
-  initialCode,
-}) => {
+const Authenticated: React.FC = ({ children }) => {
   const [didInitialFetch, setDidInitialFetch] = useState(false)
   const [initialFetchError, setInitialFetchError] = useState(false)
   const [invitation, setInvitation] = useState<Invitation>()
@@ -81,15 +73,11 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
   const [submitError, setSubmitError] = useState(false)
 
   useEffect(() => {
-    const loadedInvitationPromise = initialCode
-      ? fetchAndSaveInvitationByCode(initialCode)
-      : Promise.resolve(undefined)
-    loadedInvitationPromise
-      .then(loadedInvitation => loadedInvitation || loadSavedInvitation())
+    loadSavedInvitation()
       .then(loadedInvitation => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
-  }, [initialCode])
+  }, [])
 
   async function login(submission: LoginFormValues) {
     setInitialFetchError(false) // after first submit, form will handle error handling
@@ -114,9 +102,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
 
   const isError = initialFetchError || submitError
   const isMissing = !isError && submitted && !invitation
-  const isInitialMissing =
-    !isError && !isMissing && initialCode !== undefined && !invitation
-  const showAlert = isError || isMissing || isInitialMissing
+  const showAlert = isError || isMissing
 
   if (invitation) {
     const invitationContextWrapper: InvitationContextWrapper = {
@@ -148,7 +134,7 @@ const Authenticated: React.FC<AuthenticatedProps> = ({
               <BaseForm>
                 {!isSubmitting && showAlert && (
                   <Alert>
-                    {(isError || isInitialMissing) &&
+                    {isError &&
                       "There was an error retrieving your invitation. "}
                     {isMissing &&
                       "Hmm, we couldn’t find an invitation under that email. "}

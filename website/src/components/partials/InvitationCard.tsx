@@ -59,11 +59,6 @@ interface InvitationCardProps extends InvitationCardInnerProps {
    * If true, shows test invitation to user without authenticating.
    */
   testMode?: boolean
-
-  /**
-   * Initial code to use for authentication, if any.
-   */
-  initialCode?: string
 }
 
 // Letter is originally in landscape (w = 1.4h). When rotated by 90deg,
@@ -253,7 +248,6 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
 
 const InvitationCard: React.FC<InvitationCardProps> = ({
   testMode,
-  initialCode,
   ...otherProps
 }) => {
   return (
@@ -267,7 +261,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
       {testMode ? (
         <InvitationCardInner {...otherProps} />
       ) : (
-        <Authenticated initialCode={initialCode}>
+        <Authenticated>
           <InvitationCardInner {...otherProps} />
         </Authenticated>
       )}

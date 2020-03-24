@@ -2,17 +2,21 @@
 
 describe("invitation tests", function() {
   let invitation
-  let code
+  let invitation2
   let email
 
   before(function() {
     cy.request("POST", Cypress.env("SEED_URL"))
       .as("getInvitations")
       .then(response => {
-        code = response.body.invitees[0].data.code
+        const code = response.body.invitees[0].data.code
+        const code2 = response.body.invitees[6].data.code
         email = response.body.invitees[0].id
         invitation = response.body.invitations.find(
           invitation => invitation.data.code === code
+        ).data
+        invitation2 = response.body.invitations.find(
+          invitation => invitation.data.code === code2
         ).data
       })
   })
@@ -39,11 +43,27 @@ describe("invitation tests", function() {
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
       cy.visit(`/invitation`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
+      cy.visit(`/invitation?c=bla`)
+      cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
     })
 
-    it("should show an error when loading an inactive invitation", function() {
-      cy.visit(`/load?c=test_inactive`)
-      cy.findByText(/error retrieving/i).should("exist")
+    it("should load another invitation when a new code is provided", function() {
+      cy.visit(`/load?c=${invitation.code}`)
+      cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
+      cy.visit(`/load?c=${invitation2.code}`)
+      cy.findByText(new RegExp(invitation2.partyName, "i")).should("exist")
+    })
+
+    it("should redirect to home page with the right arguments", function() {
+      cy.visit(`/load?c=${invitation.code}&t=h`)
+      cy.findByText(/welcome to our wedding website/i).should("exist")
+      cy.visit(`/schedule`)
+      cy.findAllByText(/san mateo marriott/i).should("exist")
+    })
+
+    it("should show login page when a code is not found", function() {
+      cy.visit(`/load?c=bla`)
+      cy.findByLabelText(/email address/i).should("exist")
     })
   })
 

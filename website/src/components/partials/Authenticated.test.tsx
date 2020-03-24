@@ -81,22 +81,6 @@ function mockReturnValues(
 jest.mock("./ContactEmail")
 
 describe("Authenticated", () => {
-  it("should load an invitation correctly", async () => {
-    mockReturnValues(undefined, {
-      code: "abcde",
-      partyName: "Cece Parekh & Winston Schmidt",
-      numGuests: 2,
-      knownGuests: [],
-    })
-    const { getByText, queryByText } = render(
-      <Authenticated initialCode="abcde">
-        <ShowInvitation />
-      </Authenticated>
-    )
-    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
-  })
-
   it("should try to load a cached invitation when no code is provided", async () => {
     mockReturnValues(
       {
@@ -116,60 +100,6 @@ describe("Authenticated", () => {
     expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
   })
 
-  it("should override cached invitation when a different code is provided", async () => {
-    mockReturnValues(
-      {
-        code: "abcde",
-        partyName: "Cece Parekh & Winston Schmidt",
-        numGuests: 2,
-        knownGuests: [],
-      },
-      {
-        code: "defgh",
-        partyName: "Jessica Day",
-        numGuests: 1,
-        knownGuests: [],
-      }
-    )
-    const { getByText, queryByText } = render(
-      <Authenticated initialCode="defgh">
-        <ShowInvitation />
-      </Authenticated>
-    )
-    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/Jessica Day/i)).toBeInTheDocument()
-  })
-
-  it("should fall back to cached invitation when a code is not found", async () => {
-    mockReturnValues(
-      {
-        code: "abcde",
-        partyName: "Cece Parekh & Winston Schmidt",
-        numGuests: 2,
-        knownGuests: [],
-      },
-      undefined
-    )
-    const { getByText, queryByText } = render(
-      <Authenticated initialCode="defgh">
-        <ShowInvitation />
-      </Authenticated>
-    )
-    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/Cece Parekh & Winston Schmidt/i)).toBeInTheDocument()
-  })
-
-  it("should show login page when a code is not found", async () => {
-    mockReturnValues(undefined, undefined)
-    const { getByText, queryByText } = render(
-      <Authenticated initialCode="abcde">
-        <ShowInvitation />
-      </Authenticated>
-    )
-    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/error retrieving your invitation/i)).toBeInTheDocument()
-  })
-
   it("should show login page when no code is provided, with no error", async () => {
     mockReturnValues(undefined, undefined)
     const { queryByText } = render(
@@ -181,16 +111,5 @@ describe("Authenticated", () => {
     expect(
       queryByText(/error retrieving your invitation/i)
     ).not.toBeInTheDocument()
-  })
-
-  it("should show login page when there is an error", async () => {
-    mockReturnValues(undefined, Promise.reject("error"))
-    const { getByText, queryByText } = render(
-      <Authenticated initialCode="bla">
-        <ShowInvitation />
-      </Authenticated>
-    )
-    await waitForElementToBeRemoved(() => queryByText(/Loading/i))
-    expect(getByText(/error retrieving/i)).toBeInTheDocument()
   })
 })
