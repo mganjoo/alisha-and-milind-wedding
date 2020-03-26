@@ -27,19 +27,13 @@ describe("invitation tests", function() {
 
   describe("load code page", function() {
     it("should load an invitation correctly", function() {
-      cy.visit(`/load?c=${invitation.code}`)
+      cy.visit(`/r/invitation/${invitation.code}`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
       cy.percySnapshot()
     })
 
-    it("should show the full invitation correctly", function() {
-      cy.visit(`/load?c=${invitation.code}&immediate=1`)
-      cy.findByText(/enter website/i).should("exist")
-      cy.percySnapshot()
-    })
-
     it("should load a cached invitation when possible", function() {
-      cy.visit(`/load?c=${invitation.code}`)
+      cy.visit(`/r/invitation/${invitation.code}`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
       cy.visit(`/invitation`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
@@ -48,21 +42,21 @@ describe("invitation tests", function() {
     })
 
     it("should load another invitation when a new code is provided", function() {
-      cy.visit(`/load?c=${invitation.code}`)
+      cy.visit(`/r/invitation/${invitation.code}`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
-      cy.visit(`/load?c=${invitation2.code}`)
+      cy.visit(`/r/invitation/${invitation2.code}`)
       cy.findByText(new RegExp(invitation2.partyName, "i")).should("exist")
     })
 
-    it("should redirect to home page with the right arguments", function() {
-      cy.visit(`/load?c=${invitation.code}&t=h`)
+    it("should redirect to home page correctly", function() {
+      cy.visit(`/r/home/${invitation.code}`)
       cy.findByText(/welcome to our wedding website/i).should("exist")
       cy.visit(`/schedule`)
       cy.findAllByText(/san mateo marriott/i).should("exist")
     })
 
     it("should show login page when a code is not found", function() {
-      cy.visit(`/load?c=bla`)
+      cy.visit(`/r/invitation/bla`)
       cy.findByLabelText(/email address/i).should("exist")
     })
   })

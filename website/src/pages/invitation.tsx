@@ -18,7 +18,7 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
         <InvitationCard
           playing
           startDelayMs={2000}
-          skipAnimation={!state.animate}
+          skipAnimation={!!state.fromRsvp}
           navLink={returnLink}
         />
       </main>

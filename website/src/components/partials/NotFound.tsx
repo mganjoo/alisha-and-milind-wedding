@@ -1,10 +1,11 @@
-import { useStaticQuery, graphql } from "gatsby"
+import { RouteComponentProps } from "@reach/router"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import React from "react"
 import BaseLayout from "../layout/BaseLayout"
 import SEO from "../meta/SEO"
 
-const NotFound: React.FC = ({ children }) => {
+const NotFound: React.FC<RouteComponentProps> = () => {
   const imageData = useStaticQuery(
     graphql`
       query {
@@ -24,7 +25,12 @@ const NotFound: React.FC = ({ children }) => {
       <main className="flex p-3 mx-auto justify-center items-center max-w-lg min-h-screen">
         <div className="c-shadow-box">
           <h1 className="text-3xl font-sans mb-2">Oops!</h1>
-          <div className="c-body-text-container">{children}</div>
+          <div className="c-body-text-container">
+            <p>
+              We couldn&rsquo;t find that page. No worries: we can continue our
+              celebrations on the <Link to="/">homepage</Link>!
+            </p>
+          </div>
           <Img
             className="w-full"
             fluid={imageData.image.childImageSharp.fluid}
