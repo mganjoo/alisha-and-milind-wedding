@@ -8,6 +8,7 @@ import Emoji from "../components/ui/Emoji"
 import ExternalLink from "../components/ui/ExternalLink"
 import ImageGrid from "../components/ui/ImageGrid"
 import PageHeading from "../components/ui/PageHeading"
+import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
 
 const FaqPage = () => {
   const data = useStaticQuery(
@@ -44,53 +45,44 @@ const FaqPage = () => {
         description="Answers to some common questions about RSVP, attire, and what to do in the Bay Area."
       />
       <PageHeading>Frequently Asked Questions</PageHeading>
-      <Faq
-        question="How is the wedding impacted by the current coronavirus outbreak?"
-        updated={"2020-03-14"}
-      >
-        <p>
-          Given the ongoing concerns of COVID-19,{" "}
-          <strong>we will be postponing the wedding to later this year</strong>,
-          though the location at the San Mateo Marriott in the San Francisco Bay
-          Area will remain the same. We will announce the new wedding dates in
-          the next few days.
-        </p>
-        <p>
-          We decided to postpone the event following updated guidance around
-          large gatherings from the{" "}
-          <ExternalLink href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/ncov2019.aspx">
-            California Department of Public Health
-          </ExternalLink>
-          , as well as restrictions on international travel that make it
-          difficult for our overseas friends and family to join us. We are also
-          mindful of the many families who would be traveling with elders and
-          young children to the Bay Area (one of the more heavily affected
-          regions in the US), and we do not wish to add exposure risk.
-        </p>
-        <p>
-          A few notes for our guests who have already made travel arrangements:
-        </p>
-        <ul>
-          <li>
-            Most major US airlines have updated their travel policies with
-            information about waivers for flight change fees. We encourage you
-            to look at your airline&rsquo;s website for their specific policy,
-            after we have the new finalized date for the wedding in the next
-            couple of days.
-          </li>
-          <li>
-            For those who have already reserved rooms at the San Mateo Marriott,
-            we will send an update on next steps in the coming days.
-          </li>
-        </ul>
-        <p>
-          For the time being, guests will no longer be able to edit the RSVP
-          form as we finalize the changes to wedding dates. If there are any
-          questions, please reach out to us at <ContactEmail />. Thanks so much
-          for your understanding and support!
-        </p>
-      </Faq>
-      {/* <Faq question="How should I RSVP?">
+      <WeddingMetadataContext.Consumer>
+        {value => (
+          <>
+            <Faq
+              question="How is the wedding impacted by the current coronavirus outbreak?"
+              updated={"2020-03-29"}
+            >
+              <p>
+                Given the ongoing COVID-19 outbreak,{" "}
+                <strong>
+                  we have changed the wedding events to {value.displayDates}
+                </strong>
+                . The location at the San Mateo Marriott in the San Francisco
+                Bay Area will remain the same.
+              </p>
+              <p>
+                Most US and international airlines have updated their travel
+                policies to allow flexible flight changes without fees. We
+                encourage you to look at your airline&rsquo;s website for their
+                specific policy. If you had already made room reservations at
+                the Marriott through the hotel block, the hotel will
+                automatically cancel these reservations.
+              </p>
+              <p>
+                In the meantime, we will continue to track guidance from the{" "}
+                <ExternalLink href="https://www.cdc.gov/coronavirus/2019-ncov/index.html">
+                  CDC
+                </ExternalLink>{" "}
+                and{" "}
+                <ExternalLink href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/ncov2019.aspx">
+                  California Department of Public Health
+                </ExternalLink>
+                , and practice social distancing. We wish for all our guests to
+                stay safe and healthy during this time, and we hope to see you
+                in October!
+              </p>
+            </Faq>
+            <Faq question="How should I RSVP?" updated={"2020-03-29"}>
               <p>
                 Please visit the <Link to="/rsvp">RSVP</Link> page to fill out
                 the form online (your email address may be required). Please
@@ -100,73 +92,81 @@ const FaqPage = () => {
                 next page.
               </p>
               <p>
+                Because October is still several months away and making travel
+                plans is the last thing on people&rsquo;s minds right now, we
+                are not setting an RSVP deadline at this time. We will check in
+                later in the summer with updates around RSVPs. You can always
+                come back and edit your RSVP at any time.
+              </p>
+              <p>
                 If you have any questions about the RSVP, or if you notice we
                 have made a mistake (our sincerest apologies!), please reach out
                 to us at <ContactEmail />.
               </p>
-            </Faq> */}
-      <Faq question="What should I wear?">
-        <p>
-          Indian weddings are joyous, colorful celebrations, and we invite you
-          to wear whatever festive clothes you feel most comfortable in! Here
-          are some ideas:
-        </p>
-        <ul>
-          <li>
-            Indian festive: sari, lehenga, anarkali, salwar kameez, kurta
-            pajama, sherwani, nehru jacket
-          </li>
-          <li>
-            Western semi-formal: cocktail dress, jumpsuit, skirt, dress shirt,
-            slacks, jacket
-          </li>
-          <li>Western formal: maxi skirt, gown, suit and tie, tuxedo</li>
-        </ul>
-        <p>A couple of other notes:</p>
-        <ul>
-          <li>
-            Every event (literally every one) involves dancing so choose your
-            footwear accordingly! If that means ditching shoes under the table
-            at some point in the night to really make the open dance floor
-            count, that&rsquo;s fine by us!{" "}
-            <Emoji symbol="💃🏾" label="dancing emoji" />
-          </li>
-          <li>
-            We look forward to sharing our culture with all of our wedding
-            guests. If you are excited to wear Indian attire but are not sure
-            where to start, reach out to us! There are many options to rent or
-            buy clothes in stores or online, or borrow from friends!
-          </li>
-        </ul>
-      </Faq>
-      <ImageGrid
-        images={[
-          {
-            image: data.clothes1.childImageSharp.fluid,
-            alt:
-              "Alisha dressed in a red patterned lehenga and Milind dressed in a black kurta and churidar",
-            objectPosition: "50% 95%",
-          },
-          {
-            image: data.clothes2.childImageSharp.fluid,
-            alt:
-              "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie",
-          },
-          {
-            image: data.clothes3.childImageSharp.fluid,
-            alt:
-              "Milind in a maroon sherwani and Alisha in a green salwar kameez",
-            objectPosition: "50% 25%",
-          },
-          {
-            image: data.clothes4.childImageSharp.fluid,
-            alt:
-              "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga",
-            objectPosition: "50% 35%",
-          },
-        ]}
-      />
-      {/* <Faq question="Do you have a hotel room block?">
+            </Faq>
+            <Faq question="What should I wear?">
+              <p>
+                Indian weddings are joyous, colorful celebrations, and we invite
+                you to wear whatever festive clothes you feel most comfortable
+                in! Here are some ideas:
+              </p>
+              <ul>
+                <li>
+                  Indian festive: sari, lehenga, anarkali, salwar kameez, kurta
+                  pajama, sherwani, nehru jacket
+                </li>
+                <li>
+                  Western semi-formal: cocktail dress, jumpsuit, skirt, dress
+                  shirt, slacks, jacket
+                </li>
+                <li>Western formal: maxi skirt, gown, suit and tie, tuxedo</li>
+              </ul>
+              <p>A couple of other notes:</p>
+              <ul>
+                <li>
+                  Every event (literally every one) involves dancing so choose
+                  your footwear accordingly! If that means ditching shoes under
+                  the table at some point in the night to really make the open
+                  dance floor count, that&rsquo;s fine by us!{" "}
+                  <Emoji symbol="💃🏾" label="dancing emoji" />
+                </li>
+                <li>
+                  We look forward to sharing our culture with all of our wedding
+                  guests. If you are excited to wear Indian attire but are not
+                  sure where to start, reach out to us! There are many options
+                  to rent or buy clothes in stores or online, or borrow from
+                  friends!
+                </li>
+              </ul>
+            </Faq>
+            <ImageGrid
+              images={[
+                {
+                  image: data.clothes1.childImageSharp.fluid,
+                  alt:
+                    "Alisha dressed in a red patterned lehenga and Milind dressed in a black kurta and churidar",
+                  objectPosition: "50% 95%",
+                },
+                {
+                  image: data.clothes2.childImageSharp.fluid,
+                  alt:
+                    "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie",
+                },
+                {
+                  image: data.clothes3.childImageSharp.fluid,
+                  alt:
+                    "Milind in a maroon sherwani and Alisha in a green salwar kameez",
+                  objectPosition: "50% 25%",
+                },
+                {
+                  image: data.clothes4.childImageSharp.fluid,
+                  alt:
+                    "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga",
+                  objectPosition: "50% 35%",
+                },
+              ]}
+            />
+            <Faq question="Do you have a hotel room block?">
               <p>
                 We sure do! Please see the{" "}
                 <Link to="/travel">Travel &amp; Hotel</Link> page for details,
@@ -174,236 +174,249 @@ const FaqPage = () => {
                 book by <strong>{value.bookingDeadline}</strong> to ensure room
                 availability.
               </p>
-            </Faq> */}
-      {/* <Faq question="What will the weather be like this time of year?">
+            </Faq>
+            <Faq question="What will the weather be like this time of year?">
               <p>
-                San Mateo in early May can be a little crisp in the mornings
-                before climbing to the mid-to-high 60s °F / 20s °C. While most
-                of the events will be indoors, the baraat and the wedding
-                ceremony on Saturday morning will be outdoors. We will have a
-                contingency plan for rain, but for now, plan on spending the
-                morning under the California sky!
+                October is generally one of the milder months in the Bay Area,
+                with highs in the upper 60s °F / 20s °C. It can also get fairly
+                breezy during various times of the day, so we recommend keeping
+                a light jacket handy. While most of the events will be indoors,
+                the baraat and the wedding ceremony on Saturday morning will be
+                outdoors. We will have a contingency plan for rain, but for now,
+                plan on spending the morning under the California sky!
               </p>
-            </Faq> */}
-      <Faq question="Are you accepting gifts?">
-        <p>We truly value your presence more than any gift!</p>
-        <p>
-          For those who insist, you can visit the{" "}
-          <Link to="/registry">Registry</Link> page to view our Zola registry,
-          and we will also keep a box for cards at the reception. We humbly
-          request no boxed gifts at the event.
-        </p>
-      </Faq>
-      <Faq question="Is it okay to take photos or videos during the wedding events?">
-        <p>
-          Absolutely! Our social media hashtag is{" "}
-          <strong>#AlishaWinsAMil</strong>. Certainly no pressure to capture,
-          though! We will share our photographer&rsquo;s shots with you as well.
-        </p>
-      </Faq>
-      <Faq question="What will the cuisine be at the wedding events?">
-        <p>
-          Indian food will be served at every event, buffet style. This will
-          include vegetarian, gluten-free, and dairy-free options. We want to
-          ensure everyone is safe and comfortable so please do reach out to us
-          with any dietary concerns!
-        </p>
-      </Faq>
-      <Faq question="What are some fun things to do in the Bay Area?">
-        <p>
-          There are truly a million things to do here and the internet will
-          provide you with great guidance, especially for first-time visitors!
-          For our guests who are spending some extra time in the area (great
-          choice!), here is the Alisha &amp; Milind edition of top things to do
-          in the San Francisco Bay Area.
-        </p>
-        <p>
-          San Francisco is a half hour drive north from San Mateo on US 101. You
-          can also take{" "}
-          <ExternalLink href="http://www.caltrain.com/schedules.html">
-            Caltrain
-          </ExternalLink>{" "}
-          into the city (the closest station from the hotel is{" "}
-          <ExternalLink href="https://goo.gl/maps/d2oNAYcK9aYZH2Nd9">
-            Hayward Park
-          </ExternalLink>
-          ).
-        </p>
+            </Faq>
+            <Faq question="Are you accepting gifts?">
+              <p>We truly value your presence more than any gift!</p>
+              <p>
+                For those who insist, you can visit the{" "}
+                <Link to="/registry">Registry</Link> page to view our Zola
+                registry, and we will also keep a box for cards at the
+                reception. We humbly request no boxed gifts at the event.
+              </p>
+            </Faq>
+            <Faq question="Is it okay to take photos or videos during the wedding events?">
+              <p>
+                Absolutely! Our social media hashtag is{" "}
+                <strong>#AlishaWinsAMil</strong>. Certainly no pressure to
+                capture, though! We will share our photographer&rsquo;s shots
+                with you as well.
+              </p>
+            </Faq>
+            <Faq question="What will the cuisine be at the wedding events?">
+              <p>
+                Indian food will be served at every event, buffet style. This
+                will include vegetarian, gluten-free, and dairy-free options. We
+                want to ensure everyone is safe and comfortable so please do
+                reach out to us with any dietary concerns!
+              </p>
+            </Faq>
+            <Faq question="What are some fun things to do in the Bay Area?">
+              <p>
+                There are truly a million things to do here and the internet
+                will provide you with great guidance, especially for first-time
+                visitors! For our guests who are spending some extra time in the
+                area (great choice!), here is the Alisha &amp; Milind edition of
+                top things to do in the San Francisco Bay Area.
+              </p>
+              <p>
+                San Francisco is a half hour drive north from San Mateo on US
+                101. You can also take{" "}
+                <ExternalLink href="http://www.caltrain.com/schedules.html">
+                  Caltrain
+                </ExternalLink>{" "}
+                into the city (the closest station from the hotel is{" "}
+                <ExternalLink href="https://goo.gl/maps/d2oNAYcK9aYZH2Nd9">
+                  Hayward Park
+                </ExternalLink>
+                ).
+              </p>
 
-        <h4>The Abridged List of Essentials</h4>
-        <ul>
-          <li>
-            Run/bike/walk across the Golden Gate Bridge (if you&rsquo;re like
-            Milind) or gaze upon it from a{" "}
-            <ExternalLink href="https://www.presidio.gov/places/golden-gate-bridge-welcome-center">
-              scenic viewpoint
-            </ExternalLink>{" "}
-            (if you&rsquo;re like Alisha).
-          </li>
-          <li>
-            We love the{" "}
-            <ExternalLink href="https://www.everywhereist.com/2012/08/the-view-from-the-hamon-observation-tower-san-francisco/">
-              Hamon Observation Tower
-            </ExternalLink>{" "}
-            in the de Young Museum (free admission to the top!), the{" "}
-            <ExternalLink href="https://www.japaneseteagardensf.com/">
-              Japanese Tea Garden
-            </ExternalLink>
-            , and the{" "}
-            <ExternalLink href="https://www.calacademy.org/exhibits/osher-rainforest">
-              Osher Rainforest
-            </ExternalLink>{" "}
-            at the California Academy of Sciences that are all located next to
-            each other at the Golden Gate Park in San Francisco.
-          </li>
-          <li>
-            If you enjoy touring university campuses as much as our parents do,
-            Stanford University is highly photogenic (a half hour drive south
-            from San Mateo). We both have our own favorite spots from our time
-            there. Milind recommends getting a sandwich at his tried-and-true
-            favorite{" "}
-            <ExternalLink href="https://www.cohostanford.com/">
-              CoHo
-            </ExternalLink>
-            , taking in the views from the top of{" "}
-            <ExternalLink href="https://visit.stanford.edu/plan/guides/hoover.html">
-              Hoover Tower
-            </ExternalLink>
-            , and walking around the Main Quad. Alisha recommends strolling
-            through the little-known{" "}
-            <ExternalLink href="https://lbre.stanford.edu/bgm/what-we-do/grounds-services/horticulture-and-landscape/points-interest/arizona-garden">
-              Arizona Garden
-            </ExternalLink>{" "}
-            and the well-known{" "}
-            <ExternalLink href="https://web.stanford.edu/dept/suma/view/rodin.html">
-              Rodin Sculpture Garden
-            </ExternalLink>{" "}
-            in the Cantor Arts Center.
-          </li>
-        </ul>
+              <h3>The Abridged List of Essentials</h3>
+              <ul>
+                <li>
+                  Run/bike/walk across the Golden Gate Bridge (if you&rsquo;re
+                  like Milind) or gaze upon it from a{" "}
+                  <ExternalLink href="https://www.presidio.gov/places/golden-gate-bridge-welcome-center">
+                    scenic viewpoint
+                  </ExternalLink>{" "}
+                  (if you&rsquo;re like Alisha).
+                </li>
+                <li>
+                  We love the{" "}
+                  <ExternalLink href="https://www.everywhereist.com/2012/08/the-view-from-the-hamon-observation-tower-san-francisco/">
+                    Hamon Observation Tower
+                  </ExternalLink>{" "}
+                  in the de Young Museum (free admission to the top!), the{" "}
+                  <ExternalLink href="https://www.japaneseteagardensf.com/">
+                    Japanese Tea Garden
+                  </ExternalLink>
+                  , and the{" "}
+                  <ExternalLink href="https://www.calacademy.org/exhibits/osher-rainforest">
+                    Osher Rainforest
+                  </ExternalLink>{" "}
+                  at the California Academy of Sciences that are all located
+                  next to each other at the Golden Gate Park in San Francisco.
+                </li>
+                <li>
+                  If you enjoy touring university campuses as much as our
+                  parents do, Stanford University is highly photogenic (a half
+                  hour drive south from San Mateo). We both have our own
+                  favorite spots from our time there. Milind recommends getting
+                  a sandwich at his tried-and-true favorite{" "}
+                  <ExternalLink href="https://www.cohostanford.com/">
+                    CoHo
+                  </ExternalLink>
+                  , taking in the views from the top of{" "}
+                  <ExternalLink href="https://visit.stanford.edu/plan/guides/hoover.html">
+                    Hoover Tower
+                  </ExternalLink>
+                  , and walking around the Main Quad. Alisha recommends
+                  strolling through the little-known{" "}
+                  <ExternalLink href="https://lbre.stanford.edu/bgm/what-we-do/grounds-services/horticulture-and-landscape/points-interest/arizona-garden">
+                    Arizona Garden
+                  </ExternalLink>{" "}
+                  and the well-known{" "}
+                  <ExternalLink href="https://web.stanford.edu/dept/suma/view/rodin.html">
+                    Rodin Sculpture Garden
+                  </ExternalLink>{" "}
+                  in the Cantor Arts Center.
+                </li>
+              </ul>
 
-        <h4>The Chill List (for the chillest)</h4>
-        <ul>
-          <li>
-            Lay out on the grass between the palms and take in the
-            &ldquo;atmosphere&rdquo; of{" "}
-            <ExternalLink href="https://sfrecpark.org/destination/mission-dolores-park/">
-              Dolores Park
-            </ExternalLink>
-            .
-          </li>
-          <li>
-            Head to{" "}
-            <ExternalLink href="https://sfrecpark.org/destination/twin-peaks/">
-              Twin Peaks
-            </ExternalLink>{" "}
-            to get incredible views of the city, mountains, and water.
-          </li>
-          <li>
-            San Francisco&rsquo;s beaches are gray and cold, but warm up by the{" "}
-            <ExternalLink href="https://www.nps.gov/goga/learn/management/obfireprogram.htm">
-              fire pits on Ocean Beach
-            </ExternalLink>
-            .
-          </li>
-          <li>
-            You just spent all weekend dancing on those feet and now you want to
-            sit back and relax. For a quirky, indoor experience, we love{" "}
-            <ExternalLink href="https://drafthouse.com/sf">
-              Alamo Drafthouse Cinema
-            </ExternalLink>
-            . They create their own trailers relevant to the movie you&rsquo;re
-            there to see, and food and drinks get delivered directly to your
-            seat.
-          </li>
-        </ul>
+              <h3>The Chill List (for the chillest)</h3>
+              <ul>
+                <li>
+                  Lay out on the grass between the palms and take in the
+                  &ldquo;atmosphere&rdquo; of{" "}
+                  <ExternalLink href="https://sfrecpark.org/destination/mission-dolores-park/">
+                    Dolores Park
+                  </ExternalLink>
+                  .
+                </li>
+                <li>
+                  Head to{" "}
+                  <ExternalLink href="https://sfrecpark.org/destination/twin-peaks/">
+                    Twin Peaks
+                  </ExternalLink>{" "}
+                  to get incredible views of the city, mountains, and water.
+                </li>
+                <li>
+                  San Francisco&rsquo;s beaches are gray and cold, but warm up
+                  by the{" "}
+                  <ExternalLink href="https://www.nps.gov/goga/learn/management/obfireprogram.htm">
+                    fire pits on Ocean Beach
+                  </ExternalLink>
+                  .
+                </li>
+                <li>
+                  You just spent all weekend dancing on those feet and now you
+                  want to sit back and relax. For a quirky, indoor experience,
+                  we love{" "}
+                  <ExternalLink href="https://drafthouse.com/sf">
+                    Alamo Drafthouse Cinema
+                  </ExternalLink>
+                  . They create their own trailers relevant to the movie
+                  you&rsquo;re there to see, and food and drinks get delivered
+                  directly to your seat.
+                </li>
+              </ul>
 
-        <h4>The Foodie List</h4>
-        <ul>
-          <li>
-            Alisha&rsquo;s favorite sweet treat: the baklava frozen Greek yogurt
-            at{" "}
-            <ExternalLink href="https://www.souvla.com/">Souvla</ExternalLink>{" "}
-            (but all the food there is delicious).
-          </li>
-          <li>
-            Milind&rsquo;s favorite savory treats: the Mission burrito (try{" "}
-            <ExternalLink href="https://www.yelp.com/biz/el-farolito-san-francisco-2">
-              El Farolito
-            </ExternalLink>
-            !) or the burger at{" "}
-            <ExternalLink href="https://www.yelp.com/biz/nopa-san-francisco">
-              Nopa
-            </ExternalLink>
-            .
-          </li>
-          <li>
-            San Francisco is known for the sourdough bread bowls with clam
-            chowder, for which{" "}
-            <ExternalLink href="https://boudinbakery.com/home/">
-              Boudin Bakery
-            </ExternalLink>{" "}
-            is popular! For seafood aficionados, keep{" "}
-            <ExternalLink href="https://www.yelp.com/biz/hog-island-oyster-co-san-francisco">
-              Hog Island Oyster Co
-            </ExternalLink>{" "}
-            on your radar.
-          </li>
-          <li>
-            <ExternalLink href="https://www.yelp.com/biz/salt-and-straw-san-francisco-5">
-              Salt &amp; Straw
-            </ExternalLink>{" "}
-            has some delicious and exotic ice cream flavors that change monthly.
-            In the past, we&rsquo;ve tried ice creams that include sunflower
-            seeds, banana peanut butter, tofu pudding, and olive oil!
-          </li>
-        </ul>
+              <h3>The Foodie List</h3>
+              <ul>
+                <li>
+                  Alisha&rsquo;s favorite sweet treat: the baklava frozen Greek
+                  yogurt at{" "}
+                  <ExternalLink href="https://www.souvla.com/">
+                    Souvla
+                  </ExternalLink>{" "}
+                  (but all the food there is delicious).
+                </li>
+                <li>
+                  Milind&rsquo;s favorite savory treats: the Mission burrito
+                  (try{" "}
+                  <ExternalLink href="https://www.yelp.com/biz/el-farolito-san-francisco-2">
+                    El Farolito
+                  </ExternalLink>
+                  !) or the burger at{" "}
+                  <ExternalLink href="https://www.yelp.com/biz/nopa-san-francisco">
+                    Nopa
+                  </ExternalLink>
+                  .
+                </li>
+                <li>
+                  San Francisco is known for the sourdough bread bowls with clam
+                  chowder, for which{" "}
+                  <ExternalLink href="https://boudinbakery.com/home/">
+                    Boudin Bakery
+                  </ExternalLink>{" "}
+                  is popular! For seafood aficionados, keep{" "}
+                  <ExternalLink href="https://www.yelp.com/biz/hog-island-oyster-co-san-francisco">
+                    Hog Island Oyster Co
+                  </ExternalLink>{" "}
+                  on your radar.
+                </li>
+                <li>
+                  <ExternalLink href="https://www.yelp.com/biz/salt-and-straw-san-francisco-5">
+                    Salt &amp; Straw
+                  </ExternalLink>{" "}
+                  has some delicious and exotic ice cream flavors that change
+                  monthly. In the past, we&rsquo;ve tried ice creams that
+                  include sunflower seeds, banana peanut butter, tofu pudding,
+                  and olive oil!
+                </li>
+              </ul>
 
-        <h4>The Short Road Trip List</h4>
-        <p>
-          If you have some more time to explore the Bay Area, here are a few
-          ideas for places that are a short journey away from San Mateo.
-        </p>
-        <ul>
-          <li>
-            Sip the best wine in Napa Valley or Sonoma Valley (a half to full
-            day trip depending on how many wineries you want to visit).
-          </li>
-          <li>
-            Don&rsquo;t miss the jellyfish at the{" "}
-            <ExternalLink href="https://www.montereybayaquarium.org/">
-              Monterey Bay Aquarium
-            </ExternalLink>{" "}
-            (full day trip).
-          </li>
-          <li>
-            Hike amidst the redwoods at{" "}
-            <ExternalLink href="https://www.nps.gov/muwo/index.htm">
-              Muir Woods
-            </ExternalLink>{" "}
-            (half day trip).
-          </li>
-          <li>
-            Soak up the sun at the{" "}
-            <ExternalLink href="https://beachboardwalk.com/">
-              Santa Cruz Boardwalk
-            </ExternalLink>{" "}
-            (full day trip). Bonus: check out the{" "}
-            <ExternalLink href="https://www.mysteryspot.com/">
-              Mystery Spot
-            </ExternalLink>{" "}
-            while you&rsquo;re down there!
-          </li>
-        </ul>
-      </Faq>
-      <Faq question="What if I have other questions?">
-        <p>
-          The best way to reach us is at <ContactEmail />. There are two types
-          of people in this world, and Alisha is the zero-inbox type. Milind is
-          the other type, but he claims he has a system. Either way, we&rsquo;ll
-          get back to you ASAP!
-        </p>
-      </Faq>
+              <h3>The Short Road Trip List</h3>
+              <p>
+                If you have some more time to explore the Bay Area, here are a
+                few ideas for places that are a short journey away from San
+                Mateo.
+              </p>
+              <ul>
+                <li>
+                  Sip the best wine in Napa Valley or Sonoma Valley (a half to
+                  full day trip depending on how many wineries you want to
+                  visit).
+                </li>
+                <li>
+                  Don&rsquo;t miss the jellyfish at the{" "}
+                  <ExternalLink href="https://www.montereybayaquarium.org/">
+                    Monterey Bay Aquarium
+                  </ExternalLink>{" "}
+                  (full day trip).
+                </li>
+                <li>
+                  Hike amidst the redwoods at{" "}
+                  <ExternalLink href="https://www.nps.gov/muwo/index.htm">
+                    Muir Woods
+                  </ExternalLink>{" "}
+                  (half day trip).
+                </li>
+                <li>
+                  Soak up the sun at the{" "}
+                  <ExternalLink href="https://beachboardwalk.com/">
+                    Santa Cruz Boardwalk
+                  </ExternalLink>{" "}
+                  (full day trip). Bonus: check out the{" "}
+                  <ExternalLink href="https://www.mysteryspot.com/">
+                    Mystery Spot
+                  </ExternalLink>{" "}
+                  while you&rsquo;re down there!
+                </li>
+              </ul>
+            </Faq>
+            <Faq question="What if I have other questions?">
+              <p>
+                The best way to reach us is at <ContactEmail />. There are two
+                types of people in this world, and Alisha is the zero-inbox
+                type. Milind is the other type, but he claims he has a system.
+                Either way, we&rsquo;ll get back to you ASAP!
+              </p>
+            </Faq>
+          </>
+        )}
+      </WeddingMetadataContext.Consumer>
     </NavLayout>
   )
 }

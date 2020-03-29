@@ -1,9 +1,9 @@
-import { useStaticQuery, graphql, Link } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
-import Alert from "../components/ui/Alert"
+import ContactEmail from "../components/partials/ContactEmail"
 import ExternalLink from "../components/ui/ExternalLink"
 import IframeContainer from "../components/ui/IframeContainer"
 import PageHeading from "../components/ui/PageHeading"
@@ -49,11 +49,6 @@ const TravelPage = () => {
         description="Venue information, recommended airport and details about the hotel block."
       />
       <PageHeading>Travel &amp; Hotel</PageHeading>
-      <Alert isInfo>
-        Due to ongoing COVID-19 coronavirus concerns, we are postponing the
-        wedding to later in the year. You can find the latest information on our{" "}
-        <Link to="/faq">FAQ</Link> page.
-      </Alert>
       <WeddingMetadataContext.Consumer>
         {value => (
           <Authenticated>
@@ -165,7 +160,7 @@ const TravelPage = () => {
                 parking for our guests.
               </p>
             </section>
-            {/* <section className="c-article" aria-labelledby="hotel-block">
+            <section className="c-article" aria-labelledby="hotel-block">
               <HeadingSymbol symbol="location-hotel" id="hotel-block">
                 Hotel block
               </HeadingSymbol>
@@ -175,7 +170,7 @@ const TravelPage = () => {
               </p>
               <div className="my-4 w-full block">
                 <ExternalLink
-                  href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1561574654973&key=GRP&app=resvlink"
+                  href="https://www.marriott.com/events/start.mi?id=1561574654973&key=GRP"
                   className="c-button c-button-primary c-button-compact inline-block shadow-lg"
                 >
                   Book a room at the special rate
@@ -183,14 +178,16 @@ const TravelPage = () => {
               </div>
               <p>
                 Please use the above link to book your stay at the San Mateo
-                Marriott by <strong>{value.bookingDeadline}</strong>.
+                Marriott by <strong>{value.bookingDeadline}</strong> to
+                guarantee availability. If you had previously booked a room for
+                the May wedding dates, please use the link to book once again.
               </p>
               <p>
-                Please don&rsquo;t hesitate to reach out to us (
+                Don&rsquo;t hesitate to reach out to us (
                 <ContactEmail />) if any questions come up about travel or
                 booking your stay!
               </p>
-            </section> */}
+            </section>
           </Authenticated>
         )}
       </WeddingMetadataContext.Consumer>

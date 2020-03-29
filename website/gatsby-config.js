@@ -41,12 +41,10 @@ module.exports = {
     siteUrl: `https://alishaandmilind.wedding`, // No trailing slash!
     contactEmail: `alisha.and.milind@gmail.com`,
     displayTitle: `Alisha & Milind`,
-    displayDates: `May 1 & 2, 2020`,
-    rsvpDeadline: `2020-03-15`,
-    bookingDeadline: `2020-04-15`,
+    displayDates: `October 30 & 31, 2020`,
+    rsvpDeadline: `2020-09-15`,
+    bookingDeadline: `2020-10-09`,
     location: `San Mateo, CA`,
-    preEventVenue: ["16 Jenna Lane", "Half Moon Bay, CA 94019"],
-    preEventVenueUrl: "https://goo.gl/maps/Z5iAGhLtKx1UQwSg6",
     mainVenue: [
       "San Mateo Marriott San Francisco Airport",
       "1770 S Amphlett Blvd",

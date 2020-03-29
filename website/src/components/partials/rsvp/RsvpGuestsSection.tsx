@@ -2,10 +2,12 @@ import classnames from "classnames"
 import { useFormikContext } from "formik"
 import React, { useContext } from "react"
 import { RsvpFormValues } from "../../../interfaces/RsvpFormValues"
+import { WeddingMetadataContext } from "../../../utils/WeddingMetadataContext"
 import "./RsvpForm.module.css"
 import LabelledTextField from "../../form/LabelledTextField"
 import OptionsGroup from "../../form/OptionsGroup"
 import TextInputGroup from "../../form/TextInputGroup"
+import Alert from "../../ui/Alert"
 import { InvitationContext } from "../Authenticated"
 
 function ordinalSuffix(i: number) {
@@ -29,6 +31,7 @@ const attendingOptions = [
 const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
   (_props, ref) => {
     const { invitation } = useContext(InvitationContext)
+    const { displayDates } = useContext(WeddingMetadataContext)
     const { initialValues, values } = useFormikContext<RsvpFormValues>()
     const guestKeys = Object.keys(values.guests)
 
@@ -39,6 +42,13 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
         })}
         aria-describedby="guests-description"
       >
+        {!invitation.latestRsvp && (
+          <Alert isInfo>
+            Since we have changed the wedding dates to {displayDates}, we
+            request that you submit this RSVP form again, even if you submitted
+            it previously.
+          </Alert>
+        )}
         <h2
           styleName={
             invitation.numGuests === 1
@@ -64,7 +74,9 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           ) : (
             <>
               We&rsquo;ve filled out some information based on what we know.
-              Please edit or correct anything we may have missed.
+              Please edit or correct anything we may have missed. Any member of
+              your party can submit for the whole group, and you can always come
+              back and edit your RSVP even after you&rsquo;ve submitted.
             </>
           )}
         </p>

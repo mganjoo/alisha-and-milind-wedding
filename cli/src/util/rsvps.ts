@@ -7,6 +7,9 @@ dayjs.extend(utc)
 
 const events = ["haldi", "mehndi", "sangeet", "ceremony", "reception"]
 
+// Cutoff for when event was rescheduled
+const newDateCutoff = dayjs("2020-03-15").toDate()
+
 interface Rsvp {
   id: string
   code: string
@@ -20,9 +23,12 @@ interface RsvpWithParty extends Rsvp {
   partyName: string
 }
 
-async function getRsvps() {
+async function getRsvps(oldDate: boolean) {
   const invitationsRef = admin.firestore().collection("invitations")
-  const rsvpsRef = admin.firestore().collectionGroup("rsvps")
+  const rsvpsRef = admin
+    .firestore()
+    .collectionGroup("rsvps")
+    .where("createdAt", oldDate ? "<" : ">=", newDateCutoff)
   const snapshot = await rsvpsRef.get()
   const rsvps = snapshot.docs.map(
     doc =>
@@ -64,8 +70,8 @@ async function getRsvps() {
     .value()
 }
 
-export async function getRsvpSummaries() {
-  const rsvps = await getRsvps()
+export async function getRsvpSummaries(oldDate: boolean) {
+  const rsvps = await getRsvps(oldDate)
   return _.chain(rsvps)
     .map(({ id, code, partyName, attending, createdAt, comments, guests }) => {
       const attendingCountsByEvent = _.chain(events)
@@ -98,8 +104,8 @@ export async function getRsvpSummaries() {
     .value()
 }
 
-export async function getGuestsByEvent(event: string) {
-  const rsvps = await getRsvps()
+export async function getGuestsByEvent(event: string, oldDate: boolean) {
+  const rsvps = await getRsvps(oldDate)
   return rsvps
     .filter(rsvp => rsvp.attending)
     .flatMap(rsvp => {

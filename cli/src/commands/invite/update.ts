@@ -103,11 +103,9 @@ export default class InviteUpdate extends BaseCommand {
     }),
     listId: flags.string({
       description: "Mailchimp list ID for invitees",
-      required: true,
     }),
     preEventSegmentId: flags.string({
       description: "Mailchimp segment ID for PreEvents tag",
-      required: true,
     }),
     dryRun: flags.boolean({
       description: "Do not write records to any services",
@@ -116,6 +114,8 @@ export default class InviteUpdate extends BaseCommand {
 
   async run() {
     const { flags } = this.parse(InviteUpdate)
+    const config = await this.loadConfig()
+
     await this.initializeServices({ mailchimp: true, firebase: true })
 
     if (!this.mailchimp) {
@@ -227,7 +227,7 @@ export default class InviteUpdate extends BaseCommand {
       : this.mailchimp.post(
           {
             path: "/lists/{listId}",
-            path_params: { listId: flags.listId },
+            path_params: { listId: flags.listId || (config && config.listId) },
           },
           {
             members: mailchimpRecords,
@@ -238,7 +238,7 @@ export default class InviteUpdate extends BaseCommand {
     this.log(
       `${result.total_created} records created, ${result.total_updated} records updated, ${result.error_count} errors`
     )
-    if (result.errors.length > 0) {
+    if (result.error_count > 0) {
       this.log(result.errors)
     }
 
@@ -257,7 +257,8 @@ export default class InviteUpdate extends BaseCommand {
             path: "/lists/{listId}/segments/{segmentId}",
             path_params: {
               listId: flags.listId,
-              segmentId: flags.preEventSegmentId,
+              segmentId:
+                flags.preEventSegmentId || (config && config.preEventSegmentId),
             },
           },
           {

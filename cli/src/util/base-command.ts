@@ -11,8 +11,9 @@ import { sheets_v4 } from "googleapis"
 interface Config {
   firebase?: string
   google?: string
-  scopes?: string[]
   mailchimp?: string
+  listId?: string
+  preEventSegmentId?: string
 }
 
 export default abstract class BaseCommand extends Command {

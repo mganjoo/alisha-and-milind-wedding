@@ -1,15 +1,15 @@
 ---
 shortName: "ceremony"
 title: "Ceremony"
-date: "2020-05-02T09:45:00"
-endDate: "2020-05-02T13:00:00"
+date: "2020-10-31T09:45:00"
+endDate: "2020-10-31T13:00:00"
 preEvent: false
-location: San Mateo Marriott Main Entrance
+location: San Mateo Marriott, Main Entrance
 attire: Indian festive or Western daytime formal
 subLocations:
-  - { name: Baraat, date: "2020-05-02T09:45:00", location: "Main Entrance" }
-  - { name: "Ceremony", date: "2020-05-02T11:00:00", location: "Courtyard" }
-  - { name: "Lunch", date: "2020-05-02T12:30:00", location: "Engage Ballroom" }
+  - { name: Baraat, date: "2020-10-31T09:45:00", location: "Main Entrance" }
+  - { name: "Ceremony", date: "2020-10-31T11:00:00", location: "Courtyard" }
+  - { name: "Lunch", date: "2020-10-31T12:30:00", location: "Engage Ballroom" }
 ---
 
 The festivities begin with the _baraat_, or wedding procession, which is Milind’s ~grand~ entrance to the ceremony featuring lively music and dance. Guests will meet at the hotel’s entrance and then will be guided to the starting point for the baraat. Alisha’s family will greet Milind’s family for the _milni_ ceremony, with the exchange of garlands.

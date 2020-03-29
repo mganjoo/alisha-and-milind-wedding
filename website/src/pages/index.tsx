@@ -3,6 +3,7 @@ import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Alert from "../components/ui/Alert"
+import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
 
 const IndexPage = () => {
   const imageData = useStaticQuery(
@@ -27,13 +28,17 @@ const IndexPage = () => {
         description="Welcome to our wedding website! Here you will find the most up-to-date information about the wedding weekend, including event schedule and travel details."
       />
       <div className="c-narrow-body">
-        <div className="mb-8">
-          <Alert isInfo>
-            Due to ongoing COVID-19 coronavirus concerns, we are postponing the
-            wedding to later in the year. You can find the latest information on
-            our <Link to="/faq">FAQ</Link> page.
-          </Alert>
-        </div>
+        <WeddingMetadataContext.Consumer>
+          {value => (
+            <div className="mb-8">
+              <Alert isInfo>
+                Due to the current COVID-19 outbreak, we have changed the
+                wedding dates to {value.displayDates}. You can find the latest
+                information on our <Link to="/faq">FAQ</Link> page.
+              </Alert>
+            </div>
+          )}
+        </WeddingMetadataContext.Consumer>
         <div className="c-article">
           <p>
             Welcome to our wedding website! This is where you will find the most

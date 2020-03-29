@@ -47,20 +47,15 @@ function makeDescription(event: WeddingEventMarkdown) {
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   const metadata = useContext(WeddingMetadataContext)
-  const addressLine = (event.frontmatter.preEvent
-    ? metadata.preEventVenue
-    : metadata.mainVenue
-  )?.join(", ")
-  const addressUrl = event.frontmatter.preEvent
-    ? metadata.preEventVenueUrl
-    : metadata.mainVenueUrl
+  const addressLine = metadata.mainVenue?.join(", ")
+  const addressUrl = metadata.mainVenueUrl
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
         <h2 className="text-orange-800 font-sans text-2xl font-semibold mb-2 print:text-gray-900">
           {event.frontmatter.name}
         </h2>
-        <div className="pl-2 border-l border-orange-500 w-full md:pl-0 md:border-0">
+        <div className="pl-2 border-l border-orange-500 w-full md:pl-0 md:border-0 print:border-gray-subtle">
           <ScheduleInfoRow>
             <ScheduleInfoItem label="Date" symbol="calendar">
               {event.frontmatter.longDateOnly}
@@ -87,9 +82,11 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               }}
               dropdown
             />
-            <ExternalLink href={addressUrl} className="c-inline-button">
-              Open Map
-            </ExternalLink>
+            {addressUrl && (
+              <ExternalLink href={addressUrl} className="c-inline-button">
+                Open Map
+              </ExternalLink>
+            )}
           </div>
         </div>
       </div>

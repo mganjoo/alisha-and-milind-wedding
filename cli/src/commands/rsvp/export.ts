@@ -20,6 +20,9 @@ export default class RsvpExport extends BaseCommand {
     event: flags.string({
       description: "Name of event to produce list of names",
     }),
+    oldDate: flags.boolean({
+      description: "Show RSVPs older than before the event was rescheduled",
+    }),
   }
 
   async run() {
@@ -30,7 +33,7 @@ export default class RsvpExport extends BaseCommand {
     cli.action.start("downloading")
     try {
       if (flags.event) {
-        const rsvpsForEvent = await getGuestsByEvent(flags.event)
+        const rsvpsForEvent = await getGuestsByEvent(flags.event, flags.oldDate)
         cli.action.stop()
         cli.table(
           rsvpsForEvent,
@@ -42,7 +45,7 @@ export default class RsvpExport extends BaseCommand {
           { ...flags, sort: flags.sort || "guest" }
         )
       } else {
-        const rsvps = await getRsvpSummaries()
+        const rsvps = await getRsvpSummaries(flags.oldDate)
         cli.action.stop()
         cli.table(
           rsvps,

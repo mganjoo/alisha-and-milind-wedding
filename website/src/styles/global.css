@@ -128,10 +128,6 @@
   }
 
   & > h3 {
-    @apply text-xl;
-  }
-
-  & > h4 {
     @apply font-sans mb-1 font-semibold text-lg text-gray-700;
   }
 

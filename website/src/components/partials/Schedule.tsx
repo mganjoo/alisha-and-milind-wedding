@@ -16,13 +16,15 @@ const Schedule: React.FC = () => {
             ? "The weekend events are "
             : "All events will be held "}
           at the San Mateo Marriott hotel. You can find more information about
-          the venue on the <Link to="/travel">Travel &amp; Hotel</Link> page, and more
-          details about attire on the <Link to="/faq">FAQ</Link> page.
+          the venue on the <Link to="/travel">Travel &amp; Hotel</Link> page,
+          and more details about attire on the <Link to="/faq">FAQ</Link> page.
         </p>
         {invitation.preEvents && (
           <p>
             We would also love for you to join us at the Haldi and Mehndi
-            events, which will be at our rental home in Half Moon Bay.
+            events. Due to the rescheduling of events, we are still working on
+            finalizing the time and venue for these, but they will also be at
+            the San Mateo Marriott.
           </p>
         )}
         <LeafSpacer wide />
