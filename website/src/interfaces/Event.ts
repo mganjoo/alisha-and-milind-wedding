@@ -9,7 +9,8 @@ export interface WeddingEventMarkdown {
     shortDate: string
     startDate: string
     endDate: string
-    preEvent: true
+    preEvent: boolean
+    tentative: boolean
     longDateOnly: string
     timeOnly: string
     location: string
@@ -53,6 +54,7 @@ export function useEvents() {
               startDate: date(formatString: "YYYY-MM-DDTHH:mm:ss-07:00")
               endDate: endDate(formatString: "YYYY-MM-DDTHH:mm:ss-07:00")
               preEvent
+              tentative
               shortName
               name: title
               location

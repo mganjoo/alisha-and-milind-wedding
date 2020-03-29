@@ -22,9 +22,8 @@ const Schedule: React.FC = () => {
         {invitation.preEvents && (
           <p>
             We would also love for you to join us at the Haldi and Mehndi
-            events. Due to the rescheduling of events, we are still working on
-            finalizing the time and venue for these, but they will also be at
-            the San Mateo Marriott.
+            events! We will reach out when the time and place for these events
+            have been confirmed.
           </p>
         )}
         <LeafSpacer wide />

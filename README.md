@@ -52,6 +52,7 @@ should only be set on Netlify in staging and production environments,
 never in CI or test environments.
 
 - `ENABLE_DEMO_PAGES`: When set to `"1"`, enables building any demo pages in `pages-demo/`.
+- `GATSBY_ENABLE_HALDI_MEHNDI_RSVP`: Enable RSVP for haldi & mehndi.
 - `GATSBY_SAVE_THE_DATE_REDIRECT`: When set to `"1"`, redirects to / after submitting save the date form.
 - `GA_TRACKING_ID`: Tracking code for Google Analytics.
   If unset, the website will build, but no analytics will be logged. It is
@@ -72,6 +73,7 @@ visual regression tests set up using [Percy](https://percy.io).
 Cypress configuration variables:
 
 - `ENABLE_DEMO_TESTS`: Enable tests for demo pages when set to true.
+- `ENABLE_HALDI_MEHNDI_TESTS`: Enable tests for haldi and mehndi RSVPs.
 - `SEED_URL`: Variable to use for seeding data for tests. This corresponds to function `seedInvitations`.
 
 ### To run the entire test suite (unit + e2e) locally
