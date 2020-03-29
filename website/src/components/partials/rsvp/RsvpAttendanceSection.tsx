@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik"
 import React, { useEffect, useRef, useState, useContext, useMemo } from "react"
-import yn from "yn"
 import { useEvents } from "../../../interfaces/Event"
+import { shouldAcceptPreEventRsvp } from "../../../interfaces/Invitation"
 import { RsvpFormValues, GuestMap } from "../../../interfaces/RsvpFormValues"
 import { filterNonEmptyKeys } from "../../../utils/Utils"
 import Alert from "../../ui/Alert"
@@ -25,10 +25,7 @@ const RsvpAttendanceSection = React.forwardRef<
   const eventsToShow = useMemo(
     () =>
       events.filter(
-        e =>
-          !e.frontmatter.preEvent ||
-          (yn(process.env.GATSBY_ENABLE_HALDI_MEHNDI_RSVP) &&
-            invitation.preEvents)
+        e => !e.frontmatter.preEvent || shouldAcceptPreEventRsvp(invitation)
       ),
     [events, invitation]
   )

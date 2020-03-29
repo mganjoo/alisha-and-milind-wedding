@@ -1,5 +1,9 @@
 import { mixed, object, InferType, ObjectSchema, string } from "yup"
-import { Invitation, Rsvp } from "../interfaces/Invitation"
+import {
+  Invitation,
+  Rsvp,
+  shouldAcceptPreEventRsvp,
+} from "../interfaces/Invitation"
 import {
   filterNonEmptyKeys,
   makeIdMap,
@@ -50,16 +54,18 @@ export const validationSchema = object().shape({
  * Returns a Record<string, string[]> which represents a map of event name to list of attendee short IDs.
  *
  * @param events the list of wedding events to generate attendee state for
- * @param includePreEvents whether to include events from the list classified as "pre-events"
+ * @param invitation invitation for party (to be used to determine pre-events state)
  * @param guestIdsForEvent an function that returns a set of guest IDs to initialize for a particular event
  */
 export function resetAttendeesState(
   events: WeddingEventMarkdown[],
-  includePreEvents: boolean,
+  invitation: Invitation,
   guestIdsForEvent: (e: WeddingEventMarkdown) => string[]
 ): Record<string, string[]> {
   return events
-    .filter(e => includePreEvents || !e.frontmatter.preEvent)
+    .filter(
+      e => shouldAcceptPreEventRsvp(invitation) || !e.frontmatter.preEvent
+    )
     .reduce((state, e) => {
       state[e.frontmatter.shortName] = guestIdsForEvent(e)
       return state
@@ -92,7 +98,7 @@ export function makeInitialRsvpFormValues(
       : "-",
     attendees: resetAttendeesState(
       events,
-      !!invitation.preEvents,
+      invitation,
       (e: WeddingEventMarkdown) =>
         invitation.latestRsvp
           ? invitation.latestRsvp.guests // filter guests down to people attending event

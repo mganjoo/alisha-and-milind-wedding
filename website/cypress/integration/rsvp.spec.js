@@ -213,7 +213,7 @@ describe("RSVP page", function() {
   it("should submit a yes response correctly", function() {
     // 2 person invitation, with mehndi
     const { invitation } = openInvitation("test2")
-    const testMehndi = Cypress.env("ENABLE_HALDI_MEHNDI_TESTS")
+    const testPreEvents = Cypress.env("ENABLE_PRE_EVENT_TESTS")
 
     cy.findByLabelText(/2nd guest/i)
       .clear()
@@ -226,9 +226,9 @@ describe("RSVP page", function() {
     // 5 event sections including mehndi and haldi
     cy.findAllByLabelText(/both guests are attending/i).should(
       "have.length",
-      testMehndi ? 5 : 3
+      testPreEvents ? 5 : 3
     )
-    if (testMehndi) {
+    if (testPreEvents) {
       cy.findByLabelText(/haldi/i).within(() => {
         cy.findByLabelText(invitation.knownGuests[0]).check()
       })
@@ -257,7 +257,7 @@ describe("RSVP page", function() {
     cy.findByLabelText(/comments/i).should("have.value", "Lorem ipsum dolor")
     cy.findByText(/next: specific events/i).click()
 
-    if (testMehndi) {
+    if (testPreEvents) {
       cy.findByLabelText(/haldi/i).within(() => {
         cy.findByLabelText(/both guests are attending/i).should(
           "not.be.checked"

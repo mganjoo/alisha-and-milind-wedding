@@ -1,3 +1,5 @@
+import yn from "yn"
+
 export interface Invitation {
   code: string
   partyName: string
@@ -24,3 +26,10 @@ interface Guest {
 }
 
 export type RsvpWithTimestamp = Rsvp & { timestampMillis: number }
+
+// Whether this invitation is eligible to submit RSVPs for pre-events.
+export function shouldAcceptPreEventRsvp(invitation: Invitation): boolean {
+  return !!(
+    yn(process.env.GATSBY_ENABLE_PRE_EVENT_RSVP) && invitation.preEvents
+  )
+}

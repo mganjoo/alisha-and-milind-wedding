@@ -77,7 +77,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
           ...values,
           attendees: resetAttendeesState(
             events,
-            !!invitation.preEvents,
+            invitation,
             (e: WeddingEventMarkdown) =>
               // Keep attendance state intact only for guests whose name is non-empty
               values.attendees[e.frontmatter.shortName]
