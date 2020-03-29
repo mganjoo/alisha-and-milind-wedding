@@ -20,7 +20,6 @@ const IndexPage = () => {
     <NavLayout
       heroImage={imageData.heroImage.childImageSharp.fluid}
       alt="Milind leading Alisha by the hand on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey flowy dress"
-      hideBackToTop
     >
       <SEO
         title="Home"

@@ -232,7 +232,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
         </div>
       </div>
       <animated.div
-        className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white z-10 font-sans text-sm border-t border-gray-subtle shadow-inner"
+        className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white z-10 font-sans text-sm border-t border-gray-subtle shadow-inner print:hidden"
         style={linksProps}
       >
         <Link
@@ -251,10 +251,10 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   ...otherProps
 }) => {
   return (
-    <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden">
+    <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden print:hidden">
       <Helmet>
         <body
-          className="text-gray-900 overflow-hidden"
+          className="text-gray-900 overflow-hidden print:overflow-visible"
           styleName="page-bg"
         ></body>
       </Helmet>

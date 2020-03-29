@@ -39,7 +39,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
         <SkipNavContent />
         {heroImage && (
           <div
-            className="mb-8 border-b border-gray-subtle print:bg-transparent"
+            className="mb-8 border-b border-gray-subtle print:bg-transparent print:border-b-0"
             styleName="page-bg"
           >
             <Img
@@ -63,7 +63,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
       <footer className="pb-8 text-gray-700 font-serif flex flex-col items-center">
         {!hideBackToTop && (
           <button
-            className="c-inline-button hidden sm:block"
+            className="c-inline-button hidden sm:block print:hidden"
             onClick={() => window.scrollTo({ top: 0 })}
           >
             Back to top

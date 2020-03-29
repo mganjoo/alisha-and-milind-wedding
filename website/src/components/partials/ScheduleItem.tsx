@@ -26,13 +26,7 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
   label,
 }) => (
   <span className="flex items-center mx-2 mb-2 font-sans text-gray-700">
-    <Symbol
-      symbol={symbol}
-      className="mr-2 print:hidden"
-      size="s"
-      label={label}
-      inline
-    />
+    <Symbol symbol={symbol} className="mr-2" size="s" label={label} inline />
     {children}
   </span>
 )
@@ -80,7 +74,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               {event.frontmatter.location || addressLine}
             </ScheduleInfoItem>
           </ScheduleInfoRow>
-          <div className="flex py-1 md:justify-center">
+          <div className="flex py-1 md:justify-center print:hidden">
             <AddToCalendarLinks
               label="Add to calendar"
               event={{
@@ -99,7 +93,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
           </div>
         </div>
       </div>
-      <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-orange-500">
+      <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-orange-500 print:border-gray-subtle">
         {event.frontmatter.subLocations && (
           <div className="my-4 md:mt-0">
             {event.frontmatter.subLocations.map(location => (

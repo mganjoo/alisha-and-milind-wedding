@@ -163,10 +163,14 @@
 
 .c-narrow-body {
   @apply max-w-xl mx-auto;
+
+  @screen print {
+    @apply max-w-none;
+  }
 }
 
 .c-shadow-box {
-  @apply p-6 bg-off-white border border-gray-subtle rounded-lg shadow-lg;
+  @apply p-6 border border-gray-subtle rounded-lg shadow-lg;
 }
 
 @tailwind utilities;

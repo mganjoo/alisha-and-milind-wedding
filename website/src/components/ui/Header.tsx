@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
   }, [dropdownVisible])
 
   return (
-    <header className="sticky top-0 z-10 border-b border-gray-subtle bg-off-white sm:static sm:z-0 print:static">
+    <header className="sticky top-0 z-10 border-b border-gray-subtle bg-off-white sm:static sm:z-0 print:static print:bg-white">
       <div className="relative">
         <div className="py-3 text-center sm:pt-4 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-3xl">
