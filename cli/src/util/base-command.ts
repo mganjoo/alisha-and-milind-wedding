@@ -74,7 +74,7 @@ export default abstract class BaseCommand extends Command {
     firebase?: boolean
     mailchimp?: boolean
   }) {
-    const { flags } = this.parse(this.constructor as any)
+    const { flags } = this.parse(this.constructor as typeof BaseCommand)
 
     if (options.firebase) {
       cli.action.start("initializing Firebase")
