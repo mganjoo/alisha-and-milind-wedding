@@ -49,7 +49,7 @@ function makeFirestore(
       return base
         .collection(collection)
         .add(docWithTimestamp)
-        .then(docRef => {
+        .then((docRef) => {
           console.log(`Document added: ${docRef.id}`)
           return docWithTimestamp
         })
@@ -61,7 +61,7 @@ function makeFirestore(
         .collection(collection)
         .doc(id)
         .get()
-        .then(doc =>
+        .then((doc) =>
           doc.exists ? { data: doc.data()!, ref: doc.ref } : undefined
         )
         .catch(observeAndRethrow),

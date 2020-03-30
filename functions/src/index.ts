@@ -146,7 +146,7 @@ async function appendRsvpToSheet(
 
         // Prepare data
         const eventCounts: Record<string, number> = {}
-        events.forEach(event => {
+        events.forEach((event) => {
           eventCounts[
             event
           ] = data.guests.filter((guest: { events: string[] }) =>
@@ -231,7 +231,7 @@ async function updateContactTags(
       .collection("invitees")
       .where("code", "==", code)
       .get()
-    const emails = snapshot.docs.map(doc => doc.id)
+    const emails = snapshot.docs.map((doc) => doc.id)
 
     // Add emails to segment corresponding to attending status
     await mailchimpClient.post(
@@ -277,13 +277,13 @@ export const seedInvitations = functions.https.onRequest(async (req, res) => {
     if (isTestProject()) {
       try {
         const batch = db.batch()
-        invitations.forEach(invitation =>
+        invitations.forEach((invitation) =>
           batch.set(
             db.collection("invitations").doc(invitation.id),
             invitation.data
           )
         )
-        invitees.forEach(invitee =>
+        invitees.forEach((invitee) =>
           batch.set(db.collection("invitees").doc(invitee.id), invitee.data)
         )
         await batch.commit()

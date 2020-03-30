@@ -46,7 +46,7 @@ const FaqPage = () => {
       />
       <PageHeading>Frequently Asked Questions</PageHeading>
       <WeddingMetadataContext.Consumer>
-        {value => (
+        {(value) => (
           <>
             <Faq
               question="How is the wedding impacted by the current coronavirus outbreak?"

@@ -10,8 +10,9 @@ export function useStateList<T>(stateList: T[], initialState?: T) {
     }
     return 0
   })
-  const movePrevious = () => setCurrent(c => (c > 0 ? c - 1 : c))
-  const moveNext = () => setCurrent(c => (c < stateList.length - 1 ? c + 1 : c))
+  const movePrevious = () => setCurrent((c) => (c > 0 ? c - 1 : c))
+  const moveNext = () =>
+    setCurrent((c) => (c < stateList.length - 1 ? c + 1 : c))
   const isAfter = (state: T) => {
     const reference = stateList.indexOf(state)
     if (reference === -1) {
@@ -43,7 +44,7 @@ export function useWhyDidYouUpdate(label: string, props: Record<string, any>) {
     if (previousProps.current) {
       const allKeys = Object.keys({ ...previousProps.current, ...props })
       const changes: Record<string, { from: any; to: any }> = {}
-      allKeys.forEach(key => {
+      allKeys.forEach((key) => {
         if (
           previousProps.current &&
           previousProps.current[key] !== props[key]

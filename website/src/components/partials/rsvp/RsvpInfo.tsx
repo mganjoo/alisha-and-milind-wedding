@@ -19,7 +19,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
     return null
   } else {
     const guestsWithAtLeastOneEvent = invitation.latestRsvp.guests.filter(
-      guest => guest.events.length > 0
+      (guest) => guest.events.length > 0
     )
     return (
       <section
@@ -59,7 +59,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
           </h3>
           {invitation.latestRsvp.attending && (
             <ul className="font-serif">
-              {guestsWithAtLeastOneEvent.map(guest => (
+              {guestsWithAtLeastOneEvent.map((guest) => (
                 <li key={guest.name}>{guest.name}</li>
               ))}
             </ul>

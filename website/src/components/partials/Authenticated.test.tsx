@@ -69,7 +69,7 @@ function mockReturnValues(
 
   const mocks = {
     mockFindById: mockFindById.mockReturnValueOnce(
-      Promise.resolve(fetchValue).then(v => (v ? { data: v } : undefined))
+      Promise.resolve(fetchValue).then((v) => (v ? { data: v } : undefined))
     ),
   }
 

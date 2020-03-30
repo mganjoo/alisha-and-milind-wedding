@@ -36,10 +36,10 @@ maybeDescribe("save the date form", function() {
 
     cy.findByLabelText(/name/i)
       .invoke("val")
-      .then(val => expect(val).to.equal("Rani Mukherjee"))
+      .then((val) => expect(val).to.equal("Rani Mukherjee"))
     cy.findByLabelText(/email/i)
       .invoke("val")
-      .then(val => expect(val).to.equal("johnny.rose@example.com"))
+      .then((val) => expect(val).to.equal("johnny.rose@example.com"))
   })
 
   it("should fail to submit if even one required field is missing", function() {

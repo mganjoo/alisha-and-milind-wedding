@@ -41,7 +41,7 @@ export const validationSchema = object().shape({
         ? schema.test({
             name: "attending-at-least-one-event",
             test: (value: Record<string, string[]>) =>
-              Object.values(value).some(v => v.length > 0),
+              Object.values(value).some((v) => v.length > 0),
             message: "Please make selections for at least one event.",
           })
         : schema
@@ -64,7 +64,7 @@ export function resetAttendeesState(
 ): Record<string, string[]> {
   return events
     .filter(
-      e => shouldAcceptPreEventRsvp(invitation) || !e.frontmatter.preEvent
+      (e) => shouldAcceptPreEventRsvp(invitation) || !e.frontmatter.preEvent
     )
     .reduce((state, e) => {
       state[e.frontmatter.shortName] = guestIdsForEvent(e)
@@ -102,12 +102,12 @@ export function makeInitialRsvpFormValues(
       (e: WeddingEventMarkdown) =>
         invitation.latestRsvp
           ? invitation.latestRsvp.guests // filter guests down to people attending event
-              .filter(guest => guest.events.includes(e.frontmatter.shortName))
+              .filter((guest) => guest.events.includes(e.frontmatter.shortName))
               .flatMap(
-                guest =>
+                (guest) =>
                   // find ID of guest based on name
                   Object.keys(initialGuests).find(
-                    id => initialGuests[id] === guest.name
+                    (id) => initialGuests[id] === guest.name
                   ) || []
               )
           : []
@@ -123,13 +123,13 @@ export function makeInitialRsvpFormValues(
 export function toRsvp(values: RsvpFormValues): Rsvp {
   const attending = values.attending === "yes"
   const guests = Object.keys(values.guests)
-    .map(id => ({
+    .map((id) => ({
       name: values.guests[id],
       events: Object.keys(values.attendees).filter(
-        eventName => attending && values.attendees[eventName].includes(id)
+        (eventName) => attending && values.attendees[eventName].includes(id)
       ),
     }))
-    .filter(guest => !stringEmpty(guest.name))
+    .filter((guest) => !stringEmpty(guest.name))
   return Object.assign(
     {
       guests,

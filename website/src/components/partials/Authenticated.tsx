@@ -74,7 +74,7 @@ const Authenticated: React.FC = ({ children }) => {
 
   useEffect(() => {
     loadSavedInvitation()
-      .then(loadedInvitation => setInvitation(loadedInvitation))
+      .then((loadedInvitation) => setInvitation(loadedInvitation))
       .catch(() => setInitialFetchError(true))
       .finally(() => setDidInitialFetch(true))
   }, [])
@@ -83,7 +83,7 @@ const Authenticated: React.FC = ({ children }) => {
     setInitialFetchError(false) // after first submit, form will handle error handling
     setSubmitError(false)
     return fetchAndSaveInvitationByEmail(submission.email)
-      .then(invitation => {
+      .then((invitation) => {
         setInvitation(invitation)
       })
       .then(() => setSubmitted(true))

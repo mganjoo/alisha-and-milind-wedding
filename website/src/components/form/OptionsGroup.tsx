@@ -37,7 +37,7 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
   const allSelected = useMemo(
     () =>
       shouldShowSelectAll &&
-      options.every(o => field.value && field.value.includes(o.value)),
+      options.every((o) => field.value && field.value.includes(o.value)),
     [shouldShowSelectAll, options, field.value]
   )
 
@@ -49,7 +49,7 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
 
   const toggleSelectAll = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      helpers.setValue(e.target.checked ? options.map(o => o.value) : []),
+      helpers.setValue(e.target.checked ? options.map((o) => o.value) : []),
     [options, helpers]
   )
 

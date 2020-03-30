@@ -34,7 +34,7 @@ module.exports = async ({ config }) => {
   // Configure css rule to use postcss-loader (for Tailwind)
   // First, remove existing CSS rule
   config.module.rules = config.module.rules.filter(
-    f => f.test.toString() !== "/\\.css$/"
+    (f) => f.test.toString() !== "/\\.css$/"
   )
   // Then add PostCSS config for all non-module CSS files
   config.module.rules.push({

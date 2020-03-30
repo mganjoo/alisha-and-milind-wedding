@@ -111,7 +111,7 @@ export async function addRsvp(
   const dataWithTimestamp = await firestore.addWithTimestamp(
     rsvpsCollection,
     rsvp,
-    db => db.collection(invitationsCollection).doc(invitation.code)
+    (db) => db.collection(invitationsCollection).doc(invitation.code)
   )
   const latestRsvp = {
     ...rsvp,

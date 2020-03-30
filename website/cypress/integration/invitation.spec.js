@@ -8,15 +8,15 @@ describe("invitation tests", function() {
   before(function() {
     cy.request("POST", Cypress.env("SEED_URL"))
       .as("getInvitations")
-      .then(response => {
+      .then((response) => {
         const code = response.body.invitees[0].data.code
         const code2 = response.body.invitees[6].data.code
         email = response.body.invitees[0].id
         invitation = response.body.invitations.find(
-          invitation => invitation.data.code === code
+          (invitation) => invitation.data.code === code
         ).data
         invitation2 = response.body.invitations.find(
-          invitation => invitation.data.code === code2
+          (invitation) => invitation.data.code === code2
         ).data
       })
   })

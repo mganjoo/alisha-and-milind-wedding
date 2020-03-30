@@ -35,7 +35,7 @@ function makeDescription(event: WeddingEventMarkdown) {
   const subEventDescription = event.frontmatter.subLocations
     ? event.frontmatter.subLocations
         .map(
-          location =>
+          (location) =>
             `* ${location.name}: ${location.location} at ${location.time}`
         )
         .join("\n") + "\n\n"
@@ -97,7 +97,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
       <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-orange-500 print:border-gray-subtle">
         {event.frontmatter.subLocations && (
           <div className="my-4 md:mt-0">
-            {event.frontmatter.subLocations.map(location => (
+            {event.frontmatter.subLocations.map((location) => (
               <ScheduleInfoItem
                 key={location.name}
                 label="Event"

@@ -20,7 +20,7 @@ export const main = () => (
       label="Enter names of Batman characters"
       groupName="characters"
       fieldKeys={["alpha", "bravo", "charlie"]}
-      fieldLabelFn={i => `Character ${i}`}
+      fieldLabelFn={(i) => `Character ${i}`}
     />
   </FormikStoryWrapper>
 )
@@ -35,7 +35,7 @@ export const withSingleField = () => (
       label="Enter names of Batman characters"
       groupName="characters"
       fieldKeys={["alpha"]}
-      fieldLabelFn={i => `Character ${i}`}
+      fieldLabelFn={(i) => `Character ${i}`}
     />
   </FormikStoryWrapper>
 )
@@ -53,7 +53,7 @@ export const withDefaultValues = () => (
       label="Enter names of Batman characters"
       groupName="characters"
       fieldKeys={["alpha", "bravo", "charlie"]}
-      fieldLabelFn={i => `Character ${i}`}
+      fieldLabelFn={(i) => `Character ${i}`}
     />
   </FormikStoryWrapper>
 )
@@ -74,7 +74,7 @@ export const withValidation = () => {
         label="Enter names of Batman characters"
         groupName="characters"
         fieldKeys={["alpha", "bravo", "charlie"]}
-        fieldLabelFn={i => `Character ${i}`}
+        fieldLabelFn={(i) => `Character ${i}`}
       />
     </FormikStoryWrapper>
   )

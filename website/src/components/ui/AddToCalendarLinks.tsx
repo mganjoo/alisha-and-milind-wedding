@@ -137,7 +137,7 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
         {label}
       </h2>
       <ul className="flex flex-wrap justify-center">
-        {eventTypes.map(eventType => (
+        {eventTypes.map((eventType) => (
           <li className="mx-2 mt-1 mb-2" key={eventType}>
             {
               <ExternalLink
@@ -156,7 +156,7 @@ const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
         <Symbol symbol="chevron-down" className="ml-1" size="s" inline />
       </MenuButton>
       <MenuList>
-        {eventTypes.map(eventType => (
+        {eventTypes.map((eventType) => (
           <MenuLink
             as={ExternalLink}
             key={eventType}

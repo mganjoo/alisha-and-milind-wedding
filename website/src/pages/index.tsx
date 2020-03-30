@@ -29,7 +29,7 @@ const IndexPage = () => {
       />
       <div className="c-narrow-body">
         <WeddingMetadataContext.Consumer>
-          {value => (
+          {(value) => (
             <div className="mb-8">
               <Alert isInfo>
                 Due to the current COVID-19 outbreak, we have changed the

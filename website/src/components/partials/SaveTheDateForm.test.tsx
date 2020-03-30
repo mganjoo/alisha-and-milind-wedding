@@ -16,7 +16,7 @@ jest.mock("./ContactEmail")
 jest.mock("./SaveTheDateLinks")
 
 function delayedPromise<T>(timeoutMs: number, returnValue: T): Promise<T> {
-  return new Promise(resolve =>
+  return new Promise((resolve) =>
     setTimeout(() => resolve(returnValue), timeoutMs)
   )
 }

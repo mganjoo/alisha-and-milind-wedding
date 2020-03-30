@@ -24,7 +24,7 @@ module.exports = {
         print: { raw: "print" },
       },
     },
-    customForms: theme => {
+    customForms: (theme) => {
       const checkboxColor = theme("colors.orange.600")
       const sharedStyles = {
         borderColor: theme("colors.gray.400"),

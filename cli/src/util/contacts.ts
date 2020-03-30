@@ -24,7 +24,7 @@ export async function getContacts(after?: string) {
     : contactsRef
   const snapshot = await query.get()
   const contacts = snapshot.docs.map(
-    doc => ({ id: doc.ref.id, ...doc.data() } as Contact)
+    (doc) => ({ id: doc.ref.id, ...doc.data() } as Contact)
   )
   return contacts.map(({ createdAt, ...other }) => ({
     ...other,

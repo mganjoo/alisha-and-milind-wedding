@@ -70,5 +70,5 @@ export function useEvents() {
       }
     }
   `)
-  return allMarkdownRemark.edges.map(e => e.node)
+  return allMarkdownRemark.edges.map((e) => e.node)
 }

@@ -24,7 +24,7 @@ export const main = () => (
 export const withValidation = () => (
   <FormikStoryWrapper
     initialValues={{ name: "" }}
-    validate={values => (!values.name ? { name: "Name is required" } : {})}
+    validate={(values) => (!values.name ? { name: "Name is required" } : {})}
     validateOnMount
     initialTouched={{ name: true }}
   >
@@ -57,7 +57,7 @@ export const textareaWithRows = () => (
 export const textareaWithValidation = () => (
   <FormikStoryWrapper
     initialValues={{ comments: "" }}
-    validate={values =>
+    validate={(values) =>
       !values.comments ? { comments: "Comments are required" } : {}
     }
     validateOnMount

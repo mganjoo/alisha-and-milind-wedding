@@ -30,8 +30,8 @@ const Schedule: React.FC = () => {
       </section>
       <div className="-mb-8">
         {events
-          .filter(e => !e.frontmatter.preEvent || invitation.preEvents)
-          .map(event => (
+          .filter((e) => !e.frontmatter.preEvent || invitation.preEvents)
+          .map((event) => (
             <ScheduleItem key={event.frontmatter.shortName} event={event} />
           ))}
       </div>

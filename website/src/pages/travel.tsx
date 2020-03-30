@@ -50,7 +50,7 @@ const TravelPage = () => {
       />
       <PageHeading>Travel &amp; Hotel</PageHeading>
       <WeddingMetadataContext.Consumer>
-        {value => (
+        {(value) => (
           <Authenticated>
             <section
               className="c-shadow-box mb-8 sm:flex sm:items-center"
@@ -63,7 +63,7 @@ const TravelPage = () => {
                     Venue
                   </h2>
                   <div id="venue-description">
-                    {value.mainVenue?.map(line => (
+                    {value.mainVenue?.map((line) => (
                       <p key={line}>{line}</p>
                     ))}
                   </div>

@@ -31,7 +31,7 @@ async function getRsvps(oldDate: boolean) {
     .where("createdAt", oldDate ? "<" : ">=", newDateCutoff)
   const snapshot = await rsvpsRef.get()
   const rsvps = snapshot.docs.map(
-    doc =>
+    (doc) =>
       ({
         id: doc.ref.id,
         code: doc.ref.parent.parent ? doc.ref.parent.parent.id : undefined,
@@ -39,11 +39,11 @@ async function getRsvps(oldDate: boolean) {
       } as Rsvp)
   )
   const partyNames = await Promise.all(
-    rsvps.map(rsvp =>
+    rsvps.map((rsvp) =>
       invitationsRef
         .doc(rsvp.code)
         .get()
-        .then(snapshot => {
+        .then((snapshot) => {
           const data = snapshot.data()
           return {
             code: rsvp.code,
@@ -52,13 +52,13 @@ async function getRsvps(oldDate: boolean) {
         })
     )
   )
-  const partyNamesByCode = _.keyBy(partyNames, party => party.code)
+  const partyNamesByCode = _.keyBy(partyNames, (party) => party.code)
   return _.chain(rsvps)
-    .groupBy(rsvp => rsvp.code)
-    .mapValues(rsvps => _.maxBy(rsvps, rsvp => rsvp.createdAt.seconds))
-    .flatMap(rsvps => rsvps || [])
+    .groupBy((rsvp) => rsvp.code)
+    .mapValues((rsvps) => _.maxBy(rsvps, (rsvp) => rsvp.createdAt.seconds))
+    .flatMap((rsvps) => rsvps || [])
     .map(
-      rsvp =>
+      (rsvp) =>
         ({
           ...rsvp,
           partyName:
@@ -75,12 +75,12 @@ export async function getRsvpSummaries(oldDate: boolean) {
   return _.chain(rsvps)
     .map(({ id, code, partyName, attending, createdAt, comments, guests }) => {
       const attendingCountsByEvent = _.chain(events)
-        .map(event => ({
+        .map((event) => ({
           event: event,
-          count: guests.filter(guest => guest.events.includes(event)).length,
+          count: guests.filter((guest) => guest.events.includes(event)).length,
         }))
-        .keyBy(event => event.event)
-        .mapValues(value => value.count)
+        .keyBy((event) => event.event)
+        .mapValues((value) => value.count)
         .value()
       return {
         id,
@@ -107,11 +107,11 @@ export async function getRsvpSummaries(oldDate: boolean) {
 export async function getGuestsByEvent(event: string, oldDate: boolean) {
   const rsvps = await getRsvps(oldDate)
   return rsvps
-    .filter(rsvp => rsvp.attending)
-    .flatMap(rsvp => {
+    .filter((rsvp) => rsvp.attending)
+    .flatMap((rsvp) => {
       return rsvp.guests
-        .filter(guest => guest.events.includes(event))
-        .map(guest => ({
+        .filter((guest) => guest.events.includes(event))
+        .map((guest) => ({
           guest: guest.name,
           partyName: rsvp.partyName,
           code: rsvp.code,

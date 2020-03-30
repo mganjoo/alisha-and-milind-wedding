@@ -67,12 +67,12 @@ global.___loader = {
   hovering: () => {},
 }
 // mock Gatsby ___navigate method to observe the effect of clicking on nav links
-global.___navigate = pathname => {
+global.___navigate = (pathname) => {
   action("NavigateTo:")(pathname)
 }
 
 // global decorator for text color, from <BaseLayout />
-addDecorator(storyFn => <div className="text-gray-900">{storyFn()}</div>)
+addDecorator((storyFn) => <div className="text-gray-900">{storyFn()}</div>)
 
 // global background configuration
 addParameters({

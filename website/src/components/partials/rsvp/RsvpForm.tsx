@@ -71,7 +71,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
       guests: setNestedObjectValues(values.guests, true),
       attending: true,
     })
-    validateForm().then(errors => {
+    validateForm().then((errors) => {
       if (!errors.guests && !errors.attending) {
         setValues({
           ...values,
@@ -82,7 +82,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
               // Keep attendance state intact only for guests whose name is non-empty
               values.attendees[e.frontmatter.shortName]
                 ? values.attendees[e.frontmatter.shortName].filter(
-                    guestId => !stringEmpty(values.guests[guestId])
+                    (guestId) => !stringEmpty(values.guests[guestId])
                   )
                 : []
           ),

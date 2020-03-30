@@ -47,7 +47,7 @@ function invitees(): firebase.firestore.CollectionReference {
 describe("Firestore rules", () => {
   beforeAll(async () => firebase.loadFirestoreRules({ projectId, rules }))
   beforeEach(async () => firebase.clearFirestoreData({ projectId }))
-  afterAll(async () => Promise.all(firebase.apps().map(app => app.delete())))
+  afterAll(async () => Promise.all(firebase.apps().map((app) => app.delete())))
 
   describe("for Contacts collection", () => {
     it("should allow writes containing name, email and createdAt timestamp", async () => {

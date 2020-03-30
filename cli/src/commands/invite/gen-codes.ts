@@ -53,7 +53,8 @@ export default class InviteGenCodes extends BaseCommand {
       }
       const newRows = rows.map(([code, ...rest]: (string | undefined)[]) => [
         // Generate if the code is empty, and the rest of the row contains data
-        (!code || code.length === 0) && rest.some(v => v && v.trim().length > 0)
+        (!code || code.length === 0) &&
+        rest.some((v) => v && v.trim().length > 0)
           ? shortid.generate()
           : code,
         ...rest,

@@ -35,7 +35,7 @@ export function stringEmpty(s: string): boolean {
  * Returns keys of `record` that correspond to non-empty values.
  */
 export function filterNonEmptyKeys(record: Record<string, string>): string[] {
-  return Object.keys(record).filter(id => !stringEmpty(record[id]))
+  return Object.keys(record).filter((id) => !stringEmpty(record[id]))
 }
 
 /**
@@ -59,7 +59,7 @@ export function recordsEqual<T>(
   const record1Keys = Object.keys(record1)
   const record2Keys = Object.keys(record2)
   if (record1Keys.length !== record2Keys.length) return false
-  return record1Keys.every(k => record1[k] === record2[k])
+  return record1Keys.every((k) => record1[k] === record2[k])
 }
 
 /**

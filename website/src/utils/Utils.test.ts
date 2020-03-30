@@ -10,7 +10,7 @@ import {
 describe("Utils", () => {
   describe("makeIdMap()", () => {
     it("should generate a correct map of IDs to values", () => {
-      const map1 = makeIdMap(["lorem", "ipsum", "dolor"], s => `${s} foo`)
+      const map1 = makeIdMap(["lorem", "ipsum", "dolor"], (s) => `${s} foo`)
       Object.keys(map1).every(shortid.isValid)
       expect(Object.values(map1)).toEqual([
         "lorem foo",

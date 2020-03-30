@@ -7,7 +7,7 @@ const maybeDescribe = Cypress.env("ENABLE_DEMO_TESTS")
   : describe.skip
 
 maybeDescribe("save the date page", function() {
-  sizes.forEach(size => {
+  sizes.forEach((size) => {
     it(`has no detectable a11y violations on ${size} load`, function() {
       cy.viewport(size)
       cy.visit("/save-the-date")
@@ -20,7 +20,7 @@ maybeDescribe("save the date page", function() {
 })
 
 describe("application", function() {
-  sizes.forEach(size => {
+  sizes.forEach((size) => {
     it(`has no detectable a11y violations on ${size} load`, function() {
       cy.viewport(size)
       cy.visit("/")

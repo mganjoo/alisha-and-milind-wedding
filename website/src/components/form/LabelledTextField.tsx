@@ -53,7 +53,7 @@ function getField(
   }
 }
 
-const LabelledTextField: React.FC<LabelledTextFieldProps> = props => {
+const LabelledTextField: React.FC<LabelledTextFieldProps> = (props) => {
   const { label, name } = props
   const [, meta] = useField<string>(name)
   const errorMessage = meta.touched ? meta.error : undefined

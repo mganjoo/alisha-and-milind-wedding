@@ -40,7 +40,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
           key={image.image.src}
           styleName="image-wrapper"
           onClick={() => handleClick(i)}
-          onKeyPress={e => handleKeyPress(e, i)}
+          onKeyPress={(e) => handleKeyPress(e, i)}
           role="button"
           tabIndex={0}
         >

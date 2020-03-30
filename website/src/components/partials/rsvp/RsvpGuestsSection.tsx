@@ -84,7 +84,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           label={guestKeys.length > 1 ? "Names of guests" : "Name"}
           groupName="guests"
           fieldKeys={guestKeys}
-          fieldLabelFn={i => `Name of ${ordinalSuffix(i)} guest`}
+          fieldLabelFn={(i) => `Name of ${ordinalSuffix(i)} guest`}
         />
         <OptionsGroup
           name="attending"

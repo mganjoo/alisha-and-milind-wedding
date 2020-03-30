@@ -143,7 +143,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
     config: springConfig,
     onRest: transition,
     // These are only useful if the animation is being reversed
-    immediate: key => key === "flapZIndex" && !isAfter("flap-open"),
+    immediate: (key) => key === "flapZIndex" && !isAfter("flap-open"),
   })
   const linksProps = useSpring({ opacity: isAfter("letter-displayed") ? 1 : 0 })
 
@@ -203,7 +203,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                     ],
                     letterTransform
                   ),
-                  zIndex: props.letterProgress.interpolate(p =>
+                  zIndex: props.letterProgress.interpolate((p) =>
                     p > 0.5 ? 1 : 0
                   ),
                 }}

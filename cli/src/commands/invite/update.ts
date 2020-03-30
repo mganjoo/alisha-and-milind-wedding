@@ -39,17 +39,17 @@ const MaxNumGuests = 11
 const FirestoreChunkSize = 200
 
 const partySchema = object()
-  .transform(current => ({
+  .transform((current) => ({
     ...current,
     knownGuests: _.range(MaxNumGuests)
-      .map(i => (current[`knownGuest${i + 1}`] || "").trim())
-      .filter(guest => !!guest),
+      .map((i) => (current[`knownGuest${i + 1}`] || "").trim())
+      .filter((guest) => !!guest),
   }))
   .shape({
     code: string()
       .trim()
       .required()
-      .test("is-shortid", "${path} is not a shortid", value =>
+      .test("is-shortid", "${path} is not a shortid", (value) =>
         shortid.isValid(value)
       ),
     uniquePartyName: string()
@@ -128,10 +128,10 @@ export default class InviteUpdate extends BaseCommand {
     const emails: Email[] = _.chain(
       Papa.parse(emailsContents, { header: true, skipEmptyLines: true }).data
     )
-      .map(obj => emailCsvSchema.validateSync(obj) as EmailCsv)
+      .map((obj) => emailCsvSchema.validateSync(obj) as EmailCsv)
       // Skip emails manually marked for skipping (duplicates)
-      .filter(email => !yn(email.skip))
-      .map(email => ({
+      .filter((email) => !yn(email.skip))
+      .map((email) => ({
         name: (email.cleanedName || email.name).trim(),
         email: email.email.trim(),
         uniquePartyName: email.uniquePartyName
@@ -143,7 +143,7 @@ export default class InviteUpdate extends BaseCommand {
     // Check for and alert on duplicate emails
     const emailCounts = _.countBy(emails, "email")
     const duplicateEmails = Object.keys(emailCounts).filter(
-      key => emailCounts[key] > 1
+      (key) => emailCounts[key] > 1
     )
     if (duplicateEmails.length > 0) {
       this.error(`duplicate emails detected: ${duplicateEmails}`)
@@ -161,7 +161,7 @@ export default class InviteUpdate extends BaseCommand {
         skipEmptyLines: true,
       }).data
     )
-      .map(obj => partySchema.validateSync(obj))
+      .map((obj) => partySchema.validateSync(obj))
       .map(
         ({
           code,
@@ -186,12 +186,12 @@ export default class InviteUpdate extends BaseCommand {
 
     // Validation for parties: known guest count is valid
     const invalidParties = parties.filter(
-      guest => guest.numGuests < guest.knownGuests.length
+      (guest) => guest.numGuests < guest.knownGuests.length
     )
     if (invalidParties.length > 0) {
       this.error(
         `Invalid guest records (known guests exceed numGuests): ${invalidParties.map(
-          party => party.uniquePartyName
+          (party) => party.uniquePartyName
         )}`
       )
     }
@@ -201,7 +201,7 @@ export default class InviteUpdate extends BaseCommand {
         ? partyByUniqueName[email.uniquePartyName]
         : undefined
 
-    const mailchimpRecords = emails.map(email => {
+    const mailchimpRecords = emails.map((email) => {
       const party = partyForEmail(email)
       return party
         ? {
@@ -244,8 +244,8 @@ export default class InviteUpdate extends BaseCommand {
 
     cli.action.start(`writing tags`)
     const [toAdd, toRemove] = _.chain(emails)
-      .filter(email => !!partyForEmail(email))
-      .partition(email => {
+      .filter((email) => !!partyForEmail(email))
+      .partition((email) => {
         const party = partyForEmail(email)
         return party && party.preEvents
       })
@@ -262,8 +262,8 @@ export default class InviteUpdate extends BaseCommand {
             },
           },
           {
-            members_to_add: toAdd.map(email => email.email),
-            members_to_remove: toRemove.map(email => email.email),
+            members_to_add: toAdd.map((email) => email.email),
+            members_to_remove: toRemove.map((email) => email.email),
           }
         ))
     cli.action.stop()
@@ -288,9 +288,9 @@ export default class InviteUpdate extends BaseCommand {
 
       cli.action.start(`writing ${parties.length} invitations to firestore`)
       await Promise.all(
-        firestoreInvitationBatches.map(records => {
+        firestoreInvitationBatches.map((records) => {
           const batch = admin.firestore().batch()
-          records.forEach(invitation =>
+          records.forEach((invitation) =>
             batch.set(invitationsRef.doc(invitation.code), invitation, {
               merge: true,
             })
@@ -300,8 +300,8 @@ export default class InviteUpdate extends BaseCommand {
       )
       cli.action.stop()
 
-      const firestoreInviteeRecords = parties.flatMap(party =>
-        party.emails.map(email => ({
+      const firestoreInviteeRecords = parties.flatMap((party) =>
+        party.emails.map((email) => ({
           id: email.email.toLowerCase(),
           data: { name: email.name, code: party.code },
         }))
@@ -315,9 +315,9 @@ export default class InviteUpdate extends BaseCommand {
         `writing ${firestoreInviteeRecords.length} invitees to firestore`
       )
       await Promise.all(
-        firestoreInviteeBatches.map(records => {
+        firestoreInviteeBatches.map((records) => {
           const batch = admin.firestore().batch()
-          records.forEach(invitee =>
+          records.forEach((invitee) =>
             batch.set(inviteesRef.doc(invitee.id), invitee.data, {
               merge: true,
             })

@@ -41,7 +41,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ redirect }) => {
 
   async function submitInfo(values: Contact) {
     return loadFirestore()
-      .then(firestore => firestore.addWithTimestamp("contacts", values))
+      .then((firestore) => firestore.addWithTimestamp("contacts", values))
       .then(() => setSubmitted(true))
       .catch(() => setSubmitError(true))
   }

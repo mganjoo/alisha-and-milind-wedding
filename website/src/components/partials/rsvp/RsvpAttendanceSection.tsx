@@ -25,13 +25,13 @@ const RsvpAttendanceSection = React.forwardRef<
   const eventsToShow = useMemo(
     () =>
       events.filter(
-        e => !e.frontmatter.preEvent || shouldAcceptPreEventRsvp(invitation)
+        (e) => !e.frontmatter.preEvent || shouldAcceptPreEventRsvp(invitation)
       ),
     [events, invitation]
   )
   const options = useMemo(
     () =>
-      filterNonEmptyKeys(guests).map(id => ({
+      filterNonEmptyKeys(guests).map((id) => ({
         value: id,
         label: guests[id],
       })),
@@ -64,7 +64,7 @@ const RsvpAttendanceSection = React.forwardRef<
           : "events you’ll be attending"}
         . You can come back and edit this later if your plans change.
       </p>
-      {eventsToShow.map(event => (
+      {eventsToShow.map((event) => (
         <AttendanceItem
           key={event.frontmatter.shortName}
           event={event}

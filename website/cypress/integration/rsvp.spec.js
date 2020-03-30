@@ -6,9 +6,9 @@ describe("RSVP page", function() {
 
   function openInvitation(code) {
     const invitation = invitations.find(
-      invitation => invitation.data.code === code
+      (invitation) => invitation.data.code === code
     ).data
-    const invitee = invitees.find(invitee => invitee.data.code === code)
+    const invitee = invitees.find((invitee) => invitee.data.code === code)
     cy.get("@email_input").type(invitee.id)
     cy.get("@button").click()
     return { invitation, invitee }
@@ -17,7 +17,7 @@ describe("RSVP page", function() {
   before(function() {
     cy.request("POST", Cypress.env("SEED_URL"))
       .as("getInvitations")
-      .then(response => {
+      .then((response) => {
         invitations = response.body.invitations
         invitees = response.body.invitees
       })
