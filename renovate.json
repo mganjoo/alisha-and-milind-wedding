@@ -1,6 +1,6 @@
 {
   "extends": ["group:all", "schedule:weekly", ":maintainLockFilesWeekly"],
-  "separateMajorMinor": true,
+  "separateMajorMinor": false,
   "lockFileMaintenance": {
     "extends": ["group:all"],
     "commitMessageAction": "Update"
