@@ -83,7 +83,7 @@
   @apply font-serif mb-6 text-gray-800;
 }
 
-.c-text {
+%c-text {
   @apply font-serif text-lg;
 
   & > a {
@@ -99,14 +99,14 @@
   }
 }
 
-.c-body-text {
-  @extend .c-text;
+%c-body-text {
+  @extend %c-text;
   @apply mb-4;
 }
 
 .c-body-text-container {
   & > p {
-    @extend .c-body-text;
+    @extend %c-body-text;
   }
 }
 
@@ -139,7 +139,7 @@
     }
 
     & > dd {
-      @extend .c-body-text;
+      @extend %c-body-text;
     }
   }
 
@@ -151,7 +151,7 @@
     @apply mb-4 pl-6;
 
     & > li {
-      @extend .c-text;
+      @extend %c-text;
       @apply list-disc list-outside mb-2;
     }
   }
