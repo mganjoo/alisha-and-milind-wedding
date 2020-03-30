@@ -117,6 +117,7 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         printRejected: true,
+        purgeOnly: ["src/styles/global.css"],
         tailwind: true,
         // special whitelist:
         // <a> which is used indirectly by Gatsby <Link>

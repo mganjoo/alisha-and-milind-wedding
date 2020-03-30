@@ -88,7 +88,7 @@
     "eslint-plugin-no-only-tests": "2.4.0",
     "gatsby-plugin-netlify": "2.2.1",
     "gatsby-plugin-postcss": "2.2.1",
-    "gatsby-plugin-purgecss": "4.0.1",
+    "gatsby-plugin-purgecss": "5.0.0",
     "gatsby-plugin-remove-console": "0.0.2",
     "gatsby-plugin-webpack-size": "1.0.0",
     "glob": "7.1.6",
