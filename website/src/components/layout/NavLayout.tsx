@@ -64,6 +64,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
         {!hideBackToTop && (
           <button
             className="c-inline-button hidden sm:block print:hidden"
+            type="button"
             onClick={() => window.scrollTo({ top: 0 })}
           >
             Back to top

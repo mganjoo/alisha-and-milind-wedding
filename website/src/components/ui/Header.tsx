@@ -75,6 +75,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         <div className="absolute top-0 right-0 ml-1 mr-2 h-full flex items-center sm:hidden print:hidden">
           <button
             className="p-2 flex flex-col items-center justify-center bg-off-white focus:outline-none focus:shadow-outline-light"
+            type="button"
             ref={menuButtonRef}
             onClick={() => setDropdownVisible(!dropdownVisible)}
             aria-label="Toggle Menu"
