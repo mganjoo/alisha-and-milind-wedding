@@ -6,5 +6,6 @@
     "isolatedModules": true,
     "esModuleInterop": true
   },
+  "types": ["jest"],
   "include": ["./src/**/*"]
 }

@@ -9,22 +9,22 @@
   "dependencies": {
     "dayjs": "1.8.23",
     "firebase-admin": "8.10.0",
-    "firebase-functions": "3.5.0",
-    "googleapis": "47.0.0",
+    "firebase-functions": "3.6.0",
+    "googleapis": "48.0.0",
     "mailchimp-api-v3": "1.13.1"
   },
   "devDependencies": {
-    "@firebase/testing": "0.18.1",
-    "@types/jest": "25.1.4",
-    "@typescript-eslint/eslint-plugin": "2.25.0",
-    "@typescript-eslint/parser": "2.25.0",
+    "@firebase/testing": "0.18.2",
+    "@types/jest": "25.2.1",
+    "@typescript-eslint/eslint-plugin": "2.26.0",
+    "@typescript-eslint/parser": "2.26.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.1",
     "eslint-plugin-no-only-tests": "2.4.0",
     "firebase-functions-test": "0.2.0",
-    "firebase-tools": "7.16.1",
-    "jest": "25.2.4",
-    "ts-jest": "25.3.0",
+    "firebase-tools": "8.0.1",
+    "jest": "25.2.7",
+    "ts-jest": "25.3.1",
     "typescript": "3.8.3"
   },
   "scripts": {
