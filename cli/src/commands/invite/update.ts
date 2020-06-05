@@ -9,23 +9,15 @@ import admin from "firebase-admin"
 import { object, string, number, array, InferType } from "yup"
 import shortid from "shortid"
 
-const emailCsvSchema = object().shape({
-  name: string()
-    .trim()
-    .required(),
-  email: string()
-    .trim()
-    .email(),
-  cleanedName: string()
-    .notRequired()
-    .trim(),
-  skip: string()
-    .notRequired()
-    .oneOf(["y", ""]),
-  uniquePartyName: string()
-    .notRequired()
-    .trim(),
-})
+const emailCsvSchema = object()
+  .required()
+  .shape({
+    name: string().trim().required(),
+    email: string().trim().email().required(),
+    cleanedName: string().notRequired().trim(),
+    skip: string().notRequired().oneOf(["y", ""]),
+    uniquePartyName: string().notRequired().trim(),
+  })
 
 type EmailCsv = InferType<typeof emailCsvSchema>
 
@@ -39,6 +31,7 @@ const MaxNumGuests = 11
 const FirestoreChunkSize = 200
 
 const partySchema = object()
+  .required()
   .transform((current) => ({
     ...current,
     knownGuests: _.range(MaxNumGuests)
@@ -52,18 +45,10 @@ const partySchema = object()
       .test("is-shortid", "${path} is not a shortid", (value) =>
         shortid.isValid(value)
       ),
-    uniquePartyName: string()
-      .trim()
-      .required(),
-    partyName: string()
-      .required()
-      .trim(),
-    preEvents: string()
-      .notRequired()
-      .oneOf(["y", ""]),
-    numGuests: number()
-      .required()
-      .integer(),
+    uniquePartyName: string().trim().required(),
+    partyName: string().required().trim(),
+    preEvents: string().notRequired().oneOf(["y", ""]),
+    numGuests: number().required().integer(),
     knownGuests: array().of(string().required()),
   })
 
@@ -175,7 +160,7 @@ export default class InviteUpdate extends BaseCommand {
           uniquePartyName,
           partyName,
           numGuests,
-          knownGuests,
+          knownGuests: knownGuests || [],
           preEvents: !!yn(rest.preEvents),
           emails: emailsByUniquePartyName[uniquePartyName] || [],
         })

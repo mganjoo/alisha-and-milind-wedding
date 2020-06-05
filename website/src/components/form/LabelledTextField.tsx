@@ -35,7 +35,6 @@ function getField(
     case "email":
       return (
         <TextInput
-          name={props.name}
           invalid={invalid}
           ref={invalid ? ref : undefined}
           {...props}
@@ -44,7 +43,6 @@ function getField(
     case "textarea":
       return (
         <TextArea
-          name={props.name}
           invalid={invalid}
           ref={invalid ? ref : undefined}
           {...props}

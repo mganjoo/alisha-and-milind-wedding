@@ -1,4 +1,4 @@
-import { render, fireEvent, waitForElement } from "@testing-library/react"
+import { render, fireEvent } from "@testing-library/react"
 import firebase from "firebase"
 import React from "react"
 import "@testing-library/jest-dom/extend-expect"
@@ -32,7 +32,9 @@ describe("SaveTheDateForm", () => {
     ) as jest.MockedFunction<AddWithTimestampFnType>
     mockLoadFirestoreImpl({ mockAddWithTimestamp })
 
-    const { getByLabelText, getByText } = render(<SaveTheDateForm />)
+    const { getByLabelText, getByText, findByText } = render(
+      <SaveTheDateForm />
+    )
 
     fireEvent.change(getByLabelText("Name"), {
       target: { value: "Jack Jones" },
@@ -42,7 +44,7 @@ describe("SaveTheDateForm", () => {
     })
     getByText("Submit info").click()
 
-    await waitForElement(() => getByText(/thank you/i))
+    await findByText(/thank you/i)
 
     expect(mockAddWithTimestamp.mock.calls.length).toBe(1)
     expect(mockAddWithTimestamp.mock.calls[0][1]["name"]).toBe("Jack Jones")
@@ -63,7 +65,9 @@ describe("SaveTheDateForm", () => {
     ) as jest.MockedFunction<AddWithTimestampFnType>
     mockLoadFirestoreImpl({ mockAddWithTimestamp })
 
-    const { getByLabelText, getByText } = render(<SaveTheDateForm />)
+    const { getByLabelText, getByText, findByText } = render(
+      <SaveTheDateForm />
+    )
 
     fireEvent.change(getByLabelText("Name"), {
       target: { value: "Jack Jones" },
@@ -74,11 +78,11 @@ describe("SaveTheDateForm", () => {
     getByText("Submit info").click()
 
     // Assert that "Submitting..." status appears
-    const button = await waitForElement(() => getByText(/submitting/i))
+    const button = await findByText(/submitting/i)
     expect(button).toBeInTheDocument()
 
     jest.runAllTimers()
 
-    await waitForElement(() => getByText(/thank you/i))
+    await findByText(/thank you/i)
   })
 })

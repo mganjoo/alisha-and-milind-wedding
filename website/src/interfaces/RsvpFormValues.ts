@@ -15,40 +15,43 @@ import { WeddingEventMarkdown } from "./Event"
 export type RsvpFormValues = InferType<typeof validationSchema>
 export type GuestMap = Record<string, string>
 
-export const validationSchema = object().shape({
-  guests: object<GuestMap>().test({
-    name: "has-some-guest",
-    test: function test(value: GuestMap) {
-      return (
-        filterNonEmptyKeys(value).length > 0 ||
-        this.createError({
-          message:
-            Object.keys(value).length > 1
-              ? "At least one name is required."
-              : "Name is required.",
-        })
-      )
-    },
-  }),
-  attending: mixed<"yes" | "no" | "-">().oneOf(
-    ["yes", "no"],
-    "Please confirm your attendance."
-  ),
-  attendees: object<Record<string, string[]>>().when(
-    "attending",
-    (attending: string, schema: ObjectSchema) => {
-      return attending === "yes"
-        ? schema.test({
-            name: "attending-at-least-one-event",
-            test: (value: Record<string, string[]>) =>
-              Object.values(value).some((v) => v.length > 0),
-            message: "Please make selections for at least one event.",
-          })
-        : schema
-    }
-  ),
-  comments: string().notRequired(),
-})
+export const validationSchema = object()
+  .required()
+  .shape({
+    guests: object<GuestMap>()
+      .required()
+      .test({
+        name: "has-some-guest",
+        test: function test(value: GuestMap) {
+          return (
+            filterNonEmptyKeys(value).length > 0 ||
+            this.createError({
+              message:
+                Object.keys(value).length > 1
+                  ? "At least one name is required."
+                  : "Name is required.",
+            })
+          )
+        },
+      }),
+    attending: mixed<"yes" | "no" | "-">().oneOf(
+      ["yes", "no"],
+      "Please confirm your attendance."
+    ),
+    attendees: object<Record<string, string[]>>()
+      .required()
+      .when("attending", (attending: string, schema: ObjectSchema) => {
+        return attending === "yes"
+          ? schema.test({
+              name: "attending-at-least-one-event",
+              test: (value: Record<string, string[]>) =>
+                Object.values(value).some((v) => v.length > 0),
+              message: "Please make selections for at least one event.",
+            })
+          : schema
+      }),
+    comments: string().notRequired(),
+  })
 
 /**
  * Returns a Record<string, string[]> which represents a map of event name to list of attendee short IDs.

@@ -113,12 +113,9 @@ async function writeLatestRsvp(
       ...otherData,
       timestampMillis: (createdAt as admin.firestore.Timestamp).toMillis(),
     }
-    await db
-      .collection("invitations")
-      .doc(code)
-      .update({
-        latestRsvp: dataWithTimestamp,
-      })
+    await db.collection("invitations").doc(code).update({
+      latestRsvp: dataWithTimestamp,
+    })
     console.info(`Updated latest RSVP for code ${code}`)
   } catch (error) {
     console.error(
@@ -136,10 +133,7 @@ async function appendRsvpToSheet(
   try {
     const auth = await getAuthorizedClient()
     if (auth) {
-      const snapshot = await db
-        .collection("invitations")
-        .doc(code)
-        .get()
+      const snapshot = await db.collection("invitations").doc(code).get()
       const invitation = snapshot.data()
       if (invitation) {
         const sheets = google.sheets({ version: "v4", auth })
@@ -158,9 +152,7 @@ async function appendRsvpToSheet(
           code,
           invitation.partyName,
           data.attending,
-          dayjs(data.createdAt.toDate())
-            .utc()
-            .format("YYYY-MM-DD HH:mm:ss"),
+          dayjs(data.createdAt.toDate()).utc().format("YYYY-MM-DD HH:mm:ss"),
           data.comments || "",
           eventCounts["haldi"],
           eventCounts["mehndi"],
@@ -322,7 +314,7 @@ export const authGoogleApi = functions.https.onRequest(async (_req, res) => {
  */
 export const oauthCallback = functions.https.onRequest(async (req, res) => {
   res.set("Cache-Control", "private, max-age=0, s-maxage=0")
-  const code: string = req.query.code
+  const code = req.query.code as string
   try {
     const { tokens } = await oAuth2Client.getToken(code)
     await getApiTokensRef().set(tokens)
