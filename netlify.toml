@@ -9,6 +9,9 @@
   # Disable Cypress binary download since it takes too much time
   CYPRESS_INSTALL_BINARY = "0"
 
+[[plugins]]
+  package = "netlify-plugin-gatsby-cache"
+
 ## Set up environment-specific build options
 
 # Trigger deploy publish via GitHub (after tests)
