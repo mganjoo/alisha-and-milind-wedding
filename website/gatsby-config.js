@@ -33,6 +33,17 @@ const demoPagePlugin = yn(process.env.ENABLE_DEMO_PAGES)
     ]
   : []
 
+const otherPagePlugin = [
+  {
+    resolve: `gatsby-plugin-page-creator`,
+    options: {
+      path: yn(process.env.GATSBY_DISABLE_FULL_SITE)
+        ? `${__dirname}/src/pages-guard`
+        : `${__dirname}/src/pages-full`,
+    },
+  },
+]
+
 module.exports = {
   siteMetadata: {
     title: longTitle,
@@ -55,6 +66,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-typescript`,
     ...demoPagePlugin,
+    ...otherPagePlugin,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
