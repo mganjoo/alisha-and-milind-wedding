@@ -30,9 +30,7 @@ const IndexPage = () => {
         >
           <div className="min-h-screen flex justify-center items-center">
             <div className="p-6 font-serif text-lg bg-gray-900 bg-opacity-75 text-gray-100 sm:mx-auto sm:max-w-sm sm:rounded-md sm:bg-opacity-50">
-              <h1 className="sr-only">
-                Alisha &amp; Milind wedding celebrations canceled
-              </h1>
+              <h1 className="sr-only">Alisha &amp; Milind Wedding</h1>
               <p>
                 Dear family and friends,
                 <br />
