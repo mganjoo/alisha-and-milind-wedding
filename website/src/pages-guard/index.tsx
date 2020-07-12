@@ -21,7 +21,7 @@ const IndexPage = () => {
       <SEO
         title="Home"
         image="/meta-main-hero.jpg"
-        description="Welcome to our wedding website! Here you will find the most up-to-date information about the wedding weekend, including event schedule and travel details."
+        description="Due to the COVID-19 pandemic, we have decided to cancel our planned wedding celebrations in October. We&rsquo;re still figuring out our next steps, and we hope to celebrate in person with you some day soon!"
       />
       <main>
         <BackgroundImage
