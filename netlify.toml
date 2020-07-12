@@ -19,6 +19,7 @@
   command = "npm run build && ./trigger-github.sh"
 
 [context.production.environment]
+  GATSBY_DISABLE_FULL_SITE = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
   GATSBY_GA_BRANCH = "master"
 
