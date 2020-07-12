@@ -3,22 +3,23 @@ require("dotenv").config({
 })
 const yn = require("yn")
 
+const saveTheDateRedirectPages = yn(process.env.ENABLE_DEMO_PAGES)
+  ? []
+  : ["/savethedate", "/save-the-date"]
+
+const fullSiteRedirectPages = yn(process.env.GATSBY_DISABLE_FULL_SITE)
+  ? ["/schedule", "/travel", "/story", "/video", "/faq", "/registry", "/rsvp"]
+  : []
+
 exports.createPages = ({ actions }) => {
   const { createRedirect } = actions
-  if (!yn(process.env.ENABLE_DEMO_PAGES)) {
+  saveTheDateRedirectPages.concat(fullSiteRedirectPages).forEach((page) => {
     createRedirect({
-      fromPath: "/savethedate",
+      fromPath: page,
       toPath: "/",
-      isPermanent: true,
       redirectInBrowser: true,
     })
-    createRedirect({
-      fromPath: "/save-the-date",
-      toPath: "/",
-      isPermanent: true,
-      redirectInBrowser: true,
-    })
-  }
+  })
 }
 
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
