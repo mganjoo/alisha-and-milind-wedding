@@ -5,6 +5,7 @@ import { google } from "googleapis"
 import { Credentials } from "google-auth-library"
 import * as dayjs from "dayjs"
 import * as utc from "dayjs/plugin/utc"
+import * as yn from "yn"
 import Mailchimp = require("mailchimp-api-v3")
 
 dayjs.extend(utc)
@@ -16,9 +17,12 @@ const db = admin.firestore()
  * Configuration for OAuth authentication.
  * - googleapi.client_id = Google API client ID,
  * - googleapi.client_secret = Google API client secret
+ * - googleapi.project_id = ID of the Firebase project to construct OAuth url:
+ *   (https://<project_id>.firebaseapp.com/oauthCallback)
  */
 const ClientId = functions.config().googleapi.client_id
 const ClientSecret = functions.config().googleapi.client_secret
+const ProjectId = functions.config().googleapi.project_id
 
 /**
  * Configuration for sheet to update with RSVP information
@@ -41,8 +45,11 @@ const MailchimpTagIdAttending = functions.config().mailchimp.tag_id.attending
 const MailchimpTagIdNotAttending = functions.config().mailchimp.tag_id
   .not_attending
 
+const ProjectIsProd =
+  functions.config().project && yn(functions.config().project.is_prod)
+
 // Redirect URI after authentication is complete. Defined by `oauthCallback` Cloud Function.
-const RedirectUri = `https://${process.env.GCLOUD_PROJECT}.firebaseapp.com/oauthCallback`
+const RedirectUri = `https://${ProjectId}.firebaseapp.com/oauthCallback`
 
 // Scopes for Google Sheets access (read and write).
 const Scopes = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -75,10 +82,6 @@ const getApiTokensRef = () => db.collection("config").doc("apiTokens")
 
 // Locally cached oAuth tokens
 let oauthTokens: Credentials | undefined
-
-// Returns true if this is a test project (relevant for seeding fixture data)
-const isTestProject = () =>
-  /^test-[a-zA-z0-9-]+$/.test(process.env.GCLOUD_PROJECT || "")
 
 interface Guest {
   name: string
@@ -215,7 +218,7 @@ async function updateContactTags(
   data: admin.firestore.DocumentData,
   code: string
 ) {
-  if (isTestProject()) {
+  if (!ProjectIsProd) {
     return
   }
   try {
@@ -266,7 +269,11 @@ export const onCreateRsvp = functions.firestore
  */
 export const seedInvitations = functions.https.onRequest(async (req, res) => {
   if (req.method === "POST") {
-    if (isTestProject()) {
+    if (ProjectIsProd) {
+      res
+        .status(200)
+        .send("Seeding fixture data is only supported for test projects")
+    } else {
       try {
         const batch = db.batch()
         invitations.forEach((invitation) =>
@@ -284,10 +291,6 @@ export const seedInvitations = functions.https.onRequest(async (req, res) => {
         console.error(error)
         res.status(500).send("Error occurred while seeding data")
       }
-    } else {
-      res
-        .status(200)
-        .send("Seeding fixture data is only supported for test projects")
     }
   } else {
     res.status(200).send("Must seed data using POST")

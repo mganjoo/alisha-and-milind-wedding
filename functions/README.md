@@ -55,10 +55,12 @@ firebase -P production deploy
 ### Configure Google API client ID and secret
 
 Configure the Client ID and Client secret (available from https://console.cloud.google.com/apis/credentials)
-for initializing the OAuth client for Sheets access.
+for initializing the OAuth client for Sheets access. Also configure a `project_id` key corresponding to
+the Firebase Project ID, so an OAuth callback URL can be constructed.
 
 ```sh
-firebase -P production functions:config:set googleapi.client_id="YOUR_CLIENT_ID" googleapi.client_secret="YOUR_CLIENT_SECRET"
+# This command references the "production" project, but authenticate on all of them
+firebase -P production functions:config:set googleapi.client_id="YOUR_CLIENT_ID" googleapi.client_secret="YOUR_CLIENT_SECRET" googleapi.project_id="FIREBASE_PROJECT_ID"
 ```
 
 Full instructions for authorization are derived from https://github.com/firebase/functions-samples/tree/master/google-sheet-sync#deploy-and-test.
@@ -69,4 +71,20 @@ Configure the Mailchimp API credentials, and IDs for the Mailchimp audience and 
 
 ```sh
 firebase -P production functions:config:set mailchimp.api_key="API_KEY" mailchimp.list_id="LIST_ID" mailchimp.tag_id.attending="TAG_ID_FOR_ATTENDING" mailchimp.tag_id.not_attending="TAG_ID_FOR_NOT_ATTENDING"
+```
+
+### Configure Google Sheet for output
+
+Configure the spreadsheet ID (from `https://docs.google.com/spreadsheets/d/<spreadsheet_id>/edit`) and range of cells that the RSVP function should update (specified as a range reference, e.g. `SheetName!A:Q`).
+
+```sh
+firebase -P production functions:config:set rsvps.table_range="TABLE_RANGE" rsvps.spreadsheet_id="SPREADSHEET_ID"
+```
+
+### Specify whether project is a production project
+
+The project is configured to work with both production and staging environments. Some Cloud functions, however, are only meant to be used in a production environment, so set a config key indicating whether the Firebasse project in question is a production project (the default is false).
+
+```sh
+firebase -P production functions:config:set project.is_prod="1"
 ```
