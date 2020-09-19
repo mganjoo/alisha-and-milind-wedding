@@ -9,7 +9,7 @@
   "dependencies": {
     "dayjs": "1.8.28",
     "firebase-admin": "8.12.1",
-    "firebase-functions": "3.6.2",
+    "firebase-functions": "3.11.0",
     "googleapis": "52.0.0",
     "mailchimp-api-v3": "1.14.0",
     "yn": "^4.0.0"

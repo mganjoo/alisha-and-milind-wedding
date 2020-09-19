@@ -119,9 +119,9 @@ async function writeLatestRsvp(
     await db.collection("invitations").doc(code).update({
       latestRsvp: dataWithTimestamp,
     })
-    console.info(`Updated latest RSVP for code ${code}`)
+    functions.logger.info(`Updated latest RSVP for code ${code}`)
   } catch (error) {
-    console.error(
+    functions.logger.error(
       `Could not update invitation for code ${code} with latestRsvp`,
       error
     )
@@ -181,7 +181,7 @@ async function appendRsvpToSheet(
           },
         })
 
-        console.info(`Successfully appended RSVP to sheet`)
+        functions.logger.info(`Successfully appended RSVP to sheet`)
 
         // Append to mail collection
         await admin
@@ -204,13 +204,16 @@ ${data.guests
             },
           })
 
-        console.info(`Successfully queued notification email`)
+        functions.logger.info(`Successfully queued notification email`)
       } else {
-        console.error(`Could not load invitation for code ${code}`)
+        functions.logger.error(`Could not load invitation for code ${code}`)
       }
     }
   } catch (error) {
-    console.error(`Error appending RSVP to spreadsheet for code ${code}`, error)
+    functions.logger.error(
+      `Error appending RSVP to spreadsheet for code ${code}`,
+      error
+    )
   }
 }
 
@@ -243,9 +246,9 @@ async function updateContactTags(
       }
     )
 
-    console.info("Updated attending and not attending segments")
+    functions.logger.info("Updated attending and not attending segments")
   } catch (error) {
-    console.error(`Mailchimp segment ID update failed: ${code}`, error)
+    functions.logger.error(`Mailchimp segment ID update failed: ${code}`, error)
   }
 }
 
@@ -255,7 +258,7 @@ export const onCreateRsvp = functions.firestore
     const code = context.params.code
     const data = snapshot.data()
     if (data) {
-      console.info(`Received RSVP for code ${code}`, data)
+      functions.logger.info(`Received RSVP for code ${code}`, data)
       await Promise.all([
         writeLatestRsvp(data, code),
         appendRsvpToSheet(snapshot.id, data, code),
@@ -288,7 +291,7 @@ export const seedInvitations = functions.https.onRequest(async (req, res) => {
         await batch.commit()
         res.send({ invitations: invitations, invitees: invitees })
       } catch (error) {
-        console.error(error)
+        functions.logger.error(error)
         res.status(500).send("Error occurred while seeding data")
       }
     }
@@ -321,8 +324,10 @@ export const oauthCallback = functions.https.onRequest(async (req, res) => {
   try {
     const { tokens } = await oAuth2Client.getToken(code)
     await getApiTokensRef().set(tokens)
-    return res.status(200).send("Success. You can now close this page.")
+    res.status(200).send("Success. You can now close this page.")
+    return
   } catch (error) {
-    return res.status(400).send(error)
+    res.status(400).send(error)
+    return
   }
 })
