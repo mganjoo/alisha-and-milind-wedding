@@ -10,6 +10,8 @@ on:
       - 'package.json'
       - 'package-lock.json'
   repository_dispatch: {}
+  schedule:
+    - cron: '25 19 * * 2,5'
 jobs:
   test:
     name: Run tests
