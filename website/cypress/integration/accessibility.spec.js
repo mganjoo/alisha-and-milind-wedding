@@ -2,13 +2,14 @@
 
 const sizes = ["iphone-6", "macbook-15"]
 
-const maybeDescribe = Cypress.env("ENABLE_DEMO_TESTS")
+const yn = require("yn")
+const maybeDescribe = yn(Cypress.env("ENABLE_DEMO_TESTS"))
   ? describe
   : describe.skip
 
-maybeDescribe("save the date page", function() {
+maybeDescribe("save the date page", function () {
   sizes.forEach((size) => {
-    it(`has no detectable a11y violations on ${size} load`, function() {
+    it(`has no detectable a11y violations on ${size} load`, function () {
       cy.viewport(size)
       cy.visit("/save-the-date")
       cy.injectAxe()
@@ -19,9 +20,9 @@ maybeDescribe("save the date page", function() {
   })
 })
 
-describe("application", function() {
+describe("application", function () {
   sizes.forEach((size) => {
-    it(`has no detectable a11y violations on ${size} load`, function() {
+    it(`has no detectable a11y violations on ${size} load`, function () {
       cy.viewport(size)
       cy.visit("/")
       cy.injectAxe()
@@ -32,14 +33,14 @@ describe("application", function() {
   })
 })
 
-describe("header menu on mobile", function() {
+describe("header menu on mobile", function () {
   beforeEach(() => {
     cy.viewport("iphone-6")
     cy.visit("/")
     cy.injectAxe()
   })
 
-  it("has no detectable a11y violations when open", function() {
+  it("has no detectable a11y violations when open", function () {
     cy.findByLabelText(/toggle menu/i).click()
     cy.checkA11y()
   })
