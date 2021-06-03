@@ -12,10 +12,10 @@
     "url": "https://github.com/mganjoo/alisha-and-milind-wedding/issues"
   },
   "devDependencies": {
-    "husky": "4.2.5",
-    "lerna": "3.22.0",
-    "lint-staged": "10.2.9",
-    "prettier": "2.0.5"
+    "husky": "6.0.0",
+    "lerna": "4.0.0",
+    "lint-staged": "11.0.0",
+    "prettier": "2.3.0"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
@@ -26,13 +26,8 @@
     "start:website": "npm --prefix website run develop",
     "check:types": "lerna run --concurrency 1 --stream check:types",
     "storybook": "npm --prefix website run storybook",
-    "check:lint": "lerna run check:lint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run check:lint"
-    }
+    "check:lint": "lerna run check:lint",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,md}": [
