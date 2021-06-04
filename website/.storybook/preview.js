@@ -80,5 +80,3 @@ addParameters({
     { name: "off-white", value: sharedConstants.offWhite, default: true },
   ],
 })
-
-configure(require.context("../src/components", true, /\.stories\.tsx$/), module)
