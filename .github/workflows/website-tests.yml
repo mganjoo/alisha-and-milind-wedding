@@ -15,7 +15,7 @@ on:
 jobs:
   test:
     name: Run tests
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
     - name: Check out repository
       if: github.event_name != 'repository_dispatch'
