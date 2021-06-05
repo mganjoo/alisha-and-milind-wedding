@@ -3,9 +3,9 @@ require("dotenv").config({
 })
 const yn = require("yn")
 
-const saveTheDateRedirectPages = yn(process.env.ENABLE_DEMO_PAGES)
-  ? []
-  : ["/savethedate", "/save-the-date"]
+const saveTheDateRedirectPages = yn(process.env.DISABLE_DEMO_PAGES)
+  ? ["/savethedate", "/save-the-date"]
+  : []
 
 const fullSiteRedirectPages = yn(process.env.GATSBY_DISABLE_FULL_SITE)
   ? ["/schedule", "/travel", "/story", "/video", "/faq", "/registry", "/rsvp"]

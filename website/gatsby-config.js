@@ -22,8 +22,9 @@ const googleAnalyticsPlugin = process.env.GA_TRACKING_ID
     ]
   : []
 
-const demoPagePlugin = yn(process.env.ENABLE_DEMO_PAGES)
-  ? [
+const demoPagePlugin = yn(process.env.DISABLE_DEMO_PAGES)
+  ? []
+  : [
       {
         resolve: `gatsby-plugin-page-creator`,
         options: {
@@ -31,7 +32,6 @@ const demoPagePlugin = yn(process.env.ENABLE_DEMO_PAGES)
         },
       },
     ]
-  : []
 
 const otherPagePlugin = [
   {
