@@ -5,6 +5,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        orange: {
+          // Tailwind 1 colors
+          100: "#fffaf0",
+          200: "#feebc8",
+          300: "#fbd38d",
+          400: "#f6ad55",
+          500: "#ed8936",
+          600: "#dd6b20",
+          700: "#c05621",
+          800: "#9c4221",
+          900: "#7b341e",
+        },
         "off-white": sharedConstants.offWhite,
         invalid: defaultTheme.colors.red["400"],
         "gray-subtle": defaultTheme.colors.gray["400"],
@@ -24,38 +36,8 @@ module.exports = {
         print: { raw: "print" },
       },
     },
-    customForms: (theme) => {
-      const checkboxColor = theme("colors.orange.600")
-      const sharedStyles = {
-        borderColor: theme("colors.gray.400"),
-        "&:focus": {
-          boxShadow: theme("boxShadow.outline-light"),
-          borderColor: theme("colors.orange.500"),
-        },
-      }
-      return {
-        default: {
-          input: {
-            borderRadius: theme("borderRadius.lg"),
-            ...sharedStyles,
-          },
-          textarea: {
-            borderRadius: theme("borderRadius.lg"),
-            ...sharedStyles,
-          },
-          radio: {
-            color: checkboxColor,
-            ...sharedStyles,
-          },
-          checkbox: {
-            color: checkboxColor,
-            ...sharedStyles,
-          },
-        },
-      }
-    },
   },
   variants: {},
-  plugins: [require("@tailwindcss/custom-forms")],
+  plugins: [require("@tailwindcss/forms")],
   purge: false,
 }

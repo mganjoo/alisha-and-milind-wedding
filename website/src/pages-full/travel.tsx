@@ -104,7 +104,7 @@ const TravelPage = () => {
                   There is a complimentary shuttle service between the San Mateo
                   Marriott and SFO that runs each hour from 5 am to 10 pm, seven
                   days a week. The number for the airport shuttle service is{" "}
-                  <a href="tel:+1-650-653-6000" className="whitespace-no-wrap">
+                  <a href="tel:+1-650-653-6000" className="whitespace-nowrap">
                     +1 (650) 653-6000
                   </a>
                   . More details about the shuttle service can be found on the{" "}

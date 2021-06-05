@@ -43,7 +43,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
               id="rsvp-info-description"
             >
               RSVP received on{" "}
-              <span className="font-semibold whitespace-no-wrap not-italic text-gray-900 p-hide">
+              <span className="font-semibold whitespace-nowrap not-italic text-gray-900 p-hide">
                 {formatDate(invitation.latestRsvp.timestampMillis)}
               </span>
             </p>

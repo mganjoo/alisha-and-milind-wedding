@@ -1,4 +1,3 @@
-const postcss = require("postcss")
 module.exports = {
   stories: ["../src/components/**/*.stories.tsx"],
   addons: [
@@ -7,7 +6,6 @@ module.exports = {
     "@storybook/addon-knobs",
     "@storybook/addon-links",
     "@storybook/addon-viewport",
-    "@storybook/addon-postcss",
   ],
   webpackFinal: async (config) => {
     // Configure rule 0 (.mjs, .js, .jsx) for gatsby

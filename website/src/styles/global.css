@@ -83,6 +83,14 @@
   @apply font-serif mb-6 text-gray-800;
 }
 
+.c-form-element-border {
+  @apply border-gray-400 focus:ring focus:ring-orange-500 focus:ring-opacity-50 focus:border-orange-500;
+}
+
+.c-focus-outline {
+  @apply focus:outline-none focus:ring focus:ring-orange-300 focus:ring-opacity-50;
+}
+
 %c-text {
   @apply font-serif text-lg;
 

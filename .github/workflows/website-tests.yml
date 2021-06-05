@@ -22,14 +22,14 @@ jobs:
       uses: actions/checkout@v1
     - name: Check out repository (external dispatch)
       if: github.event_name == 'repository_dispatch'
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         # Always build and run external dispatch tests on 'master' branch
         ref: master
     - name: Set up Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
-        node-version: 10.x
+        node-version: '14'
     - name: Install packages
       run: |
         npm ci

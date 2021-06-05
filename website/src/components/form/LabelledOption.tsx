@@ -1,6 +1,5 @@
 import classnames from "classnames"
 import React from "react"
-import { assertNever } from "../../utils/Utils"
 
 type OptionType = "checkbox" | "radio"
 
@@ -14,25 +13,13 @@ interface LabelledOptionProps
   bold?: boolean
 }
 
-function getInputClass(type: OptionType) {
-  // Need to reference the entire class name to make PurgeCSS work
-  switch (type) {
-    case "checkbox":
-      return "form-checkbox"
-    case "radio":
-      return "form-radio"
-    default:
-      return assertNever(type)
-  }
-}
-
 const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
   ({ label, type, bold, ...otherProps }, ref) => (
     <div>
       <label className="inline-flex items-center py-1">
         <input
           type={type}
-          className={getInputClass(type)}
+          className="c-form-element-border text-orange-600"
           ref={ref}
           {...otherProps}
         />
