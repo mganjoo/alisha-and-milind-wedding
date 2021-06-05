@@ -3,12 +3,12 @@ import { useFormikContext } from "formik"
 import React, { useContext } from "react"
 import { RsvpFormValues } from "../../../interfaces/RsvpFormValues"
 import { WeddingMetadataContext } from "../../../utils/WeddingMetadataContext"
-import "./RsvpForm.module.css"
 import LabelledTextField from "../../form/LabelledTextField"
 import OptionsGroup from "../../form/OptionsGroup"
 import TextInputGroup from "../../form/TextInputGroup"
 import Alert from "../../ui/Alert"
 import { InvitationContext } from "../Authenticated"
+import styles from "./RsvpForm.module.css"
 
 function ordinalSuffix(i: number) {
   const ones = i % 10
@@ -50,10 +50,10 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           </Alert>
         )}
         <h2
-          styleName={
+          className={
             invitation.numGuests === 1
-              ? "section-heading"
-              : "section-subheading"
+              ? styles.section_heading
+              : styles.section_subheading
           }
           ref={ref}
           id="guests-heading-1"
@@ -61,7 +61,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           {invitation.latestRsvp ? "Editing RSVP" : "Welcome"}
         </h2>
         {invitation.numGuests > 1 && (
-          <h3 styleName="section-heading" id="guests-heading-2">
+          <h3 className={styles.section_heading} id="guests-heading-2">
             {invitation.partyName}
           </h3>
         )}

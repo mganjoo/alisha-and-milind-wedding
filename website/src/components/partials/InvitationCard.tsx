@@ -1,4 +1,4 @@
-import classnames from "classnames"
+import classNames from "classnames"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
 import React, { useContext, useEffect, useState } from "react"
@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet"
 import { useSpring, animated, interpolate } from "react-spring"
 import { useStateList } from "../../utils/UtilHooks"
 import Authenticated, { InvitationContext } from "./Authenticated"
-import "./InvitationCard.module.css"
+import styles from "./InvitationCard.module.css"
 
 type AnimationState =
   | "new"
@@ -148,11 +148,11 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
   const linksProps = useSpring({ opacity: isAfter("letter-displayed") ? 1 : 0 })
 
   return (
-    <div styleName="outer-wrapper">
-      <div styleName="wrapper">
-        <div styleName="envelope">
+    <div className={styles.outer_wrapper}>
+      <div className={styles.wrapper}>
+        <div className={styles.envelope}>
           <animated.div
-            styleName="flippable"
+            className={styles.flippable}
             style={{
               transform: interpolate(
                 [
@@ -173,19 +173,25 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
             }}
           >
             <div
-              className="flex items-center justify-center"
-              styleName="front front-base"
+              className={classNames(
+                "flex items-center justify-center",
+                styles.front,
+                styles.front_base
+              )}
             >
               <p className="font-serif text-lg text-yellow-200 text-center sm:text-xl">
                 {invitation.partyName}
               </p>
             </div>
-            <div styleName="back back-base">
+            <div className={classNames(styles.back, styles.back_base)}>
               <animated.div
-                className={classnames("p-cover", {
-                  "shadow-lg": letterLoaded,
-                })}
-                styleName="letter"
+                className={classNames(
+                  "p-cover",
+                  {
+                    "shadow-lg": letterLoaded,
+                  },
+                  styles.letter
+                )}
                 style={{
                   transform: interpolate(
                     [
@@ -215,17 +221,26 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                   onLoad={() => setLetterLoaded(true)}
                 />
               </animated.div>
-              <div styleName="full-area back-bottom-flaps"></div>
+              <div
+                className={classNames(
+                  styles.full_area,
+                  styles.back_bottom_flaps
+                )}
+              ></div>
               <animated.div
-                styleName="flippable"
+                className={styles.flippable}
                 style={{
                   transform: props.flapRotateX.interpolate(flapTransform),
                   transformOrigin: "center top",
                   zIndex: props.flapZIndex,
                 }}
               >
-                <div styleName="front front-flap"></div>
-                <div styleName="back back-flap"></div>
+                <div
+                  className={classNames(styles.front, styles.front_flap)}
+                ></div>
+                <div
+                  className={classNames(styles.back, styles.back_flap)}
+                ></div>
               </animated.div>
             </div>
           </animated.div>
@@ -254,8 +269,10 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
     <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden print:hidden">
       <Helmet>
         <body
-          className="text-gray-900 overflow-hidden print:overflow-visible"
-          styleName="page-bg"
+          className={classNames(
+            "text-gray-900 overflow-hidden print:overflow-visible",
+            styles.page_bg
+          )}
         ></body>
       </Helmet>
       {testMode ? (

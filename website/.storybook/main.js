@@ -6,6 +6,8 @@ module.exports = {
     "@storybook/addon-knobs",
     "@storybook/addon-links",
     "@storybook/addon-viewport",
+    "@storybook/addon-postcss",
+    "storybook-css-modules-preset",
   ],
   webpackFinal: async (config) => {
     // Configure rule 0 (.mjs, .js, .jsx) for gatsby
@@ -24,51 +26,6 @@ module.exports = {
       // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
       require.resolve("babel-plugin-remove-graphql-queries")
     )
-    // Set up CSS module support
-    const scopedName = `[name]--[local]--[hash:base64:5]`
-    const reactCssModulesPlugin = [
-      require.resolve("babel-plugin-react-css-modules"),
-      {
-        webpackHotModuleReloading: true,
-        generateScopedName: scopedName,
-      },
-    ]
-    config.module.rules[0].use[0].options.plugins.push(reactCssModulesPlugin)
-
-    // Configure css rule to use postcss-loader (for Tailwind)
-    // First, remove existing CSS rule
-    config.module.rules = config.module.rules.filter(
-      (f) => f.test.toString() !== "/\\.css$/"
-    )
-    // Then add PostCSS config for all non-module CSS files
-    config.module.rules.push({
-      test: /\.css$/,
-      exclude: /\.module\.css$/,
-      loaders: [
-        "style-loader",
-        {
-          loader: "css-loader",
-          options: { importLoaders: 1 },
-        },
-        "postcss-loader",
-      ],
-    })
-    // Then add module CSS config
-    config.module.rules.push({
-      test: /\.module\.css$/,
-      loaders: [
-        "style-loader",
-        {
-          loader: "css-loader",
-          options: {
-            importLoaders: 1,
-            modules: true,
-            localIdentName: scopedName,
-          },
-        },
-        "postcss-loader",
-      ],
-    })
 
     // Typescript support
     config.module.rules.push({
@@ -81,7 +38,6 @@ module.exports = {
             plugins: [
               require.resolve("@babel/plugin-proposal-class-properties"),
               require.resolve("babel-plugin-remove-graphql-queries"),
-              reactCssModulesPlugin,
             ],
           },
         },

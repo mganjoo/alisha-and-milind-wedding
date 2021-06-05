@@ -7,7 +7,7 @@ import { filterNonEmptyKeys } from "../../../utils/Utils"
 import Alert from "../../ui/Alert"
 import AttendanceItem from "../AttendanceItem"
 import { InvitationContext } from "../Authenticated"
-import "./RsvpForm.module.css"
+import styles from "./RsvpForm.module.css"
 
 interface AttendanceGroupProps {
   guests: GuestMap
@@ -54,7 +54,7 @@ const RsvpAttendanceSection = React.forwardRef<
       aria-describedby="attendance-description"
     >
       {showError && <Alert>{errors.attendees}</Alert>}
-      <h2 styleName="section-heading" id="attendance-heading" ref={ref}>
+      <h2 className={styles.section_heading} id="attendance-heading" ref={ref}>
         Specific events
       </h2>
       <p className="c-form-description" id="attendance-description">

@@ -92,7 +92,6 @@ module.exports = {
     `gatsby-remark-source-name`,
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-react-css-modules`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

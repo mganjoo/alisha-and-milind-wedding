@@ -5,7 +5,7 @@
   --modal-translucent-bg: rgb(26, 32, 44, 0.75);
 }
 
-.image-wrapper {
+.image_wrapper {
   @apply mx-4 my-4 rounded-lg overflow-hidden flex flex-col flex-auto;
 
   &:focus {
@@ -30,12 +30,12 @@
   }
 }
 
-.modal-caption {
+.modal_caption {
   @apply text-gray-100 absolute inset-x-0 bottom-0 px-2 py-3 font-sans text-center text-sm;
   background-color: var(--modal-translucent-bg);
 }
 
-.close-button-wrapper {
+.close_button_wrapper {
   @apply absolute top-0 right-0 text-white z-10 m-2;
 
   & > button {

@@ -1,12 +1,13 @@
+import classNames from "classnames"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import React from "react"
 import yn from "yn"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
+import styles from "../components/partials/SaveTheDate.module.css"
 import SaveTheDateForm from "../components/partials/SaveTheDateForm"
 import LeafSpacer from "../components/ui/LeafSpacer"
-import "../components/partials/SaveTheDate.module.css"
 
 const SaveTheDatePage: React.FC = () => {
   const data = useStaticQuery(
@@ -37,12 +38,10 @@ const SaveTheDatePage: React.FC = () => {
         image="/meta-save-the-date-hero.jpg"
         description={`Please save the date for Alisha & Milind's wedding: ${data.site.siteMetadata.displayDates} in ${data.site.siteMetadata.location}.`}
       />
-      <main styleName="main">
-        <div styleName="hero-wrapper">
+      <main className={styles.main}>
+        <div className={styles.hero_wrapper}>
           <Img
-            className="p-cover"
-            // @ts-ignore styleName not supported on Gatsby image
-            styleName="hero"
+            className={classNames("p-cover", styles.hero)}
             fluid={data.weddingHeroImage.childImageSharp.fluid}
             backgroundColor="#ece5df"
             alt="Selfie of Milind and Alisha taken in a car side mirror"

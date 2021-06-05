@@ -65,7 +65,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
             </ul>
           )}
         </div>
-        <ButtonRow full>
+        <ButtonRow>
           <Button
             onClick={handleEditRsvp}
             disabled={handleEditRsvp === undefined}

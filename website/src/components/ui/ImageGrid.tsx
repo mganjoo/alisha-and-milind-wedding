@@ -1,7 +1,7 @@
 import { DialogOverlay, DialogContent } from "@reach/dialog"
 import Img, { FluidObject } from "gatsby-image"
 import React, { useState } from "react"
-import "./ImageGrid.module.css"
+import styles from "./ImageGrid.module.css"
 import Symbol from "./Symbol"
 
 interface Image {
@@ -38,7 +38,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
       {images.map((image, i) => (
         <div
           key={image.image.src}
-          styleName="image-wrapper"
+          className={styles.image_wrapper}
           onClick={() => handleClick(i)}
           onKeyPress={(e) => handleKeyPress(e, i)}
           role="button"
@@ -47,8 +47,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
           <Img
             fluid={image.image}
             alt={image.alt}
-            // @ts-ignore styleName not supported on Gatsby image
-            styleName="image"
+            className={styles.image}
             imgStyle={
               image.objectPosition
                 ? { objectPosition: image.objectPosition }
@@ -69,7 +68,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
               dialogImage.fullCaption || dialogImage.caption || dialogImage.alt
             }
           >
-            <div styleName="close-button-wrapper">
+            <div className={styles.close_button_wrapper}>
               <button aria-label="Close" onClick={close}>
                 <Symbol symbol="close" size="m" />
               </button>
@@ -81,7 +80,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
               imgStyle={{ objectFit: "contain" }}
             />
             {dialogImage.fullCaption && (
-              <p styleName="modal-caption" id="caption-dialog">
+              <p className={styles.modal_caption} id="caption-dialog">
                 {dialogImage.fullCaption}
               </p>
             )}

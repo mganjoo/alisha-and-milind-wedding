@@ -38,14 +38,8 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
   onDone,
   submitError,
 }) => {
-  const {
-    values,
-    validateForm,
-    touched,
-    setTouched,
-    setValues,
-    resetForm,
-  } = useFormikContext<RsvpFormValues>()
+  const { values, validateForm, touched, setTouched, setValues, resetForm } =
+    useFormikContext<RsvpFormValues>()
   const [page, setPage] = useState<Page>(1)
   const previousPageRef = useRef<Page>(1)
   const page1Ref = useRef<HTMLHeadingElement>(null)
@@ -105,7 +99,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
       {page === 2 && (
         <RsvpAttendanceSection guests={values.guests} ref={page2Ref} />
       )}
-      <ButtonRow full>
+      <ButtonRow>
         {page === 2 || (page === 1 && values.attending === "no") ? (
           <SubmitButton label="Submit RSVP" />
         ) : (

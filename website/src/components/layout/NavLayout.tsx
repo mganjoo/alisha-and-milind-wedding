@@ -1,11 +1,11 @@
 import { SkipNavLink, SkipNavContent } from "@reach/skip-nav"
-import classnames from "classnames"
+import classNames from "classnames"
 import Img, { FluidObject } from "gatsby-image"
 import React from "react"
 import Header from "../ui/Header"
 import WeddingLogo from "../ui/WeddingLogo"
 import BaseLayout from "./BaseLayout"
-import "./NavLayout.module.css"
+import styles from "./NavLayout.module.css"
 
 interface NavLayoutProps {
   heroImage?: FluidObject | FluidObject[]
@@ -39,21 +39,21 @@ const NavLayout: React.FC<NavLayoutProps> = ({
         <SkipNavContent />
         {heroImage && (
           <div
-            className="mb-8 border-b border-gray-subtle print:bg-transparent print:border-b-0"
-            styleName="page-bg"
+            className={classNames(
+              "mb-8 border-b border-gray-subtle print:bg-transparent print:border-b-0",
+              styles.page_bg
+            )}
           >
             <Img
               fluid={heroImage}
               alt={alt || ""}
-              className="p-cover"
-              // @ts-ignore styleName not supported on Gatsby image
-              styleName="hero"
+              className={classNames("p-cover", styles.hero)}
               imgStyle={objectPosition ? { objectPosition } : undefined}
             />
           </div>
         )}
         <div
-          className={classnames("max-w-4xl mx-auto px-8 sm:px-6", {
+          className={classNames("max-w-4xl mx-auto px-8 sm:px-6", {
             "mt-4": !heroImage,
           })}
         >

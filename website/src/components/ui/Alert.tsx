@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react"
 import { useRegisteredRef } from "react-register-nodes"
 import { useUID } from "react-uid"
 import { scrollIntoView } from "../../utils/Utils"
-import "./Alert.module.css"
+import styles from "./Alert.module.css"
 
 interface AlertProps {
   action?: {
@@ -35,9 +35,9 @@ const Alert: React.FC<AlertProps> = ({ children, action, isInfo }) => {
         "block my-4 px-3 py-2 border border-l-4 text-left font-sans text-sm shadow-md print:bg-transparent print:border-gray-subtle print:text-gray-900",
         isInfo
           ? "bg-orange-200 border-orange-400 text-orange-800"
-          : "bg-red-100 border-red-400 text-red-800"
+          : "bg-red-100 border-red-400 text-red-800",
+        styles.alert_wrapper
       )}
-      styleName="alert"
       ref={mounted.current ? laterRef : initialRef}
     >
       {children}

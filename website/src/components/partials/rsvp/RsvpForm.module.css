@@ -1,7 +1,7 @@
-.section-heading {
+.section_heading {
   @apply font-display mb-1 text-xl;
 }
 
-.section-subheading {
+.section_subheading {
   @apply font-sans text-sm text-orange-800 italic;
 }

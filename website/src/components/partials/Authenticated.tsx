@@ -58,9 +58,8 @@ export function makeDummyInvitationContextWrapper(
   }
 }
 
-const fallbackInvitationContextWrapper: InvitationContextWrapper = makeDummyInvitationContextWrapper(
-  fallbackInvitation
-)
+const fallbackInvitationContextWrapper: InvitationContextWrapper =
+  makeDummyInvitationContextWrapper(fallbackInvitation)
 export const InvitationContext = createContext<InvitationContextWrapper>(
   fallbackInvitationContextWrapper
 )
@@ -154,7 +153,7 @@ const Authenticated: React.FC = ({ children }) => {
                   label="Email address"
                   autoComplete="email"
                 />
-                <ButtonRow shadow>
+                <ButtonRow>
                   <SubmitButton label="Submit" />
                 </ButtonRow>
               </BaseForm>

@@ -1,16 +1,13 @@
 import classnames from "classnames"
 import React from "react"
-import "./ButtonRow.module.css"
+import styles from "./ButtonRow.module.css"
 
-interface ButtonRowProps {
-  full?: boolean
-  shadow?: boolean
-}
-
-const ButtonRow: React.FC<ButtonRowProps> = ({ children, full, shadow }) => (
+const ButtonRow: React.FC = ({ children }) => (
   <div
-    className="w-full flex flex-wrap flex-row-reverse justify-center py-4 px-2"
-    styleName={classnames({ full, shadow })}
+    className={classnames(
+      "w-full flex flex-wrap flex-row-reverse justify-center py-4 px-2 -mb-4",
+      styles.button_wrapper
+    )}
   >
     {children}
   </div>

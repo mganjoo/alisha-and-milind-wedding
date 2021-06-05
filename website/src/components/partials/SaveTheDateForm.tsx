@@ -78,7 +78,7 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ redirect }) => {
                 type="email"
                 autoComplete="email"
               />
-              <ButtonRow shadow>
+              <ButtonRow>
                 <SubmitButton
                   label={
                     submitted
