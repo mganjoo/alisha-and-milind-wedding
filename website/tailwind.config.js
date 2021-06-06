@@ -39,5 +39,10 @@ module.exports = {
   },
   variants: {},
   plugins: [require("@tailwindcss/forms")],
-  purge: false,
+  purge: {
+    content: ["./src/**/*.tsx"],
+    options: {
+      rejected: true,
+    },
+  },
 }

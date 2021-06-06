@@ -124,17 +124,6 @@ module.exports = {
     },
     ...googleAnalyticsPlugin,
     `gatsby-plugin-postcss`,
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        printRejected: true,
-        purgeOnly: ["src/styles/global.css"],
-        tailwind: true,
-        // special whitelist:
-        // <a> which is used indirectly by Gatsby <Link>
-        whitelist: [`a`],
-      },
-    },
     `gatsby-plugin-netlify`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-webpack-size`,

@@ -1,5 +1,5 @@
 import React from "react"
-import { addParameters, configure, addDecorator } from "@storybook/react"
+import { addDecorator } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
 import "../gatsby-browser.js"
 
@@ -55,7 +55,6 @@ const responsiveViewports = {
     type: "desktop",
   },
 }
-addParameters({ viewport: { viewports: responsiveViewports } })
 
 // gatsby-specific mocks for using the Link API
 // (see https://www.gatsbyjs.org/docs/visual-testing-with-storybook/)
@@ -74,9 +73,17 @@ global.___navigate = (pathname) => {
 // global decorator for text color, from <BaseLayout />
 addDecorator((storyFn) => <div className="text-gray-900">{storyFn()}</div>)
 
-// global background configuration
-addParameters({
-  backgrounds: [
-    { name: "off-white", value: sharedConstants.offWhite, default: true },
-  ],
-})
+export const parameters = {
+  backgrounds: {
+    default: "off-white",
+    values: [
+      {
+        name: "off-white",
+        value: sharedConstants.offWhite,
+      },
+    ],
+  },
+  viewport: {
+    viewports: responsiveViewports,
+  },
+}
