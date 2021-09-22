@@ -1,12 +1,4 @@
 {
-  "extends": [
-    ":autodetectPinVersions",
-    ":dependencyDashboard",
-    "group:monorepos",
-    "group:recommended",
-    ":maintainLockFilesWeekly",
-    ":prHourlyLimit4",
-    ":prConcurrentLimit20"
-  ],
+  "extends": ["config:js-app"],
   "enabled": true
 }
