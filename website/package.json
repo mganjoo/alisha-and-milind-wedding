@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.15.5",
-    "@percy/cypress": "2.3.1",
+    "@percy/cypress": "2.3.4",
     "@percy/storybook": "3.3.1",
     "@storybook/addon-actions": "6.2.9",
     "@storybook/addon-backgrounds": "6.2.9",
