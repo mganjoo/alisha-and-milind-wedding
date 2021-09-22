@@ -1,9 +1,10 @@
 {
-  "extends": ["group:all", "schedule:weekly", ":maintainLockFilesWeekly"],
-  "enabled": false,
-  "separateMajorMinor": false,
-  "lockFileMaintenance": {
-    "extends": ["group:all"],
-    "commitMessageAction": "Update"
-  }
+  "extends": [
+    ":autodetectPinVersions",
+    ":dependencyDashboard",
+    "group:monorepos",
+    "group:recommended",
+    ":maintainLockFilesWeekly"
+  ],
+  "enabled": true
 }
