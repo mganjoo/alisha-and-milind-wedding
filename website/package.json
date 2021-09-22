@@ -40,8 +40,8 @@
     "smooth-scroll-into-view-if-needed": "1.1.28",
     "tailwindcss": "2.1.4",
     "typeface-arizonia": "0.0.72",
-    "typeface-eb-garamond": "1.1.4",
-    "typeface-playfair-display": "1.1.4",
+    "typeface-eb-garamond": "1.1.13",
+    "typeface-playfair-display": "1.1.13",
     "typeface-raleway": "0.0.75",
     "yup": "0.29.1"
   },
