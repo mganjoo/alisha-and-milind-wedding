@@ -17,7 +17,7 @@
     "@oclif/plugin-help": "3.2.3",
     "chalk": "4.1.2",
     "cli-ux": "5.6.3",
-    "dayjs": "1.8.28",
+    "dayjs": "1.10.7",
     "firebase-admin": "8.12.1",
     "fs-extra": "9.0.1",
     "google-auth-library": "6.0.1",
