@@ -4,7 +4,9 @@
     ":dependencyDashboard",
     "group:monorepos",
     "group:recommended",
-    ":maintainLockFilesWeekly"
+    ":maintainLockFilesWeekly",
+    ":prHourlyLimit4",
+    ":prConcurrentLimit20"
   ],
   "enabled": true
 }
