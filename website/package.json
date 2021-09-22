@@ -107,7 +107,7 @@
     "sharp": "0.25.3",
     "start-server-and-test": "1.11.0",
     "storybook-css-modules-preset": "1.1.1",
-    "typescript": "3.9.3",
+    "typescript": "3.9.10",
     "webpack": "4.43.0",
     "yn": "4.0.0"
   },
