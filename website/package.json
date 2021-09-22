@@ -46,7 +46,7 @@
     "yup": "0.29.1"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
+    "@babel/core": "7.15.5",
     "@percy/cypress": "2.3.1",
     "@percy/storybook": "3.3.1",
     "@storybook/addon-actions": "6.2.9",
@@ -75,7 +75,7 @@
     "autoprefixer": "10.2.6",
     "axe-core": "3.5.4",
     "babel-jest": "26.0.1",
-    "babel-loader": "8.1.0",
+    "babel-loader": "8.2.2",
     "babel-plugin-transform-remove-console": "6.9.4",
     "babel-preset-gatsby": "0.4.8",
     "babel-preset-react-app": "9.1.2",
