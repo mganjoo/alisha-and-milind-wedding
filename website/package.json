@@ -72,7 +72,7 @@
     "@types/shortid": "0.0.29",
     "@types/warning": "3.0.0",
     "@types/yup": "0.26.37",
-    "autoprefixer": "10.2.6",
+    "autoprefixer": "10.3.5",
     "axe-core": "3.5.6",
     "babel-jest": "26.0.1",
     "babel-loader": "8.2.2",
