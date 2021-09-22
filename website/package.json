@@ -92,7 +92,7 @@
     "gatsby-plugin-postcss": "3.0.4",
     "gatsby-plugin-remove-console": "0.0.2",
     "gatsby-plugin-webpack-size": "1.0.0",
-    "glob": "7.1.6",
+    "glob": "7.1.7",
     "identity-obj-proxy": "3.0.0",
     "jest": "26.0.1",
     "postcss": "8.3.0",
