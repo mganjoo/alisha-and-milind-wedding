@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Check out repository
       if: github.event_name != 'repository_dispatch'
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
     - name: Check out repository (external dispatch)
       if: github.event_name == 'repository_dispatch'
       uses: actions/checkout@v2
