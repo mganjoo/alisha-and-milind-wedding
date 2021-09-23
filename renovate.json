@@ -1,4 +1,7 @@
 {
-  "extends": ["config:js-app"],
+  "extends": [
+    "config:js-app",
+    "group:allNonMajor",
+  ],
   "enabled": true
 }
