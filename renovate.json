@@ -3,5 +3,8 @@
     "config:js-app",
     "group:allNonMajor"
   ],
-  "enabled": true
+  "enabled": true,
+  "major": {
+    "dependencyDashboardApproval": true
+  }
 }
