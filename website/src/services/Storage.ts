@@ -1,19 +1,19 @@
-import { set, del, get, Store } from "idb-keyval"
+import { createStore, set, del, get, UseStore } from "idb-keyval"
 import { Invitation } from "../interfaces/Invitation"
 
 const InvitationKey = "invitation"
 const InvitationCodeKey = "code"
 
-let store: Store
+let store: UseStore
 
 interface SavedInvitationDataV1 {
   version: 1
   fetchedInvitation: FetchedInvitation
 }
 
-function loadStore(): Store {
+function loadStore(): UseStore {
   if (!store) {
-    store = new Store("am-wedding-store", "am-wedding")
+    store = createStore("am-wedding-store", "am-wedding")
   }
   return store
 }
