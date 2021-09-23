@@ -12,7 +12,7 @@
     "url": "https://github.com/mganjoo/alisha-and-milind-wedding/issues"
   },
   "devDependencies": {
-    "husky": "6.0.0",
+    "husky": "7.0.2",
     "lerna": "4.0.0",
     "lint-staged": "11.1.2",
     "prettier": "2.4.1"
