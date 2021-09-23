@@ -1,4 +1,4 @@
-import { mixed, object, InferType, ObjectSchema, string } from "yup"
+import { mixed, object, string } from "yup"
 import {
   Invitation,
   Rsvp,
@@ -12,13 +12,18 @@ import {
 } from "../utils/Utils"
 import { WeddingEventMarkdown } from "./Event"
 
-export type RsvpFormValues = InferType<typeof validationSchema>
+export interface RsvpFormValues {
+  guests: Record<string, string>
+  attending: "yes" | "no" | "-" | undefined
+  attendees: Record<string, string[]>
+  comments: string | undefined
+}
 export type GuestMap = Record<string, string>
 
 export const validationSchema = object()
   .required()
   .shape({
-    guests: object<GuestMap>()
+    guests: object()
       .required()
       .test({
         name: "has-some-guest",
@@ -38,9 +43,9 @@ export const validationSchema = object()
       ["yes", "no"],
       "Please confirm your attendance."
     ),
-    attendees: object<Record<string, string[]>>()
+    attendees: object()
       .required()
-      .when("attending", (attending: string, schema: ObjectSchema) => {
+      .when("attending", (attending: string, schema: any) => {
         return attending === "yes"
           ? schema.test({
               name: "attending-at-least-one-event",

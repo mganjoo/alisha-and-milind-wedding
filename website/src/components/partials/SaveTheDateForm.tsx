@@ -1,7 +1,7 @@
 import { Formik } from "formik"
 import { navigate } from "gatsby"
 import React, { useState, useEffect } from "react"
-import { object, string } from "yup"
+import { object, string, SchemaOf } from "yup"
 import { Contact } from "../../interfaces/Contact"
 import { loadFirestore } from "../../services/Firestore"
 import BaseForm from "../form/BaseForm"
@@ -13,7 +13,7 @@ import Symbol from "../ui/Symbol"
 import ContactEmail from "./ContactEmail"
 import SaveTheDateLinks from "./SaveTheDateLinks"
 
-const validationSchema = object<Contact>({
+const validationSchema: SchemaOf<Contact> = object({
   name: string().required("Name is required."),
   email: string()
     .email("A valid email is required.")

@@ -1,6 +1,6 @@
 import { Formik } from "formik"
 import React, { useState, useEffect, createContext, useMemo } from "react"
-import { object, string } from "yup"
+import { object, string, SchemaOf } from "yup"
 import { Invitation } from "../../interfaces/Invitation"
 import {
   loadSavedInvitation,
@@ -22,7 +22,7 @@ const initialValues: LoginFormValues = {
   email: "",
 }
 
-const validationSchema = object<LoginFormValues>({
+const validationSchema: SchemaOf<LoginFormValues> = object({
   email: string()
     .email("Please enter a valid email.")
     .required("Please enter a valid email."),
