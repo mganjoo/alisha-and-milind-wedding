@@ -72,7 +72,7 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
     - name: Archive Cypress videos
       if: failure()
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: videos
         path: website/cypress/videos
