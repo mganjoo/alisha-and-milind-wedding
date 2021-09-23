@@ -73,7 +73,7 @@
     "@types/shortid": "0.0.29",
     "@types/warning": "3.0.0",
     "autoprefixer": "10.3.5",
-    "axe-core": "3.5.6",
+    "axe-core": "4.3.3",
     "babel-jest": "26.6.3",
     "babel-loader": "8.2.2",
     "babel-plugin-transform-remove-console": "6.9.4",
