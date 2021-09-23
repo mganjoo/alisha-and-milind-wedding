@@ -3,12 +3,14 @@ import React from "react"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
 import InvitationCard from "../components/partials/InvitationCard"
-import { InvitationNavigationState } from "../interfaces/InvitationNavigationState"
+import { isInvitationNavigationState } from "../interfaces/InvitationNavigationState"
 
 const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
-  const state: InvitationNavigationState =
-    location && location.state ? location.state : {}
-  const returnLink = state.fromRsvp
+  const arrivedFromRsvp =
+    location && isInvitationNavigationState(location.state)
+      ? location.state.fromRsvp
+      : false
+  const returnLink = arrivedFromRsvp
     ? { label: "Back to website", url: "/rsvp" }
     : undefined
   return (
@@ -18,7 +20,7 @@ const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
         <InvitationCard
           playing
           startDelayMs={2000}
-          skipAnimation={!!state.fromRsvp}
+          skipAnimation={arrivedFromRsvp}
           navLink={returnLink}
         />
       </main>
