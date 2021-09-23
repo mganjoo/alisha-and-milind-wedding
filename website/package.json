@@ -79,7 +79,7 @@
     "babel-plugin-transform-remove-console": "6.9.4",
     "babel-preset-gatsby": "0.12.3",
     "babel-preset-react-app": "9.1.2",
-    "cypress": "4.12.1",
+    "cypress": "8.4.1",
     "cypress-axe": "0.13.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "6.15.0",
