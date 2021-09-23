@@ -27,7 +27,6 @@ jobs:
       env:
         CI: true
     - name: Deploy and seed data (staging project)
-      if: github.ref == 'refs/heads/master'
       run: |
         npm run deploy
         curl -X POST -d {} https://test-alisha-and-milind-wedding.firebaseapp.com/seedInvitations
