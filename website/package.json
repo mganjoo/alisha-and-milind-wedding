@@ -91,7 +91,7 @@
     "gatsby-plugin-netlify": "2.11.1",
     "gatsby-plugin-postcss": "3.7.0",
     "gatsby-plugin-remove-console": "0.0.2",
-    "gatsby-plugin-webpack-size": "1.0.0",
+    "gatsby-plugin-webpack-size": "2.0.1",
     "glob": "7.2.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "26.6.3",
