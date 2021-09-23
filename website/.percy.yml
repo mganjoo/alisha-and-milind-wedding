@@ -1,6 +1,8 @@
-version: 1
+version: 2
 snapshot:
-  widths: [375, 1280]
+  widths:
+    - 375
+    - 1280
   percy-css: |
     .p-cover::after {
       position: absolute;
@@ -16,3 +18,5 @@ snapshot:
     .p-hide {
       display: none;
     }
+discovery:
+  disable-cache: true

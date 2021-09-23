@@ -86,4 +86,7 @@ export const parameters = {
   viewport: {
     viewports: responsiveViewports,
   },
+  percy: {
+    widths: [320],
+  },
 }
