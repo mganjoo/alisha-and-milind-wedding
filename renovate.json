@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "config:js-app",
-    "group:allNonMajor",
-    "schedule:weekly"
-  ],
+  "extends": ["config:js-app", "group:allNonMajor", "schedule:weekly"],
   "enabled": true,
   "major": {
     "dependencyDashboardApproval": true

@@ -83,20 +83,17 @@ const StoryPage = () => {
           images={[
             {
               image: data.chicago.childImageSharp.fluid,
-              alt:
-                "Selfie of Milind and Alisha with snowfall in the foreground",
+              alt: "Selfie of Milind and Alisha with snowfall in the foreground",
               caption: "Chicago",
             },
             {
               image: data.yosemite.childImageSharp.fluid,
-              alt:
-                "Selfie of Milind and Alisha in backpacking clothes and gear",
+              alt: "Selfie of Milind and Alisha in backpacking clothes and gear",
               caption: "Yosemite National Park",
             },
             {
               image: data.redRock.childImageSharp.fluid,
-              alt:
-                "Picture of Milind and Alisha in Red Rock National Canyon, Las Vegas",
+              alt: "Picture of Milind and Alisha in Red Rock National Canyon, Las Vegas",
               caption: "Red Rock Canyon",
             },
             {
@@ -112,8 +109,7 @@ const StoryPage = () => {
             },
             {
               image: data.halloween.childImageSharp.fluid,
-              alt:
-                "Picture of Milind in a Tapatio t-shirt and Alisha in a Sriracha t-shirt at Halloween in San Francisco",
+              alt: "Picture of Milind in a Tapatio t-shirt and Alisha in a Sriracha t-shirt at Halloween in San Francisco",
               caption: "“Hot sauce” Halloween",
               objectPosition: "50% 5%",
             },
@@ -151,14 +147,12 @@ const StoryPage = () => {
           images={[
             {
               image: data.proposal1.childImageSharp.fluid,
-              alt:
-                "Picture of Milind proposing to Alisha with a view of the Golden Gate Bridge in the background",
+              alt: "Picture of Milind proposing to Alisha with a view of the Golden Gate Bridge in the background",
               objectPosition: "50% 70%",
             },
             {
               image: data.proposal2.childImageSharp.fluid,
-              alt:
-                "Picture of Alisha and Milind at dinner celebrating engagement",
+              alt: "Picture of Alisha and Milind at dinner celebrating engagement",
             },
           ]}
         />

@@ -89,9 +89,7 @@ export async function getRsvpSummaries(oldDate: boolean) {
         attending,
         ...attendingCountsByEvent,
         comments: comments || "",
-        created: dayjs(createdAt.toDate())
-          .utc()
-          .format("YYYY-MM-DD HH:mm:ss"),
+        created: dayjs(createdAt.toDate()).utc().format("YYYY-MM-DD HH:mm:ss"),
         guest1: guests[0] ? guests[0].name : "",
         guest2: guests[1] ? guests[1].name : "",
         guest3: guests[2] ? guests[2].name : "",

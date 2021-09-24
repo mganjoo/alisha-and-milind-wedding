@@ -2,43 +2,43 @@ name: Firebase tests and deploy
 on:
   push:
     paths:
-      - 'functions/**'
-      - 'firestore.rules'
-      - '.github/workflows/firebase-deploy.yml'
+      - "functions/**"
+      - "firestore.rules"
+      - ".github/workflows/firebase-deploy.yml"
 jobs:
   deploy:
     name: Run tests and deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 10.x
-    - name: Install packages
-      run: |
-        npm ci
-      working-directory: ./functions
-    - name: Run tests
-      run: |
-        npm run test:ci
-      working-directory: ./functions
-      env:
-        CI: true
-    - name: Deploy and seed data (staging project)
-      run: |
-        npm run deploy
-        curl -X POST -d {} https://test-alisha-and-milind-wedding.firebaseapp.com/seedInvitations
-      working-directory: ./functions
-      env:
-        CI: true
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    - name: Deploy (production project)
-      if: github.ref == 'refs/heads/master'
-      run: |
-        npm run deploy:prod
-      working-directory: ./functions
-      env:
-        CI: true
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 10.x
+      - name: Install packages
+        run: |
+          npm ci
+        working-directory: ./functions
+      - name: Run tests
+        run: |
+          npm run test:ci
+        working-directory: ./functions
+        env:
+          CI: true
+      - name: Deploy and seed data (staging project)
+        run: |
+          npm run deploy
+          curl -X POST -d {} https://test-alisha-and-milind-wedding.firebaseapp.com/seedInvitations
+        working-directory: ./functions
+        env:
+          CI: true
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy (production project)
+        if: github.ref == 'refs/heads/master'
+        run: |
+          npm run deploy:prod
+        working-directory: ./functions
+        env:
+          CI: true
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

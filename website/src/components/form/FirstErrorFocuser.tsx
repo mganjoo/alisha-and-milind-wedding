@@ -10,11 +10,10 @@ interface FirstErrorFocuserContextWrapper {
   forceValidation: () => void
 }
 
-export const FirstErrorFocuserContext = React.createContext<
-  FirstErrorFocuserContextWrapper
->({
-  forceValidation: () => {},
-})
+export const FirstErrorFocuserContext =
+  React.createContext<FirstErrorFocuserContextWrapper>({
+    forceValidation: () => {},
+  })
 
 const FirstErrorFocuser: React.FC = ({ children }) => {
   const formik = useFormikContext()

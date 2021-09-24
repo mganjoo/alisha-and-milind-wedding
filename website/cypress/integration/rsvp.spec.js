@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe("RSVP page", function() {
+describe("RSVP page", function () {
   let invitations
   let invitees
 
@@ -14,7 +14,7 @@ describe("RSVP page", function() {
     return { invitation, invitee }
   }
 
-  before(function() {
+  before(function () {
     cy.request("POST", Cypress.env("SEED_URL"))
       .as("getInvitations")
       .then((response) => {
@@ -23,7 +23,7 @@ describe("RSVP page", function() {
       })
   })
 
-  beforeEach(function() {
+  beforeEach(function () {
     indexedDB.deleteDatabase("am-wedding-store")
     cy.visit("/rsvp")
     cy.injectAxe()
@@ -31,7 +31,7 @@ describe("RSVP page", function() {
     cy.findByText(/submit/i).as("button")
   })
 
-  it("should prevent submission when fields are unfilled", function() {
+  it("should prevent submission when fields are unfilled", function () {
     // 2 person invitation
     openInvitation("test2")
 
@@ -52,7 +52,7 @@ describe("RSVP page", function() {
     cy.findByText(/please confirm your attendance/i).should("not.exist")
   })
 
-  it("should prevent submission if no event attendance is selected", function() {
+  it("should prevent submission if no event attendance is selected", function () {
     // 2 person invitation, with mehndi
     const { invitation } = openInvitation("test2")
 
@@ -73,7 +73,7 @@ describe("RSVP page", function() {
     cy.findByText(/selections for at least one/i).should("not.exist")
   })
 
-  it("should preserve attendance choices when only name spellings are changed", function() {
+  it("should preserve attendance choices when only name spellings are changed", function () {
     // 3 person invitation
     const { invitation } = openInvitation("test3")
 
@@ -98,7 +98,7 @@ describe("RSVP page", function() {
     })
   })
 
-  it("should reset attendance choices when guest is removed", function() {
+  it("should reset attendance choices when guest is removed", function () {
     // 2 person invitation
     const { invitation } = openInvitation("test3")
 
@@ -130,7 +130,7 @@ describe("RSVP page", function() {
     })
   })
 
-  it("should adapt UI to 1-person case", function() {
+  it("should adapt UI to 1-person case", function () {
     const { invitation } = openInvitation("test1")
 
     cy.findByLabelText("Name").should("have.value", invitation.knownGuests[0])
@@ -152,7 +152,7 @@ describe("RSVP page", function() {
     cy.findByText(/selections for at least one/i).should("not.exist")
   })
 
-  it("should adapt UI to 3 or more people", function() {
+  it("should adapt UI to 3 or more people", function () {
     // 3 person invitation
     openInvitation("test3")
 
@@ -162,7 +162,7 @@ describe("RSVP page", function() {
     cy.findAllByText(/all guests are attending/i).should("exist")
   })
 
-  it("should adapt UI to case where not all names are filled", function() {
+  it("should adapt UI to case where not all names are filled", function () {
     // 3 person invitation, only two filled
     openInvitation("test32")
 
@@ -173,7 +173,7 @@ describe("RSVP page", function() {
   })
 
   // This test is more of a unit test for checkbox group functionality
-  it("should allow selection and deselection of arbitrary checkboxes", function() {
+  it("should allow selection and deselection of arbitrary checkboxes", function () {
     const { invitation } = openInvitation("test2")
 
     cy.findByLabelText(/yes/i).check()
@@ -187,7 +187,7 @@ describe("RSVP page", function() {
     })
   })
 
-  it("should submit a no response correctly", function() {
+  it("should submit a no response correctly", function () {
     // 3 person invitation
     const { invitation } = openInvitation("test3")
 
@@ -210,7 +210,7 @@ describe("RSVP page", function() {
     cy.findByLabelText(/comments/i).should("have.value", "Lorem ipsum dolor")
   })
 
-  it("should submit a yes response correctly", function() {
+  it("should submit a yes response correctly", function () {
     // 2 person invitation, with mehndi
     const { invitation } = openInvitation("test2")
     const testPreEvents = Cypress.env("ENABLE_PRE_EVENT_TESTS")
@@ -283,7 +283,7 @@ describe("RSVP page", function() {
     })
   })
 
-  it("should update submit count correctly when some guests attend 0 events", function() {
+  it("should update submit count correctly when some guests attend 0 events", function () {
     // 3 person invitation, only two filled
     openInvitation("test32")
 

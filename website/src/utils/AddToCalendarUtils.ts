@@ -25,9 +25,7 @@ const utcFormat = "YYYYMMDD[T]HHmmss[Z]"
 const utcFormatOutlook = "YYYYMMDD[T]HHmmss"
 
 function formatTime(date: string | Date, format: string) {
-  return dayjs(date)
-    .utc()
-    .format(format)
+  return dayjs(date).utc().format(format)
 }
 
 export function google(event: CalendarEvent): string {

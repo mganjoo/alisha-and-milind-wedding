@@ -22,7 +22,7 @@
     "prebootstrap": "npm install",
     "bootstrap:ci": "lerna bootstrap --ci",
     "prebootstrap:ci": "npm ci",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format": "prettier --write .",
     "start:website": "npm --prefix website run develop",
     "check:types": "lerna run --concurrency 1 --stream check:types",
     "storybook": "npm --prefix website run storybook",
@@ -30,7 +30,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,md}": [
+    "*.{js,jsx,ts,tsx,json,md,yml}": [
       "prettier --write"
     ]
   }

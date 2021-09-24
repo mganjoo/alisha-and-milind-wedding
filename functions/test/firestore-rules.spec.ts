@@ -31,9 +31,7 @@ function invitations(): firebase.firestore.CollectionReference {
 function invitation(
   invitationId: string
 ): firebase.firestore.DocumentReference {
-  return firestore()
-    .collection("invitations")
-    .doc(invitationId)
+  return firestore().collection("invitations").doc(invitationId)
 }
 
 function rsvps(invitationId: string): firebase.firestore.CollectionReference {
@@ -120,20 +118,14 @@ describe("Firestore rules", () => {
 
     it("should reject all reads", async () => {
       await firebase.assertFails(
-        contacts()
-          .where("name", "==", "Jack Jones")
-          .get()
+        contacts().where("name", "==", "Jack Jones").get()
       )
     })
   })
 
   describe("for Invitations collection", () => {
     it("should allow reading a single non-existent code", async () => {
-      await firebase.assertSucceeds(
-        invitations()
-          .doc("abc")
-          .get()
-      )
+      await firebase.assertSucceeds(invitations().doc("abc").get())
     })
 
     it("should allow reading a single code with 'inactive' unset", async () => {
@@ -146,11 +138,7 @@ describe("Firestore rules", () => {
           numGuests: 3,
           knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
         })
-      await firebase.assertSucceeds(
-        invitations()
-          .doc("abc")
-          .get()
-      )
+      await firebase.assertSucceeds(invitations().doc("abc").get())
     })
 
     it("should reject reading a single code with 'inactive' set", async () => {
@@ -164,84 +152,48 @@ describe("Firestore rules", () => {
           knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
           inactive: true,
         })
-      await firebase.assertFails(
-        invitations()
-          .doc("abc")
-          .get()
-      )
+      await firebase.assertFails(invitations().doc("abc").get())
     })
 
     it("should reject query for special code", async () => {
-      await firebase.assertFails(
-        invitations()
-          .doc("__reject_request__")
-          .get()
-      )
+      await firebase.assertFails(invitations().doc("__reject_request__").get())
     })
 
     it("should reject queries for codes", async () => {
-      await firebase.assertFails(
-        invitees()
-          .where("partyName", ">", "a")
-          .get()
-      )
+      await firebase.assertFails(invitees().where("partyName", ">", "a").get())
     })
   })
 
   describe("for Invitees collection", () => {
     it("should allow reading a single non-existent email", async () => {
-      await firebase.assertSucceeds(
-        invitees()
-          .doc("abc")
-          .get()
-      )
+      await firebase.assertSucceeds(invitees().doc("abc").get())
     })
 
     it("should allow reading a single email with 'inactive' unset", async () => {
-      await firestoreAdmin()
-        .collection("invitees")
-        .doc("abc@example.com")
-        .set({
-          name: "Jack Jones",
-          code: "abc",
-        })
-      await firebase.assertSucceeds(
-        invitees()
-          .doc("abc@example.com")
-          .get()
-      )
+      await firestoreAdmin().collection("invitees").doc("abc@example.com").set({
+        name: "Jack Jones",
+        code: "abc",
+      })
+      await firebase.assertSucceeds(invitees().doc("abc@example.com").get())
     })
 
     it("should reject reading a single email with 'inactive' set", async () => {
-      await firestoreAdmin()
-        .collection("invitees")
-        .doc("abc@example.com")
-        .set({
-          name: "Jack Jones",
-          code: "abc",
-          inactive: true,
-        })
-      await firebase.assertFails(
-        invitees()
-          .doc("abc@example.com")
-          .get()
-      )
+      await firestoreAdmin().collection("invitees").doc("abc@example.com").set({
+        name: "Jack Jones",
+        code: "abc",
+        inactive: true,
+      })
+      await firebase.assertFails(invitees().doc("abc@example.com").get())
     })
 
     it("should reject query for special email", async () => {
       await firebase.assertFails(
-        invitees()
-          .doc("__reject_request__@example.com")
-          .get()
+        invitees().doc("__reject_request__@example.com").get()
       )
     })
 
     it("should reject queries for emails", async () => {
-      await firebase.assertFails(
-        invitees()
-          .where("email", ">", "a")
-          .get()
-      )
+      await firebase.assertFails(invitees().where("email", ">", "a").get())
     })
   })
 

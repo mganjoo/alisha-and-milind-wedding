@@ -42,8 +42,8 @@ const TableRange = functions.config().rsvps.table_range
 const MailchimpApiKey = functions.config().mailchimp.api_key
 const MailchimpListId = functions.config().mailchimp.list_id
 const MailchimpTagIdAttending = functions.config().mailchimp.tag_id.attending
-const MailchimpTagIdNotAttending = functions.config().mailchimp.tag_id
-  .not_attending
+const MailchimpTagIdNotAttending =
+  functions.config().mailchimp.tag_id.not_attending
 
 const ProjectIsProd =
   functions.config().project && yn(functions.config().project.is_prod)
@@ -144,10 +144,8 @@ async function appendRsvpToSheet(
         // Prepare data
         const eventCounts: Record<string, number> = {}
         events.forEach((event) => {
-          eventCounts[
-            event
-          ] = data.guests.filter((guest: { events: string[] }) =>
-            guest.events.includes(event)
+          eventCounts[event] = data.guests.filter(
+            (guest: { events: string[] }) => guest.events.includes(event)
           ).length
         })
         const row = [

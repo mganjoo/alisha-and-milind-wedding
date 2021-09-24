@@ -143,25 +143,21 @@ const FaqPage = () => {
               images={[
                 {
                   image: data.clothes1.childImageSharp.fluid,
-                  alt:
-                    "Alisha dressed in a red patterned lehenga and Milind dressed in a black kurta and churidar",
+                  alt: "Alisha dressed in a red patterned lehenga and Milind dressed in a black kurta and churidar",
                   objectPosition: "50% 95%",
                 },
                 {
                   image: data.clothes2.childImageSharp.fluid,
-                  alt:
-                    "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie",
+                  alt: "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie",
                 },
                 {
                   image: data.clothes3.childImageSharp.fluid,
-                  alt:
-                    "Milind in a maroon sherwani and Alisha in a green salwar kameez",
+                  alt: "Milind in a maroon sherwani and Alisha in a green salwar kameez",
                   objectPosition: "50% 25%",
                 },
                 {
                   image: data.clothes4.childImageSharp.fluid,
-                  alt:
-                    "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga",
+                  alt: "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga",
                   objectPosition: "50% 35%",
                 },
               ]}

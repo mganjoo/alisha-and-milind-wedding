@@ -2,77 +2,77 @@ name: Website tests
 on:
   push:
     branches-ignore:
-      - 'master'
-      - 'staging'
+      - "master"
+      - "staging"
     paths:
-      - 'website/**'
-      - '.github/workflows/website-tests.yml'
-      - 'package.json'
-      - 'package-lock.json'
+      - "website/**"
+      - ".github/workflows/website-tests.yml"
+      - "package.json"
+      - "package-lock.json"
   repository_dispatch: {}
   schedule:
-    - cron: '25 19 * * 2,5'
+    - cron: "25 19 * * 2,5"
 jobs:
   test:
     name: Run tests
     runs-on: ubuntu-latest
     steps:
-    - name: Check out repository
-      if: github.event_name != 'repository_dispatch'
-      uses: actions/checkout@v2
-    - name: Check out repository (external dispatch)
-      if: github.event_name == 'repository_dispatch'
-      uses: actions/checkout@v2
-      with:
-        # Always build and run external dispatch tests on 'master' branch
-        ref: master
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: Install packages
-      run: |
-        npm ci
-        $(npm bin)/cypress verify
-      working-directory: ./website
-      env:
-        CI: true
-    - name: Run unit and e2e tests
-      run: |
-        export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
-        export PERCY_COMMIT="$GITHUB_SHA"
-        npm run test:ci
-      working-directory: ./website
-      env:
-        CI: true
-        GATSBY_FIREBASE_API_KEY: ${{ secrets.GATSBY_FIREBASE_API_KEY }}
-        GATSBY_FIREBASE_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_AUTH_DOMAIN }}
-        GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
-        CYPRESS_SEED_URL: https://test-alisha-and-milind-wedding.firebaseapp.com/seedInvitations
-    - name: Run storybook snapshot checks
-      run: |
-        export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
-        export PERCY_COMMIT="$GITHUB_SHA"
-        npm run storybook:snapshot
-      working-directory: ./website
-      env:
-        CI: true
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
-    - name: Publish deploy (for external trigger)
-      if: startsWith(github.event.action, 'externalUrl_')
-      run: |
-        export DEPLOY_ID="${ACTION#externalUrl_}"
-        echo "Publishing deploy ID ${DEPLOY_ID}..."
-        curl -X POST -d {} https://api.netlify.com/api/v1/sites/${SITE_ID}/deploys/${DEPLOY_ID}/restore?access_token=${ACCESS_TOKEN}
-      env:
-        CI: true
-        ACTION: ${{ github.event.action }}
-        SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        ACCESS_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-    - name: Archive Cypress videos
-      if: failure()
-      uses: actions/upload-artifact@v2
-      with:
-        name: videos
-        path: website/cypress/videos
+      - name: Check out repository
+        if: github.event_name != 'repository_dispatch'
+        uses: actions/checkout@v2
+      - name: Check out repository (external dispatch)
+        if: github.event_name == 'repository_dispatch'
+        uses: actions/checkout@v2
+        with:
+          # Always build and run external dispatch tests on 'master' branch
+          ref: master
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install packages
+        run: |
+          npm ci
+          $(npm bin)/cypress verify
+        working-directory: ./website
+        env:
+          CI: true
+      - name: Run unit and e2e tests
+        run: |
+          export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
+          export PERCY_COMMIT="$GITHUB_SHA"
+          npm run test:ci
+        working-directory: ./website
+        env:
+          CI: true
+          GATSBY_FIREBASE_API_KEY: ${{ secrets.GATSBY_FIREBASE_API_KEY }}
+          GATSBY_FIREBASE_AUTH_DOMAIN: ${{ secrets.GATSBY_FIREBASE_AUTH_DOMAIN }}
+          GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
+          CYPRESS_SEED_URL: https://test-alisha-and-milind-wedding.firebaseapp.com/seedInvitations
+      - name: Run storybook snapshot checks
+        run: |
+          export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
+          export PERCY_COMMIT="$GITHUB_SHA"
+          npm run storybook:snapshot
+        working-directory: ./website
+        env:
+          CI: true
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
+      - name: Publish deploy (for external trigger)
+        if: startsWith(github.event.action, 'externalUrl_')
+        run: |
+          export DEPLOY_ID="${ACTION#externalUrl_}"
+          echo "Publishing deploy ID ${DEPLOY_ID}..."
+          curl -X POST -d {} https://api.netlify.com/api/v1/sites/${SITE_ID}/deploys/${DEPLOY_ID}/restore?access_token=${ACCESS_TOKEN}
+        env:
+          CI: true
+          ACTION: ${{ github.event.action }}
+          SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          ACCESS_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+      - name: Archive Cypress videos
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: videos
+          path: website/cypress/videos

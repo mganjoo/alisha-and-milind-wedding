@@ -28,8 +28,6 @@ export async function getContacts(after?: string) {
   )
   return contacts.map(({ createdAt, ...other }) => ({
     ...other,
-    created: dayjs(createdAt.toDate())
-      .utc()
-      .format("YYYY-MM-DD HH:mm:ss"),
+    created: dayjs(createdAt.toDate()).utc().format("YYYY-MM-DD HH:mm:ss"),
   }))
 }
