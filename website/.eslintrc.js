@@ -1,7 +1,6 @@
 module.exports = {
   globals: {
     __PATH_PREFIX__: true,
-    firebase: "readonly",
   },
   extends: [
     "react-app",
@@ -21,6 +20,5 @@ module.exports = {
     "react/no-unknown-property": "warn",
     "import/default": "off",
     "import/order": ["error", { alphabetize: { order: "asc" } }],
-    "import/no-anonymous-default-export": "off",
   },
 }
