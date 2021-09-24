@@ -54,7 +54,7 @@ jobs:
         run: |
           export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
           export PERCY_COMMIT="$GITHUB_SHA"
-          npm run storybook:snapshot
+          npm run storybook:build
         working-directory: ./website
         env:
           CI: true
