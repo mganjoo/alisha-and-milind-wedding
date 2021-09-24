@@ -1,10 +1,10 @@
+import { animated, to, useSpring } from "@react-spring/web"
 import classNames from "classnames"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
 import React, { useContext, useEffect, useState } from "react"
 import Div100vh from "react-div-100vh"
 import { Helmet } from "react-helmet"
-import { useSpring, animated, interpolate } from "react-spring"
 import { useStateList } from "../../utils/UtilHooks"
 import Authenticated, { InvitationContext } from "./Authenticated"
 import styles from "./InvitationCard.module.css"
@@ -115,15 +115,29 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
   useEffect(() => {
     if (!started && playing && !reverse && state === "new") {
       // If not yet started, and we are playing in forward direction from the first state, start delay
-      const timerDelay = setTimeout(() => setStarted(true), startDelayMs)
+      const timerDelay = setTimeout(() => {
+        setStarted(true)
+        moveNext()
+      }, startDelayMs)
       return () => clearTimeout(timerDelay)
+    } else if (started && playing && reverse && isAfter("letter-out")) {
+      movePrevious()
     } else if (started && reverse && state === "new") {
       // If animation is reversed, and we are currently in the "new" state, reset
       setStarted(false)
       return
     }
     return
-  }, [startDelayMs, started, playing, reverse, state])
+  }, [
+    startDelayMs,
+    started,
+    playing,
+    reverse,
+    state,
+    moveNext,
+    movePrevious,
+    isAfter,
+  ])
 
   function transition() {
     if (letterLoaded && (skipAnimation || (playing && started))) {
@@ -154,15 +168,15 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
           <animated.div
             className={styles.flippable}
             style={{
-              transform: interpolate(
+              transform: to(
                 [
                   props.envelopeRotateY,
-                  props.letterProgress.interpolate({
+                  props.letterProgress.to({
                     // rotateZ
                     range: [0, 0.5, 1],
                     output: [0, 0, -envelopeRotate],
                   }),
-                  props.letterProgress.interpolate({
+                  props.letterProgress.to({
                     // scale
                     range: [0, 0.5, 1],
                     output: [1, 1, envelopeScale],
@@ -193,15 +207,15 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                   styles.letter
                 )}
                 style={{
-                  transform: interpolate(
+                  transform: to(
                     [
-                      props.letterProgress.interpolate(interpolateYOffset),
-                      props.letterProgress.interpolate({
+                      props.letterProgress.to(interpolateYOffset),
+                      props.letterProgress.to({
                         // rotateZ
                         range: [0, 0.5, 1],
                         output: [0, 0, -envelopeRotate + 90],
                       }),
-                      props.letterProgress.interpolate({
+                      props.letterProgress.to({
                         // scale
                         range: [0, 0.5, 1],
                         output: [1, 1, (1 / envelopeScale) * letterScale],
@@ -209,9 +223,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                     ],
                     letterTransform
                   ),
-                  zIndex: props.letterProgress.interpolate((p) =>
-                    p > 0.5 ? 1 : 0
-                  ),
+                  zIndex: props.letterProgress.to((p) => (p > 0.5 ? 1 : 0)),
                 }}
               >
                 <BackgroundImage
@@ -230,7 +242,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
               <animated.div
                 className={styles.flippable}
                 style={{
-                  transform: props.flapRotateX.interpolate(flapTransform),
+                  transform: props.flapRotateX.to(flapTransform),
                   transformOrigin: "center top",
                   zIndex: props.flapZIndex,
                 }}
