@@ -39,10 +39,10 @@
     "shortid": "2.2.16",
     "smooth-scroll-into-view-if-needed": "1.1.32",
     "tailwindcss": "2.2.15",
-    "typeface-arizonia": "0.0.72",
+    "typeface-arizonia": "1.1.13",
     "typeface-eb-garamond": "1.1.13",
     "typeface-playfair-display": "1.1.13",
-    "typeface-raleway": "0.0.75",
+    "typeface-raleway": "1.1.13",
     "yup": "0.32.9"
   },
   "devDependencies": {
