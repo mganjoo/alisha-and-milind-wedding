@@ -34,7 +34,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
   const close = () => setDialogOpen(false)
 
   return (
-    <div className="my-6 sm:flex sm:flex-wrap sm:justify-center">
+    <div className="my-6 grid grid-cols-1 sm:grid-cols-2">
       {images.map((image, i) => (
         <div
           key={image.image.src}
