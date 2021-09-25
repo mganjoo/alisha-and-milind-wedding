@@ -88,8 +88,6 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-transformer-remark`,
-    `gatsby-transformer-remark-plaintext`,
-    `gatsby-remark-source-name`,
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-sharp`,
     {
@@ -97,7 +95,6 @@ module.exports = {
       options: {
         name: longTitle,
         short_name: `A&M Wedding`,
-        language: `en`,
         start_url: "/",
         background_color: sharedConstants.offWhite,
         theme_color: sharedConstants.offWhite,

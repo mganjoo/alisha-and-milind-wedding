@@ -2,7 +2,6 @@ import { graphql, useStaticQuery } from "gatsby"
 
 export interface WeddingEventMarkdown {
   html: string
-  plainText: string
   frontmatter: {
     shortName: string
     name: string
@@ -15,6 +14,7 @@ export interface WeddingEventMarkdown {
     timeOnly: string
     location: string
     attire: string
+    plainText: string
     subLocations?: {
       name: string
       location: string
@@ -46,7 +46,6 @@ export function useEvents() {
         edges {
           node {
             html
-            plainText
             frontmatter {
               shortDate: date(formatString: "ddd MMM D, h:mm a")
               longDateOnly: date(formatString: "dddd, MMMM D")
@@ -59,6 +58,7 @@ export function useEvents() {
               name: title
               location
               attire
+              plainText
               subLocations {
                 name
                 location

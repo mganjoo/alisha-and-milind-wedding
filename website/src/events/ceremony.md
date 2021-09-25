@@ -10,6 +10,8 @@ subLocations:
   - { name: Baraat, date: "2020-10-31T09:45:00", location: "Main Entrance" }
   - { name: "Ceremony", date: "2020-10-31T11:00:00", location: "Courtyard" }
   - { name: "Lunch", date: "2020-10-31T12:30:00", location: "Engage Ballroom" }
+plainText: >
+  Join us for the baraat, or wedding procession, followed by the Hindu wedding ceremony and lunch.
 ---
 
 The festivities begin with the _baraat_, or wedding procession, which is Milind’s ~grand~ entrance to the ceremony featuring lively music and dance. Guests will meet at the hotel’s entrance and then will be guided to the starting point for the baraat. Alisha’s family will greet Milind’s family for the _milni_ ceremony, with the exchange of garlands.

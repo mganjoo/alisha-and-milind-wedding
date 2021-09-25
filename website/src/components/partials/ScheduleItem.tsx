@@ -42,7 +42,7 @@ function makeDescription(event: WeddingEventMarkdown) {
     : event.frontmatter.location
     ? `Location: ${event.frontmatter.location}\n\n`
     : ""
-  return `${subEventDescription}${event.plainText}\nAttire: ${event.frontmatter.attire}`
+  return `${subEventDescription}${event.frontmatter.plainText}\nAttire: ${event.frontmatter.attire}`
 }
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
