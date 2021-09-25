@@ -35,12 +35,12 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           { text: "RSVP", to: "/rsvp" },
         ]}
       />
-      <main className="pb-8">
+      <main>
         <SkipNavContent />
         {heroImage && (
           <div
             className={classNames(
-              "mb-8 border-b border-gray-subtle print:bg-transparent print:border-b-0",
+              "border-b border-gray-subtle print:bg-transparent print:border-b-0",
               styles.page_bg
             )}
           >
@@ -53,7 +53,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           </div>
         )}
         <div
-          className={classNames("max-w-4xl mx-auto px-8 sm:px-6", {
+          className={classNames("max-w-4xl mx-auto px-8 pt-6 pb-8 sm:px-6", {
             "mt-4": !heroImage,
           })}
         >

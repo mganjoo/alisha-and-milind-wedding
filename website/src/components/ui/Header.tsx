@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       <div className="relative">
         <div className="py-3 text-center sm:pt-4 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-3xl">
-            <Link to="/" className="c-focus-outline px-1">
+            <Link to="/" className="c-focus-outline">
               {data && data.site.siteMetadata.displayTitle}
             </Link>
           </h1>
@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
             {data && data.site.siteMetadata.location}
           </h2>
         </div>
-        <div className="absolute top-0 right-0 ml-1 mr-2 h-full flex items-center sm:hidden print:hidden">
+        <div className="absolute top-0 right-0 mx-2 h-full flex items-center sm:hidden print:hidden">
           <button
             className="p-2 flex flex-col items-center justify-center bg-off-white c-focus-outline"
             type="button"

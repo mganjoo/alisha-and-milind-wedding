@@ -30,13 +30,11 @@ const IndexPage = () => {
       <div className="c-narrow-body">
         <WeddingMetadataContext.Consumer>
           {(value) => (
-            <div className="mb-8">
-              <Alert isInfo>
-                Due to the current COVID-19 outbreak, we have changed the
-                wedding dates to {value.displayDates}. You can find the latest
-                information on our <Link to="/faq">FAQ</Link> page.
-              </Alert>
-            </div>
+            <Alert isInfo>
+              Due to the current COVID-19 outbreak, we have changed the wedding
+              dates to {value.displayDates}. You can find the latest information
+              on our <Link to="/faq">FAQ</Link> page.
+            </Alert>
           )}
         </WeddingMetadataContext.Consumer>
         <div className="c-article">
