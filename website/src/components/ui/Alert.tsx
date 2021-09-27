@@ -32,7 +32,7 @@ const Alert: React.FC<AlertProps> = ({ children, action, isInfo }) => {
     <div
       role="alert"
       className={classnames(
-        "block my-4 px-3 py-2 border border-l-4 text-left font-sans text-sm shadow-md print:bg-transparent print:border-gray-subtle print:text-gray-900",
+        "block mb-6 px-3 py-2 border border-l-4 text-left font-sans text-sm shadow-md print:bg-transparent print:border-gray-subtle print:text-gray-900",
         isInfo
           ? "bg-orange-200 border-orange-400 text-orange-800"
           : "bg-red-100 border-red-400 text-red-800",

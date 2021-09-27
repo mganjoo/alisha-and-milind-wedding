@@ -55,7 +55,7 @@ const IndexPage = () => {
         <div>
           <Link
             to="/rsvp"
-            className="c-button c-button-primary c-button-comfortable"
+            className="c-button c-button-primary c-button-comfortable inline-block"
           >
             RSVP
           </Link>
