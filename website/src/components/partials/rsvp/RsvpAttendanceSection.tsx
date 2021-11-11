@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik"
 import React, { useEffect, useRef, useState, useContext, useMemo } from "react"
 import { useEvents } from "../../../interfaces/Event"
-import { shouldAcceptPreEventRsvp } from "../../../interfaces/Invitation"
+import { isRsvpable } from "../../../interfaces/Invitation"
 import { RsvpFormValues, GuestMap } from "../../../interfaces/RsvpFormValues"
 import { filterNonEmptyKeys } from "../../../utils/Utils"
 import Alert from "../../ui/Alert"
@@ -23,10 +23,7 @@ const RsvpAttendanceSection = React.forwardRef<
   const prevSubmitCountRef = useRef(submitCount)
   const [showError, setShowError] = useState(false)
   const eventsToShow = useMemo(
-    () =>
-      events.filter(
-        (e) => !e.frontmatter.preEvent || shouldAcceptPreEventRsvp(invitation)
-      ),
+    () => events.filter((e) => isRsvpable(e, invitation)),
     [events, invitation]
   )
   const options = useMemo(

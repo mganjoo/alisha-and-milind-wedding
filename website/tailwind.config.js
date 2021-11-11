@@ -1,3 +1,4 @@
+const colors = require("tailwindcss/colors")
 const defaultTheme = require("tailwindcss/defaultTheme")
 const sharedConstants = require("./shared-constants")
 
@@ -21,6 +22,7 @@ module.exports = {
         invalid: defaultTheme.colors.red["400"],
         "gray-subtle": defaultTheme.colors.gray["400"],
         "red-subtle": "#e6c9bd",
+        gray: colors.warmGray,
       },
       fontFamily: {
         sans: ["Raleway", ...defaultTheme.fontFamily.sans],

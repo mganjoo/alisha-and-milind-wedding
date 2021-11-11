@@ -213,7 +213,6 @@ describe("RSVP page", function () {
   it("should submit a yes response correctly", function () {
     // 2 person invitation, with mehndi
     const { invitation } = openInvitation("test2")
-    const testPreEvents = Cypress.env("ENABLE_PRE_EVENT_TESTS")
 
     cy.findByLabelText(/2nd guest/i)
       .clear()
@@ -224,18 +223,13 @@ describe("RSVP page", function () {
     cy.findByText(/next: specific events/i).click()
 
     // 5 event sections including mehndi and haldi
-    cy.findAllByLabelText(/both guests are attending/i).should(
-      "have.length",
-      testPreEvents ? 5 : 3
-    )
-    if (testPreEvents) {
-      cy.findByLabelText(/haldi/i).within(() => {
-        cy.findByLabelText(invitation.knownGuests[0]).check()
-      })
-      cy.findByLabelText(/mehndi/i).within(() => {
-        cy.findByLabelText(/both guests are attending/i).check()
-      })
-    }
+    cy.findAllByLabelText(/both guests are attending/i).should("have.length", 5)
+    cy.findByLabelText(/haldi/i).within(() => {
+      cy.findByLabelText(invitation.knownGuests[0]).check()
+    })
+    cy.findByLabelText(/mehndi/i).within(() => {
+      cy.findByLabelText(/both guests are attending/i).check()
+    })
     cy.findByLabelText(/sangeet/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).check()
     })
@@ -256,21 +250,16 @@ describe("RSVP page", function () {
     cy.findByLabelText(/yes, excited to attend/i).should("be.checked")
     cy.findByLabelText(/comments/i).should("have.value", "Lorem ipsum dolor")
     cy.findByText(/next: specific events/i).click()
-
-    if (testPreEvents) {
-      cy.findByLabelText(/haldi/i).within(() => {
-        cy.findByLabelText(/both guests are attending/i).should(
-          "not.be.checked"
-        )
-        cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
-        cy.findByLabelText("Jack Jones").should("not.be.checked")
-      })
-      cy.findByLabelText(/mehndi/i).within(() => {
-        cy.findByLabelText(/both guests are attending/i).should("be.checked")
-        cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
-        cy.findByLabelText("Jack Jones").should("be.checked")
-      })
-    }
+    cy.findByLabelText(/haldi/i).within(() => {
+      cy.findByLabelText(/both guests are attending/i).should("not.be.checked")
+      cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
+      cy.findByLabelText("Jack Jones").should("not.be.checked")
+    })
+    cy.findByLabelText(/mehndi/i).within(() => {
+      cy.findByLabelText(/both guests are attending/i).should("be.checked")
+      cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
+      cy.findByLabelText("Jack Jones").should("be.checked")
+    })
     cy.findByLabelText(/sangeet/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).should("be.checked")
       cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")

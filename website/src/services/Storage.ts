@@ -1,15 +1,11 @@
 import { createStore, set, del, get, UseStore } from "idb-keyval"
-import { Invitation } from "../interfaces/Invitation"
+import { InstanceOf, Literal, Record, Static } from "runtypes"
+import { Invitation, InvitationSchema } from "../interfaces/Invitation"
 
 const InvitationKey = "invitation"
 const InvitationCodeKey = "code"
 
 let store: UseStore
-
-interface SavedInvitationDataV1 {
-  version: 1
-  fetchedInvitation: FetchedInvitation
-}
 
 function loadStore(): UseStore {
   if (!store) {
@@ -18,38 +14,73 @@ function loadStore(): UseStore {
   return store
 }
 
-/* Public interfaces */
+const FetchedInvitationSchema = Record({
+  invitation: InvitationSchema,
+  lastFetched: InstanceOf(Date),
+})
+const SavedInvitationDataSchema = Record({
+  // Bump version every time there is a schema change
+  version: Literal(2),
+  fetchedInvitation: FetchedInvitationSchema,
+})
 
-// Versioned union for evolving schema
-// Bump these every time there is a schema change
-export type SavedInvitationData = SavedInvitationDataV1
-type DataVersion = 1
-export const currentDataVersion: DataVersion = 1
+type SavedInvitationData = Static<typeof SavedInvitationDataSchema>
 
-export interface FetchedInvitation {
-  invitation: Invitation
-  lastFetched: Date
-}
-
-// Always support only the latest version for writes
-export function saveInvitationData(data: SavedInvitationDataV1): Promise<void> {
-  return set(InvitationKey, data, loadStore())
-}
-
-export function saveInvitationCode(code: string) {
+export async function saveInvitation(invitation: Invitation): Promise<void> {
+  const data: SavedInvitationData = {
+    version: 2,
+    fetchedInvitation: {
+      invitation: invitation,
+      lastFetched: new Date(),
+    },
+  }
   try {
-    sessionStorage.setItem(InvitationCodeKey, code)
+    await set(InvitationKey, data, loadStore())
   } catch {
-    // Saving invitation code failed; ignore error
-    console.warn("could not acess session storage")
+    // Try saving code to session storage
+    try {
+      sessionStorage.setItem(InvitationCodeKey, invitation.code)
+    } catch {
+      // Saving invitation code failed; ignore error
+      console.warn("could not access session storage")
+    }
   }
 }
 
-export function loadInvitationData(): Promise<SavedInvitationData | undefined> {
+/**
+ * Load a saved invitation from cache, if it exists.
+ * @param newerThanSecs Number of seconds beyond which to retrieve a new invitation copy
+ * @returns an Invitation instance
+ */
+export function loadInvitation(
+  refresh: (code: string) => Promise<Invitation | undefined>,
+  newerThanSecs?: number
+): Promise<Invitation | undefined> {
   return get(InvitationKey, loadStore())
+    .then((data) => {
+      if (SavedInvitationDataSchema.guard(data)) {
+        const now = new Date().getTime()
+        if (
+          newerThanSecs &&
+          now - data.fetchedInvitation.lastFetched.getTime() >
+            newerThanSecs * 1000
+        ) {
+          return refresh(data.fetchedInvitation.invitation.code)
+        } else {
+          return data.fetchedInvitation.invitation
+        }
+      } else {
+        return undefined
+      }
+    })
+    .catch(() => {
+      // Try fetching code from session storage and retrieving that way
+      const code = loadInvitationCode()
+      return code ? refresh(code) : undefined
+    })
 }
 
-export function loadInvitationCode() {
+function loadInvitationCode() {
   try {
     return sessionStorage.getItem(InvitationCodeKey)
   } catch {
@@ -64,14 +95,4 @@ export async function clearInvitationData(): Promise<void> {
     // Ignore attempts to clear if IndexedDB is inaccessible
     console.warn("could not access local DB")
   )
-}
-
-export function parseInvitationData(
-  invitationData: SavedInvitationData
-): FetchedInvitation {
-  return invitationData.fetchedInvitation
-}
-
-export function isCurrentVersion(invitationData: SavedInvitationData): boolean {
-  return invitationData.version === 1
 }

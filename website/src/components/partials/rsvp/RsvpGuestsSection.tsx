@@ -74,9 +74,17 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           ) : (
             <>
               We&rsquo;ve filled out some information based on what we know.
-              Please edit or correct anything we may have missed. Any member of
-              your party can submit for the whole group, and you can always come
-              back and edit your RSVP even after you&rsquo;ve submitted.
+              Please edit or correct anything we may have missed.{" "}
+              {guestKeys.length > 1 ? (
+                <>
+                  Any member of your party can submit for the whole group, and
+                  you
+                </>
+              ) : (
+                <>You</>
+              )}{" "}
+              can always come back and edit your RSVP even after you&rsquo;ve
+              submitted.
             </>
           )}
         </p>

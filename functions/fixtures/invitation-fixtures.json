@@ -6,7 +6,7 @@
       "partyName": "Harsh Kashyap & Vicki Mehta",
       "numGuests": 2,
       "knownGuests": ["Harsh Kashyap", "Vicki Mehta"],
-      "preEvents": true
+      "itype": "a"
     }
   },
   {
@@ -15,7 +15,8 @@
       "code": "test3",
       "partyName": "Terry Gordon & Family",
       "numGuests": 3,
-      "knownGuests": ["Terry Gordon", "Rani Gordon", "Ramesh Gordon"]
+      "knownGuests": ["Terry Gordon", "Rani Gordon", "Ramesh Gordon"],
+      "itype": "w"
     }
   },
   {
@@ -24,7 +25,8 @@
       "code": "test1",
       "partyName": "Alex Williamson",
       "numGuests": 1,
-      "knownGuests": ["Alex Williamson"]
+      "knownGuests": ["Alex Williamson"],
+      "itype": "w"
     }
   },
   {
@@ -33,7 +35,28 @@
       "code": "test32",
       "partyName": "Virat Kohli & Anushka Sharma",
       "numGuests": 3,
-      "knownGuests": ["Virat Kohli", "Anushka Sharma"]
+      "knownGuests": ["Virat Kohli", "Anushka Sharma"],
+      "itype": "sr"
+    }
+  },
+  {
+    "id": "testr2",
+    "data": {
+      "code": "testr2",
+      "partyName": "Richa Kalyana & Grishma Anand",
+      "numGuests": 2,
+      "knownGuests": ["Richa Kalyana", "Grishma Anand"],
+      "itype": "r"
+    }
+  },
+  {
+    "id": "testr1",
+    "data": {
+      "code": "testr1",
+      "partyName": "Ramachandra Vishal",
+      "numGuests": 1,
+      "knownGuests": ["Ramachandra Vishal"],
+      "itype": "r"
     }
   },
   {
@@ -43,7 +66,8 @@
       "partyName": "Inactive",
       "numGuests": 1,
       "knownGuests": ["Inactive"],
-      "inactive": true
+      "inactive": true,
+      "itype": "w"
     }
   },
   {
@@ -53,7 +77,7 @@
       "partyName": "Jack & Jill Gupta",
       "numGuests": 2,
       "knownGuests": ["Jack Gupta", "Jill Gupta"],
-      "preEvents": true
+      "itype": "a"
     }
   },
   {
@@ -63,7 +87,7 @@
       "partyName": "The Raj Family",
       "numGuests": 3,
       "knownGuests": ["Vishal Raj", "Priya Raj", "Raji Raj"],
-      "preEvents": true
+      "itype": "a"
     }
   },
   {
@@ -78,7 +102,7 @@
         "Raji Suraj",
         "Bharat Suraj"
       ],
-      "preEvents": true
+      "itype": "a"
     }
   }
 ]

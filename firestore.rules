@@ -37,7 +37,7 @@ service cloud.firestore {
         function guestsCount() {
           return request.resource.data.guests.size();
         }
-        function validEvents(events, preEvents) {
+        function validEvents(events, itype) {
           return
             events is list
             && (
@@ -45,40 +45,42 @@ service cloud.firestore {
               ||
               // Must be kept up to date with values in Gatsby config
               (attending() && (
-                (preEvents && events.hasOnly(["haldi", "mehndi", "sangeet", "ceremony", "reception"]))
-                || (!preEvents && events.hasOnly(["sangeet", "ceremony", "reception"]))
+                (itype == "a" && events.hasOnly(["haldi", "mehndi", "sangeet", "ceremony", "reception"]))
+                || (itype == "w" && events.hasOnly(["sangeet", "ceremony", "reception"]))
+                || (itype == "sr" && events.hasOnly(["sangeet", "reception"]))
+                || (itype == "r" && events.hasOnly(["reception"]))
               ))
             );
         }
-        function validGuest(i, preEvents) {
+        function validGuest(i, itype) {
           return
             guests()[i] is map
             && guests()[i].keys().size() == 2
             && guests()[i].keys().hasAll(["name", "events"])
             && guests()[i].name is string
             && guests()[i].name.trim().size() != 0
-            && validEvents(guests()[i].events, preEvents);
+            && validEvents(guests()[i].events, itype);
         }
-        function validGuests(numInvitedGuests, preEvents) {
+        function validGuests(numInvitedGuests, itype) {
           return
             guestsCount() <= numInvitedGuests
-            && validGuest(0, preEvents)
-            && (guestsCount() < 2 || validGuest(1, preEvents))
-            && (guestsCount() < 3 || validGuest(2, preEvents))
-            && (guestsCount() < 4 || validGuest(3, preEvents))
-            && (guestsCount() < 5 || validGuest(4, preEvents))
-            && (guestsCount() < 6 || validGuest(5, preEvents))
-            && (guestsCount() < 7 || validGuest(6, preEvents))
-            && (guestsCount() < 8 || validGuest(7, preEvents))
-            && (guestsCount() < 9 || validGuest(8, preEvents))
-            && (guestsCount() < 10 || validGuest(9, preEvents))
-            && (guestsCount() < 11 || validGuest(10, preEvents));
+            && validGuest(0, itype)
+            && (guestsCount() < 2 || validGuest(1, itype))
+            && (guestsCount() < 3 || validGuest(2, itype))
+            && (guestsCount() < 4 || validGuest(3, itype))
+            && (guestsCount() < 5 || validGuest(4, itype))
+            && (guestsCount() < 6 || validGuest(5, itype))
+            && (guestsCount() < 7 || validGuest(6, itype))
+            && (guestsCount() < 8 || validGuest(7, itype))
+            && (guestsCount() < 9 || validGuest(8, itype))
+            && (guestsCount() < 10 || validGuest(9, itype))
+            && (guestsCount() < 11 || validGuest(10, itype));
             // should bump this if we ever have more than 11 guests in a party.
         }
         function validGuestsFromInvitation(invitation) {
           return validGuests(
             invitation.numGuests,
-            invitation.get("preEvents", false)
+            invitation.get("itype", "")
           )
         }
         allow create:

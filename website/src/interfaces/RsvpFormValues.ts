@@ -1,9 +1,5 @@
 import { mixed, object, string } from "yup"
-import {
-  Invitation,
-  Rsvp,
-  shouldAcceptPreEventRsvp,
-} from "../interfaces/Invitation"
+import { Invitation, isRsvpable, Rsvp } from "../interfaces/Invitation"
 import {
   filterNonEmptyKeys,
   makeIdMap,
@@ -71,9 +67,7 @@ export function resetAttendeesState(
   guestIdsForEvent: (e: WeddingEventMarkdown) => string[]
 ): Record<string, string[]> {
   return events
-    .filter(
-      (e) => shouldAcceptPreEventRsvp(invitation) || !e.frontmatter.preEvent
-    )
+    .filter((e) => isRsvpable(e, invitation))
     .reduce((state, e) => {
       state[e.frontmatter.shortName] = guestIdsForEvent(e)
       return state

@@ -34,6 +34,7 @@
     "react-helmet": "6.1.0",
     "react-register-nodes": "0.4.1",
     "react-uid": "2.3.1",
+    "runtypes": "^6.5.0",
     "shortid": "2.2.16",
     "smooth-scroll-into-view-if-needed": "1.1.32",
     "tailwindcss": "2.2.17",

@@ -207,7 +207,7 @@ describe("Firestore rules", () => {
           partyName: "Terry Gordon & Family",
           numGuests: 3,
           knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
-          preEvents: true,
+          itype: "a",
         })
       await firestoreAdmin()
         .collection("invitations")
@@ -217,6 +217,27 @@ describe("Firestore rules", () => {
           partyName: "John Jacobs",
           numGuests: 3,
           knownGuests: ["JohnJacobs"],
+          itype: "w",
+        })
+      await firestoreAdmin()
+        .collection("invitations")
+        .doc("efg")
+        .set({
+          code: "efg",
+          partyName: "Chandler Bing",
+          numGuests: 1,
+          itype: "sr",
+          knownGuests: ["Chandler Bing"],
+        })
+      await firestoreAdmin()
+        .collection("invitations")
+        .doc("ghi")
+        .set({
+          code: "ghi",
+          partyName: "James Johnson",
+          numGuests: 1,
+          itype: "r",
+          knownGuests: ["James Johnson"],
         })
     })
 
@@ -407,14 +428,134 @@ describe("Firestore rules", () => {
       )
     })
 
-    it("should reject writes where the events are not consistent with preEvents", async () => {
+    it("should reject writes when itype != a, RSVP includes pre-events", async () => {
       await firebase.assertFails(
+        // itype = w
         rsvps("xyz").add({
           attending: true,
           guests: [
             {
               name: "John Jacobs",
               events: ["sangeet", "mehndi", "ceremony"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+      // itype = sr
+      await firebase.assertFails(
+        rsvps("efg").add({
+          attending: true,
+          guests: [
+            {
+              name: "Chandler Bing",
+              events: ["sangeet", "mehndi", "reception"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+      // itype = r
+      await firebase.assertFails(
+        rsvps("ghi").add({
+          attending: true,
+          guests: [
+            {
+              name: "James Johnson",
+              events: ["haldi", "reception"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should accept writes when itype != a, RSVP does not include pre-events", async () => {
+      await firebase.assertSucceeds(
+        // itype = w
+        rsvps("xyz").add({
+          attending: true,
+          guests: [
+            {
+              name: "John Jacobs",
+              events: ["sangeet", "ceremony", "reception"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should reject writes when itype != a and itype != w, RSVP includes ceremony", async () => {
+      await firebase.assertFails(
+        // itype = sr
+        rsvps("efg").add({
+          attending: true,
+          guests: [
+            {
+              name: "Chandler Bing",
+              events: ["sangeet", "ceremony"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+      await firebase.assertFails(
+        // itype = r
+        rsvps("ghi").add({
+          attending: true,
+          guests: [
+            {
+              name: "James Johnson",
+              events: ["ceremony", "reception"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should accept writes when itype != a and itype != w, RSVP does not include ceremony", async () => {
+      await firebase.assertSucceeds(
+        // itype = sr
+        rsvps("efg").add({
+          attending: true,
+          guests: [
+            {
+              name: "Chandler Bing",
+              events: ["sangeet", "reception"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should reject writes when itype = r, RSVP includes sangeet", async () => {
+      await firebase.assertFails(
+        // itype = r
+        rsvps("ghi").add({
+          attending: true,
+          guests: [
+            {
+              name: "James Johnson",
+              events: ["sangeet", "reception"],
+            },
+          ],
+          createdAt: firebase.firestore.Timestamp.now(),
+        })
+      )
+    })
+
+    it("should accept writes when itype = r, RSVP does not include sangeet", async () => {
+      await firebase.assertSucceeds(
+        // itype = r
+        rsvps("ghi").add({
+          attending: true,
+          guests: [
+            {
+              name: "James Johnson",
+              events: ["reception"],
             },
           ],
           createdAt: firebase.firestore.Timestamp.now(),

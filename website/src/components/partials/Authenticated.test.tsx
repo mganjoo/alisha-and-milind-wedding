@@ -2,12 +2,7 @@ import { render, waitForElementToBeRemoved } from "@testing-library/react"
 import React, { useContext } from "react"
 import "@testing-library/jest-dom/extend-expect"
 import { Invitation } from "../../interfaces/Invitation"
-import {
-  loadInvitationData,
-  parseInvitationData,
-  isCurrentVersion,
-  saveInvitationData,
-} from "../../services/Storage"
+import { loadInvitation, saveInvitation } from "../../services/Storage"
 import {
   mockLoadFirestoreImpl,
   FindByIdFnType,
@@ -25,45 +20,19 @@ function ShowInvitation() {
 
 function mockReturnValues(
   loadValue: Invitation | undefined,
-  fetchValue: Invitation | undefined | Promise<Invitation | undefined>,
-  lastFetched?: Date
+  fetchValue: Invitation | undefined | Promise<Invitation | undefined>
 ) {
-  const lastFetchedDate = lastFetched || new Date()
-  const mockLoadInvitationData = loadInvitationData as jest.MockedFunction<
-    typeof loadInvitationData
+  const mockLoadInvitation = loadInvitation as jest.MockedFunction<
+    typeof loadInvitation
   >
-  mockLoadInvitationData.mockReturnValueOnce(
-    Promise.resolve(
-      loadValue
-        ? {
-            version: 1,
-            fetchedInvitation: {
-              invitation: loadValue,
-              lastFetched: lastFetchedDate,
-            },
-          }
-        : undefined
-    )
+  mockLoadInvitation.mockReturnValueOnce(
+    Promise.resolve(loadValue ? loadValue : undefined)
   )
-  if (loadValue) {
-    const mockParseInvitationData = parseInvitationData as jest.MockedFunction<
-      typeof parseInvitationData
-    >
-    mockParseInvitationData.mockReturnValueOnce({
-      invitation: loadValue,
-      lastFetched: lastFetchedDate,
-    })
-  }
 
-  const mockIsCurrentVersion = isCurrentVersion as jest.MockedFunction<
-    typeof isCurrentVersion
+  const mockSaveInvitation = saveInvitation as jest.MockedFunction<
+    typeof saveInvitation
   >
-  mockIsCurrentVersion.mockReturnValue(true)
-
-  const mockSaveInvitationData = saveInvitationData as jest.MockedFunction<
-    typeof saveInvitationData
-  >
-  mockSaveInvitationData.mockReturnValue(Promise.resolve())
+  mockSaveInvitation.mockReturnValue(Promise.resolve())
 
   const mockFindById = jest.fn() as jest.MockedFunction<FindByIdFnType>
 
@@ -88,6 +57,7 @@ describe("Authenticated", () => {
         partyName: "Cece Parekh & Winston Schmidt",
         numGuests: 2,
         knownGuests: [],
+        itype: "w",
       },
       undefined
     )

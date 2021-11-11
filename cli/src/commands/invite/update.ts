@@ -8,6 +8,7 @@ import yn from "yn"
 import admin from "firebase-admin"
 import { object, string, number, array, InferType } from "yup"
 import shortid from "shortid"
+import Mailchimp from "mailchimp-api-v3"
 
 const emailCsvSchema = object()
   .required()
@@ -47,17 +48,21 @@ const partySchema = object()
       ),
     uniquePartyName: string().trim().required(),
     partyName: string().required().trim(),
-    preEvents: string().notRequired().oneOf(["y", ""]),
+    preEvents: string().required().oneOf(["y", "n"]),
+    ceremony: string().required().oneOf(["y", "n"]),
+    sangeet: string().required().oneOf(["y", "n"]),
     numGuests: number().required().integer(),
     knownGuests: array().of(string().required()),
   })
+
+type Itype = "a" | "w" | "sr" | "r"
 
 interface Invitation {
   code: string
   partyName: string
   numGuests: number
   knownGuests: string[]
-  preEvents: boolean
+  itype: Itype
 }
 
 interface Party extends Invitation {
@@ -65,13 +70,19 @@ interface Party extends Invitation {
   emails: Email[]
 }
 
+type SegmentIdKey =
+  | "preEventsSegmentId"
+  | "sangeetSegmentId"
+  | "ceremonySegmentId"
+  | "receptionSegmentId"
+
 export default class InviteUpdate extends BaseCommand {
   static description =
     "Update invitation and invitee records in Firestore and Mailchimp using CSV exports from Google Sheets."
 
   static examples = [
-    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventSegmentId 29671`,
-    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventSegmentId 29671 --dryRun`,
+    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventsSegmentId 29671`,
+    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventsSegmentId 29671 --dryRun`,
   ]
 
   static flags = {
@@ -89,12 +100,39 @@ export default class InviteUpdate extends BaseCommand {
     listId: flags.string({
       description: "Mailchimp list ID for invitees",
     }),
-    preEventSegmentId: flags.string({
+    preEventsSegmentId: flags.string({
       description: "Mailchimp segment ID for PreEvents tag",
+    }),
+    sangeetSegmentId: flags.string({
+      description: "Mailchimp segment ID for Sangeet tag",
+    }),
+    ceremonySegmentId: flags.string({
+      description: "Mailchimp segment ID for Ceremony tag",
+    }),
+    receptionSegmentId: flags.string({
+      description: "Mailchimp segment ID for Reception tag",
     }),
     dryRun: flags.boolean({
       description: "Do not write records to any services",
     }),
+  }
+
+  parseItype(
+    preEvents: boolean,
+    sangeet: boolean,
+    ceremony: boolean
+  ): Itype | undefined {
+    if (preEvents && sangeet && ceremony) {
+      return "a"
+    } else if (!preEvents && sangeet && ceremony) {
+      return "w"
+    } else if (!preEvents && !ceremony && sangeet) {
+      return "sr"
+    } else if (!preEvents && !ceremony && !sangeet) {
+      return "r"
+    } else {
+      return undefined
+    }
   }
 
   async run() {
@@ -155,15 +193,27 @@ export default class InviteUpdate extends BaseCommand {
           numGuests,
           knownGuests,
           ...rest
-        }) => ({
-          code,
-          uniquePartyName,
-          partyName,
-          numGuests,
-          knownGuests: knownGuests || [],
-          preEvents: !!yn(rest.preEvents),
-          emails: emailsByUniquePartyName[uniquePartyName] || [],
-        })
+        }) => {
+          const preEvents = !!yn(rest.preEvents)
+          const sangeet = !!yn(rest.sangeet)
+          const ceremony = !!yn(rest.ceremony)
+          const itype = this.parseItype(preEvents, sangeet, ceremony)
+          if (!itype) {
+            this.error(
+              `Could not generate itype for invitation: preEvents = ${preEvents},` +
+                ` sangeet = ${sangeet}, ceremony = ${ceremony}`
+            )
+          }
+          return {
+            code,
+            uniquePartyName,
+            partyName,
+            numGuests,
+            knownGuests: knownGuests || [],
+            itype,
+            emails: emailsByUniquePartyName[uniquePartyName] || [],
+          }
+        }
       )
       .value()
 
@@ -207,12 +257,13 @@ export default class InviteUpdate extends BaseCommand {
     cli.action.start(
       `uploading ${mailchimpRecords.length} records to Mailchimp`
     )
+    const listId = flags.listId || (config && config.listId)
     const result = await (flags.dryRun
       ? Promise.resolve({ total_updated: 0, total_created: 0, error_count: 0 })
       : this.mailchimp.post(
           {
             path: "/lists/{listId}",
-            path_params: { listId: flags.listId || (config && config.listId) },
+            path_params: { listId },
           },
           {
             members: mailchimpRecords,
@@ -227,46 +278,72 @@ export default class InviteUpdate extends BaseCommand {
       this.log(result.errors)
     }
 
-    cli.action.start(`writing tags`)
-    const [toAdd, toRemove] = _.chain(emails)
-      .filter((email) => !!partyForEmail(email))
-      .partition((email) => {
-        const party = partyForEmail(email)
-        return party && party.preEvents
-      })
-      .value()
-    const tagResult = await (flags.dryRun
-      ? Promise.resolve({ total_added: 0, total_removed: 0, error_count: 0 })
-      : this.mailchimp.post(
-          {
-            path: "/lists/{listId}/segments/{segmentId}",
-            path_params: {
-              listId: flags.listId,
-              segmentId:
-                flags.preEventSegmentId || (config && config.preEventSegmentId),
+    const writeTags = async (
+      mailchimp: Mailchimp,
+      matchesTag: (party: Party) => boolean,
+      segmentIdKey: SegmentIdKey
+    ) => {
+      const [toAdd, toRemove] = _.chain(emails)
+        .filter((email) => !!partyForEmail(email))
+        .partition((email) => {
+          const party = partyForEmail(email)
+          return party && matchesTag(party)
+        })
+        .value()
+      cli.action.start(
+        `writing tag for ${segmentIdKey}: ${toAdd.length} to add, ${toRemove.length} to remove`
+      )
+      const tagResult = await (flags.dryRun
+        ? Promise.resolve({ total_added: 0, total_removed: 0, error_count: 0 })
+        : mailchimp.post(
+            {
+              path: "/lists/{listId}/segments/{segmentId}",
+              path_params: {
+                listId,
+                segmentId:
+                  flags[segmentIdKey] || (config && config[segmentIdKey]),
+              },
             },
-          },
-          {
-            members_to_add: toAdd.map((email) => email.email),
-            members_to_remove: toRemove.map((email) => email.email),
-          }
-        ))
-    cli.action.stop()
-    this.log(
-      `${tagResult.total_added} records added, ${tagResult.total_removed} records removed`
+            {
+              members_to_add: toAdd.map((email) => email.email),
+              members_to_remove: toRemove.map((email) => email.email),
+            }
+          ))
+      cli.action.stop()
+      this.log(
+        `${tagResult.total_added} records added, ${tagResult.total_removed} records removed`
+      )
+    }
+
+    await writeTags(
+      this.mailchimp,
+      (party) => party.itype === "a",
+      "preEventsSegmentId"
     )
+    await writeTags(
+      this.mailchimp,
+      (party) =>
+        party.itype !== undefined && ["a", "w", "sr"].includes(party.itype),
+      "sangeetSegmentId"
+    )
+    await writeTags(
+      this.mailchimp,
+      (party) => party.itype !== undefined && ["a", "w"].includes(party.itype),
+      "ceremonySegmentId"
+    )
+    await writeTags(this.mailchimp, () => true, "receptionSegmentId")
 
     if (flags.dryRun) {
       this.log("skipping firestore writes")
     } else {
       const invitationsRef = admin.firestore().collection("invitations")
       const firestoreInvitationBatches = _.chain(parties)
-        .map(({ code, partyName, numGuests, knownGuests, preEvents }) => ({
+        .map(({ code, partyName, numGuests, knownGuests, itype }) => ({
           code,
           partyName,
           numGuests,
           knownGuests,
-          preEvents,
+          itype,
         }))
         .chunk(FirestoreChunkSize)
         .value()
