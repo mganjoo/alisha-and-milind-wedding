@@ -73,7 +73,6 @@ visual regression tests set up using [Percy](https://percy.io).
 Cypress configuration variables:
 
 - `ENABLE_DEMO_TESTS`: Enable tests for demo pages when set to true.
-- `ENABLE_PRE_EVENT_TESTS`: Enable tests for haldi and mehndi RSVPs.
 - `SEED_URL`: Variable to use for seeding data for tests. This corresponds to function `seedInvitations`.
 
 ### To run the entire test suite (unit + e2e) locally
