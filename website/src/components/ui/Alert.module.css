@@ -1,6 +1,0 @@
-.alert_wrapper {
-  & a,
-  & button {
-    @apply font-bold underline;
-  }
-}

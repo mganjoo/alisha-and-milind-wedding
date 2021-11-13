@@ -2,62 +2,39 @@
 
 @tailwind components;
 
-.c-button {
-  @apply text-sm font-sans;
+.h-bg-colors {
+  @apply bg-background  dark:bg-background-night print:bg-background-print;
+}
 
-  &:disabled {
-    @apply opacity-50 cursor-not-allowed;
-  }
+.h-fg-colors {
+  @apply text-primary  dark:text-primary-night print:text-primary-print;
+}
+
+%c-form-focus-outline {
+  @apply focus:outline-none focus:ring focus:ring-form-focus focus:ring-opacity-50 focus:ring-offset-background dark:focus:ring-form-focus-night dark:focus:ring-opacity-100 dark:focus:ring-offset-background-night;
+}
+
+.c-button {
+  @apply text-sm font-sans disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-70;
 }
 
 .c-button-primary,
 .c-button-secondary {
-  @apply rounded-br-lg;
-
-  &:focus {
-    @apply outline-none shadow-outline-bold;
-  }
-  &:hover {
-    @apply bg-orange-800;
-  }
-  &:active {
-    @apply bg-orange-700;
-  }
+  @extend %c-form-focus-outline;
+  @apply rounded-br-lg focus:ring-offset-2 hover:bg-accent-hover dark:hover:bg-accent-hover-night;
 }
 
 .c-button-primary {
-  @apply bg-orange-900 text-white;
-
-  @screen print {
-    @apply bg-transparent text-gray-900 border-gray-900 border;
-  }
+  @apply bg-button-primary text-white dark:bg-button-primary-night print:bg-transparent print:text-primary print:border-primary print:border;
 }
 
 .c-button-secondary {
-  @apply border border-orange-900 text-orange-900;
-
-  &:hover,
-  &:active {
-    @apply text-white;
-  }
-
-  @screen print {
-    @apply text-gray-700 border-gray-700;
-  }
+  @apply border border-button-secondary text-button-secondary hover:border-accent-hover dark:border-button-secondary-night dark:text-button-secondary-night dark:hover:border-accent-hover-night hover:text-white active:text-white print:text-secondary print:border-secondary;
 }
 
 .c-button-tertiary {
-  @apply border border-gray-800 text-gray-800 rounded-lg;
-
-  &:focus {
-    @apply outline-none shadow-outline-light;
-  }
-  &:hover {
-    @apply bg-gray-800 text-white;
-  }
-  &:active {
-    @apply bg-gray-700;
-  }
+  @extend %c-form-focus-outline;
+  @apply border border-secondary text-secondary rounded-lg dark:text-secondary-night dark:border-secondary-night focus:ring-offset-2 hover:bg-secondary hover:text-secondary-night dark:hover:bg-secondary-night dark:hover:text-secondary print:border-primary-print print:text-primary-print active:bg-tertiary active:text-secondary-night active:border-tertiary dark:active:bg-tertiary-night dark:active:text-secondary dark:active:border-tertiary-night;
 }
 
 .c-button-comfortable {
@@ -68,42 +45,29 @@
   @apply px-3 py-1;
 }
 
-.c-inline-button {
-  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold;
+.c-link-focus-outline {
+  @apply focus:outline-none focus:ring focus:ring-opacity-90 focus:ring-accent-focus dark:focus:ring-accent-focus-night dark:focus:ring-opacity-100;
+}
 
-  &:focus {
-    @apply outline-none shadow-outline-light;
-  }
-  &:hover {
-    @apply text-orange-700;
-  }
+.c-inline-button {
+  @extend .c-link-focus-outline;
+  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold hover:text-accent-hover dark:hover:text-accent-hover-night;
 }
 
 .c-form-description {
-  @apply font-serif mb-6 text-gray-800;
+  @apply font-serif mb-6 text-secondary dark:text-secondary-night print:text-primary-print;
 }
 
 .c-form-element-border {
-  @apply border-gray-400 focus:ring focus:ring-orange-500 focus:ring-opacity-50 focus:border-orange-500;
-}
-
-.c-focus-outline {
-  @apply focus:outline-none focus:ring focus:ring-orange-300 focus:ring-opacity-50;
+  @extend %c-form-focus-outline;
+  @apply border-subtle dark:border-transparent focus:border-accent dark:focus:border-transparent;
 }
 
 %c-text {
   @apply font-serif text-lg;
 
   & > a {
-    @apply border-b border-gray-800 border-dotted font-semibold;
-
-    &:hover {
-      @apply text-orange-900 border-orange-900;
-    }
-
-    &:focus {
-      @apply outline-none bg-orange-200;
-    }
+    @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus:outline-none focus:bg-accent-focus focus:text-primary dark:focus:bg-accent-focus-night;
   }
 }
 
@@ -118,32 +82,36 @@
   }
 }
 
+.c-alert-wrapper {
+  & a,
+  & button {
+    @extend %c-form-focus-outline;
+    @apply font-bold underline;
+  }
+}
+
 .c-article {
   @extend .c-body-text-container;
   @apply mb-8;
 
   & > h2,
   & > h3 {
-    @apply mb-2 font-sans font-semibold text-orange-800;
-
-    @screen print {
-      @apply text-gray-900;
-    }
+    @apply font-sans font-semibold print:text-heading-print;
   }
 
   & > h2 {
-    @apply text-2xl;
+    @apply mb-2 text-2xl text-heading-primary dark:text-heading-primary-night;
   }
 
   & > h3 {
-    @apply font-sans mb-1 font-semibold text-lg text-gray-700;
+    @apply mb-1 text-lg text-heading-secondary dark:text-heading-secondary-night;
   }
 
   & > dl {
     @apply my-4;
 
     & > dt {
-      @apply font-semibold font-sans text-gray-800;
+      @apply font-semibold font-sans text-heading-secondary dark:text-heading-secondary-night print:text-heading-print;
     }
 
     & > dd {
@@ -166,15 +134,11 @@
 }
 
 .c-narrow-body {
-  @apply max-w-xl mx-auto;
-
-  @screen print {
-    @apply max-w-none;
-  }
+  @apply max-w-xl mx-auto print:max-w-none;
 }
 
 .c-shadow-box {
-  @apply p-6 border border-gray-subtle rounded-lg shadow-lg bg-off-white;
+  @apply p-6 bg-background border border-subtle rounded-lg shadow-lg dark:border-subtle-night dark:bg-background-secondary-night print:bg-background-print;
 }
 
 @tailwind utilities;

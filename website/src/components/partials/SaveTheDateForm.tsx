@@ -102,7 +102,11 @@ const SaveTheDateForm: React.FC<SaveTheDateFormProps> = ({ redirect }) => {
       )}
       {submitted && !redirect && (
         <div role="status" className="flex flex-col text-center items-center">
-          <Symbol symbol="check" className="text-green-700 mb-4" size="l" />
+          <Symbol
+            symbol="check"
+            className="text-green-700 mb-4 dark:text-green-500"
+            size="l"
+          />
           <div className="c-article">
             <p>
               Thank you for confirming your email! Stay tuned for the invitation

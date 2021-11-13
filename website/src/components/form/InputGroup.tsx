@@ -14,7 +14,7 @@ const InputGroup: React.FC<InputGroupProps> = ({
       <div
         className={classnames(
           "w-full px-3 border rounded",
-          errorMessage ? "border-invalid" : "border-transparent"
+          errorMessage ? "border-form-invalid-night" : "border-transparent"
         )}
       >
         {children}

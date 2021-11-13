@@ -104,7 +104,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           values.attending === "yes" && (
             <div
               role="status"
-              className="mb-4 font-sans text-center text-sm text-orange-900 italic"
+              className="mb-4 font-sans text-center text-sm text-accent-text italic dark:text-accent-text-night"
             >
               Yay! One more step: confirm attendance for specific events on the
               next page.

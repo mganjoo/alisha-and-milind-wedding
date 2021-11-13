@@ -11,7 +11,7 @@ const LeafSpacer: React.FC<LeafSpacerProps> = ({ wide }) => (
     className={classnames("flex justify-center", wide ? "my-6" : "my-2")}
   >
     <svg
-      className="text-gray-600 stroke-current"
+      className="text-secondary stroke-current dark:text-secondary-night"
       width="70"
       height="28"
       fill="none"

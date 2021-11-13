@@ -3,7 +3,6 @@ import React, { useRef, useEffect } from "react"
 import { useRegisteredRef } from "react-register-nodes"
 import { useUID } from "react-uid"
 import { scrollIntoView } from "../../utils/Utils"
-import styles from "./Alert.module.css"
 
 interface AlertProps {
   action?: {
@@ -21,8 +20,8 @@ const Alert: React.FC<AlertProps> = ({ children, action, isInfo }) => {
   const laterRef = useRegisteredRef(refName)
 
   useEffect(() => {
-    // Scroll alert into view on mount
-    if (!mounted.current && initialRef.current) {
+    // Scroll non-info alert into view on mount
+    if (!isInfo && !mounted.current && initialRef.current) {
       scrollIntoView(initialRef.current)
       mounted.current = true
     }
@@ -32,13 +31,13 @@ const Alert: React.FC<AlertProps> = ({ children, action, isInfo }) => {
     <div
       role="alert"
       className={classnames(
-        "block mb-6 px-3 py-2 border border-l-4 text-left font-sans text-sm shadow-md print:bg-transparent print:border-gray-subtle print:text-gray-900",
+        "block mb-6 px-3 py-2 border border-l-4 text-left font-sans text-sm shadow-md dark:border-transparent print:bg-transparent print:border-subtle print:text-primary-print",
         isInfo
-          ? "bg-orange-200 border-orange-400 text-orange-800"
-          : "bg-red-100 border-red-400 text-red-800",
-        styles.alert_wrapper
+          ? "bg-amber-200 border-amber-500 text-amber-900 dark:bg-gray-600 dark:text-gray-100"
+          : "bg-red-200 border-red-400 text-red-900 dark:brightness-90 dark:bg-rose-700 dark:text-rose-100",
+        "c-alert-wrapper"
       )}
-      ref={mounted.current ? laterRef : initialRef}
+      ref={mounted.current && !isInfo ? laterRef : initialRef}
     >
       {children}
       {action && (

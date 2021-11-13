@@ -259,7 +259,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
         </div>
       </div>
       <animated.div
-        className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-off-white z-10 font-sans text-sm border-t border-gray-subtle shadow-inner print:hidden"
+        className="fixed inset-x-0 bottom-0 w-full flex justify-center items-center py-3 bg-background z-10 font-sans text-sm border-t border-subtle shadow-inner dark:bg-background-night dark:border-subtle-night print:hidden"
         style={linksProps}
       >
         <Link
@@ -282,7 +282,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
       <Helmet>
         <body
           className={classNames(
-            "text-gray-900 overflow-hidden print:overflow-visible",
+            "text-primary overflow-hidden print:overflow-visible dark:text-primary-night",
             styles.page_bg
           )}
         ></body>

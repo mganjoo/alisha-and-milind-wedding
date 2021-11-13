@@ -19,7 +19,7 @@ const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
       <label className="inline-flex items-center py-1">
         <input
           type={type}
-          className="c-form-element-border text-orange-600"
+          className="c-form-element-border bg-form-background text-accent dark:text-accent-night dark:bg-form-background-night"
           ref={ref}
           {...otherProps}
         />

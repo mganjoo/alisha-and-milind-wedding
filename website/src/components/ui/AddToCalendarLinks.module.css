@@ -1,7 +1,7 @@
 @import "@reach/menu-button/styles.css";
 
 [data-reach-menu-list] {
-  @apply py-2 text-sm font-sans border-gray-subtle;
+  @apply py-2 text-sm font-sans border-subtle bg-white text-primary dark:border-subtle-night dark:bg-black dark:text-primary-night;
 }
 
 [data-reach-menu-item] {
@@ -9,5 +9,5 @@
 }
 
 [data-reach-menu-item][data-selected] {
-  @apply bg-orange-800;
+  @apply bg-heading-primary dark:bg-heading-primary-night;
 }

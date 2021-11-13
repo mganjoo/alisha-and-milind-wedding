@@ -33,7 +33,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
         <meta name="robots" content="noindex" />
         <body
           className={classnames(
-            "bg-off-white text-gray-900 print:bg-white",
+            "h-bg-colors h-fg-colors",
             additionalBodyClassName
           )}
         ></body>

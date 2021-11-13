@@ -25,7 +25,7 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
   symbol,
   label,
 }) => (
-  <span className="flex items-center mx-2 mb-2 font-sans text-gray-700">
+  <span className="flex items-center mx-2 mb-2 font-sans text-secondary dark:text-secondary-night print:text-primary-print">
     <Symbol symbol={symbol} className="mr-2" size="s" label={label} inline />
     {children}
   </span>
@@ -52,10 +52,10 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
-        <h2 className="text-orange-800 font-sans text-2xl font-semibold mb-2 print:text-gray-900">
+        <h2 className="text-heading-primary font-sans text-2xl font-semibold mb-2 dark:text-heading-primary-night print:text-heading-print">
           {event.frontmatter.name}
         </h2>
-        <div className="pl-2 border-l border-orange-500 w-full md:pl-0 md:border-0 print:border-gray-subtle">
+        <div className="pl-2 border-l border-accent w-full md:pl-0 md:border-0 dark:border-accent-night print:border-subtle">
           <ScheduleInfoRow>
             <ScheduleInfoItem label="Date" symbol="calendar">
               {event.frontmatter.longDateOnly}
@@ -94,7 +94,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
           )}
         </div>
       </div>
-      <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-orange-500 print:border-gray-subtle">
+      <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-accent md:dark:border-accent-night print:border-subtle">
         {event.frontmatter.subLocations && (
           <div className="my-4 md:mt-0">
             {event.frontmatter.subLocations.map((location) => (

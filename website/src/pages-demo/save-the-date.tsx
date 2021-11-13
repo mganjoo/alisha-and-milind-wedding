@@ -43,7 +43,6 @@ const SaveTheDatePage: React.FC = () => {
           <Img
             className={classNames("p-cover", styles.hero)}
             fluid={data.weddingHeroImage.childImageSharp.fluid}
-            backgroundColor="#ece5df"
             alt="Selfie of Milind and Alisha taken in a car side mirror"
             imgStyle={{ objectPosition: "36% 50%" }}
           />
@@ -53,7 +52,7 @@ const SaveTheDatePage: React.FC = () => {
           aria-labelledby="save-the-date-heading save-the-date-names"
         >
           <h1
-            className="font-script text-4xl text-orange-900 text-center lg:text-5xl"
+            className="font-script text-4xl text-heading-primary text-center dark:text-heading-primary-night lg:text-5xl"
             id="save-the-date-heading"
           >
             Save the Date
@@ -72,7 +71,7 @@ const SaveTheDatePage: React.FC = () => {
             {data.site.siteMetadata.location}
           </h3>
           <hr
-            className="my-8 inline-block w-24 border-subtle-gray"
+            className="my-8 inline-block w-24 border-subtle dark:border-subtle-night"
             aria-hidden
           />
           <SaveTheDateForm

@@ -56,11 +56,11 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
   }, [dropdownVisible])
 
   return (
-    <header className="sticky top-0 z-10 border-b border-gray-subtle bg-off-white sm:static sm:z-0 print:static print:bg-white">
+    <header className="sticky top-0 z-10 border-b h-bg-colors border-subtle sm:static sm:z-0 dark:border-subtle-night print:static">
       <div className="relative">
         <div className="py-3 text-center sm:pt-4 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-3xl">
-            <Link to="/" className="c-focus-outline">
+            <Link to="/" className="px-1 c-link-focus-outline">
               {data && data.site.siteMetadata.displayTitle}
             </Link>
           </h1>
@@ -71,14 +71,14 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         </div>
         <div className="absolute top-0 right-0 mx-2 h-full flex items-center sm:hidden print:hidden">
           <button
-            className="p-2 flex flex-col items-center justify-center bg-off-white c-focus-outline"
+            className="p-2 flex flex-col items-center justify-center c-link-focus-outline h-bg-colors"
             type="button"
             ref={menuButtonRef}
             onClick={() => setDropdownVisible(!dropdownVisible)}
             aria-label="Toggle Menu"
           >
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 fill-current"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
             >
@@ -92,10 +92,10 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         ref={navRef}
         className={classnames(
           dropdownVisible ? "visible" : "invisible",
-          "absolute w-full z-10 bg-off-white border-b border-gray-subtle font-sans font-semibold text-gray-900 text-sm shadow-lg sm:shadow-none sm:static sm:visible sm:w-auto sm:border-b-0 sm:text-base print:hidden"
+          "border-subtle h-bg-colors h-fg-colors absolute w-full z-10 border-b font-sans font-semibold text-sm shadow-lg dark:border-subtle-night sm:shadow-none sm:static sm:visible sm:w-auto sm:border-b-0 sm:text-base print:hidden"
         )}
       >
-        <ul className="pt-3 pb-4 shadow-inner border-t border-gray-subtle sm:py-0 sm:flex sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none">
+        <ul className="pt-3 pb-4 shadow-inner border-t border-subtle dark:border-subtle-night sm:py-0 sm:flex sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none">
           {links.map((link, index) => (
             <li key={index} className="text-center sm:mx-1 md:mx-2">
               <Link
@@ -103,10 +103,10 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
                 to={link.to}
                 getProps={({ isCurrent, isPartiallyCurrent }) => ({
                   className: classnames(
-                    "inline-block px-1 pt-4 pb-1 border-b-4 focus:outline-none focus:border-orange-300 hover:border-orange-500 hover:text-orange-700 sm:px-2 sm:pt-3 sm:pb-2 sm:border-b-4",
+                    "inline-block px-1 pt-4 pb-1 border-b-4 focus:outline-none focus:border-opacity-90 focus:border-accent-focus hover:border-accent-hover hover:text-accent-hover dark:focus:border-accent-focus-night dark:focus:border-opacity-100 dark:hover:text-accent-hover-night dark:hover:border-accent-hover-night sm:px-2 sm:pt-3 sm:pb-2 sm:border-b-4",
                     isCurrent || isPartiallyCurrent || link.forceActive
-                      ? " border-orange-600"
-                      : " border-transparent"
+                      ? "border-accent"
+                      : "border-transparent"
                   ),
                 })}
               >

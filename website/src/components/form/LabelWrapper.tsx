@@ -32,7 +32,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
     >
       {labelType === "text" && (
         <span
-          className="block mb-1 text-left text-gray-700 text-sm font-sans"
+          className="block mb-1 text-left text-tertiary text-sm font-sans dark:text-tertiary-night"
           id={uid}
         >
           {label}
@@ -42,7 +42,7 @@ const LabelWrapper: React.FC<LabelWrapperProps> = ({
       {errorMessage && (
         <span
           aria-live="assertive"
-          className="block my-1 text-left text-red-700 text-sm font-medium"
+          className="block my-1 text-left text-form-invalid text-sm font-medium dark:text-form-invalid-night"
         >
           {errorMessage}
         </span>

@@ -16,7 +16,7 @@ const Faq: React.FC<FaqProps> = ({ question, children, updated }) => {
     <section className="c-article" aria-labelledby={id}>
       <h2 id={id}>{question}</h2>
       {updated && (
-        <div className="mt-2 mb-4 px-3 py-1 rounded-full bg-orange-200 text-gray-800 inline-block font-sans text-sm font-medium print:border print:border-gray-400 print:bg-transparent">
+        <div className="mt-2 mb-4 px-3 py-1 rounded-full bg-amber-200 text-gray-900 inline-block font-sans text-sm font-medium dark:bg-gray-600 dark:text-gray-100 print:border print:border-subtle print:bg-transparent">
           Updated: {dayjs(updated).utc().format("MMMM D, YYYY")}
         </div>
       )}

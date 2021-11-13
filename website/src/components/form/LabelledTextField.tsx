@@ -15,6 +15,7 @@ interface LabelledTextInputProps extends CommonProps {
   autoComplete?: string
   autoCapitalize?: string
   autoCorrect?: string
+  placeholder?: string
 }
 
 interface LabelledTextAreaProps extends CommonProps {

@@ -3,5 +3,5 @@
 }
 
 .section_subheading {
-  @apply font-sans text-sm text-orange-800 italic;
+  @apply font-sans text-sm italic text-accent-text dark:text-accent-text-night;
 }

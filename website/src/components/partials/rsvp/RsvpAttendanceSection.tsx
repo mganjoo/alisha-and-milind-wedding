@@ -5,8 +5,8 @@ import { isRsvpable } from "../../../interfaces/Invitation"
 import { RsvpFormValues, GuestMap } from "../../../interfaces/RsvpFormValues"
 import { filterNonEmptyKeys } from "../../../utils/Utils"
 import Alert from "../../ui/Alert"
-import AttendanceItem from "../AttendanceItem"
 import { InvitationContext } from "../Authenticated"
+import AttendanceItem from "./AttendanceItem"
 import styles from "./RsvpForm.module.css"
 
 interface AttendanceGroupProps {

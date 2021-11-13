@@ -1,6 +1,6 @@
 import React from "react"
-import { WeddingEventMarkdown } from "../../interfaces/Event"
-import OptionsGroup, { Option } from "../form/OptionsGroup"
+import { WeddingEventMarkdown } from "../../../interfaces/Event"
+import OptionsGroup, { Option } from "../../form/OptionsGroup"
 
 interface AttendanceItemProps {
   event: WeddingEventMarkdown
@@ -20,13 +20,13 @@ const AttendanceItem: React.FC<AttendanceItemProps> = ({
   return (
     <div className="mb-4 sm:flex sm:items-center">
       <p
-        className="flex flex-wrap items-baseline pb-1 border-b border-gray-subtle sm:border-0 sm:mr-4 sm:w-2/5 sm:flex-col sm:items-end sm:pb-0"
+        className="flex flex-wrap items-baseline pb-1 border-b border-subtle dark:border-subtle-night sm:border-0 sm:mr-4 sm:w-2/5 sm:flex-col sm:items-end sm:pb-0"
         id={headingId}
       >
-        <span className="pr-3 text-lg font-sans font-semibold text-orange-800 font-sans sm:pr-0 sm:mb-1 sm:text-xl">
+        <span className="pr-3 text-lg font-sans font-semibold text-heading-primary dark:text-heading-primary-night sm:pr-0 sm:mb-1 sm:text-xl print:text-heading-print">
           {event.frontmatter.name}
         </span>
-        <span className="text-gray-700 text-sm font-serif sm:text-base">
+        <span className="text-secondary text-sm font-serif dark:text-secondary-night sm:text-base">
           {event.frontmatter.shortDate}
         </span>
       </p>

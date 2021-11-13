@@ -23,8 +23,11 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
         {...field}
         ref={ref}
         className={classNames(
-          "block w-full resize-none rounded-lg c-form-element-border",
-          { [styles.invalid]: invalid }
+          "resize-none c-form-element-border",
+          styles.input,
+          {
+            [styles.invalid]: invalid,
+          }
         )}
         {...otherProps}
       />

@@ -1,6 +1,8 @@
+.input {
+  @apply block w-full rounded-lg bg-form-background text-form-text placeholder-form-placeholder dark:text-form-text-night dark:bg-form-background-night dark:placeholder-form-placeholder-night;
+}
+
 .invalid {
-  @apply border-invalid bg-no-repeat bg-right pr-2;
-  background-image: inline("exclamation-outline.svg");
-  background-size: 20px 20px;
-  background-origin: content-box;
+  @apply border-2 border-form-invalid bg-no-repeat bg-right pr-2 bg-origin-content bg-exclamation dark:bg-form-background-error dark:text-form-text-error dark:border-form-invalid-night dark:focus:ring-form-invalid-night dark:bg-exclamation-night dark:placeholder-form-placeholder-error;
+  background-size: auto 80%;
 }

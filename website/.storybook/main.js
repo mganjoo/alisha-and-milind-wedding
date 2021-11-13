@@ -16,6 +16,7 @@ module.exports = {
       },
     },
     "storybook-css-modules-preset",
+    "storybook-dark-mode",
     path.resolve("./.storybook/addon-gatsby.js"),
   ],
 }

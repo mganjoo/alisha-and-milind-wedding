@@ -38,12 +38,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
       <main>
         <SkipNavContent />
         {heroImage && (
-          <div
-            className={classNames(
-              "border-b border-gray-subtle print:bg-transparent print:border-b-0",
-              styles.page_bg
-            )}
-          >
+          <div className="border-b h-bg-colors bg-hero-pattern border-subtle dark:bg-hero-pattern-night dark:border-subtle-night print:bg-transparent print:border-b-0">
             <Img
               fluid={heroImage}
               alt={alt || ""}
@@ -60,7 +55,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           {children}
         </div>
       </main>
-      <footer className="pb-8 text-gray-700 font-serif flex flex-col items-center">
+      <footer className="pb-8 text-secondary font-serif flex flex-col items-center dark:text-secondary-night print:text-secondary">
         {!hideBackToTop && (
           <button
             className="c-inline-button hidden sm:block print:hidden"
@@ -71,7 +66,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
           </button>
         )}
         <hr
-          className="mt-4 mb-1 inline-block w-10 border-gray-500"
+          className="mt-4 mb-1 inline-block w-10 border-subtle dark:border-subtle-night print:border-subtle"
           aria-hidden
         />
         <div className="my-2">

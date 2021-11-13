@@ -24,7 +24,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         {...field}
         ref={ref}
         type={type}
-        className={classnames("block w-full rounded-lg c-form-element-border", {
+        className={classnames(styles.input, "c-form-element-border", {
           [styles.invalid]: invalid,
         })}
         {...otherProps}

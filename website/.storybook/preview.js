@@ -1,6 +1,7 @@
 import React from "react"
 import { addDecorator } from "@storybook/react"
 import { action } from "@storybook/addon-actions"
+import { themes } from "@storybook/theming"
 import "../gatsby-browser.js"
 
 const sharedConstants = require("../shared-constants")
@@ -75,11 +76,15 @@ addDecorator((storyFn) => <div className="text-gray-900">{storyFn()}</div>)
 
 export const parameters = {
   backgrounds: {
-    default: "off-white",
+    default: "day",
     values: [
       {
-        name: "off-white",
+        name: "day",
         value: sharedConstants.offWhite,
+      },
+      {
+        name: "night",
+        value: sharedConstants.gray900,
       },
     ],
   },

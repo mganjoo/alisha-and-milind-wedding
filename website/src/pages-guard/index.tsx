@@ -32,7 +32,7 @@ const IndexPage = () => {
           fluid={imageData.heroImage.childImageSharp.fluid}
         >
           <div className="min-h-screen flex justify-center items-center">
-            <div className="p-6 font-serif text-lg bg-gray-900 bg-opacity-75 text-gray-100 sm:mx-auto sm:max-w-sm sm:rounded-md sm:bg-opacity-50">
+            <div className="p-6 font-serif text-lg bg-background-night bg-opacity-75 text-primary-night sm:mx-auto sm:max-w-sm sm:rounded-md sm:bg-opacity-50">
               <p>
                 Dear family and friends,
                 <br />

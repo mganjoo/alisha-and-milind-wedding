@@ -8,10 +8,10 @@ const DemoCardPage: React.FC = () => {
   const [reverse, setReverse] = useState(false)
 
   const secondaryClassName =
-    "mx-1 px-1 text-gray-800 font-semibold hover:text-orange-500"
+    "mx-1 px-1 text-secondary font-semibold dark:text-secondary-night hover:text-accent-hover dark:hover:text-accent-hover-night"
   return (
     <BaseLayout>
-      <div className="fixed inset-x-0 top-0 w-full flex justify-center items-center py-2 bg-off-white text-gray-900 font-sans text-sm border-b border-gray-subtle z-10 shadow-md opacity-75">
+      <div className="fixed inset-x-0 top-0 w-full flex justify-center items-center py-2 bg-background text-primary font-sans text-sm border-b border-subtle z-10 shadow-md opacity-75 dark:bg-background-night dark:text-primary-night dark:border-subtle-night">
         <button
           className={secondaryClassName}
           onClick={() => setPlaying(!playing)}

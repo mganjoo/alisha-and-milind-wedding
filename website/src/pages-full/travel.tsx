@@ -79,7 +79,7 @@ const TravelPage = () => {
                     value.mainVenue.length > 0 &&
                     value.mainVenue[0]
                   }`}
-                  containerClassName="bg-gray-200 text-gray-900"
+                  containerClassName="bg-background text-primary dark:bg-background-night dark:text-primary-night"
                 />
               </div>
             </section>

@@ -69,7 +69,9 @@ const OptionsGroup: React.FC<OptionsGroupProps> = ({
           shouldShowSelectAll
             ? classnames(
                 "ml-2 pl-3 border-l-2",
-                allSelected ? "border-orange-500" : "border-gray-subtle"
+                allSelected
+                  ? "border-accent dark:border-accent-night"
+                  : "border-subtle dark:border-subtle-night"
               )
             : undefined
         }

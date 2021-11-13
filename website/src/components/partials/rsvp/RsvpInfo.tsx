@@ -31,7 +31,7 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
           <Symbol
             aria-hidden
             symbol={invitation.latestRsvp.attending ? "check" : "cross"}
-            className="m-2 text-gray-600"
+            className="m-2 text-tertiary dark:text-tertiary-night"
             size="l"
           />
           <div className="mx-2 text-center">
@@ -39,18 +39,18 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
               {invitation.partyName}
             </h2>
             <p
-              className="font-sans italic text-sm text-gray-700"
+              className="font-sans italic text-sm text-secondary dark:text-secondary-night"
               id="rsvp-info-description"
             >
               RSVP received on{" "}
-              <span className="font-semibold whitespace-nowrap not-italic text-gray-900 p-hide">
+              <span className="font-semibold whitespace-nowrap not-italic text-primary p-hide dark:text-primary-night">
                 {formatDate(invitation.latestRsvp.timestampMillis)}
               </span>
             </p>
           </div>
         </div>
         <div className="mb-4 flex flex-col items-center">
-          <h3 className="font-sans font-semibold text-center text-orange-800 mb-1 print:text-gray-700">
+          <h3 className="font-sans font-semibold text-center text-accent-text mb-1 text-lg dark:text-accent-text-night print:text-heading-print">
             {invitation.latestRsvp.attending
               ? `${guestsWithAtLeastOneEvent.length} ${
                   guestsWithAtLeastOneEvent.length > 1 ? "guests" : "guest"

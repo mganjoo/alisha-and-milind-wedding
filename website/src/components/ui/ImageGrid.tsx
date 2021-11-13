@@ -1,4 +1,5 @@
 import { DialogOverlay, DialogContent } from "@reach/dialog"
+import classNames from "classnames"
 import Img, { FluidObject } from "gatsby-image"
 import React, { useState } from "react"
 import styles from "./ImageGrid.module.css"
@@ -38,7 +39,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
       {images.map((image, i) => (
         <div
           key={image.image.src}
-          className={styles.image_wrapper}
+          className={classNames(styles.image_wrapper, "c-link-focus-outline")}
           onClick={() => handleClick(i)}
           onKeyPress={(e) => handleKeyPress(e, i)}
           role="button"
@@ -55,7 +56,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             }
           />
           {image.caption && (
-            <div className="text-center font-sans text-sm py-2 bg-gray-900 text-gray-100 print:text-gray-700 print:bg-transparent">
+            <div className="text-center font-sans text-sm py-2 bg-background-night text-primary-night print:text-secondary print:bg-transparent">
               {image.caption}
             </div>
           )}
@@ -69,7 +70,11 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             }
           >
             <div className={styles.close_button_wrapper}>
-              <button aria-label="Close" onClick={close}>
+              <button
+                aria-label="Close"
+                className="p-2 focus:outline-none focus:ring focus:ring-accent-focus-night"
+                onClick={close}
+              >
                 <Symbol symbol="close" size="m" />
               </button>
             </div>
