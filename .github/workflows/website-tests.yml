@@ -50,15 +50,6 @@ jobs:
           GATSBY_FIREBASE_PROJECT_ID: ${{ secrets.GATSBY_FIREBASE_PROJECT_ID }}
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
           CYPRESS_SEED_URL: https://test-alisha-and-milind-wedding.firebaseapp.com/seedInvitations
-      - name: Run storybook snapshot checks
-        run: |
-          export PERCY_BRANCH="${GITHUB_REF#refs/heads/}"
-          export PERCY_COMMIT="$GITHUB_SHA"
-          npm run storybook:build
-        working-directory: ./website
-        env:
-          CI: true
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_STORYBOOK }}
       - name: Publish deploy (for external trigger)
         if: startsWith(github.event.action, 'externalUrl_')
         run: |

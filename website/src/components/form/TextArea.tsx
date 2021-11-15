@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { useField } from "formik"
 import React from "react"
-import styles from "./TextInput.module.css"
+import { input, invalid as invalid_style } from "./TextInput.module.css"
 
 interface TextAreaProps
   extends React.DetailedHTMLProps<
@@ -22,13 +22,9 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       <textarea
         {...field}
         ref={ref}
-        className={classNames(
-          "resize-none c-form-element-border",
-          styles.input,
-          {
-            [styles.invalid]: invalid,
-          }
-        )}
+        className={classNames("resize-none c-form-element-border", input, {
+          [invalid_style]: invalid,
+        })}
         {...otherProps}
       />
     )

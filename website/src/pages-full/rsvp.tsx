@@ -21,7 +21,7 @@ const RsvpPage = () => {
   )
   return (
     <NavLayout
-      heroImage={data.heroImage.childImageSharp.fluid}
+      heroImage={data.heroImage.childImageSharp.gatsbyImageData}
       alt="Picture of Milind and Alisha holding hands, with their backs to the camera, running on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey dress"
     >
       <SEO

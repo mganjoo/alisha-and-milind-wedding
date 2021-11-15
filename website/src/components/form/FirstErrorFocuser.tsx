@@ -1,6 +1,6 @@
 import { useFormikContext } from "formik"
 import React, { useRef, useEffect, useState } from "react"
-import { useOrderedNodes } from "react-register-nodes"
+import { useOrderedNodes } from "../../utils/RegisterNodes"
 import { scrollIntoView } from "../../utils/Utils"
 
 interface FirstErrorFocuserContextWrapper {

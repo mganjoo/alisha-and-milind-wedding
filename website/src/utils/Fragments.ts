@@ -2,16 +2,12 @@ import { graphql } from "gatsby"
 
 export const heroImageFragment = graphql`
   fragment HeroImage on ImageSharp {
-    fluid(maxWidth: 672) {
-      ...GatsbyImageSharpFluid_noBase64
-    }
+    gatsbyImageData(layout: CONSTRAINED, width: 672)
   }
 `
 
 export const gridImageFragment = graphql`
   fragment GridImage on ImageSharp {
-    fluid {
-      ...GatsbyImageSharpFluid
-    }
+    gatsbyImageData(layout: CONSTRAINED)
   }
 `

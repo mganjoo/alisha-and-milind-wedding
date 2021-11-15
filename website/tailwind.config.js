@@ -50,7 +50,7 @@ module.exports = {
         heading: {
           primary: {
             DEFAULT: colors.orange["900"],
-            night: colors.orange["600"],
+            night: colors.orange["400"],
           },
           secondary: {
             DEFAULT: colors.warmGray["700"],
@@ -72,7 +72,7 @@ module.exports = {
           },
           text: {
             DEFAULT: colors.orange["900"],
-            night: colors.orange["600"],
+            night: colors.orange["400"],
           },
         },
         button: {

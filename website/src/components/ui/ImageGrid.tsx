@@ -1,12 +1,18 @@
 import { DialogOverlay, DialogContent } from "@reach/dialog"
 import classNames from "classnames"
-import Img, { FluidObject } from "gatsby-image"
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image"
 import React, { useState } from "react"
-import styles from "./ImageGrid.module.css"
+import {
+  close_button_wrapper,
+  image as image_style,
+  image_wrapper,
+  modal_caption,
+} from "./ImageGrid.module.css"
 import Symbol from "./Symbol"
 
 interface Image {
-  image: FluidObject
+  image: IGatsbyImageData
+  id: string
   alt: string
   caption?: string
   fullCaption?: string
@@ -38,17 +44,17 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
     <div className="my-6 grid grid-cols-1 sm:grid-cols-2">
       {images.map((image, i) => (
         <div
-          key={image.image.src}
-          className={classNames(styles.image_wrapper, "c-link-focus-outline")}
+          key={image.id}
+          className={classNames(image_wrapper, "c-link-focus-outline")}
           onClick={() => handleClick(i)}
           onKeyPress={(e) => handleKeyPress(e, i)}
           role="button"
           tabIndex={0}
         >
-          <Img
-            fluid={image.image}
+          <GatsbyImage
+            image={image.image}
             alt={image.alt}
-            className={styles.image}
+            className={image_style}
             imgStyle={
               image.objectPosition
                 ? { objectPosition: image.objectPosition }
@@ -69,7 +75,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
               dialogImage.fullCaption || dialogImage.caption || dialogImage.alt
             }
           >
-            <div className={styles.close_button_wrapper}>
+            <div className={close_button_wrapper}>
               <button
                 aria-label="Close"
                 className="p-2 focus:outline-none focus:ring focus:ring-accent-focus-night"
@@ -78,14 +84,14 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
                 <Symbol symbol="close" size="m" />
               </button>
             </div>
-            <Img
-              fluid={dialogImage.image}
+            <GatsbyImage
+              image={dialogImage.image}
               alt={dialogImage.alt}
               className="w-full h-full"
               imgStyle={{ objectFit: "contain" }}
             />
             {dialogImage.fullCaption && (
-              <p className={styles.modal_caption} id="caption-dialog">
+              <p className={modal_caption} id="caption-dialog">
                 {dialogImage.fullCaption}
               </p>
             )}

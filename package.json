@@ -25,7 +25,6 @@
     "format": "prettier --write .",
     "start:website": "npm --prefix website run develop",
     "check:types": "lerna run --concurrency 1 --stream check:types",
-    "storybook": "npm --prefix website run storybook",
     "check:lint": "lerna run check:lint",
     "prepare": "husky install"
   },

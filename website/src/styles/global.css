@@ -10,17 +10,12 @@
   @apply text-primary  dark:text-primary-night print:text-primary-print;
 }
 
-%c-form-focus-outline {
-  @apply focus:outline-none focus:ring focus:ring-form-focus focus:ring-opacity-50 focus:ring-offset-background dark:focus:ring-form-focus-night dark:focus:ring-opacity-100 dark:focus:ring-offset-background-night;
-}
-
 .c-button {
   @apply text-sm font-sans disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-70;
 }
 
 .c-button-primary,
 .c-button-secondary {
-  @extend %c-form-focus-outline;
   @apply rounded-br-lg focus:ring-offset-2 hover:bg-accent-hover dark:hover:bg-accent-hover-night;
 }
 
@@ -33,7 +28,6 @@
 }
 
 .c-button-tertiary {
-  @extend %c-form-focus-outline;
   @apply border border-secondary text-secondary rounded-lg dark:text-secondary-night dark:border-secondary-night focus:ring-offset-2 hover:bg-secondary hover:text-secondary-night dark:hover:bg-secondary-night dark:hover:text-secondary print:border-primary-print print:text-primary-print active:bg-tertiary active:text-secondary-night active:border-tertiary dark:active:bg-tertiary-night dark:active:text-secondary dark:active:border-tertiary-night;
 }
 
@@ -45,12 +39,12 @@
   @apply px-3 py-1;
 }
 
-.c-link-focus-outline {
+.c-link-focus-outline,
+.c-inline-button {
   @apply focus:outline-none focus:ring focus:ring-opacity-90 focus:ring-accent-focus dark:focus:ring-accent-focus-night dark:focus:ring-opacity-100;
 }
 
 .c-inline-button {
-  @extend .c-link-focus-outline;
   @apply flex font-sans text-sm py-1 px-2 items-center font-semibold hover:text-accent-hover dark:hover:text-accent-hover-night;
 }
 
@@ -59,11 +53,30 @@
 }
 
 .c-form-element-border {
-  @extend %c-form-focus-outline;
   @apply border-subtle dark:border-transparent focus:border-accent dark:focus:border-transparent;
 }
 
-%c-text {
+.c-button-primary,
+.c-button-secondary,
+.c-button-tertiary,
+.c-form-element-border,
+.c-alert-wrapper a,
+.c-alert-wrapper button {
+  /* Focus outlines for buttons and other form elements */
+  @apply focus:outline-none focus:ring focus:ring-form-focus focus:ring-opacity-50 focus:ring-offset-background dark:focus:ring-form-focus-night dark:focus:ring-opacity-100 dark:focus:ring-offset-background-night;
+}
+
+.c-alert-wrapper {
+  & a,
+  & button {
+    @apply font-bold underline;
+  }
+}
+
+.c-article > p,
+.c-body-text-container > p,
+.c-article > dl > dd,
+.c-article > ul > li {
   @apply font-serif text-lg;
 
   & > a {
@@ -71,27 +84,13 @@
   }
 }
 
-%c-body-text {
-  @extend %c-text;
+.c-article > p,
+.c-body-text-container > p,
+.c-article > dl > dd {
   @apply mb-4;
 }
 
-.c-body-text-container {
-  & > p {
-    @extend %c-body-text;
-  }
-}
-
-.c-alert-wrapper {
-  & a,
-  & button {
-    @extend %c-form-focus-outline;
-    @apply font-bold underline;
-  }
-}
-
 .c-article {
-  @extend .c-body-text-container;
   @apply mb-8;
 
   & > h2,
@@ -113,10 +112,6 @@
     & > dt {
       @apply font-semibold font-sans text-heading-secondary dark:text-heading-secondary-night print:text-heading-print;
     }
-
-    & > dd {
-      @extend %c-body-text;
-    }
   }
 
   & strong {
@@ -127,7 +122,6 @@
     @apply mb-4 pl-6;
 
     & > li {
-      @extend %c-text;
       @apply list-disc list-outside mb-2;
     }
   }

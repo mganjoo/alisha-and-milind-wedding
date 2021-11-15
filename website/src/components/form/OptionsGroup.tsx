@@ -1,7 +1,7 @@
 import classnames from "classnames"
 import { useField } from "formik"
 import React, { useMemo, useCallback } from "react"
-import { useRegisteredRef } from "react-register-nodes"
+import { useRegisteredRef } from "../../utils/RegisterNodes"
 import ControlledLabelledOption from "./ControlledLabelledOption"
 import InputGroup from "./InputGroup"
 import LabelledOption from "./LabelledOption"

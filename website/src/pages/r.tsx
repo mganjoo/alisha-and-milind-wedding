@@ -1,4 +1,4 @@
-import { Router } from "@reach/router"
+import { Router } from "@gatsbyjs/reach-router"
 import React from "react"
 import yn from "yn"
 import BaseLayout from "../components/layout/BaseLayout"

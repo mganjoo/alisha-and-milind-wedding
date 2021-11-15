@@ -1,4 +1,4 @@
-import { navigate } from "@reach/router"
+import { navigate } from "gatsby"
 import React, { useEffect } from "react"
 import BaseLayout from "../components/layout/BaseLayout"
 import Loading from "../components/ui/Loading"

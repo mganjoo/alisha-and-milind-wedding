@@ -1,11 +1,15 @@
 import classNames from "classnames"
 import { graphql, useStaticQuery } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import React from "react"
 import yn from "yn"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
-import styles from "../components/partials/SaveTheDate.module.css"
+import {
+  hero,
+  hero_wrapper,
+  main,
+} from "../components/partials/SaveTheDate.module.css"
 import SaveTheDateForm from "../components/partials/SaveTheDateForm"
 import LeafSpacer from "../components/ui/LeafSpacer"
 
@@ -15,9 +19,7 @@ const SaveTheDatePage: React.FC = () => {
       query {
         weddingHeroImage: file(relativePath: { eq: "save-the-date-hero.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_tracedSVG
-            }
+            gatsbyImageData(layout: FULL_WIDTH)
           }
         }
         site {
@@ -38,11 +40,11 @@ const SaveTheDatePage: React.FC = () => {
         image="/meta-save-the-date-hero.jpg"
         description={`Please save the date for Alisha & Milind's wedding: ${data.site.siteMetadata.displayDates} in ${data.site.siteMetadata.location}.`}
       />
-      <main className={styles.main}>
-        <div className={styles.hero_wrapper}>
-          <Img
-            className={classNames("p-cover", styles.hero)}
-            fluid={data.weddingHeroImage.childImageSharp.fluid}
+      <main className={main}>
+        <div className={hero_wrapper}>
+          <GatsbyImage
+            className={classNames("p-cover", hero)}
+            image={data.weddingHeroImage.childImageSharp.gatsbyImageData}
             alt="Selfie of Milind and Alisha taken in a car side mirror"
             imgStyle={{ objectPosition: "36% 50%" }}
           />

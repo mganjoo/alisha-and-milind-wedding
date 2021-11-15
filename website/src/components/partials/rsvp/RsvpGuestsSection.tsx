@@ -8,7 +8,7 @@ import OptionsGroup from "../../form/OptionsGroup"
 import TextInputGroup from "../../form/TextInputGroup"
 import Alert from "../../ui/Alert"
 import { InvitationContext } from "../Authenticated"
-import styles from "./RsvpForm.module.css"
+import { section_heading, section_subheading } from "./RsvpForm.module.css"
 
 function ordinalSuffix(i: number) {
   const ones = i % 10
@@ -51,9 +51,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
         )}
         <h2
           className={
-            invitation.numGuests === 1
-              ? styles.section_heading
-              : styles.section_subheading
+            invitation.numGuests === 1 ? section_heading : section_subheading
           }
           ref={ref}
           id="guests-heading-1"
@@ -61,7 +59,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           {invitation.latestRsvp ? "Editing RSVP" : "Welcome"}
         </h2>
         {invitation.numGuests > 1 && (
-          <h3 className={styles.section_heading} id="guests-heading-2">
+          <h3 className={section_heading} id="guests-heading-2">
             {invitation.partyName}
           </h3>
         )}

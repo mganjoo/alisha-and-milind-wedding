@@ -1,6 +1,6 @@
 import { useField } from "formik"
 import React from "react"
-import { useRegisteredRef } from "react-register-nodes"
+import { useRegisteredRef } from "../../utils/RegisterNodes"
 import LabelWrapper from "./LabelWrapper"
 import TextArea from "./TextArea"
 import TextInput from "./TextInput"

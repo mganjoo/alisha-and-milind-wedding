@@ -1,4 +1,4 @@
-import firebase from "firebase"
+import { Firestore as TFirestore, DocumentReference } from "@firebase/firestore"
 import {
   loadFirestore,
   Firestore,
@@ -9,9 +9,7 @@ import {
 export type AddWithTimestampFnType = (
   collection: string,
   data: Record<string, any>,
-  docRef?: (
-    db: firebase.firestore.Firestore
-  ) => firebase.firestore.DocumentReference
+  docRef?: (db: TFirestore) => DocumentReference
 ) => Promise<Record<string, any> & HasServerTimestamp>
 
 export type FindByIdFnType = (

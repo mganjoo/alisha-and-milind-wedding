@@ -40,7 +40,7 @@ const TravelPage = () => {
   )
   return (
     <NavLayout
-      heroImage={data.heroImage.childImageSharp.fluid}
+      heroImage={data.heroImage.childImageSharp.gatsbyImageData}
       alt="Picture of Alisha pointing at something in the distance and Milind looking on"
     >
       <SEO

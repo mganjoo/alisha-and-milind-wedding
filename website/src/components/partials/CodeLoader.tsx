@@ -1,9 +1,10 @@
-import { RouteComponentProps, navigate } from "@reach/router"
+import { navigate } from "gatsby"
 import React, { useEffect } from "react"
 import { fetchAndSaveInvitationByCode } from "../../services/Invitation"
 import Loading from "../ui/Loading"
 
-interface CodeLoaderProps extends RouteComponentProps {
+interface CodeLoaderProps {
+  path: string
   redirectTo: string
   code?: string
 }

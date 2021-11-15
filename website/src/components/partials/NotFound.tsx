@@ -1,19 +1,16 @@
-import { RouteComponentProps } from "@reach/router"
 import { useStaticQuery, graphql, Link } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import React from "react"
 import BaseLayout from "../layout/BaseLayout"
 import SEO from "../meta/SEO"
 
-const NotFound: React.FC<RouteComponentProps> = () => {
+const NotFound: React.FC = () => {
   const imageData = useStaticQuery(
     graphql`
       query {
         image: file(relativePath: { eq: "where-am-i.jpg" }) {
           childImageSharp {
-            fluid(maxWidth: 576) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(layout: CONSTRAINED, width: 576)
           }
         }
       }
@@ -31,9 +28,9 @@ const NotFound: React.FC<RouteComponentProps> = () => {
               celebrations on the <Link to="/">homepage</Link>!
             </p>
           </div>
-          <Img
+          <GatsbyImage
             className="w-full"
-            fluid={imageData.image.childImageSharp.fluid}
+            image={imageData.image.childImageSharp.gatsbyImageData}
             alt="Milind looking away in the distance, confused."
           />
         </div>

@@ -1,6 +1,6 @@
 import { useFormikContext } from "formik"
 import React from "react"
-import { useRegisteredRef } from "react-register-nodes"
+import { useRegisteredRef } from "../../utils/RegisterNodes"
 import InputGroup from "./InputGroup"
 import LabelledTextField from "./LabelledTextField"
 import TextInput from "./TextInput"

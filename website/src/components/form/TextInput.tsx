@@ -1,7 +1,7 @@
 import classnames from "classnames"
 import { useField } from "formik"
 import React from "react"
-import styles from "./TextInput.module.css"
+import { input, invalid as invalid_style } from "./TextInput.module.css"
 
 interface TextInputProps
   extends React.DetailedHTMLProps<
@@ -24,8 +24,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         {...field}
         ref={ref}
         type={type}
-        className={classnames(styles.input, "c-form-element-border", {
-          [styles.invalid]: invalid,
+        className={classnames(input, "c-form-element-border", {
+          [invalid_style]: invalid,
         })}
         {...otherProps}
       />

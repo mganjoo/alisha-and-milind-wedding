@@ -82,33 +82,39 @@ const StoryPage = () => {
         <ImageGrid
           images={[
             {
-              image: data.chicago.childImageSharp.fluid,
+              image: data.chicago.childImageSharp.gatsbyImageData,
+              id: "chicago",
               alt: "Selfie of Milind and Alisha with snowfall in the foreground",
               caption: "Chicago",
             },
             {
-              image: data.yosemite.childImageSharp.fluid,
+              image: data.yosemite.childImageSharp.gatsbyImageData,
+              id: "yosemite",
               alt: "Selfie of Milind and Alisha in backpacking clothes and gear",
               caption: "Yosemite National Park",
             },
             {
-              image: data.redRock.childImageSharp.fluid,
+              image: data.redRock.childImageSharp.gatsbyImageData,
+              id: "redRock",
               alt: "Picture of Milind and Alisha in Red Rock National Canyon, Las Vegas",
               caption: "Red Rock Canyon",
             },
             {
-              image: data.sandiego.childImageSharp.fluid,
+              image: data.sandiego.childImageSharp.gatsbyImageData,
+              id: "sandiego",
               alt: "Picture of Alisha and Milind laughing at the camera",
               caption: "San Diego",
               objectPosition: "15% 50%",
             },
             {
-              image: data.tahoe.childImageSharp.fluid,
+              image: data.tahoe.childImageSharp.gatsbyImageData,
+              id: "tahoe",
               alt: "Selfie of Milind and Alisha in front of Lake Tahoe",
               caption: "Lake Tahoe",
             },
             {
-              image: data.halloween.childImageSharp.fluid,
+              image: data.halloween.childImageSharp.gatsbyImageData,
+              id: "halloween",
               alt: "Picture of Milind in a Tapatio t-shirt and Alisha in a Sriracha t-shirt at Halloween in San Francisco",
               caption: "“Hot sauce” Halloween",
               objectPosition: "50% 5%",
@@ -146,12 +152,14 @@ const StoryPage = () => {
         <ImageGrid
           images={[
             {
-              image: data.proposal1.childImageSharp.fluid,
+              image: data.proposal1.childImageSharp.gatsbyImageData,
+              id: "proposal1",
               alt: "Picture of Milind proposing to Alisha with a view of the Golden Gate Bridge in the background",
               objectPosition: "50% 70%",
             },
             {
-              image: data.proposal2.childImageSharp.fluid,
+              image: data.proposal2.childImageSharp.gatsbyImageData,
+              id: "proposal2",
               alt: "Picture of Alisha and Milind at dinner celebrating engagement",
             },
           ]}

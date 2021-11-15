@@ -1,9 +1,8 @@
 module.exports = ({ env }) => ({
   plugins: [
     require("postcss-import"),
+    require("tailwindcss/nesting")(require("postcss-nesting")),
     require("tailwindcss"),
-    require("postcss-nesting"),
-    require("postcss-extend"),
     require("postcss-assets")({ loadPaths: ["src/images"] }),
     env === "production"
       ? require("postcss-custom-properties")({ preserve: false })

@@ -1,11 +1,10 @@
-import { RouteComponentProps } from "@reach/router"
 import React from "react"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
 import InvitationCard from "../components/partials/InvitationCard"
 import { isInvitationNavigationState } from "../interfaces/InvitationNavigationState"
 
-const InvitationPage: React.FC<RouteComponentProps> = ({ location }) => {
+const InvitationPage: React.FC<any> = ({ location }) => {
   const arrivedFromRsvp =
     location && isInvitationNavigationState(location.state)
       ? location.state.fromRsvp

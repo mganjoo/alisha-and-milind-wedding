@@ -86,10 +86,11 @@ module.exports = {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/r/*`] },
     },
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-catch-links`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -123,6 +124,5 @@ module.exports = {
     `gatsby-plugin-postcss`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-offline`,
-    `gatsby-plugin-webpack-size`,
   ],
 }

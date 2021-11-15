@@ -19,7 +19,7 @@ const IndexPage = () => {
   )
   return (
     <NavLayout
-      heroImage={imageData.heroImage.childImageSharp.fluid}
+      heroImage={imageData.heroImage.childImageSharp.gatsbyImageData}
       alt="Milind leading Alisha by the hand on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey flowy dress"
     >
       <SEO

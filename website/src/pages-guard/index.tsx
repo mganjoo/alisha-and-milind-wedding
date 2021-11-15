@@ -1,5 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
+import { getImage } from "gatsby-plugin-image"
+import { convertToBgImage } from "gbimage-bridge"
 import React from "react"
 import BaseLayout from "../components/layout/BaseLayout"
 import SEO from "../components/meta/SEO"
@@ -10,14 +12,13 @@ const IndexPage = () => {
       query {
         heroImage: file(relativePath: { eq: "main-hero-large.jpg" }) {
           childImageSharp {
-            fluid(quality: 95) {
-              ...GatsbyImageSharpFluid_noBase64
-            }
+            gatsbyImageData(layout: FULL_WIDTH, quality: 95)
           }
         }
       }
     `
   )
+  const bgImage = convertToBgImage(getImage(imageData.heroImage))
   return (
     <BaseLayout>
       <h1 className="sr-only">Alisha &amp; Milind Wedding</h1>
@@ -27,10 +28,7 @@ const IndexPage = () => {
         description="Due to the COVID-19 pandemic, we have decided to cancel our planned wedding celebrations in October. We&rsquo;re still figuring out our next steps, and we hope to celebrate in person with you some day soon!"
       />
       <main>
-        <BackgroundImage
-          className="min-h-screen"
-          fluid={imageData.heroImage.childImageSharp.fluid}
-        >
+        <BackgroundImage className="min-h-screen" {...bgImage}>
           <div className="min-h-screen flex justify-center items-center">
             <div className="p-6 font-serif text-lg bg-background-night bg-opacity-75 text-primary-night sm:mx-auto sm:max-w-sm sm:rounded-md sm:bg-opacity-50">
               <p>

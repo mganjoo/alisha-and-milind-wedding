@@ -1,7 +1,7 @@
 import classnames from "classnames"
 import React, { useRef, useEffect } from "react"
-import { useRegisteredRef } from "react-register-nodes"
 import { useUID } from "react-uid"
+import { useRegisteredRef } from "../../utils/RegisterNodes"
 import { scrollIntoView } from "../../utils/Utils"
 
 interface AlertProps {

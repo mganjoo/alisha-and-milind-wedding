@@ -1,3 +1,4 @@
+import { doc } from "firebase/firestore"
 import {
   Invitation,
   Rsvp,
@@ -76,7 +77,7 @@ export async function addRsvp(
   const dataWithTimestamp = await firestore.addWithTimestamp(
     rsvpsCollection,
     rsvp,
-    (db) => db.collection(invitationsCollection).doc(invitation.code)
+    (db) => doc(db, invitationsCollection, invitation.code)
   )
   const latestRsvp = {
     ...rsvp,

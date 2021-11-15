@@ -45,6 +45,12 @@
     The site will be running at `http://localhost:8000`, and the GraphiQL
     tool will be at `http://localhost:8000/___graphql`.
 
+### CSS Modules typings
+
+This project uses [CSS Modules](https://www.gatsbyjs.com/docs/how-to/styling/css-modules/)
+within Gatsby for some components. To ensure typings are generated for these files, run
+`npm run generate:csstypes` from within the `website/` folder.
+
 ## ⚙️ Netlify configuration environment variables
 
 These options control how the Gatsby site gets generated. These options
@@ -88,15 +94,6 @@ npm run test
 cd website
 npm run develop
 npm run cy:open
-```
-
-## 📗 Storybook
-
-This project uses [Storybook](https://storybook.js.org) for development of UI
-components. To run a local instance of Storybook on port 6006:
-
-```sh
-npm run storybook
 ```
 
 ## 🔄 Continuous integration

@@ -6,12 +6,8 @@
   --aspect-ratio: 1.4;
 }
 
-.full_area {
-  @apply absolute w-full h-full top-0 left-0 bg-no-repeat bg-contain;
-}
-
 .flippable {
-  @extend .full_area;
+  @apply absolute w-full h-full top-0 left-0 bg-no-repeat bg-contain;
 
   /* So that the faces of the flippable div are independent */
   transform-style: preserve-3d;

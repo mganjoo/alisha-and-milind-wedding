@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/react"
-import firebase from "firebase"
+import { Timestamp } from "firebase/firestore"
 import React from "react"
 import "@testing-library/jest-dom/extend-expect"
 import {
@@ -27,7 +27,7 @@ describe("SaveTheDateForm", () => {
       (_1: string, record: Record<string, any>) =>
         Promise.resolve({
           ...record,
-          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          createdAt: Timestamp.fromDate(new Date()),
         })
     ) as jest.MockedFunction<AddWithTimestampFnType>
     mockLoadFirestoreImpl({ mockAddWithTimestamp })
@@ -60,7 +60,7 @@ describe("SaveTheDateForm", () => {
       (_1: string, record: Record<string, any>) =>
         delayedPromise(5000, {
           ...record,
-          createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+          createdAt: Timestamp.fromDate(new Date()),
         })
     ) as jest.MockedFunction<AddWithTimestampFnType>
     mockLoadFirestoreImpl({ mockAddWithTimestamp })

@@ -2,12 +2,14 @@ import { animated, to, useSpring } from "@react-spring/web"
 import classNames from "classnames"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import BackgroundImage from "gatsby-background-image"
+import { getImage } from "gatsby-plugin-image"
+import { convertToBgImage } from "gbimage-bridge"
 import React, { useContext, useEffect, useState } from "react"
 import Div100vh from "react-div-100vh"
 import { Helmet } from "react-helmet"
 import { useStateList } from "../../utils/UtilHooks"
 import Authenticated, { InvitationContext } from "./Authenticated"
-import styles from "./InvitationCard.module.css"
+import * as styles from "./InvitationCard.module.css"
 
 type AnimationState =
   | "new"
@@ -102,9 +104,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
       query {
         invitation: file(relativePath: { eq: "invitation/invitation.jpg" }) {
           childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_noBase64
-            }
+            gatsbyImageData(layout: CONSTRAINED)
           }
         }
       }
@@ -160,6 +160,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
     immediate: (key) => key === "flapZIndex" && !isAfter("flap-open"),
   })
   const linksProps = useSpring({ opacity: isAfter("letter-displayed") ? 1 : 0 })
+  const bgImage = convertToBgImage(getImage(imageData.invitation))
 
   return (
     <div className={styles.outer_wrapper}>
@@ -229,13 +230,13 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                 <BackgroundImage
                   style={{ width: "100%", height: "100%" }}
                   fadeIn={false}
-                  fluid={imageData.invitation.childImageSharp.fluid}
                   onLoad={() => setLetterLoaded(true)}
+                  {...bgImage}
                 />
               </animated.div>
               <div
                 className={classNames(
-                  styles.full_area,
+                  styles.flippable,
                   styles.back_bottom_flaps
                 )}
               ></div>
