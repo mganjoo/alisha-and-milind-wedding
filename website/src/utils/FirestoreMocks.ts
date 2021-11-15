@@ -1,7 +1,6 @@
 import { Firestore as TFirestore, DocumentReference } from "@firebase/firestore"
 import {
   loadFirestore,
-  Firestore,
   HasServerTimestamp,
   QueryResult,
 } from "../services/Firestore"
@@ -27,13 +26,13 @@ export function mockLoadFirestoreImpl(mocks: LoadFirestoreImplFunctions) {
     typeof loadFirestore
   >
   mockLoadFirestore.mockImplementation(() => {
-    return Promise.resolve<Firestore>({
+    return {
       addWithTimestamp: mocks.mockAddWithTimestamp
         ? mocks.mockAddWithTimestamp
         : (jest.fn() as jest.MockedFunction<AddWithTimestampFnType>),
       findById: mocks.mockFindById
         ? mocks.mockFindById
         : (jest.fn() as jest.MockedFunction<FindByIdFnType>),
-    })
+    }
   })
 }

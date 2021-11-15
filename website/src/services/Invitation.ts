@@ -22,7 +22,7 @@ const rsvpsCollection = "rsvps"
 export async function fetchAndSaveInvitationByCode(
   code: string
 ): Promise<Invitation | undefined> {
-  const firestore = await loadFirestore()
+  const firestore = loadFirestore()
   const result = await firestore.findById(invitationsCollection, code)
   if (result) {
     const data = result.data
@@ -37,7 +37,7 @@ export async function fetchAndSaveInvitationByCode(
 export async function fetchAndSaveInvitationByEmail(
   email: string
 ): Promise<Invitation | undefined> {
-  const firestore = await loadFirestore()
+  const firestore = loadFirestore()
   const result = await firestore.findById(
     inviteesCollection,
     email.toLowerCase()
@@ -73,7 +73,7 @@ export async function addRsvp(
   invitation: Invitation,
   rsvp: Rsvp
 ): Promise<Invitation> {
-  const firestore = await loadFirestore()
+  const firestore = loadFirestore()
   const dataWithTimestamp = await firestore.addWithTimestamp(
     rsvpsCollection,
     rsvp,

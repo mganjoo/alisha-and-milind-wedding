@@ -92,7 +92,7 @@ const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
       projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
     }
 
-export async function loadFirestore() {
+export function loadFirestore() {
   const apps = getApps()
   const firebaseInstance = apps.length
     ? getApp()
