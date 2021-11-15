@@ -1,4 +1,5 @@
-import admin from "firebase-admin"
+import { getApp } from "firebase-admin/app"
+import { getFirestore } from "firebase-admin/firestore"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 
@@ -12,7 +13,7 @@ interface Contact {
 }
 
 export async function getContacts(after?: string) {
-  const contactsRef = admin.firestore().collection("contacts")
+  const contactsRef = getFirestore(getApp()).collection("contacts")
   const cursor = await (after
     ? contactsRef.doc(after).get()
     : Promise.resolve(undefined))

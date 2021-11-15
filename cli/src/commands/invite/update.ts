@@ -5,7 +5,8 @@ import Papa from "papaparse"
 import _ from "lodash"
 import { cli } from "cli-ux"
 import yn from "yn"
-import admin from "firebase-admin"
+import { getApp } from "firebase-admin/app"
+import { getFirestore } from "firebase-admin/firestore"
 import { object, string, number, array, InferType } from "yup"
 import shortid from "shortid"
 import Mailchimp from "mailchimp-api-v3"
@@ -336,7 +337,7 @@ export default class InviteUpdate extends BaseCommand {
     if (flags.dryRun) {
       this.log("skipping firestore writes")
     } else {
-      const invitationsRef = admin.firestore().collection("invitations")
+      const invitationsRef = getFirestore(getApp()).collection("invitations")
       const firestoreInvitationBatches = _.chain(parties)
         .map(({ code, partyName, numGuests, knownGuests, itype }) => ({
           code,
@@ -351,7 +352,7 @@ export default class InviteUpdate extends BaseCommand {
       cli.action.start(`writing ${parties.length} invitations to firestore`)
       await Promise.all(
         firestoreInvitationBatches.map((records) => {
-          const batch = admin.firestore().batch()
+          const batch = getFirestore(getApp()).batch()
           records.forEach((invitation) =>
             batch.set(invitationsRef.doc(invitation.code), invitation, {
               merge: true,
@@ -372,13 +373,13 @@ export default class InviteUpdate extends BaseCommand {
         firestoreInviteeRecords,
         FirestoreChunkSize
       )
-      const inviteesRef = admin.firestore().collection("invitees")
+      const inviteesRef = getFirestore(getApp()).collection("invitees")
       cli.action.start(
         `writing ${firestoreInviteeRecords.length} invitees to firestore`
       )
       await Promise.all(
         firestoreInviteeBatches.map((records) => {
-          const batch = admin.firestore().batch()
+          const batch = getFirestore(getApp()).batch()
           records.forEach((invitee) =>
             batch.set(inviteesRef.doc(invitee.id), invitee.data, {
               merge: true,

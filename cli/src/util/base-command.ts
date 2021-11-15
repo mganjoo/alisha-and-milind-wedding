@@ -1,6 +1,6 @@
 import Command, { flags } from "@oclif/command"
 import chalk from "chalk"
-import admin from "firebase-admin"
+import { initializeApp, cert, applicationDefault } from "firebase-admin/app"
 import fs from "fs-extra"
 import path from "path"
 import { cli } from "cli-ux"
@@ -97,21 +97,21 @@ export default abstract class BaseCommand extends Command {
 
   private async initializeFirebase(credentialsPath?: string) {
     if (credentialsPath) {
-      admin.initializeApp({
-        credential: admin.credential.cert(credentialsPath),
+      initializeApp({
+        credential: cert(credentialsPath),
       })
     } else if (
       process.env.GOOGLE_APPLICATION_CREDENTIALS ||
       process.env.FIRESTORE_EMULATOR_HOST
     ) {
-      admin.initializeApp({
-        credential: admin.credential.applicationDefault(),
+      initializeApp({
+        credential: applicationDefault(),
       })
     } else {
       const config = await this.loadConfig()
       if (config && config.firebase) {
-        admin.initializeApp({
-          credential: admin.credential.cert(config.firebase),
+        initializeApp({
+          credential: cert(config.firebase),
         })
       } else {
         this.error(

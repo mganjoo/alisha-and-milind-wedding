@@ -1,4 +1,5 @@
-import * as admin from "firebase-admin"
+import { initializeApp } from "firebase-admin/app"
+import { DocumentData, getFirestore, Timestamp } from "firebase-admin/firestore"
 import * as functions from "firebase-functions"
 import { invitations, invitees, events } from "./fixtures"
 import { google } from "googleapis"
@@ -10,8 +11,8 @@ import Mailchimp = require("mailchimp-api-v3")
 
 dayjs.extend(utc)
 
-admin.initializeApp()
-const db = admin.firestore()
+const app = initializeApp()
+const db = getFirestore(app)
 
 /**
  * Configuration for OAuth authentication.
@@ -106,15 +107,12 @@ async function getAuthorizedClient() {
  * Update the "latestRsvp" field of the invitation with information
  * from an incoming RSVP.
  */
-async function writeLatestRsvp(
-  data: admin.firestore.DocumentData,
-  code: string
-) {
+async function writeLatestRsvp(data: DocumentData, code: string) {
   try {
     const { createdAt, ...otherData } = data
     const dataWithTimestamp = {
       ...otherData,
-      timestampMillis: (createdAt as admin.firestore.Timestamp).toMillis(),
+      timestampMillis: (createdAt as Timestamp).toMillis(),
     }
     await db.collection("invitations").doc(code).update({
       latestRsvp: dataWithTimestamp,
@@ -128,11 +126,7 @@ async function writeLatestRsvp(
   }
 }
 
-async function appendRsvpToSheet(
-  id: string,
-  data: admin.firestore.DocumentData,
-  code: string
-) {
+async function appendRsvpToSheet(id: string, data: DocumentData, code: string) {
   try {
     const auth = await getAuthorizedClient()
     if (auth) {
@@ -182,8 +176,7 @@ async function appendRsvpToSheet(
         functions.logger.info(`Successfully appended RSVP to sheet`)
 
         // Append to mail collection
-        await admin
-          .firestore()
+        await getFirestore(app)
           .collection("mail")
           .add({
             to: "alisha.and.milind+rsvps@gmail.com",
@@ -215,10 +208,7 @@ ${data.guests
   }
 }
 
-async function updateContactTags(
-  data: admin.firestore.DocumentData,
-  code: string
-) {
+async function updateContactTags(data: DocumentData, code: string) {
   if (!ProjectIsProd) {
     return
   }

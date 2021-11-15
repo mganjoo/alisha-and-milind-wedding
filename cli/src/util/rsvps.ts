@@ -1,4 +1,5 @@
-import admin from "firebase-admin"
+import { getApp } from "firebase-admin/app"
+import { getFirestore } from "firebase-admin/firestore"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import _ from "lodash"
@@ -24,9 +25,8 @@ interface RsvpWithParty extends Rsvp {
 }
 
 async function getRsvps(oldDate: boolean) {
-  const invitationsRef = admin.firestore().collection("invitations")
-  const rsvpsRef = admin
-    .firestore()
+  const invitationsRef = getFirestore(getApp()).collection("invitations")
+  const rsvpsRef = getFirestore(getApp())
     .collectionGroup("rsvps")
     .where("createdAt", oldDate ? "<" : ">=", newDateCutoff)
   const snapshot = await rsvpsRef.get()
