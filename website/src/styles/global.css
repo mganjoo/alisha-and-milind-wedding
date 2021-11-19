@@ -41,7 +41,7 @@
 
 .c-link-focus-outline,
 .c-inline-button {
-  @apply focus:outline-none focus:ring focus:ring-opacity-90 focus:ring-accent-focus dark:focus:ring-accent-focus-night dark:focus:ring-opacity-100;
+  @apply focus-visible:outline-none focus-visible:ring focus-visible:ring-opacity-90 focus-visible:ring-accent-focus dark:focus-visible:ring-accent-focus-night dark:focus-visible:ring-opacity-100;
 }
 
 .c-inline-button {
@@ -78,10 +78,6 @@
 .c-article > dl > dd,
 .c-article > ul > li {
   @apply font-serif text-lg;
-
-  & > a {
-    @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus:outline-none focus:bg-accent-focus focus:text-primary dark:focus:bg-accent-focus-night;
-  }
 }
 
 .c-article > p,
@@ -124,6 +120,10 @@
     & > li {
       @apply list-disc list-outside mb-2;
     }
+  }
+
+  & a {
+    @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus-visible:outline-none focus-visible:bg-accent-focus focus-visible:text-primary dark:focus-visible:bg-accent-focus-night;
   }
 }
 

@@ -136,10 +136,5 @@ module.exports = {
   },
   plugins: [require("@tailwindcss/forms")],
   darkMode: "media",
-  purge: {
-    content: ["./src/**/*.{tsx, module.css}"],
-    options: {
-      rejected: true,
-    },
-  },
+  purge: ["./src/**/*.{tsx, module.css}"],
 }

@@ -45,16 +45,15 @@ const RsvpPage = () => {
                 COVID-19 situation. We&rsquo;ll check back in during the summer
                 &mdash; until then, let us know whenever you like!
               </p>
-              <p></p>
-              <div className="flex justify-center my-6">
-                <Link
-                  to="/invitation"
-                  state={{ fromRsvp: true } as InvitationNavigationState}
-                  className="c-button c-button-secondary c-button-compact shadow-md"
-                >
-                  View your invitation
-                </Link>
-              </div>
+            </div>
+            <div className="flex justify-center my-6">
+              <Link
+                to="/invitation"
+                state={{ fromRsvp: true } as InvitationNavigationState}
+                className="c-button c-button-secondary c-button-compact shadow-md"
+              >
+                View your invitation
+              </Link>
             </div>
             <ReeditableRsvpForm />
           </div>
