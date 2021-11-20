@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: "14"
       - name: Install packages
-        run: |
-          npm ci
-        working-directory: ./cli
+        uses: bahmutov/npm-install@v1
+        with:
+          working-directory: ./cli
       - name: Run tests
         run: |
           npm run test:ci

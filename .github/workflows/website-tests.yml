@@ -31,8 +31,11 @@ jobs:
         with:
           node-version: "14"
       - name: Install packages
+        uses: bahmutov/npm-install@v1
+        with:
+          working-directory: ./website
+      - name: Verify Cypress
         run: |
-          npm ci
           $(npm bin)/cypress verify
         working-directory: ./website
         env:

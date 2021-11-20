@@ -17,9 +17,14 @@ jobs:
         with:
           node-version: "14"
       - name: Install packages
-        run: |
-          npm ci
-        working-directory: ./functions
+        uses: bahmutov/npm-install@v1
+        with:
+          working-directory: ./functions
+      - name: Cache firebase emulators
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/firebase/emulators
+          key: ${{ runner.os }}-firebase-emulators-${{ hashFiles('~/.cache/firebase/emulators/**') }}
       - name: Run tests
         run: |
           npm run test:ci
