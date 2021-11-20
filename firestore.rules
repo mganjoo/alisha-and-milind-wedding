@@ -24,8 +24,7 @@ service cloud.firestore {
 
     match /invitations/{code} {
       allow get:
-        if code != "__reject_request__"
-        && (resource == null || !resource.data.get("inactive", false));
+        if (resource == null || !resource.data.get("inactive", false));
 
       match /rsvps/{rsvp} {
         function attending() {

@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "esnext",
-    "noEmit": true
+    "noEmit": true,
+    "skipLibCheck": true
   },
   "compileOnSave": true
 }

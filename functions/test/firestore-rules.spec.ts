@@ -1,84 +1,107 @@
-import * as firebase from "@firebase/testing"
-import * as fs from "fs"
+import {
+  assertFails,
+  assertSucceeds,
+  initializeTestEnvironment,
+  RulesTestEnvironment,
+} from "@firebase/rules-unit-testing"
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  setLogLevel,
+  where,
+  CollectionReference,
+  DocumentData,
+  Timestamp,
+} from "firebase/firestore"
+import { readFileSync } from "fs"
 
-const projectId = "test-rules"
-const rules = fs.readFileSync("../firestore.rules", "utf8")
+const projectId = "demo-alisha-and-milind-wedding"
+const rules = readFileSync("../firestore.rules", "utf8")
 
-function firestore(): firebase.firestore.Firestore {
-  return firebase
-    .initializeTestApp({
-      projectId,
-    })
-    .firestore()
+let testEnv: RulesTestEnvironment
+
+async function initializeCollection(
+  coll: string,
+  docId: string,
+  data: DocumentData
+) {
+  await testEnv.withSecurityRulesDisabled(
+    async (context) => await setDoc(doc(context.firestore(), coll, docId), data)
+  )
 }
 
-function firestoreAdmin(): firebase.firestore.Firestore {
-  return firebase
-    .initializeAdminApp({
-      projectId,
-    })
-    .firestore()
+function contacts(): CollectionReference {
+  return collection(testEnv.unauthenticatedContext().firestore(), "contacts")
 }
 
-function contacts(): firebase.firestore.CollectionReference {
-  return firestore().collection("contacts")
+function invitations(): CollectionReference {
+  return collection(testEnv.unauthenticatedContext().firestore(), "invitations")
 }
 
-function invitations(): firebase.firestore.CollectionReference {
-  return firestore().collection("invitations")
+function rsvps(invitationId: string): CollectionReference {
+  return collection(
+    doc(
+      testEnv.unauthenticatedContext().firestore(),
+      "invitations",
+      invitationId
+    ),
+    "rsvps"
+  )
 }
 
-function invitation(
-  invitationId: string
-): firebase.firestore.DocumentReference {
-  return firestore().collection("invitations").doc(invitationId)
-}
-
-function rsvps(invitationId: string): firebase.firestore.CollectionReference {
-  return invitation(invitationId).collection("rsvps")
-}
-
-function invitees(): firebase.firestore.CollectionReference {
-  return firestore().collection("invitees")
+function invitees(): CollectionReference {
+  return collection(testEnv.unauthenticatedContext().firestore(), "invitees")
 }
 
 describe("Firestore rules", () => {
-  beforeAll(async () => firebase.loadFirestoreRules({ projectId, rules }))
-  beforeEach(async () => firebase.clearFirestoreData({ projectId }))
-  afterAll(async () => Promise.all(firebase.apps().map((app) => app.delete())))
+  beforeAll(async () => {
+    // Silence expected read errors
+    setLogLevel("error")
+    testEnv = await initializeTestEnvironment({
+      projectId,
+      firestore: { rules },
+    })
+  })
+  beforeEach(async () => testEnv.clearFirestore())
+  afterAll(async () => testEnv.cleanup())
 
   describe("for Contacts collection", () => {
     it("should allow writes containing name, email and createdAt timestamp", async () => {
-      await firebase.assertSucceeds(
-        contacts().add({
+      await assertSucceeds(
+        addDoc(contacts(), {
           name: "Lorem Ipsum",
           email: "lorem@example.com",
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes with missing name", async () => {
-      await firebase.assertFails(
-        contacts().add({
+      await assertFails(
+        addDoc(contacts(), {
           email: "lorem@example.com",
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes with missing email", async () => {
-      await firebase.assertFails(
-        contacts().add({
+      await assertFails(
+        addDoc(contacts(), {
           name: "Jack Jones",
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes with missing timestamp", async () => {
-      await firebase.assertFails(
-        contacts().add({
+      await assertFails(
+        addDoc(contacts(), {
           name: "Jack Jones",
           email: "jack.jones@gmail.com",
         })
@@ -86,8 +109,8 @@ describe("Firestore rules", () => {
     })
 
     it("should reject writes with timestamp of wrong type", async () => {
-      await firebase.assertFails(
-        contacts().add({
+      await assertFails(
+        addDoc(contacts(), {
           name: "Jack Jones",
           email: "jack.jones@gmail.com",
           timestamp: "wrong type",
@@ -96,154 +119,134 @@ describe("Firestore rules", () => {
     })
 
     it("should reject writes with extra fields", async () => {
-      await firebase.assertFails(
-        contacts().add({
+      await assertFails(
+        addDoc(contacts(), {
           name: "Lorem Ipsum",
           email: "lorem@example.com",
           extra: true,
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes with special field", async () => {
-      await firebase.assertFails(
-        contacts().add({
+      await assertFails(
+        addDoc(contacts(), {
           name: "__reject_submission__",
           email: "lorem@example.com",
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject all reads", async () => {
-      await firebase.assertFails(
-        contacts().where("name", "==", "Jack Jones").get()
+      await assertFails(
+        getDocs(query(contacts(), where("name", "==", "Jack Jones")))
       )
     })
   })
 
   describe("for Invitations collection", () => {
     it("should allow reading a single non-existent code", async () => {
-      await firebase.assertSucceeds(invitations().doc("abc").get())
+      await assertSucceeds(getDoc(doc(invitations(), "abc")))
     })
 
     it("should allow reading a single code with 'inactive' unset", async () => {
-      await firestoreAdmin()
-        .collection("invitations")
-        .doc("abc")
-        .set({
-          code: "abc",
-          partyName: "Terry Gordon & Family",
-          numGuests: 3,
-          knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
-        })
-      await firebase.assertSucceeds(invitations().doc("abc").get())
+      await initializeCollection("invitations", "abc", {
+        code: "abc",
+        partyName: "Terry Gordon & Family",
+        numGuests: 3,
+        knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
+      })
+      await assertSucceeds(getDoc(doc(invitations(), "abc")))
     })
 
     it("should reject reading a single code with 'inactive' set", async () => {
-      await firestoreAdmin()
-        .collection("invitations")
-        .doc("abc")
-        .set({
-          code: "abc",
-          partyName: "Terry Gordon & Family",
-          numGuests: 3,
-          knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
-          inactive: true,
-        })
-      await firebase.assertFails(invitations().doc("abc").get())
-    })
-
-    it("should reject query for special code", async () => {
-      await firebase.assertFails(invitations().doc("__reject_request__").get())
+      await initializeCollection("invitations", "abc", {
+        code: "abc",
+        partyName: "Terry Gordon & Family",
+        numGuests: 3,
+        knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
+        inactive: true,
+      })
+      await assertFails(getDoc(doc(invitations(), "abc")))
     })
 
     it("should reject queries for codes", async () => {
-      await firebase.assertFails(invitees().where("partyName", ">", "a").get())
+      await assertFails(
+        getDocs(query(invitees(), where("partyName", ">", "a")))
+      )
     })
   })
 
   describe("for Invitees collection", () => {
     it("should allow reading a single non-existent email", async () => {
-      await firebase.assertSucceeds(invitees().doc("abc").get())
+      await assertSucceeds(getDoc(doc(invitees(), "abc")))
     })
 
     it("should allow reading a single email with 'inactive' unset", async () => {
-      await firestoreAdmin().collection("invitees").doc("abc@example.com").set({
+      await initializeCollection("invitees", "abc@example.com", {
         name: "Jack Jones",
         code: "abc",
       })
-      await firebase.assertSucceeds(invitees().doc("abc@example.com").get())
+      await assertSucceeds(getDoc(doc(invitees(), "abc@example.com")))
     })
 
     it("should reject reading a single email with 'inactive' set", async () => {
-      await firestoreAdmin().collection("invitees").doc("abc@example.com").set({
+      await initializeCollection("invitees", "abc@example.com", {
         name: "Jack Jones",
         code: "abc",
         inactive: true,
       })
-      await firebase.assertFails(invitees().doc("abc@example.com").get())
+      await assertFails(getDoc(doc(invitees(), "abc@example.com")))
     })
 
     it("should reject query for special email", async () => {
-      await firebase.assertFails(
-        invitees().doc("__reject_request__@example.com").get()
+      await assertFails(
+        getDoc(doc(invitees(), "__reject_request__@example.com"))
       )
     })
 
     it("should reject queries for emails", async () => {
-      await firebase.assertFails(invitees().where("email", ">", "a").get())
+      await assertFails(getDocs(query(invitees(), where("email", ">", "a"))))
     })
   })
 
   describe("for Invitations/Rsvps collection", () => {
     beforeEach(async () => {
-      await firestoreAdmin()
-        .collection("invitations")
-        .doc("abc")
-        .set({
-          code: "abc",
-          partyName: "Terry Gordon & Family",
-          numGuests: 3,
-          knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
-          itype: "a",
-        })
-      await firestoreAdmin()
-        .collection("invitations")
-        .doc("xyz")
-        .set({
-          code: "xyz",
-          partyName: "John Jacobs",
-          numGuests: 3,
-          knownGuests: ["JohnJacobs"],
-          itype: "w",
-        })
-      await firestoreAdmin()
-        .collection("invitations")
-        .doc("efg")
-        .set({
-          code: "efg",
-          partyName: "Chandler Bing",
-          numGuests: 1,
-          itype: "sr",
-          knownGuests: ["Chandler Bing"],
-        })
-      await firestoreAdmin()
-        .collection("invitations")
-        .doc("ghi")
-        .set({
-          code: "ghi",
-          partyName: "James Johnson",
-          numGuests: 1,
-          itype: "r",
-          knownGuests: ["James Johnson"],
-        })
+      await initializeCollection("invitations", "abc", {
+        code: "abc",
+        partyName: "Terry Gordon & Family",
+        numGuests: 3,
+        knownGuests: ["Terry Gordon", "Allison Little", "Arnold James"],
+        itype: "a",
+      })
+      await initializeCollection("invitations", "xyz", {
+        code: "xyz",
+        partyName: "John Jacobs",
+        numGuests: 3,
+        knownGuests: ["JohnJacobs"],
+        itype: "w",
+      })
+      await initializeCollection("invitations", "efg", {
+        code: "efg",
+        partyName: "Chandler Bing",
+        numGuests: 1,
+        itype: "sr",
+        knownGuests: ["Chandler Bing"],
+      })
+      await initializeCollection("invitations", "ghi", {
+        code: "ghi",
+        partyName: "James Johnson",
+        numGuests: 1,
+        itype: "r",
+        knownGuests: ["James Johnson"],
+      })
     })
 
     it("should allow writes containing attending, guests, and createdAt timestamp", async () => {
-      await firebase.assertSucceeds(
-        rsvps("abc").add({
+      await assertSucceeds(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
@@ -256,14 +259,14 @@ describe("Firestore rules", () => {
               events: ["sangeet", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should allow writes containing attending, guests, comments and createdAt timestamp", async () => {
-      await firebase.assertSucceeds(
-        rsvps("abc").add({
+      await assertSucceeds(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
@@ -276,15 +279,15 @@ describe("Firestore rules", () => {
               events: ["sangeet", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
           comments: "Hope to have a fun time!",
         })
       )
     })
 
     it("should reject writes containing missing timestamp", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
@@ -298,8 +301,8 @@ describe("Firestore rules", () => {
     })
 
     it("should reject writes containing missing attending status", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           guests: [
             {
               name: "Terry Gordon",
@@ -307,23 +310,23 @@ describe("Firestore rules", () => {
             },
             { name: "Allison Little", events: ["sangeet"] },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes containing missing guest list", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes containing comments of invalid type", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
@@ -333,24 +336,24 @@ describe("Firestore rules", () => {
             { name: "Allison Little", events: ["sangeet"] },
           ],
           comments: 1234,
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes containing empty guest list", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes for non-existent code", async () => {
-      await firebase.assertFails(
-        rsvps("non_existent").add({
+      await assertFails(
+        addDoc(rsvps("non_existent"), {
           attending: true,
           guests: [
             {
@@ -358,14 +361,14 @@ describe("Firestore rules", () => {
               events: ["sangeet", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes containing more guests than invited", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
@@ -379,28 +382,28 @@ describe("Firestore rules", () => {
             },
             { name: "Betsy Crocker", events: ["ceremony"] },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes where guest map does not contain name", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
               events: ["sangeet", "mehndi", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes where guest name is empty", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
@@ -408,14 +411,14 @@ describe("Firestore rules", () => {
               events: ["sangeet", "mehndi", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes where events list has invalid name", async () => {
-      await firebase.assertFails(
-        rsvps("abc").add({
+      await assertFails(
+        addDoc(rsvps("abc"), {
           attending: true,
           guests: [
             {
@@ -423,15 +426,15 @@ describe("Firestore rules", () => {
               events: ["sangeet", "whatever", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes when itype != a, RSVP includes pre-events", async () => {
-      await firebase.assertFails(
+      await assertFails(
         // itype = w
-        rsvps("xyz").add({
+        addDoc(rsvps("xyz"), {
           attending: true,
           guests: [
             {
@@ -439,12 +442,12 @@ describe("Firestore rules", () => {
               events: ["sangeet", "mehndi", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
       // itype = sr
-      await firebase.assertFails(
-        rsvps("efg").add({
+      await assertFails(
+        addDoc(rsvps("efg"), {
           attending: true,
           guests: [
             {
@@ -452,12 +455,12 @@ describe("Firestore rules", () => {
               events: ["sangeet", "mehndi", "reception"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
       // itype = r
-      await firebase.assertFails(
-        rsvps("ghi").add({
+      await assertFails(
+        addDoc(rsvps("ghi"), {
           attending: true,
           guests: [
             {
@@ -465,15 +468,15 @@ describe("Firestore rules", () => {
               events: ["haldi", "reception"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should accept writes when itype != a, RSVP does not include pre-events", async () => {
-      await firebase.assertSucceeds(
+      await assertSucceeds(
         // itype = w
-        rsvps("xyz").add({
+        addDoc(rsvps("xyz"), {
           attending: true,
           guests: [
             {
@@ -481,15 +484,15 @@ describe("Firestore rules", () => {
               events: ["sangeet", "ceremony", "reception"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes when itype != a and itype != w, RSVP includes ceremony", async () => {
-      await firebase.assertFails(
+      await assertFails(
         // itype = sr
-        rsvps("efg").add({
+        addDoc(rsvps("efg"), {
           attending: true,
           guests: [
             {
@@ -497,12 +500,12 @@ describe("Firestore rules", () => {
               events: ["sangeet", "ceremony"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
-      await firebase.assertFails(
+      await assertFails(
         // itype = r
-        rsvps("ghi").add({
+        addDoc(rsvps("ghi"), {
           attending: true,
           guests: [
             {
@@ -510,15 +513,15 @@ describe("Firestore rules", () => {
               events: ["ceremony", "reception"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should accept writes when itype != a and itype != w, RSVP does not include ceremony", async () => {
-      await firebase.assertSucceeds(
+      await assertSucceeds(
         // itype = sr
-        rsvps("efg").add({
+        addDoc(rsvps("efg"), {
           attending: true,
           guests: [
             {
@@ -526,15 +529,15 @@ describe("Firestore rules", () => {
               events: ["sangeet", "reception"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should reject writes when itype = r, RSVP includes sangeet", async () => {
-      await firebase.assertFails(
+      await assertFails(
         // itype = r
-        rsvps("ghi").add({
+        addDoc(rsvps("ghi"), {
           attending: true,
           guests: [
             {
@@ -542,15 +545,15 @@ describe("Firestore rules", () => {
               events: ["sangeet", "reception"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
 
     it("should accept writes when itype = r, RSVP does not include sangeet", async () => {
-      await firebase.assertSucceeds(
+      await assertSucceeds(
         // itype = r
-        rsvps("ghi").add({
+        addDoc(rsvps("ghi"), {
           attending: true,
           guests: [
             {
@@ -558,7 +561,7 @@ describe("Firestore rules", () => {
               events: ["reception"],
             },
           ],
-          createdAt: firebase.firestore.Timestamp.now(),
+          createdAt: Timestamp.now(),
         })
       )
     })
