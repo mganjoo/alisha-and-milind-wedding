@@ -67,6 +67,7 @@
     "@testing-library/jest-dom": "5.15.0",
     "@testing-library/react": "12.1.2",
     "@types/jest": "27.0.3",
+    "@types/node": "16.11.9",
     "@types/react-helmet": "6.1.4",
     "@types/shortid": "0.0.29",
     "babel-jest": "27.3.1",
