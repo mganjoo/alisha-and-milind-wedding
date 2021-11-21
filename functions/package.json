@@ -41,9 +41,9 @@
     "check:types": "tsc --noEmit",
     "check:lint": "eslint --cache --ignore-path .gitignore . --ext ts --max-warnings 0",
     "test": "firebase emulators:exec --only firestore 'npm run test:unit'",
-    "test:unit": "FIRESTORE_EMULATOR_HOST=localhost:8080 jest",
+    "test:unit": "FIRESTORE_EMULATOR_HOST=localhost:8080 jest --watchAll=false",
     "test:ci": "npm run check && npm run test",
-    "test:watch": "jest --watch",
+    "test:watch": "FIRESTORE_EMULATOR_HOST=localhost:8080 jest --watch",
     "firestore": "firebase emulators:start --only firestore",
     "deploy": "firebase -P staging deploy",
     "deploy:prod": "firebase -P production deploy"

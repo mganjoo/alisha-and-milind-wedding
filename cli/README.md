@@ -11,6 +11,17 @@ Admin tool to manage wedding data
 - [Commands](#commands)
   <!-- tocstop -->
 
+# Setup
+
+## Service account files
+
+The CLI interacts with Firebase, and for this it requires service account
+credentials for the project in question. To obtain new service account
+credentials, go to the Service Accounts tab under project settings on the
+Firebase Console, and `Generate new private key` for Node.js. You can reference
+the private key file as a flag on the command line, or under the `firebase` key
+in the [config file](https://oclif.io/docs/config) for the CLI tool.
+
 # Usage
 
 <!-- usage -->
@@ -71,7 +82,9 @@ EXAMPLES
 
 ## `wedding-manager contacts:sync`
 
-Sync contacts stored in Firestore with a table in Google Sheets. Finds the latest ID stored in the Google Sheet and appends new rows to the table for new IDs.
+Sync contacts stored in Firestore with a table in Google Sheets. Finds the
+latest ID stored in the Google Sheet and appends new rows to the table for new
+IDs.
 
 ```
 USAGE
@@ -105,7 +118,8 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+_See code:
+[@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `wedding-manager invite:gen-codes`
 
@@ -134,7 +148,8 @@ EXAMPLE
 
 ## `wedding-manager invite:update`
 
-Update invitation and invitee records in Firestore and Mailchimp using CSV exports from Google Sheets.
+Update invitation and invitee records in Firestore and Mailchimp using CSV
+exports from Google Sheets.
 
 ```
 USAGE

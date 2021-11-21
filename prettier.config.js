@@ -15,5 +15,11 @@ module.exports = {
         useTabs: true,
       },
     },
+    {
+      files: ["*/README.md"],
+      options: {
+        proseWrap: "always",
+      },
+    },
   ],
 }
