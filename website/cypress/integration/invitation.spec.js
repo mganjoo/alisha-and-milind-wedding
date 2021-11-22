@@ -50,9 +50,9 @@ describe("invitation tests", function () {
 
     it("should redirect to home page correctly", function () {
       cy.visit(`/r/home/${invitation.code}`)
-      cy.findByText(/welcome to our wedding website/i).should("exist")
+      cy.findByText(/see you soon in vegas/i).should("exist")
       cy.visit(`/schedule`)
-      cy.findAllByText(/san mateo marriott/i).should("exist")
+      cy.findAllByText(/you can find more information/i).should("exist")
     })
 
     it("should show login page when a code is not found", function () {

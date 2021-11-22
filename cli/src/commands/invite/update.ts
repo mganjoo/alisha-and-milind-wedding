@@ -56,7 +56,7 @@ const partySchema = object()
     knownGuests: array().of(string().required()),
   })
 
-type Itype = "a" | "w" | "sr" | "r"
+type Itype = "a" | "pr" | "psr" | "w" | "sr" | "r"
 
 interface Invitation {
   code: string
@@ -125,11 +125,15 @@ export default class InviteUpdate extends BaseCommand {
   ): Itype | undefined {
     if (preEvents && sangeet && ceremony) {
       return "a"
+    } else if (preEvents && sangeet && !ceremony) {
+      return "psr"
+    } else if (preEvents && !sangeet && !ceremony) {
+      return "pr"
     } else if (!preEvents && sangeet && ceremony) {
       return "w"
-    } else if (!preEvents && !ceremony && sangeet) {
+    } else if (!preEvents && sangeet && !ceremony) {
       return "sr"
-    } else if (!preEvents && !ceremony && !sangeet) {
+    } else if (!preEvents && !sangeet && !ceremony) {
       return "r"
     } else {
       return undefined

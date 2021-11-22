@@ -25,7 +25,7 @@ const SaveTheDatePage: React.FC = () => {
         site {
           siteMetadata {
             displayTitle
-            displayDates
+            displayDates: weddingDate(formatString: "MMMM D, YYYY")
             location
           }
         }

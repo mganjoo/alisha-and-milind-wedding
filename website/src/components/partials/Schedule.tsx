@@ -1,7 +1,7 @@
 import { Link } from "gatsby"
 import React, { useContext } from "react"
 import { useEvents } from "../../interfaces/Event"
-import { isRsvpable } from "../../interfaces/Invitation"
+import { invitedToPreEvent, isRsvpable } from "../../interfaces/Invitation"
 import LeafSpacer from "../ui/LeafSpacer"
 import { InvitationContext } from "./Authenticated"
 import ScheduleItem from "./ScheduleItem"
@@ -13,20 +13,13 @@ const Schedule: React.FC = () => {
     <>
       <section className="c-article">
         <p>
-          {invitation.itype === "a"
+          {invitedToPreEvent(invitation)
             ? "The weekend events are "
-            : "All events will be held "}
+            : "The wedding events will be "}
           at the San Mateo Marriott hotel. You can find more information about
           the venue on the <Link to="/travel">Travel &amp; Hotel</Link> page,
           and more details about attire on the <Link to="/faq">FAQ</Link> page.
         </p>
-        {invitation.itype === "a" && (
-          <p>
-            We would also love for you to join us at the Haldi and Mehndi
-            events! We will reach out when the time and place for these events
-            have been confirmed.
-          </p>
-        )}
         <LeafSpacer wide />
       </section>
       <div className="-mb-8">

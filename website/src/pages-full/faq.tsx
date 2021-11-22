@@ -55,7 +55,7 @@ const FaqPage = () => {
               <p>
                 Given the ongoing COVID-19 outbreak,{" "}
                 <strong>
-                  we have changed the wedding events to {value.displayDates}
+                  we have changed the wedding events to {value.weddingDate}
                 </strong>
                 . The location at the San Mateo Marriott in the San Francisco
                 Bay Area will remain the same.

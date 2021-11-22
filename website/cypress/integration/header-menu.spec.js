@@ -21,7 +21,7 @@ describe("header menu on mobile", function () {
   it("closes correctly when clicking outside nav", function () {
     cy.get("@menu_button").click()
     cy.get("nav").should("be.visible")
-    cy.contains("San Mateo").click()
+    cy.contains("Las Vegas").click()
     cy.get("nav").should("not.be.visible")
   })
 })

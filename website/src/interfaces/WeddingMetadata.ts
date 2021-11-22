@@ -4,7 +4,8 @@ export interface WeddingMetadata {
   shortRsvpDeadline?: string
   rsvpDeadline?: string
   bookingDeadline?: string
-  displayDates?: string
+  displayTitle?: string
+  weddingDate?: string
   contactEmail?: string
   siteUrl?: string
   location?: string
@@ -20,7 +21,8 @@ export function useWeddingMetadata() {
           shortRsvpDeadline: rsvpDeadline(formatString: "MMMM D")
           rsvpDeadline: rsvpDeadline(formatString: "MMMM D, YYYY")
           bookingDeadline: bookingDeadline(formatString: "MMMM D, YYYY")
-          displayDates
+          displayTitle
+          weddingDate: weddingDate(formatString: "MMMM D, YYYY")
           mainVenue
           mainVenueUrl
           contactEmail

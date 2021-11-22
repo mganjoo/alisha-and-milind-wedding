@@ -1,6 +1,7 @@
 import classnames from "classnames"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { Link } from "gatsby"
 import React, { useEffect, useRef, useState } from "react"
+import { useWeddingMetadata } from "../../interfaces/WeddingMetadata"
 
 interface HeaderLink {
   text: string
@@ -13,19 +14,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ links }) => {
-  const data = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            displayTitle
-            displayDates
-            location
-          }
-        }
-      }
-    `
-  )
+  const { displayTitle, weddingDate, location } = useWeddingMetadata()
   const [dropdownVisible, setDropdownVisible] = useState(false)
   function closeDropdown() {
     setDropdownVisible(false)
@@ -61,12 +50,11 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         <div className="py-3 text-center sm:pt-4 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-3xl">
             <Link to="/" className="px-1 c-link-focus-outline">
-              {data && data.site.siteMetadata.displayTitle}
+              {displayTitle}
             </Link>
           </h1>
           <h2 className="font-serif text-sm sm:text-lg">
-            {data && data.site.siteMetadata.displayDates} &middot;{" "}
-            {data && data.site.siteMetadata.location}
+            {weddingDate} &middot; {location}
           </h2>
         </div>
         <div className="absolute top-0 right-0 mx-2 h-full flex items-center sm:hidden print:hidden">
@@ -95,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
           "border-subtle h-bg-colors h-fg-colors absolute w-full z-10 border-b font-sans font-semibold text-sm shadow-lg dark:border-subtle-night sm:shadow-none sm:static sm:visible sm:w-auto sm:border-b-0 sm:text-base print:hidden"
         )}
       >
-        <ul className="pt-3 pb-4 shadow-inner border-t border-subtle dark:border-subtle-night sm:py-0 sm:flex sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none">
+        <ul className="pt-3 pb-4 shadow-inner border-t border-subtle dark:border-subtle-night sm:py-0 sm:flex sm:justify-center sm:items-center sm:border-t-0 sm:shadow-none dark:bg-background-secondary-night sm:dark:bg-transparent">
           {links.map((link, index) => (
             <li key={index} className="text-center sm:mx-1 md:mx-2">
               <Link

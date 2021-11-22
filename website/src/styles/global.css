@@ -80,6 +80,13 @@
   @apply font-serif text-lg;
 }
 
+.c-article > p > a,
+.c-body-text-container > p > a,
+.c-article > dl > dd > a,
+.c-article > ul > li > a {
+  @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus-visible:outline-none focus-visible:bg-accent-focus focus-visible:text-primary dark:focus-visible:bg-accent-focus-night;
+}
+
 .c-article > p,
 .c-body-text-container > p,
 .c-article > dl > dd {
@@ -120,10 +127,6 @@
     & > li {
       @apply list-disc list-outside mb-2;
     }
-  }
-
-  & a {
-    @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus-visible:outline-none focus-visible:bg-accent-focus focus-visible:text-primary dark:focus-visible:bg-accent-focus-night;
   }
 }
 

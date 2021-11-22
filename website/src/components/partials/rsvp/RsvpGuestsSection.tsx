@@ -31,7 +31,7 @@ const attendingOptions = [
 const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
   (_props, ref) => {
     const { invitation } = useContext(InvitationContext)
-    const { displayDates } = useContext(WeddingMetadataContext)
+    const { weddingDate } = useContext(WeddingMetadataContext)
     const { initialValues, values } = useFormikContext<RsvpFormValues>()
     const guestKeys = Object.keys(values.guests)
 
@@ -44,9 +44,9 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
       >
         {!invitation.latestRsvp && (
           <Alert isInfo>
-            Since we have changed the wedding dates to {displayDates}, we
-            request that you submit this RSVP form again, even if you submitted
-            it previously.
+            Since we have changed the wedding dates to {weddingDate}, we request
+            that you submit this RSVP form again, even if you submitted it
+            previously.
           </Alert>
         )}
         <h2
