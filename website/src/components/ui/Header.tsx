@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
                 to={link.to}
                 getProps={({ isCurrent, isPartiallyCurrent }) => ({
                   className: classnames(
-                    "inline-block px-1 pt-4 pb-1 border-b-4 focus:outline-none focus:border-opacity-90 focus:border-accent-focus hover:border-accent-hover hover:text-accent-hover dark:focus:border-accent-focus-night dark:focus:border-opacity-100 dark:hover:text-accent-hover-night dark:hover:border-accent-hover-night sm:px-2 sm:pt-3 sm:pb-2 sm:border-b-4",
+                    "inline-block px-1 pt-4 pb-1 border-b-4 focus-visible:outline-none focus-visible:border-opacity-90 focus-visible:border-accent-focus hover:border-accent-hover hover:text-accent-hover dark:focus-visible:border-accent-focus-night dark:focus-visible:border-opacity-100 dark:hover:text-accent-hover-night dark:hover:border-accent-hover-night sm:px-2 sm:pt-3 sm:pb-2 sm:border-b-4",
                     isCurrent || isPartiallyCurrent || link.forceActive
                       ? "border-accent"
                       : "border-transparent"

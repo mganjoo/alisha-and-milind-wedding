@@ -16,9 +16,10 @@ const Schedule: React.FC = () => {
           {invitedToPreEvent(invitation)
             ? "The weekend events are "
             : "The wedding events will be "}
-          at the San Mateo Marriott hotel. You can find more information about
-          the venue on the <Link to="/travel">Travel &amp; Hotel</Link> page,
-          and more details about attire on the <Link to="/faq">FAQ</Link> page.
+          at the JW Marriott Las Vegas Hotel. You can find more information
+          about the venue on the <Link to="/travel">Travel &amp; Hotel</Link>{" "}
+          page, and more details about attire on the <Link to="/faq">FAQ</Link>{" "}
+          page.
         </p>
         <LeafSpacer wide />
       </section>
