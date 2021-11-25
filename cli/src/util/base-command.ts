@@ -13,7 +13,8 @@ interface Config {
   google?: string
   mailchimp?: string
   listId?: string
-  preEventsSegmentId?: string
+  pujaSegmentId?: string
+  haldiSegmentId?: string
   sangeetSegmentId?: string
   ceremonySegmentId?: string
   receptionSegmentId?: string

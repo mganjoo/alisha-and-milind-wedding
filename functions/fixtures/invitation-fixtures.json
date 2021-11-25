@@ -6,7 +6,7 @@
       "partyName": "Harsh Kashyap & Vicki Mehta",
       "numGuests": 2,
       "knownGuests": ["Harsh Kashyap", "Vicki Mehta"],
-      "itype": "a"
+      "itype": "f"
     }
   },
   {
@@ -87,7 +87,7 @@
       "partyName": "The Raj Family",
       "numGuests": 3,
       "knownGuests": ["Vishal Raj", "Priya Raj", "Raji Raj"],
-      "itype": "a"
+      "itype": "f"
     }
   },
   {
@@ -102,7 +102,7 @@
         "Raji Suraj",
         "Bharat Suraj"
       ],
-      "itype": "a"
+      "itype": "f"
     }
   }
 ]

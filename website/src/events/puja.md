@@ -1,10 +1,8 @@
 ---
-shortName: mehndi
-title: Mehndi
+shortName: puja
+title: Puja
 date: "2020-10-29T18:00:00"
 endDate: "2020-10-29T21:00:00"
-preEvent: true
-tentative: true
 location: San Mateo Marriott
 attire: "Indian or Western casual (optional: shades of green)"
 plainText: >

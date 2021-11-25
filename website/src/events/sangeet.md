@@ -3,7 +3,6 @@ shortName: "sangeet"
 title: "Sangeet"
 date: "2020-10-30T19:00:00"
 endDate: "2020-10-31T00:00:00"
-preEvent: false
 location: San Mateo Marriott, Inspire Ballroom
 attire: Indian festive or Western semi-formal
 plainText: >

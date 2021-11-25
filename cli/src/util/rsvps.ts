@@ -6,7 +6,7 @@ import _ from "lodash"
 
 dayjs.extend(utc)
 
-const events = ["haldi", "mehndi", "sangeet", "ceremony", "reception"]
+const events = ["puja", "haldi", "sangeet", "ceremony", "reception"]
 
 // Cutoff for when event was rescheduled
 const newDateCutoff = dayjs("2020-03-15").toDate()

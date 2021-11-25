@@ -66,32 +66,28 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
           </ScheduleInfoRow>
           <ScheduleInfoRow>
             <ScheduleInfoItem label="Venue" symbol="location">
-              {event.frontmatter.tentative
-                ? "To be confirmed"
-                : event.frontmatter.location || addressLine}
+              {event.frontmatter.location || addressLine}
             </ScheduleInfoItem>
           </ScheduleInfoRow>
-          {!event.frontmatter.tentative && (
-            <div className="flex py-1 md:justify-center print:hidden">
-              <AddToCalendarLinks
-                label="Add to calendar"
-                event={{
-                  title: `${event.frontmatter.name}: Alisha & Milind's Wedding`,
-                  location: addressLine,
-                  description: makeDescription(event),
-                  startTime: event.frontmatter.startDate,
-                  endTime: event.frontmatter.endDate,
-                  url: addressUrl,
-                }}
-                dropdown
-              />
-              {addressUrl && (
-                <ExternalLink href={addressUrl} className="c-inline-button">
-                  Open Map
-                </ExternalLink>
-              )}
-            </div>
-          )}
+          <div className="flex py-1 md:justify-center print:hidden">
+            <AddToCalendarLinks
+              label="Add to calendar"
+              event={{
+                title: `${event.frontmatter.name}: Alisha & Milind's Wedding`,
+                location: addressLine,
+                description: makeDescription(event),
+                startTime: event.frontmatter.startDate,
+                endTime: event.frontmatter.endDate,
+                url: addressUrl,
+              }}
+              dropdown
+            />
+            {addressUrl && (
+              <ExternalLink href={addressUrl} className="c-inline-button">
+                Open Map
+              </ExternalLink>
+            )}
+          </div>
         </div>
       </div>
       <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-accent md:dark:border-accent-night print:border-subtle">
@@ -109,14 +105,6 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 </span>
               </ScheduleInfoItem>
             ))}
-          </div>
-        )}
-        {event.frontmatter.tentative && (
-          <div className="c-body-text-container">
-            <p>
-              <span className="font-semibold">Note</span>: Time and place are
-              subject to change &mdash; stay tuned!
-            </p>
           </div>
         )}
         <div

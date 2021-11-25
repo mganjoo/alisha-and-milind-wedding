@@ -12,15 +12,17 @@ import {
 import { WeddingEventMarkdown } from "./Event"
 
 /**
- *       Pre-events  Sangeet  Ceremony   Reception
- * a     y           y        y          y
- * psr   y .         y        n          y
- * pr    y           n        n          y
- * w     n           y        y          y
- * sr    n           y        n          y
- * r     n           n        n          y
+ *       Puja  Haldi  Sangeet  Ceremony   Reception
+ * f     y     y      y        y          y
+ * a     n     y      y        y          y
+ * psr   n     y      y        n          y
+ * pr    n     y      n        n          y
+ * w     n     n      y        y          y
+ * sr    n     n      y        n          y
+ * r     n     n      n        n          y
  */
 const ITypeSchema = Union(
+  Literal("f"),
   Literal("a"),
   Literal("psr"),
   Literal("pr"),
@@ -69,12 +71,14 @@ export function isRsvpable(
   invitation: Invitation
 ): boolean {
   const codeMatches = (codes: IType[]) => codes.includes(invitation.itype)
-  if (event.frontmatter.preEvent) {
-    return codeMatches(["a", "psr", "pr"])
+  if (event.frontmatter.shortName === "puja") {
+    return codeMatches(["f"])
+  } else if (event.frontmatter.shortName === "haldi") {
+    return codeMatches(["f", "a", "psr", "pr"])
   } else if (event.frontmatter.shortName === "ceremony") {
-    return codeMatches(["a", "w"])
+    return codeMatches(["f", "a", "w"])
   } else if (event.frontmatter.shortName === "sangeet") {
-    return codeMatches(["a", "psr", "w", "sr"])
+    return codeMatches(["f", "a", "psr", "w", "sr"])
   } else {
     return true
   }

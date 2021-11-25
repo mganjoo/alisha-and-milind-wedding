@@ -3,7 +3,6 @@ shortName: "ceremony"
 title: "Ceremony"
 date: "2020-10-31T09:45:00"
 endDate: "2020-10-31T13:00:00"
-preEvent: false
 location: San Mateo Marriott, Main Entrance
 attire: Indian festive or Western daytime formal
 subLocations:

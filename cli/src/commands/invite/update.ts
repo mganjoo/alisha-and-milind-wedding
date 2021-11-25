@@ -49,14 +49,15 @@ const partySchema = object()
       ),
     uniquePartyName: string().trim().required(),
     partyName: string().required().trim(),
-    preEvents: string().required().oneOf(["y", "n"]),
+    puja: string().required().oneOf(["y", "n"]),
+    haldi: string().required().oneOf(["y", "n"]),
     ceremony: string().required().oneOf(["y", "n"]),
     sangeet: string().required().oneOf(["y", "n"]),
     numGuests: number().required().integer(),
     knownGuests: array().of(string().required()),
   })
 
-type Itype = "a" | "pr" | "psr" | "w" | "sr" | "r"
+type Itype = "f" | "a" | "pr" | "psr" | "w" | "sr" | "r"
 
 interface Invitation {
   code: string
@@ -72,7 +73,8 @@ interface Party extends Invitation {
 }
 
 type SegmentIdKey =
-  | "preEventsSegmentId"
+  | "pujaSegmentId"
+  | "haldiSegmentId"
   | "sangeetSegmentId"
   | "ceremonySegmentId"
   | "receptionSegmentId"
@@ -82,8 +84,8 @@ export default class InviteUpdate extends BaseCommand {
     "Update invitation and invitee records in Firestore and Mailchimp using CSV exports from Google Sheets."
 
   static examples = [
-    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventsSegmentId 29671`,
-    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --preEventsSegmentId 29671 --dryRun`,
+    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --haldiSegmentId 29671`,
+    `$ wedding-manager invite:update --parties ~/workspace/guest_parties.csv --emails ~/workspace/known_emails.csv --listId fs92kghse --haldiSegmentId 29671 --dryRun`,
   ]
 
   static flags = {
@@ -101,8 +103,11 @@ export default class InviteUpdate extends BaseCommand {
     listId: flags.string({
       description: "Mailchimp list ID for invitees",
     }),
-    preEventsSegmentId: flags.string({
-      description: "Mailchimp segment ID for PreEvents tag",
+    pujaSegmentId: flags.string({
+      description: "Mailchimp segment ID for Puja tag",
+    }),
+    haldiSegmentId: flags.string({
+      description: "Mailchimp segment ID for Haldi tag",
     }),
     sangeetSegmentId: flags.string({
       description: "Mailchimp segment ID for Sangeet tag",
@@ -119,21 +124,24 @@ export default class InviteUpdate extends BaseCommand {
   }
 
   parseItype(
-    preEvents: boolean,
+    puja: boolean,
+    haldi: boolean,
     sangeet: boolean,
     ceremony: boolean
   ): Itype | undefined {
-    if (preEvents && sangeet && ceremony) {
+    if (puja && haldi && sangeet && ceremony) {
+      return "f"
+    } else if (!puja && haldi && sangeet && ceremony) {
       return "a"
-    } else if (preEvents && sangeet && !ceremony) {
+    } else if (!puja && haldi && sangeet && !ceremony) {
       return "psr"
-    } else if (preEvents && !sangeet && !ceremony) {
+    } else if (!puja && haldi && !sangeet && !ceremony) {
       return "pr"
-    } else if (!preEvents && sangeet && ceremony) {
+    } else if (!puja && !haldi && sangeet && ceremony) {
       return "w"
-    } else if (!preEvents && sangeet && !ceremony) {
+    } else if (!puja && !haldi && sangeet && !ceremony) {
       return "sr"
-    } else if (!preEvents && !sangeet && !ceremony) {
+    } else if (!puja && !haldi && !sangeet && !ceremony) {
       return "r"
     } else {
       return undefined
@@ -199,14 +207,15 @@ export default class InviteUpdate extends BaseCommand {
           knownGuests,
           ...rest
         }) => {
-          const preEvents = !!yn(rest.preEvents)
+          const puja = !!yn(rest.puja)
+          const haldi = !!yn(rest.haldi)
           const sangeet = !!yn(rest.sangeet)
           const ceremony = !!yn(rest.ceremony)
-          const itype = this.parseItype(preEvents, sangeet, ceremony)
+          const itype = this.parseItype(puja, haldi, sangeet, ceremony)
           if (!itype) {
             this.error(
-              `Could not generate itype for invitation: preEvents = ${preEvents},` +
-                ` sangeet = ${sangeet}, ceremony = ${ceremony}`
+              `Could not generate itype for invitation: puja = ${puja},` +
+                ` haldi = ${haldi}, sangeet = ${sangeet}, ceremony = ${ceremony}`
             )
           }
           return {
@@ -322,18 +331,25 @@ export default class InviteUpdate extends BaseCommand {
 
     await writeTags(
       this.mailchimp,
-      (party) => party.itype === "a",
-      "preEventsSegmentId"
+      (party) => party.itype === "f",
+      "pujaSegmentId"
+    )
+    await writeTags(
+      this.mailchimp,
+      (party) => ["f", "a", "psr", "pr"].includes(party.itype),
+      "haldiSegmentId"
     )
     await writeTags(
       this.mailchimp,
       (party) =>
-        party.itype !== undefined && ["a", "w", "sr"].includes(party.itype),
+        party.itype !== undefined &&
+        ["f", "a", "w", "psr", "sr"].includes(party.itype),
       "sangeetSegmentId"
     )
     await writeTags(
       this.mailchimp,
-      (party) => party.itype !== undefined && ["a", "w"].includes(party.itype),
+      (party) =>
+        party.itype !== undefined && ["f", "a", "w"].includes(party.itype),
       "ceremonySegmentId"
     )
     await writeTags(this.mailchimp, () => true, "receptionSegmentId")

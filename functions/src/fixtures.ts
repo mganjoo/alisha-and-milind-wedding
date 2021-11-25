@@ -9,4 +9,4 @@ export const invitees =
   require("../fixtures/invitees-fixtures.json") as Fixture[]
 
 // Events
-export const events = ["haldi", "mehndi", "sangeet", "ceremony", "reception"]
+export const events = ["puja", "haldi", "sangeet", "ceremony", "reception"]

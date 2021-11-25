@@ -251,7 +251,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Terry Gordon",
-              events: ["sangeet", "mehndi", "ceremony"],
+              events: ["sangeet", "haldi", "ceremony"],
             },
             { name: "Allison Little", events: ["sangeet"] },
             {
@@ -271,7 +271,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Terry Gordon",
-              events: ["sangeet", "mehndi", "ceremony"],
+              events: ["sangeet", "haldi", "ceremony"],
             },
             { name: "Allison Little", events: ["sangeet"] },
             {
@@ -306,7 +306,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Terry Gordon",
-              events: ["sangeet", "mehndi", "ceremony"],
+              events: ["sangeet", "haldi", "ceremony"],
             },
             { name: "Allison Little", events: ["sangeet"] },
           ],
@@ -373,7 +373,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Terry Gordon",
-              events: ["sangeet", "mehndi", "ceremony"],
+              events: ["sangeet", "haldi", "ceremony"],
             },
             { name: "Allison Little", events: ["sangeet"] },
             {
@@ -393,7 +393,7 @@ describe("Firestore rules", () => {
           attending: true,
           guests: [
             {
-              events: ["sangeet", "mehndi", "ceremony"],
+              events: ["sangeet", "haldi", "ceremony"],
             },
           ],
           createdAt: Timestamp.now(),
@@ -408,7 +408,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "   ",
-              events: ["sangeet", "mehndi", "ceremony"],
+              events: ["sangeet", "haldi", "ceremony"],
             },
           ],
           createdAt: Timestamp.now(),
@@ -439,7 +439,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "John Jacobs",
-              events: ["sangeet", "mehndi", "ceremony"],
+              events: ["sangeet", "haldi", "ceremony"],
             },
           ],
           createdAt: Timestamp.now(),
@@ -452,7 +452,7 @@ describe("Firestore rules", () => {
           guests: [
             {
               name: "Chandler Bing",
-              events: ["sangeet", "mehndi", "reception"],
+              events: ["sangeet", "haldi", "reception"],
             },
           ],
           createdAt: Timestamp.now(),

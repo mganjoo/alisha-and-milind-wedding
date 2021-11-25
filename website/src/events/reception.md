@@ -3,7 +3,6 @@ shortName: "reception"
 title: "Reception"
 date: "2020-10-31T17:30:00"
 endDate: "2020-11-01T01:00:00"
-preEvent: false
 location: San Mateo Marriott, Convene Ballroom
 attire: Indian festive or Western formal
 subLocations:

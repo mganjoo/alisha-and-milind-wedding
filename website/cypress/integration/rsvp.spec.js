@@ -53,7 +53,7 @@ describe("RSVP page", function () {
   })
 
   it("should prevent submission if no event attendance is selected", function () {
-    // 2 person invitation, with mehndi
+    // 2 person invitation, with puja
     const { invitation } = openInvitation("test2")
 
     cy.findByLabelText(/yes/i).check()
@@ -211,7 +211,7 @@ describe("RSVP page", function () {
   })
 
   it("should submit a yes response correctly", function () {
-    // 2 person invitation, with mehndi
+    // 2 person invitation, with puja
     const { invitation } = openInvitation("test2")
 
     cy.findByLabelText(/2nd guest/i)
@@ -222,12 +222,12 @@ describe("RSVP page", function () {
     cy.findByLabelText(/comments/i).type("Lorem ipsum dolor")
     cy.findByText(/next: specific events/i).click()
 
-    // 5 event sections including mehndi and haldi
+    // 5 event sections including haldi
     cy.findAllByLabelText(/both guests are attending/i).should("have.length", 5)
     cy.findByLabelText(/haldi/i).within(() => {
       cy.findByLabelText(invitation.knownGuests[0]).check()
     })
-    cy.findByLabelText(/mehndi/i).within(() => {
+    cy.findByLabelText(/puja/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).check()
     })
     cy.findByLabelText(/sangeet/i).within(() => {
@@ -255,7 +255,7 @@ describe("RSVP page", function () {
       cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
       cy.findByLabelText("Jack Jones").should("not.be.checked")
     })
-    cy.findByLabelText(/mehndi/i).within(() => {
+    cy.findByLabelText(/puja/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).should("be.checked")
       cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
       cy.findByLabelText("Jack Jones").should("be.checked")
