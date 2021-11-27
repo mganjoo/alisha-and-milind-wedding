@@ -21,7 +21,7 @@ const SchedulePage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.gatsbyImageData}
-      alt="Milind and Alisha facing each other on a cliff with the sea in the background. Milind is in a black blazer and trousers, and Alisha is in a grey flowy dress"
+      alt="Milind and Alisha holding hands, walking along an abandoned train track and looking at each other, smiling. Milind is in a gray blazer and black trousers, and Alisha is in blue Indian attire."
     >
       <SEO
         title="Schedule"

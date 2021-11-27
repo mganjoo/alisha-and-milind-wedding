@@ -1,12 +1,13 @@
 ---
 shortName: puja
 title: Puja
-date: "2020-10-29T18:00:00"
-endDate: "2020-10-29T21:00:00"
-location: San Mateo Marriott
-attire: "Indian or Western casual (optional: shades of green)"
+date: "2022-01-19T11:00:00"
+endDate: "2022-01-19T14:00:00"
+location: "***REMOVED***"
+preEvent: true
+attire: "Indian or Western casual"
 plainText: >
-  Alisha will receive her bridal mehndi and celebrate with her close friends and family.
+  We will kick off the wedding celebrations with a puja at the Saxena home to bless the marriage. Lunch to follow the puja.
 ---
 
-Alisha will receive her bridal _mehndi_ (a casual 6-hour affair) and celebrate with her close friends and family. There will also be mehndi artists at the Sangeet on Friday evening.
+We will kick off the wedding celebrations with a puja at the Saxena home to bless the marriage. Lunch to follow the puja.

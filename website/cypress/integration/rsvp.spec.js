@@ -230,7 +230,7 @@ describe("RSVP page", function () {
     cy.findByLabelText(/puja/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).check()
     })
-    cy.findByLabelText(/sangeet/i).within(() => {
+    cy.findByLabelText(/welcome dinner/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).check()
     })
     cy.findByLabelText(/ceremony/i).within(() => {
@@ -260,7 +260,7 @@ describe("RSVP page", function () {
       cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
       cy.findByLabelText("Jack Jones").should("be.checked")
     })
-    cy.findByLabelText(/sangeet/i).within(() => {
+    cy.findByLabelText(/welcome dinner/i).within(() => {
       cy.findByLabelText(/both guests are attending/i).should("be.checked")
       cy.findByLabelText(invitation.knownGuests[0]).should("be.checked")
       cy.findByLabelText("Jack Jones").should("be.checked")

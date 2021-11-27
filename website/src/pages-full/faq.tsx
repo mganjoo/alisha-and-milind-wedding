@@ -55,7 +55,7 @@ const FaqPage = () => {
               <p>
                 Given the ongoing COVID-19 outbreak,{" "}
                 <strong>
-                  we have changed the wedding events to {value.weddingDate}
+                  we have changed the wedding events to {value?.weddingDate}
                 </strong>
                 . The location at the San Mateo Marriott in the San Francisco
                 Bay Area will remain the same.
@@ -171,7 +171,7 @@ const FaqPage = () => {
                 We sure do! Please see the{" "}
                 <Link to="/travel">Travel &amp; Hotel</Link> page for details,
                 as well as the link to book with our discounted rate. Please
-                book by <strong>{value.bookingDeadline}</strong> to ensure room
+                book by <strong>{value?.bookingDeadline}</strong> to ensure room
                 availability.
               </p>
             </Faq>
@@ -198,7 +198,7 @@ const FaqPage = () => {
             <Faq question="Is it okay to take photos or videos during the wedding events?">
               <p>
                 Absolutely! Our social media hashtag is{" "}
-                <strong>#AlishaWinsAMil</strong>. Certainly no pressure to
+                <strong>#AlishaWonAMil</strong>. Certainly no pressure to
                 capture, though! We will share our photographer&rsquo;s shots
                 with you as well.
               </p>

@@ -23,7 +23,7 @@ const RsvpPage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.gatsbyImageData}
-      alt="Picture of Milind and Alisha holding hands, with their backs to the camera, running on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey dress"
+      alt="Picture of Milind and Alisha holding hands, with their backs to the camera, running on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey dress."
     >
       <SEO
         title="RSVP"
@@ -44,7 +44,7 @@ const RsvpPage = () => {
                   </p>
                   <p>
                     We would appreciate if you could RSVP by{" "}
-                    {value.rsvpDeadline}.
+                    {value?.rsvpDeadline}.
                   </p>
                   <p></p>
                   <div className="flex justify-center my-6">

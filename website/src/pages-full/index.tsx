@@ -18,7 +18,7 @@ const IndexPage = () => {
   return (
     <NavLayout
       heroImage={imageData.heroImage.childImageSharp.gatsbyImageData}
-      alt="Milind leading Alisha by the hand on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey flowy dress"
+      alt="Milind leading Alisha by the hand on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey flowy dress."
     >
       <SEO
         title="Home"
@@ -28,15 +28,16 @@ const IndexPage = () => {
       <div className="c-narrow-body">
         <div className="c-article">
           <p>
-            Welcome back! After a year and a half of life on Zoom, we are so
-            excited to finally be able to celebrate with you in person!
+            After a year and a half of life on Zoom, we are so excited to
+            finally be able to celebrate with you in person&hellip; but this
+            time in Las Vegas!
           </p>
           <p>
             This website is where you will find the most up-to-date information
-            about the wedding, including event schedule and travel details.
+            about the wedding, including the event schedule and travel details.
           </p>
           <p>
-            See you soon in Vegas!
+            We can&rsquo;t wait to see you soon in Vegas!
             <br />
             <br />
             Love,

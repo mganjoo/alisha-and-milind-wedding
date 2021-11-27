@@ -1,12 +1,15 @@
 ---
 shortName: haldi
 title: Haldi
-date: "2020-10-29T09:30:00"
-endDate: "2020-10-29T11:30:00"
-location: San Mateo Marriott
-attire: "Indian or Western casual (optional: shades of yellow)"
+date: "2022-01-20T10:00:00"
+endDate: "2022-01-20T20:00:00"
+location: "***REMOVED***"
+preEvent: true
+attire: "Indian or Western casual (optional: shades of yellow or green)"
 plainText: >
-  Alisha’s family and friends will apply a paste of haldi or turmeric as part of this auspicious pre-wedding event.
+  Alisha’s family and friends will apply a paste of haldi or turmeric as part of this auspicious pre-wedding event in the morning. Lunch will be served after the haldi, followed by Alisha's bridal mehndi. We will serve dinner in the evening.
 ---
 
-Alisha’s family and friends will apply a paste of _haldi_ or turmeric as part of this auspicious pre-wedding event.
+We would love for you to join us at the Saxena residence, where Alisha and Milind’s family and friends will apply a paste of _haldi_ or turmeric as part of this auspicious pre-wedding event in the morning. Lunch will be served after the haldi.
+
+Alisha will then have her bridal _mehndi_ applied on her hands and feet. We will have music and dancing throughout this time, so please feel free to stay with us or come and go as you like throughout the day! We will serve dinner in the evening.

@@ -11,6 +11,7 @@ export interface WeddingEventMarkdown {
     longDateOnly: string
     timeOnly: string
     location: string
+    preEvent: boolean
     attire: string
     plainText: string
     subLocations?: {
@@ -48,11 +49,12 @@ export function useEvents() {
               shortDate: date(formatString: "ddd MMM D, h:mm a")
               longDateOnly: date(formatString: "dddd, MMMM D")
               timeOnly: date(formatString: "h:mm a")
-              startDate: date(formatString: "YYYY-MM-DDTHH:mm:ss-07:00")
-              endDate: endDate(formatString: "YYYY-MM-DDTHH:mm:ss-07:00")
+              startDate: date(formatString: "YYYY-MM-DDTHH:mm:ss-08:00")
+              endDate: endDate(formatString: "YYYY-MM-DDTHH:mm:ss-08:00")
               shortName
               name: title
               location
+              preEvent
               attire
               plainText
               subLocations {

@@ -19,10 +19,9 @@ export interface CalendarEvent {
 dayjs.extend(utc)
 
 const allDayFormat = "YYYYMMDD"
-// Force Google to parse date as UTC by suffixing 'Z'
+const allDayFormatOutlook = "YYYY-MM-DD"
 const utcFormat = "YYYYMMDD[T]HHmmss[Z]"
-// Outlook always expects UTC date, so no suffix
-const utcFormatOutlook = "YYYYMMDD[T]HHmmss"
+const utcFormatOutlook = "YYYY-MM-DD[T]HH:mm:ss[Z]"
 
 function formatTime(date: string | Date, format: string) {
   return dayjs(date).utc().format(format)
@@ -43,11 +42,12 @@ export function google(event: CalendarEvent): string {
 }
 
 export function outlook(event: CalendarEvent): string {
+  const format = event.allDay ? allDayFormatOutlook : utcFormatOutlook
   const details = {
     rru: "addevent",
     path: "/calendar/action/compose",
-    startdt: formatTime(event.startTime, utcFormatOutlook),
-    enddt: formatTime(event.endTime, utcFormatOutlook),
+    startdt: formatTime(event.startTime, format),
+    enddt: formatTime(event.endTime, format),
     subject: event.title,
     location: event.location,
     body: event.description,
@@ -56,7 +56,9 @@ export function outlook(event: CalendarEvent): string {
       : event.allDay
     ).toString(),
   }
-  return `https://outlook.live.com/owa/?${stringify(details)}`
+  return `https://outlook.live.com/calendar/0/deeplink/compose?${stringify(
+    details
+  )}`
 }
 
 export function yahoo(event: CalendarEvent): string {
@@ -68,6 +70,7 @@ export function yahoo(event: CalendarEvent): string {
     et: formatTime(event.endTime, format),
     desc: event.description,
     in_loc: event.location,
+    dur: event.allDay ? "allday" : undefined,
   }
   return `https://calendar.yahoo.com/?${stringify(details)}`
 }

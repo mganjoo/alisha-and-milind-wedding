@@ -54,14 +54,16 @@ module.exports = {
     displayTitle: `Alisha & Milind`,
     weddingDate: `2022-01-22`,
     rsvpDeadline: `2021-12-31`,
-    bookingDeadline: `2021-01-05`,
+    bookingDeadline: `2021-12-21`,
     location: `Las Vegas, NV`,
     mainVenue: [
       "JW Marriott Las Vegas Resort & Spa",
       "221 N Rampart Blvd",
-      "Las Vegas, NV  89145",
+      "Las Vegas, NV 89145",
     ],
     mainVenueUrl: "https://goo.gl/maps/JYLyQWqnpuAWtK7x6",
+    preEventsVenue: ["123 Example Ave", "Las Vegas, NV 89145"],
+    preEventsVenueUrl: "https://goo.gl/maps/JYLyQWqnpuAWtK7x6",
   },
   plugins: [
     `gatsby-plugin-typescript`,

@@ -2,8 +2,6 @@ import { useStaticQuery, graphql } from "gatsby"
 import React from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
-import Emoji from "../components/ui/Emoji"
-import ExternalLink from "../components/ui/ExternalLink"
 import ImageGrid from "../components/ui/ImageGrid"
 import PageHeading from "../components/ui/PageHeading"
 
@@ -41,12 +39,12 @@ const StoryPage = () => {
             ...GridImage
           }
         }
-        proposal1: file(relativePath: { eq: "story-proposal-1.jpg" }) {
+        proposal: file(relativePath: { eq: "story-proposal.jpg" }) {
           childImageSharp {
             ...GridImage
           }
         }
-        proposal2: file(relativePath: { eq: "story-proposal-2.jpg" }) {
+        wedding: file(relativePath: { eq: "story-wedding.jpg" }) {
           childImageSharp {
             ...GridImage
           }
@@ -64,103 +62,82 @@ const StoryPage = () => {
       <PageHeading>Our Story</PageHeading>
       <section className="c-article">
         <p>
-          When Milind and Alisha first met, he was struck by her passion and
-          wittiness; she was impressed by his encyclopedic knowledge of obscure
-          facts. In the Bay Area, Alisha is finishing up her doctorate in
-          clinical psychology, while Milind is a machine learning software
-          engineer &mdash; emotional intelligence meets artificial intelligence,
-          if you will.
+          Alisha and Milind&rsquo;s story is a lot like many other couples. They
+          met, fell in love, planned their wedding, and then a global pandemic
+          hit and shook up everyone’s worlds.
         </p>
         <p>
-          When they are not debating British vs American grammar rules (truly
-          they are 200-year-olds in 20-something-year-old bodies), you will find
-          them engrossed in a board game, trying to beat each other&rsquo;s
-          crossword times, stumbling through the wilderness while Alisha
-          captures it on camera, or yelling out fruits and woods in a feeble
-          attempt at describing wine.
+          If you wanted the longer version: Alisha and Milind met on a blind
+          date set up by their good friend Trishna. Milind was struck by
+          Alisha&rsquo;s wittiness and passion for her work; she was impressed
+          by his ability to strike up a conversation about any topic under the
+          sun. Over the next following years, they stumbled through the Yosemite
+          backcountry, sipped whiskey on the Isle of Skye, bridged a 3000-mile
+          long distance relationship for a while, and performed daily Queen
+          LiveAid renditions to an audience of none. They also got married in a
+          fully virtual courthouse wedding with their parents and siblings
+          joining in from their own living rooms around the world.
+        </p>
+        <p>
+          In the time since the wedding website was last up and running, Alisha
+          moved back to San Francisco after finishing her final year in graduate
+          school for her clinical internship. Milind has been hard at work
+          diligently raising his chess Elo rating (someone binged The Queen’s
+          Gambit), and maintaining his 670-day (and counting) NYT Crossword
+          streak.
         </p>
         <ImageGrid
           images={[
             {
               image: data.chicago.childImageSharp.gatsbyImageData,
               id: "chicago",
-              alt: "Selfie of Milind and Alisha with snowfall in the foreground",
+              alt: "Selfie of Milind and Alisha dressed in cold weather jackets, with snowfall in the foreground.",
               caption: "Chicago",
             },
             {
               image: data.yosemite.childImageSharp.gatsbyImageData,
               id: "yosemite",
-              alt: "Selfie of Milind and Alisha in backpacking clothes and gear",
+              alt: "Selfie of Milind and Alisha in backpacking clothes and gear, with a forest backdrop.",
               caption: "Yosemite National Park",
             },
             {
               image: data.redRock.childImageSharp.gatsbyImageData,
               id: "redRock",
-              alt: "Picture of Milind and Alisha in Red Rock National Canyon, Las Vegas",
+              alt: "Milind and Alisha laughing at the camera, in front of a red sandstone backdrop.",
               caption: "Red Rock Canyon",
             },
             {
               image: data.sandiego.childImageSharp.gatsbyImageData,
               id: "sandiego",
-              alt: "Picture of Alisha and Milind laughing at the camera",
+              alt: "Alisha, dressed in a gray dinosaur sweater and Milind, in a brown leather jacket, laughing at the camera.",
               caption: "San Diego",
               objectPosition: "15% 50%",
             },
             {
               image: data.tahoe.childImageSharp.gatsbyImageData,
               id: "tahoe",
-              alt: "Selfie of Milind and Alisha in front of Lake Tahoe",
+              alt: "Selfie of Milind and Alisha in front of a vast lake.",
               caption: "Lake Tahoe",
             },
             {
               image: data.halloween.childImageSharp.gatsbyImageData,
               id: "halloween",
-              alt: "Picture of Milind in a Tapatio t-shirt and Alisha in a Sriracha t-shirt at Halloween in San Francisco",
+              alt: "Milind in a white Tapatio t-shirt and red beanie cap, and Alisha in a Sriracha t-shirt and green beanie cap, posing for a selfie at a party.",
               caption: "“Hot sauce” Halloween",
               objectPosition: "50% 5%",
             },
-          ]}
-        />
-      </section>
-      <section className="c-article" aria-labelledby="heading-proposal">
-        <h2 id="heading-proposal">The proposal</h2>
-        <p>
-          Alisha&rsquo;s friends thought Milind would certainly propose when the
-          couple went to see{" "}
-          <ExternalLink href="https://en.wikipedia.org/wiki/Hamilton_(musical)">
-            Hamilton
-          </ExternalLink>{" "}
-          the musical, so that the photo caption could have been &ldquo;
-          <ExternalLink href="https://www.youtube.com/watch?v=WySzEXKUSZw">
-            The Room Where It Happened
-          </ExternalLink>{" "}
-          {<Emoji symbol="💎" label="diamond emoji" />}&rdquo; &mdash; but
-          Milind has never been one to take the obvious route. Instead, having
-          found the perfect scenic proposal spot while on one of his weekend
-          distance runs, he scheduled a trip to the{" "}
-          <ExternalLink href="https://legionofhonor.famsf.org/">
-            Legion of Honor Museum
-          </ExternalLink>{" "}
-          a few weeks later. Alisha, unsuspecting as ever after spending hours
-          underground at a mummies exhibit, conveniently led Milind straight to
-          the proposal spot so that she could take a photo of that VIEW (you
-          know, the one with the bridge). He had smoothly arranged for their
-          friend to already be there, incognito, to capture the moment. And
-          well, we know how that story ends.{" "}
-          {<Emoji symbol="😊" label="smiley face emoji" />}
-        </p>
-        <ImageGrid
-          images={[
             {
-              image: data.proposal1.childImageSharp.gatsbyImageData,
-              id: "proposal1",
-              alt: "Picture of Milind proposing to Alisha with a view of the Golden Gate Bridge in the background",
+              image: data.proposal.childImageSharp.gatsbyImageData,
+              id: "proposal",
+              alt: "Milind, on one knee, proposing to Alisha with a ring while she smiles back. The Golden Gate Bridge is visible in the background.",
+              caption: "The Proposal - Legion of Honor, SF",
               objectPosition: "50% 70%",
             },
             {
-              image: data.proposal2.childImageSharp.gatsbyImageData,
-              id: "proposal2",
-              alt: "Picture of Alisha and Milind at dinner celebrating engagement",
+              image: data.wedding.childImageSharp.gatsbyImageData,
+              id: "wedding",
+              alt: "Alisha and Milind, dressed in Indian clothes, smiling and taking a selfie while holding up a laptop. The laptop shows a video call where members of Milind and Alisha's families are posing for the selfie.",
+              caption: "Our courthouse wedding",
             },
           ]}
         />

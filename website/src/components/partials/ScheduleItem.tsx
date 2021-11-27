@@ -25,7 +25,7 @@ const ScheduleInfoItem: React.FC<ScheduleInfoItemProps> = ({
   symbol,
   label,
 }) => (
-  <span className="flex items-center mx-2 mb-2 font-sans text-secondary dark:text-secondary-night print:text-primary-print">
+  <span className="flex items-center mx-2 mb-2 font-sans text-sm text-secondary dark:text-secondary-night print:text-primary-print">
     <Symbol symbol={symbol} className="mr-2" size="s" label={label} inline />
     {children}
   </span>
@@ -47,8 +47,15 @@ function makeDescription(event: WeddingEventMarkdown) {
 
 const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
   const metadata = useContext(WeddingMetadataContext)
-  const addressLine = metadata.mainVenue?.join(", ")
-  const addressUrl = metadata.mainVenueUrl
+  const addressLine = metadata
+    ? (event.frontmatter.preEvent
+        ? metadata.preEventsVenue
+        : metadata.mainVenue
+      ).join(", ")
+    : undefined
+  const addressUrl = event.frontmatter.preEvent
+    ? metadata?.preEventsVenueUrl
+    : metadata?.mainVenueUrl
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
@@ -73,7 +80,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
             <AddToCalendarLinks
               label="Add to calendar"
               event={{
-                title: `${event.frontmatter.name}: Alisha & Milind's Wedding`,
+                title: `${event.frontmatter.name}: Alisha and Milind's Wedding`,
                 location: addressLine,
                 description: makeDescription(event),
                 startTime: event.frontmatter.startDate,

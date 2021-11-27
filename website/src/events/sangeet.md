@@ -1,12 +1,12 @@
 ---
 shortName: "sangeet"
-title: "Sangeet"
-date: "2020-10-30T19:00:00"
-endDate: "2020-10-31T00:00:00"
-location: San Mateo Marriott, Inspire Ballroom
+title: "Welcome Dinner"
+date: "2022-01-21T19:00:00"
+endDate: "2022-01-22T00:00:00"
+location: JW Marriott Las Vegas, Valencia Ballroom
 attire: Indian festive or Western semi-formal
 plainText: >
-  The sangeet is all about music, dance, performances by friends and family, food, and drinks to kick off the wedding celebrations
+  We will kick off the wedding celebration weekend with a night full of music, food, and drinks.
 ---
 
-The _sangeet_ is all about music, dance, performances by friends and family, food, and drinks to kick off the wedding celebrations. We’ll all be tearing up the dance floor with our DJ to close out the night.
+We will kick off the wedding celebration weekend with a night full of music, food, and drinks.

@@ -41,7 +41,7 @@ const TravelPage = () => {
   return (
     <NavLayout
       heroImage={data.heroImage.childImageSharp.gatsbyImageData}
-      alt="Picture of Alisha pointing at something in the distance and Milind looking on"
+      alt="Alisha and Milind in front of a red sandstone backdrop. Alisha is pointing at something in the distance and Milind looking on."
     >
       <SEO
         title="Travel & Hotel"
@@ -63,7 +63,7 @@ const TravelPage = () => {
                     Venue
                   </h2>
                   <div id="venue-description">
-                    {value.mainVenue?.map((line) => (
+                    {value?.mainVenue.map((line) => (
                       <p key={line}>{line}</p>
                     ))}
                   </div>
@@ -74,101 +74,18 @@ const TravelPage = () => {
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3220.6179385788037!2d-115.2933054847275!3d36.175850780081944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8bf8c790d8827%3A0x784fdcab011408d2!2sJW%20Marriott%20Las%20Vegas%20Resort%20%26%20Spa!5e0!3m2!1sen!2sus!4v1636839408497!5m2!1sen!2sus"
                   width={400}
                   height={300}
-                  title={`Wedding Venue: ${
-                    value.mainVenue &&
-                    value.mainVenue.length > 0 &&
-                    value.mainVenue[0]
-                  }`}
+                  title={`Wedding Venue: ${value?.mainVenue[0]}`}
                   containerClassName="bg-background text-primary dark:bg-background-night dark:text-primary-night"
                 />
               </div>
-            </section>
-            <section
-              className="c-article"
-              aria-labelledby="recommended-airport"
-            >
-              <HeadingSymbol symbol="airplane" id="recommended-airport">
-                Recommended airport: SFO
-              </HeadingSymbol>
-              <p>
-                For our friends and family flying in for the festivities, the
-                closest airport is{" "}
-                <ExternalLink href="https://www.flysfo.com/">
-                  San Francisco International Airport (SFO)
-                </ExternalLink>
-                , which is about 8 miles from the hotel.
-              </p>
-              <dl>
-                <dt>Hotel Shuttle</dt>
-                <dd>
-                  There is a complimentary shuttle service between the San Mateo
-                  Marriott and SFO that runs each hour from 5 am to 10 pm, seven
-                  days a week. The number for the airport shuttle service is{" "}
-                  <a href="tel:+1-650-653-6000" className="whitespace-nowrap">
-                    +1 (650) 653-6000
-                  </a>
-                  . More details about the shuttle service can be found on the{" "}
-                  <ExternalLink href="https://www.marriott.com/hotels/maps/travel/sfosa-san-mateo-marriott-san-francisco-airport/">
-                    hotel&rsquo;s website
-                  </ExternalLink>
-                  .
-                </dd>
-                <dt>Paid Shuttles</dt>
-                <dd>
-                  Paid shuttle services, such as{" "}
-                  <ExternalLink href="https://www.supershuttle.com/">
-                    SuperShuttle
-                  </ExternalLink>
-                  , can also be booked ahead of time.
-                </dd>
-                <dt>Rideshares &amp; Taxis</dt>
-                <dd>
-                  App-based car services including Uber and Lyft are readily
-                  available between SFO and San Mateo Marriott. Fares typically
-                  range between $18-25 each way.
-                </dd>
-              </dl>
-            </section>
-            <section className="c-article" aria-labelledby="other-airports">
-              <HeadingSymbol symbol="airplane" id="other-airports">
-                Other airports: SJC and OAK
-              </HeadingSymbol>
-              <p>
-                If you&rsquo;re flying into{" "}
-                <ExternalLink href="https://www.flysanjose.com/">
-                  San Jose International Airport (SJC)
-                </ExternalLink>{" "}
-                or{" "}
-                <ExternalLink href="https://www.oaklandairport.com/">
-                  Oakland International Airport (OAK)
-                </ExternalLink>
-                , the distance from each airport is about 25 miles to our venue.
-              </p>
-              <p>
-                Unfortunately, the hotel does not have a shuttle service to or
-                from either of these airports. The best way to get to the San
-                Mateo Marriott would be through a paid shuttle, rideshare, or
-                rental car. Please note that the San Mateo-Hayward Bridge is a
-                toll route when coming from Oakland.
-              </p>
-            </section>
-            <section className="c-article" aria-labelledby="driving-in">
-              <HeadingSymbol symbol="travel-car" id="driving-in">
-                Driving in
-              </HeadingSymbol>
-              <p>
-                The San Mateo Marriott is located right off Highway 101. We have
-                arranged for complimentary self-parking and discounted valet
-                parking for our guests.
-              </p>
             </section>
             <section className="c-article" aria-labelledby="hotel-block">
               <HeadingSymbol symbol="location-hotel" id="hotel-block">
                 Hotel block
               </HeadingSymbol>
               <p>
-                We have negotiated the best available rate for our guests who
-                will be staying overnight at the venue.
+                For our guests who will be staying overnight at the venue,
+                please use the link below for the wedding event rate.
               </p>
               <div className="my-4 w-full block">
                 <ExternalLink
@@ -179,15 +96,61 @@ const TravelPage = () => {
                 </ExternalLink>
               </div>
               <p>
-                Please use the above link to book your stay at the San Mateo
-                Marriott by <strong>{value.bookingDeadline}</strong> to
-                guarantee availability. If you had previously booked a room for
-                the May wedding dates, please use the link to book once again.
+                Please use the above link to book your stay at the JW Marriott
+                by <strong>{value?.bookingDeadline}</strong> to guarantee
+                availability.
               </p>
               <p>
                 Don&rsquo;t hesitate to reach out to us (
                 <ContactEmail />) if any questions come up about travel or
                 booking your stay!
+              </p>
+            </section>
+            <section
+              className="c-article"
+              aria-labelledby="recommended-airport"
+            >
+              <HeadingSymbol symbol="airplane" id="recommended-airport">
+                Recommended airport: LAS
+              </HeadingSymbol>
+              <p>
+                For our friends and family flying in for the festivities, the
+                closest airport is{" "}
+                <ExternalLink href="https://www.las-vegas-airport.com/">
+                  Las Vegas McCarran International Airport (LAS)
+                </ExternalLink>
+                , which is about 16 miles from the hotel.
+              </p>
+              <p>There are a few options for arriving to the hotel:</p>
+              <dl>
+                <dt>Paid Shuttles</dt>
+                <dd>
+                  Paid shuttle services, such as{" "}
+                  <ExternalLink href="https://www.supershuttle.com/">
+                    SuperShuttle
+                  </ExternalLink>
+                  , can be booked ahead of time.
+                </dd>
+                <dt>Rideshares &amp; Taxis</dt>
+                <dd>
+                  App-based car services including Uber and Lyft are readily
+                  available between LAS and JW Marriott. Fares typically range
+                  between $30-40 each way for rideshares. Estimated taxi fare is
+                  around $60 each way.
+                </dd>
+              </dl>
+            </section>
+            <section className="c-article" aria-labelledby="driving-in">
+              <HeadingSymbol symbol="travel-car" id="driving-in">
+                Driving in
+              </HeadingSymbol>
+              <p>
+                The JW Marriott is located on Rampart Blvd, off US 95. Valet
+                parking (complimentary for overnight guests) and self-parking
+                (complimentary for all) is available at the venue. If you are
+                checking into the hotel, the registration desk is closest to{" "}
+                <strong>Spa Tower</strong>. If you are joining us for the event
+                directly, head on over to <strong>Palm Tower</strong>!
               </p>
             </section>
           </Authenticated>
