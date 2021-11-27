@@ -45,7 +45,7 @@
 }
 
 .c-inline-button {
-  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold hover:text-accent-hover dark:hover:text-accent-hover-night;
+  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold hover:text-accent-hover dark:hover:text-accent-hover-night dark:font-bold;
 }
 
 .c-form-description {
@@ -98,31 +98,31 @@
 
   & > h2,
   & > h3 {
-    @apply font-sans font-semibold print:text-heading-print;
+    @apply font-sans print:text-heading-print;
   }
 
   & > h2 {
-    @apply mb-2 text-2xl text-heading-primary dark:text-heading-primary-night;
+    @apply mb-3 text-2xl text-heading-primary font-semibold dark:text-heading-primary-night;
   }
 
   & > h3 {
-    @apply mb-1 text-lg text-heading-secondary dark:text-heading-secondary-night;
+    @apply mt-2 mb-2 text-lg text-heading-secondary font-semibold dark:text-heading-secondary-night dark:font-bold;
   }
 
   & > dl {
     @apply my-4;
 
     & > dt {
-      @apply font-semibold font-sans text-heading-secondary dark:text-heading-secondary-night print:text-heading-print;
+      @apply font-semibold font-sans text-heading-secondary dark:text-heading-secondary-night dark:font-bold print:text-heading-print;
     }
   }
 
   & strong {
-    @apply font-semibold;
+    @apply font-semibold dark:font-bold;
   }
 
   & > ul {
-    @apply mb-4 pl-6;
+    @apply -mt-1 mb-5 pl-6;
 
     & > li {
       @apply list-disc list-outside mb-2;

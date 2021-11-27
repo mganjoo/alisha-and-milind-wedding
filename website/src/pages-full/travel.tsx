@@ -59,7 +59,10 @@ const TravelPage = () => {
             >
               <div className="font-sans text-lg mb-4 sm:mb-0 sm:w-1/2 sm:flex sm:flex-col sm:items-center">
                 <div>
-                  <h2 className="text-xl font-semibold mb-1" id="venue-heading">
+                  <h2
+                    className="text-xl font-semibold mb-1 dark:font-bold"
+                    id="venue-heading"
+                  >
                     Venue
                   </h2>
                   <div id="venue-description">
@@ -85,7 +88,9 @@ const TravelPage = () => {
               </HeadingSymbol>
               <p>
                 For our guests who will be staying overnight at the venue,
-                please use the link below for the wedding event rate.
+                please use the link below for the wedding event rate. Please
+                book your stay by <strong>{value?.bookingDeadline}</strong> to
+                guarantee room availability.
               </p>
               <div className="my-4 w-full block">
                 <ExternalLink
@@ -95,16 +100,6 @@ const TravelPage = () => {
                   Book a room at the special rate
                 </ExternalLink>
               </div>
-              <p>
-                Please use the above link to book your stay at the JW Marriott
-                by <strong>{value?.bookingDeadline}</strong> to guarantee
-                availability at the reduced rate.
-              </p>
-              <p>
-                Don&rsquo;t hesitate to reach out to us (
-                <ContactEmail />) if any questions come up about travel or
-                booking your stay!
-              </p>
             </section>
             <section
               className="c-article"
@@ -121,24 +116,16 @@ const TravelPage = () => {
                 </ExternalLink>
                 , which is about 16 miles from the hotel.
               </p>
-              <p>There are a few options for arriving to the hotel:</p>
-              <dl>
-                <dt>Paid Shuttles</dt>
-                <dd>
-                  Paid shuttle services, such as{" "}
-                  <ExternalLink href="https://www.supershuttle.com/">
-                    SuperShuttle
-                  </ExternalLink>
-                  , can be booked ahead of time.
-                </dd>
-                <dt>Rideshares &amp; Taxis</dt>
-                <dd>
-                  App-based car services including Uber and Lyft are readily
-                  available between LAS and JW Marriott. Fares typically range
-                  between $30-40 each way for rideshares. Estimated taxi fare is
-                  around $60 each way.
-                </dd>
-              </dl>
+              <p>
+                App-based car services including Lyft and Uber are readily
+                available between LAS and JW Marriott. Fares typically range
+                between $30-40 each way for rideshares. Estimated taxi fare is
+                around $60 each way.
+              </p>
+              <p>
+                To easily get to the hotel registration desk, you would want to
+                be dropped off at <strong>Spa Tower</strong>.
+              </p>
             </section>
             <section className="c-article" aria-labelledby="driving-in">
               <HeadingSymbol symbol="travel-car" id="driving-in">
@@ -147,10 +134,17 @@ const TravelPage = () => {
               <p>
                 The JW Marriott is located on N Rampart Blvd, off US 95. Valet
                 parking (complimentary for overnight guests) and self-parking
-                (complimentary for all) is available at the venue. If you are
-                checking into the hotel, the registration desk is closest to{" "}
-                <strong>Spa Tower</strong>. If you are joining us for the event
-                directly, head on over to <strong>Palm Tower</strong>!
+                (complimentary for all) is available at the venue.
+              </p>
+              <p>
+                If you are checking into the hotel, the registration desk is
+                closest to <strong>Spa Tower</strong>. If you are joining us for
+                the event directly, head on over to <strong>Palm Tower</strong>.
+              </p>
+              <p>
+                Do not hesitate to reach out to us (
+                <ContactEmail />) if any questions come up about travel or
+                booking your stay!
               </p>
             </section>
           </Authenticated>

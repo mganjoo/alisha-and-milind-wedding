@@ -17,7 +17,7 @@ subLocations:
       location: "Marquis Ballroom",
     }
 plainText: >
-  Drinks and appetizers at the cocktail hour followed by the formal reception and dinner.
+  We will start with drinks and appetizers at the cocktail hour followed by the formal reception, dinner, and lots of dancing.
 ---
 
-We’ll start with drinks and appetizers at the cocktail hour followed by the formal reception and dinner.
+We will start with drinks and appetizers at the cocktail hour followed by the formal reception, dinner, and lots of dancing.

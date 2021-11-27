@@ -107,8 +107,10 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 symbol="location"
               >
                 <span>
-                  <span className="font-semibold">{location.name}</span>:{" "}
-                  {location.location} at {location.time}
+                  <span className="font-semibold dark:font-bold">
+                    {location.name}
+                  </span>
+                  : {location.location} at {location.time}
                 </span>
               </ScheduleInfoItem>
             ))}
@@ -120,7 +122,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
         />
         <div className="c-body-text-container -mb-4">
           <p>
-            <span className="font-semibold">Attire</span>:{" "}
+            <span className="font-semibold dark:font-bold">Attire</span>:{" "}
             {event.frontmatter.attire}
           </p>
         </div>

@@ -8,7 +8,6 @@ export default class RsvpExport extends BaseCommand {
 
   static examples = [
     `$ wedding-manager rsvp:export`,
-    `$ wedding-manager rsvp:export -f path/to/service-account.json --after hs83kshdgk82ax`,
     `$ wedding-manager rsvp:export -f path/to/service-account.json --filter=code=skhaWhgk2 --sort=-created`,
     `$ wedding-manager rsvp:export -f path/to/service-account.json --csv`,
     `$ wedding-manager rsvp:export -f path/to/service-account.json --event haldi`,
@@ -20,9 +19,6 @@ export default class RsvpExport extends BaseCommand {
     event: flags.string({
       description: "Name of event to produce list of names",
     }),
-    oldDate: flags.boolean({
-      description: "Show RSVPs older than before the event was rescheduled",
-    }),
   }
 
   async run() {
@@ -33,7 +29,7 @@ export default class RsvpExport extends BaseCommand {
     cli.action.start("downloading")
     try {
       if (flags.event) {
-        const rsvpsForEvent = await getGuestsByEvent(flags.event, flags.oldDate)
+        const rsvpsForEvent = await getGuestsByEvent(flags.event)
         cli.action.stop()
         cli.table(
           rsvpsForEvent,
@@ -45,7 +41,7 @@ export default class RsvpExport extends BaseCommand {
           { ...flags, sort: flags.sort || "guest" }
         )
       } else {
-        const rsvps = await getRsvpSummaries(flags.oldDate)
+        const rsvps = await getRsvpSummaries()
         cli.action.stop()
         cli.table(
           rsvps,

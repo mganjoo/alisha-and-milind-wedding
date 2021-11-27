@@ -53,9 +53,9 @@ module.exports = {
     contactEmail: `alisha.and.milind@gmail.com`,
     displayTitle: `Alisha & Milind`,
     weddingDate: `2022-01-22`,
-    rsvpDeadline: `2021-12-31`,
-    rsvpChangeDeadline: `2021-01-15`,
     bookingDeadline: `2021-12-21`,
+    rsvpDeadline: `2021-12-31`,
+    rsvpChangeDeadline: `2022-01-15`,
     location: `Las Vegas, NV`,
     mainVenue: [
       "JW Marriott Las Vegas Resort & Spa",

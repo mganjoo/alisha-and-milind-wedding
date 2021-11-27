@@ -16,7 +16,7 @@ const Schedule: React.FC = () => {
       <section className="c-article">
         <p>
           The wedding celebration will be at{" "}
-          <Link to="/travel">{metadata?.mainVenue[0]}</Link>. You can find more
+          <strong>{metadata?.mainVenue[0]}</strong>. You can find more
           information about the venue on the{" "}
           <Link to="/travel">Travel &amp; Hotel</Link> page, and more details
           about attire on the <Link to="/faq">FAQ</Link> page.

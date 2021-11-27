@@ -1,9 +1,6 @@
 import { getApp } from "firebase-admin/app"
 import { getFirestore } from "firebase-admin/firestore"
 import dayjs from "dayjs"
-import utc from "dayjs/plugin/utc"
-
-dayjs.extend(utc)
 
 interface Contact {
   id: string
@@ -29,6 +26,6 @@ export async function getContacts(after?: string) {
   )
   return contacts.map(({ createdAt, ...other }) => ({
     ...other,
-    created: dayjs(createdAt.toDate()).utc().format("YYYY-MM-DD HH:mm:ss"),
+    created: dayjs(createdAt.toDate()).format("YYYY-MM-DD HH:mm:ss"),
   }))
 }

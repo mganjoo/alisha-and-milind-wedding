@@ -29,12 +29,11 @@ const IndexPage = () => {
         <div className="c-article">
           <p>
             After a year and a half of life on Zoom, we are so excited to
-            finally be able to celebrate with you in person&hellip; but this
-            time in Las Vegas!
+            finally be able to celebrate with you in person in Las Vegas!
           </p>
           <p>
-            This website is where you will find the most up-to-date information
-            about the wedding, including the event schedule and travel details.
+            Here is where you will find the most up-to-date information about
+            the wedding, including the event schedule and travel details.
           </p>
           <p>
             We can&rsquo;t wait to see you soon in Vegas!

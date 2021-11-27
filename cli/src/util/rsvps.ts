@@ -1,15 +1,9 @@
 import { getApp } from "firebase-admin/app"
 import { getFirestore } from "firebase-admin/firestore"
 import dayjs from "dayjs"
-import utc from "dayjs/plugin/utc"
 import _ from "lodash"
 
-dayjs.extend(utc)
-
 const events = ["puja", "haldi", "sangeet", "ceremony", "reception"]
-
-// Cutoff for when event was rescheduled
-const newDateCutoff = dayjs("2020-03-15").toDate()
 
 interface Rsvp {
   id: string
@@ -24,11 +18,9 @@ interface RsvpWithParty extends Rsvp {
   partyName: string
 }
 
-async function getRsvps(oldDate: boolean) {
+async function getRsvps() {
   const invitationsRef = getFirestore(getApp()).collection("invitations")
-  const rsvpsRef = getFirestore(getApp())
-    .collectionGroup("rsvps")
-    .where("createdAt", oldDate ? "<" : ">=", newDateCutoff)
+  const rsvpsRef = getFirestore(getApp()).collectionGroup("rsvps")
   const snapshot = await rsvpsRef.get()
   const rsvps = snapshot.docs.map(
     (doc) =>
@@ -70,8 +62,8 @@ async function getRsvps(oldDate: boolean) {
     .value()
 }
 
-export async function getRsvpSummaries(oldDate: boolean) {
-  const rsvps = await getRsvps(oldDate)
+export async function getRsvpSummaries() {
+  const rsvps = await getRsvps()
   return _.chain(rsvps)
     .map(({ id, code, partyName, attending, createdAt, comments, guests }) => {
       const attendingCountsByEvent = _.chain(events)
@@ -89,7 +81,7 @@ export async function getRsvpSummaries(oldDate: boolean) {
         attending,
         ...attendingCountsByEvent,
         comments: comments || "",
-        created: dayjs(createdAt.toDate()).utc().format("YYYY-MM-DD HH:mm:ss"),
+        created: dayjs(createdAt.toDate()).format("YYYY-MM-DD HH:mm:ss"),
         guest1: guests[0] ? guests[0].name : "",
         guest2: guests[1] ? guests[1].name : "",
         guest3: guests[2] ? guests[2].name : "",
@@ -102,8 +94,8 @@ export async function getRsvpSummaries(oldDate: boolean) {
     .value()
 }
 
-export async function getGuestsByEvent(event: string, oldDate: boolean) {
-  const rsvps = await getRsvps(oldDate)
+export async function getGuestsByEvent(event: string) {
+  const rsvps = await getRsvps()
   return rsvps
     .filter((rsvp) => rsvp.attending)
     .flatMap((rsvp) => {

@@ -39,20 +39,20 @@ const RsvpPage = () => {
               <div className="c-narrow-body">
                 <div className="c-article">
                   <p>
-                    We hope to see you at our wedding! You can view the{" "}
+                    We hope to see you at the wedding! You can view the{" "}
                     <Link to="/schedule">Schedule</Link> and{" "}
-                    <Link to="/faq">FAQ</Link> page for more details about the
-                    wedding, and RSVP using the form below.
+                    <Link to="/faq">FAQ</Link> page for more details, and RSVP
+                    using the form below.
+                  </p>
+                  <p>
+                    We would appreciate your RSVP by{" "}
+                    <strong>{value?.rsvpDeadline}</strong>.
                   </p>
                   <p>
                     We understand that everyone may have different comfort
                     levels around traveling or attending large gatherings during
-                    this pandemic. We fully respect your decision to RSVP in
-                    accordance with your sense of safety.
-                  </p>
-                  <p>
-                    We would appreciate if you could RSVP by{" "}
-                    <strong>{value?.rsvpDeadline}</strong>.
+                    this pandemic. We fully respect your decision to RSVP
+                    accordingly.
                   </p>
                   <Alert isInfo>
                     We ask our guests to please RSVP only if they are or will be

@@ -10,5 +10,5 @@
 }
 
 [data-reach-skip-link]:focus {
-  @apply py-2 bg-white text-primary font-semibold outline-none ring ring-accent-focus dark:ring-transparent dark:bg-accent-focus-night;
+  @apply py-2 bg-white text-primary font-semibold underline outline-none ring ring-accent-focus dark:ring-transparent dark:bg-accent-focus-night;
 }
