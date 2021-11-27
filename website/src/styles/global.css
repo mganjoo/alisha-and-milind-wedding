@@ -90,7 +90,7 @@
 .c-article > p,
 .c-body-text-container > p,
 .c-article > dl > dd {
-  @apply mb-4;
+  @apply mb-5;
 }
 
 .c-article {

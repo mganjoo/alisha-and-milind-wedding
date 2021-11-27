@@ -55,10 +55,9 @@ const RsvpAttendanceSection = React.forwardRef<
         Specific events
       </h2>
       <p className="c-form-description" id="attendance-description">
-        Please select the{" "}
         {options.length > 1
-          ? "names of the guests attending each event"
-          : "events you’ll be attending"}
+          ? "Please select the names of the guests who will attend"
+          : "Please confirm your attendance below"}
         . You can come back and edit this later if your plans change.
       </p>
       {eventsToShow.map((event) => (

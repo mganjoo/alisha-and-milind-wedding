@@ -98,7 +98,7 @@ const TravelPage = () => {
               <p>
                 Please use the above link to book your stay at the JW Marriott
                 by <strong>{value?.bookingDeadline}</strong> to guarantee
-                availability.
+                availability at the reduced rate.
               </p>
               <p>
                 Don&rsquo;t hesitate to reach out to us (
@@ -145,7 +145,7 @@ const TravelPage = () => {
                 Driving in
               </HeadingSymbol>
               <p>
-                The JW Marriott is located on Rampart Blvd, off US 95. Valet
+                The JW Marriott is located on N Rampart Blvd, off US 95. Valet
                 parking (complimentary for overnight guests) and self-parking
                 (complimentary for all) is available at the venue. If you are
                 checking into the hotel, the registration desk is closest to{" "}

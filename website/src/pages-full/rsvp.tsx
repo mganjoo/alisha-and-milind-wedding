@@ -4,6 +4,7 @@ import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
 import Authenticated from "../components/partials/Authenticated"
 import ReeditableRsvpForm from "../components/partials/rsvp/ReeditableRsvpForm"
+import Alert from "../components/ui/Alert"
 import PageHeading from "../components/ui/PageHeading"
 import { InvitationNavigationState } from "../interfaces/InvitationNavigationState"
 import { WeddingMetadataContext } from "../utils/WeddingMetadataContext"
@@ -39,14 +40,27 @@ const RsvpPage = () => {
                 <div className="c-article">
                   <p>
                     We hope to see you at our wedding! You can view the{" "}
-                    <Link to="/schedule">Schedule</Link> page for more details
-                    about the wedding events, and RSVP using the form below.
+                    <Link to="/schedule">Schedule</Link> and{" "}
+                    <Link to="/faq">FAQ</Link> page for more details about the
+                    wedding, and RSVP using the form below.
+                  </p>
+                  <p>
+                    We understand that everyone may have different comfort
+                    levels around traveling or attending large gatherings during
+                    this pandemic. We fully respect your decision to RSVP in
+                    accordance with your sense of safety.
                   </p>
                   <p>
                     We would appreciate if you could RSVP by{" "}
-                    {value?.rsvpDeadline}.
+                    <strong>{value?.rsvpDeadline}</strong>.
                   </p>
-                  <p></p>
+                  <Alert isInfo>
+                    We ask our guests to please RSVP only if they are or will be
+                    fully vaccinated by the start of the event. For those who
+                    are unable to receive the vaccine, we kindly request a
+                    negative COVID test within a 48-hour period of attending any
+                    wedding event.
+                  </Alert>
                   <div className="flex justify-center my-6">
                     <Link
                       to="/invitation"

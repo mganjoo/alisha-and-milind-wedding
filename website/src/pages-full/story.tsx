@@ -72,19 +72,20 @@ const StoryPage = () => {
           Alisha&rsquo;s wittiness and passion for her work; she was impressed
           by his ability to strike up a conversation about any topic under the
           sun. Over the next following years, they stumbled through the Yosemite
-          backcountry, sipped whiskey on the Isle of Skye, bridged a 3000-mile
-          long distance relationship for a while, and performed daily Queen
-          LiveAid renditions to an audience of none. They also got married in a
-          fully virtual courthouse wedding with their parents and siblings
-          joining in from their own living rooms around the world.
+          backcountry together, sipped whiskey on the Isle of Skye, bridged a
+          3000-mile long distance relationship for a while, and performed daily
+          Queen LiveAid renditions to an audience of none.
         </p>
         <p>
-          In the time since the wedding website was last up and running, Alisha
-          moved back to San Francisco after finishing her final year in graduate
-          school for her clinical internship. Milind has been hard at work
-          diligently raising his chess Elo rating (someone binged The Queen’s
-          Gambit), and maintaining his 670-day (and counting) NYT Crossword
-          streak.
+          Following the postponement of their original wedding date, Alisha and
+          Milind got married in a fully virtual courthouse wedding in June 2020
+          with their parents and siblings joining in from their own living rooms
+          around the world. Soon after, Alisha moved to Philadelphia for a year
+          where she had matched for her clinical psychology internship and has
+          now returned back to San Francisco. Milind has been hard at work
+          diligently raising his chess Elo rating (someone binged The
+          Queen&rsquo;s Gambit), and maintaining his 670-day (and counting) NYT
+          Crossword streak.
         </p>
         <ImageGrid
           images={[

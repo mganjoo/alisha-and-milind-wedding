@@ -48,61 +48,81 @@ const FaqPage = () => {
       <WeddingMetadataContext.Consumer>
         {(value) => (
           <>
-            <Faq
-              question="How is the wedding impacted by the current coronavirus outbreak?"
-              updated={"2020-03-29"}
-            >
+            <Faq question="What safety measures will be in place for COVID-19?">
               <p>
-                Given the ongoing COVID-19 outbreak,{" "}
+                In light of the pandemic, we are looking to both federal and
+                state health guidelines to maintain a safe celebratory
+                environment. In this effort, we are asking our guests to please
+                RSVP{" "}
                 <strong>
-                  we have changed the wedding events to {value?.weddingDate}
+                  only if they are or will be fully vaccinated by the start of
+                  the event
                 </strong>
-                . The location at the San Mateo Marriott in the San Francisco
-                Bay Area will remain the same.
+                . For those who are unable to receive the vaccine, we kindly
+                request a negative COVID test within a 48-hour period of
+                attending any wedding event.
               </p>
               <p>
-                Most US and international airlines have updated their travel
-                policies to allow flexible flight changes without fees. We
-                encourage you to look at your airline&rsquo;s website for their
-                specific policy. If you had already made room reservations at
-                the Marriott through the hotel block, the hotel will
-                automatically cancel these reservations.
+                We will have masks and hand sanitizing stations readily
+                available. We have also selected our venue based on the ability
+                to spread out, though we also do want to share that we are
+                anticipating around 300 guests for an indoor reception. We value
+                each and every one of you dearly, so please know that we fully
+                understand if this arrangement is not within your comfort level,
+                particularly given that many folks may be travelling in for the
+                event.
               </p>
               <p>
-                In the meantime, we will continue to track guidance from the{" "}
+                We will continue to track guidance from the{" "}
                 <ExternalLink href="https://www.cdc.gov/coronavirus/2019-ncov/index.html">
                   CDC
                 </ExternalLink>{" "}
                 and{" "}
-                <ExternalLink href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/ncov2019.aspx">
-                  California Department of Public Health
-                </ExternalLink>
-                , and practice social distancing. We wish for all our guests to
-                stay safe and healthy during this time, and we hope to see you
-                in October!
+                <ExternalLink href="https://nvhealthresponse.nv.gov/">
+                  Nevada Health Response
+                </ExternalLink>{" "}
+                and will share any updates related to safety accordingly on this
+                website.
               </p>
             </Faq>
-            <Faq question="How should I RSVP?" updated={"2020-03-29"}>
+            <Faq question="How should I RSVP?">
               <p>
                 Please visit the <Link to="/rsvp">RSVP</Link> page to fill out
                 the form online (your email address may be required). Please
                 confirm the spellings of the names for the guests in your party
-                and confirm attendance. You will then be able to indicate
-                specifically which events each guest will be attending on the
-                next page.
+                and confirm attendance.
               </p>
               <p>
-                Because October is still several months away and making travel
-                plans is the last thing on people&rsquo;s minds right now, we
-                are not setting an RSVP deadline at this time. We will check in
-                later in the summer with updates around RSVPs. You can always
-                come back and edit your RSVP at any time.
+                We are asking for guests to please RSVP by{" "}
+                <strong>{value?.rsvpDeadline}</strong>. However, if you plan on
+                reserving a hotel room from the wedding block, please know that
+                the hotel requires that the wedding block be closed one month
+                prior to the event so your room would need to be booked by{" "}
+                <strong>{value?.bookingDeadline}</strong>. We understand the
+                importance of flexibility during this time. Please know that you
+                can edit your RSVP online at any time until one week before the
+                event ({value?.rsvpChangeDeadline}).
               </p>
               <p>
                 If you have any questions about the RSVP, or if you notice we
                 have made a mistake (our sincerest apologies!), please reach out
                 to us at <ContactEmail />.
               </p>
+            </Faq>
+            <Faq question="How do I book my hotel room?">
+              <p>
+                Please see the <Link to="/travel">Travel &amp; Hotel</Link> page
+                for a link to book with our discounted rate. Please book by{" "}
+                <strong>{value?.bookingDeadline}</strong> to ensure room
+                availability.
+              </p>
+            </Faq>
+            <Faq question="If I booked a hotel room, what happens if I need to cancel?">
+              The hotel&rsquo;s cancellation policy allows for a full refund as
+              long as the reservation is cancelled at least two days prior to
+              your scheduled arrival date. If the room is cancelled any later
+              than that, the hotel may charge one night&rsquo;s room rate, plus
+              taxes.
             </Faq>
             <Faq question="What should I wear?">
               <p>
@@ -119,23 +139,22 @@ const FaqPage = () => {
                   Western semi-formal: cocktail dress, jumpsuit, skirt, dress
                   shirt, slacks, jacket
                 </li>
-                <li>Western formal: maxi skirt, gown, suit and tie, tuxedo</li>
+                <li>Western formal: long skirt, gown, suit and tie, tuxedo</li>
               </ul>
               <p>A couple of other notes:</p>
               <ul>
                 <li>
-                  Every event (literally every one) involves dancing so choose
-                  your footwear accordingly! If that means ditching shoes under
-                  the table at some point in the night to really make the open
-                  dance floor count, that&rsquo;s fine by us!{" "}
+                  There will be lots of dancing so choose your footwear
+                  accordingly! If that means ditching shoes under the table at
+                  some point in the night to really make the open dance floor
+                  count, that&rsquo;s fine by us!
                   <Emoji symbol="💃🏾" label="dancing emoji" />
                 </li>
                 <li>
-                  We look forward to sharing our culture with all of our wedding
-                  guests. If you are excited to wear Indian attire but are not
-                  sure where to start, reach out to us! There are many options
-                  to rent or buy clothes in stores or online, or borrow from
-                  friends!
+                  We love sharing our cultural traditions with you all. If you
+                  are excited to wear Indian attire but are not sure where to
+                  start, let us know! There are many options to rent or buy
+                  clothes in stores or online, or borrow from friends/us!
                 </li>
               </ul>
             </Faq>
@@ -144,50 +163,42 @@ const FaqPage = () => {
                 {
                   image: data.clothes1.childImageSharp.gatsbyImageData,
                   id: "clothes1",
-                  alt: "Alisha dressed in a red patterned lehenga and Milind dressed in a black kurta and churidar",
+                  alt: "Alisha dressed in a red patterned lehenga and Milind dressed in a black kurta and churidar.",
                   objectPosition: "50% 95%",
                 },
                 {
                   image: data.clothes2.childImageSharp.gatsbyImageData,
                   id: "clothes2",
-                  alt: "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie",
+                  alt: "Alisha in a fuhscia-colored lehenga and Milind in a black suit and bowtie.",
                 },
                 {
                   image: data.clothes3.childImageSharp.gatsbyImageData,
                   id: "clothes3",
-                  alt: "Milind in a maroon sherwani and Alisha in a green salwar kameez",
+                  alt: "Milind in a maroon sherwani and Alisha in a green salwar kameez.",
                   objectPosition: "50% 25%",
                 },
                 {
                   image: data.clothes4.childImageSharp.gatsbyImageData,
                   id: "clothes4",
-                  alt: "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga",
+                  alt: "Milind in a peacock-blue kurta, and Alisha in a fuchsia-colored lehenga.",
                   objectPosition: "50% 35%",
                 },
               ]}
             />
-            <Faq question="Do you have a hotel room block?">
-              <p>
-                We sure do! Please see the{" "}
-                <Link to="/travel">Travel &amp; Hotel</Link> page for details,
-                as well as the link to book with our discounted rate. Please
-                book by <strong>{value?.bookingDeadline}</strong> to ensure room
-                availability.
-              </p>
-            </Faq>
             <Faq question="What will the weather be like this time of year?">
               <p>
-                October is generally one of the milder months in the Bay Area,
-                with highs in the upper 60s °F / 20s °C. It can also get fairly
-                breezy during various times of the day, so we recommend keeping
-                a light jacket handy. While most of the events will be indoors,
-                the baraat and the wedding ceremony on Saturday morning will be
-                outdoors. We will have a contingency plan for rain, but for now,
-                plan on spending the morning under the California sky!
+                Las Vegas may be a desert but don&rsquo;t let that dry climate
+                fool you - it gets chilly in the winter! (&hellip;just
+                don&rsquo;t ask our family coming in from Chicago and Michigan
+                for a second opinion) You can expect lows in the mid 30s °F (3-5
+                °C) and highs in the low 50s °F (10-12 °C).
               </p>
             </Faq>
             <Faq question="Are you accepting gifts?">
-              <p>We truly value your presence more than any gift!</p>
+              <p>
+                We truly value your presence, now more than ever, above any
+                gift!
+              </p>
               <p>
                 For those who insist, you can visit the{" "}
                 <Link to="/registry">Registry</Link> page to view our Zola
@@ -195,7 +206,7 @@ const FaqPage = () => {
                 reception. We humbly request no boxed gifts at the event.
               </p>
             </Faq>
-            <Faq question="Is it okay to take photos or videos during the wedding events?">
+            <Faq question="Is it okay to take photos or videos during the event?">
               <p>
                 Absolutely! Our social media hashtag is{" "}
                 <strong>#AlishaWonAMil</strong>. Certainly no pressure to
@@ -203,175 +214,143 @@ const FaqPage = () => {
                 with you as well.
               </p>
             </Faq>
-            <Faq question="What will the cuisine be at the wedding events?">
+            <Faq question="What cuisine will be served at the event?">
               <p>
-                Indian food will be served at every event, buffet style. This
-                will include vegetarian, gluten-free, and dairy-free options. We
-                want to ensure everyone is safe and comfortable so please do
-                reach out to us with any dietary concerns!
+                Indian food will be served buffet-style, and will include
+                vegetarian, gluten-free, and dairy-free options. We want to
+                ensure everyone is fully powered for breaking a sweat on the
+                dance floor after eating, so please do reach out to us with any
+                dietary needs!
               </p>
             </Faq>
-            <Faq question="What are some fun things to do in the Bay Area?">
+            <Faq question="What are some fun things to do in Las Vegas?">
               <p>
-                There are truly a million things to do here and the internet
-                will provide you with great guidance, especially for first-time
-                visitors! For our guests who are spending some extra time in the
-                area (great choice!), here is the Alisha &amp; Milind edition of
-                top things to do in the San Francisco Bay Area.
+                The internet will provide you with great guidance, especially
+                for first-time visitors. But for our family and friends who are
+                spending some extra time in the area (or want to bookmark this
+                for a later trip!), here is the Alisha &amp; Milind edition of
+                our favorite things to do in the [Vegas] Valley.
               </p>
-              <p>
-                San Francisco is a half hour drive north from San Mateo on US
-                101. You can also take{" "}
-                <ExternalLink href="http://www.caltrain.com/schedules.html">
-                  Caltrain
-                </ExternalLink>{" "}
-                into the city (the closest station from the hotel is{" "}
-                <ExternalLink href="https://goo.gl/maps/d2oNAYcK9aYZH2Nd9">
-                  Hayward Park
-                </ExternalLink>
-                ).
-              </p>
-
-              <h3>The Abridged List of Essentials</h3>
+              <h3>The Strip (duh!)</h3>
               <ul>
                 <li>
-                  Run/bike/walk across the Golden Gate Bridge (if you&rsquo;re
-                  like Milind) or gaze upon it from a{" "}
-                  <ExternalLink href="https://www.presidio.gov/places/golden-gate-bridge-welcome-center">
-                    scenic viewpoint
+                  The food options here are endless. Some of our favorites are{" "}
+                  <ExternalLink href="https://www.runchickenrun.com/las-vegas/">
+                    Yardbird
                   </ExternalLink>{" "}
-                  (if you&rsquo;re like Alisha).
+                  at The Venetian and{" "}
+                  <ExternalLink href="https://www.caesars.com/caesars-palace/restaurants/bacchanal-buffet">
+                    Bacchanal
+                  </ExternalLink>{" "}
+                  at Caesars Palace.
                 </li>
                 <li>
-                  We love the{" "}
-                  <ExternalLink href="https://www.everywhereist.com/2012/08/the-view-from-the-hamon-observation-tower-san-francisco/">
-                    Hamon Observation Tower
+                  <ExternalLink href="https://www.cosmopolitanlasvegas.com/">
+                    The Cosmopolitan
                   </ExternalLink>{" "}
-                  in the de Young Museum (free admission to the top!), the{" "}
-                  <ExternalLink href="https://www.japaneseteagardensf.com/">
-                    Japanese Tea Garden
-                  </ExternalLink>
-                  , and the{" "}
-                  <ExternalLink href="https://www.calacademy.org/exhibits/osher-rainforest">
-                    Osher Rainforest
+                  gets its own bullet point because it’s a personal favorite
+                  across the board. Any (really, any) of the{" "}
+                  <ExternalLink href="https://www.cosmopolitanlasvegas.com/restaurants">
+                    restaurants
                   </ExternalLink>{" "}
-                  at the California Academy of Sciences that are all located
-                  next to each other at the Golden Gate Park in San Francisco.
+                  there are a good time. The hotel rooms have some of the best
+                  views on The Strip. And the place is teeming with hidden
+                  treasures waiting to be stumbled upon, from speakeasies to
+                  secret pizza and off-the-menu cocktails.
                 </li>
                 <li>
-                  If you enjoy touring university campuses as much as our
-                  parents do, Stanford University is highly photogenic (a half
-                  hour drive south from San Mateo). We both have our own
-                  favorite spots from our time there. Milind recommends getting
-                  a sandwich at his tried-and-true favorite{" "}
-                  <ExternalLink href="https://www.cohostanford.com/">
-                    CoHo
+                  The Saxenas love playing tourist in Vegas to check out the
+                  incredible seasonal creations at the{" "}
+                  <ExternalLink href="https://bellagio.mgmresorts.com/en/entertainment/conservatory-botanical-garden.html">
+                    Conservatory at Bellagio
                   </ExternalLink>
-                  , taking in the views from the top of{" "}
-                  <ExternalLink href="https://visit.stanford.edu/plan/guides/hoover.html">
-                    Hoover Tower
+                  before wrapping up the night with some gelato from{" "}
+                  <ExternalLink href="https://bellagio.mgmresorts.com/en/restaurants/bellagio-patisserie.html">
+                    Patisserie
                   </ExternalLink>
-                  , and walking around the Main Quad. Alisha recommends
-                  strolling through the little-known{" "}
-                  <ExternalLink href="https://lbre.stanford.edu/bgm/what-we-do/grounds-services/horticulture-and-landscape/points-interest/arizona-garden">
-                    Arizona Garden
+                  . And of course there&rsquo;s that{" "}
+                  <ExternalLink href="https://bellagio.mgmresorts.com/en/entertainment/fountains-of-bellagio.html">
+                    iconic fountain
                   </ExternalLink>{" "}
-                  and the well-known{" "}
-                  <ExternalLink href="https://web.stanford.edu/dept/suma/view/rodin.html">
-                    Rodin Sculpture Garden
+                  featured in many a Vegas movie!
+                </li>
+                <li>
+                  Shop till you drop!{" "}
+                  <ExternalLink href="https://www.simon.com/mall/the-forum-shops-at-caesars-palace">
+                    The Forum Shops
                   </ExternalLink>{" "}
-                  in the Cantor Arts Center.
+                  and{" "}
+                  <ExternalLink href="https://www.simon.com/mall/the-forum-shops-at-caesars-palace">
+                    Fashion Show Mall
+                  </ExternalLink>{" "}
+                  are good places to start.
+                </li>
+                <li>
+                  <ExternalLink href="https://www.cirquedusoleil.com/las-vegas">
+                    Cirque du Soleil
+                  </ExternalLink>{" "}
+                  shows are worth the hype and have seen many of them multiple
+                  times. The Beatles LOVE and KÀ are on our Don&rsquo;t Miss
+                  List.
                 </li>
               </ul>
 
-              <h3>The Chill List (for the chillest)</h3>
+              <h3>The Chill List</h3>
               <ul>
                 <li>
-                  Lay out on the grass between the palms and take in the
-                  &ldquo;atmosphere&rdquo; of{" "}
-                  <ExternalLink href="https://sfrecpark.org/destination/mission-dolores-park/">
-                    Dolores Park
+                  Take a scenic drive through{" "}
+                  <ExternalLink href="https://www.blm.gov/programs/national-conservation-lands/nevada/red-rock-canyon-national-conservation-area/planning-your-visit">
+                    Red Rock Canyon
                   </ExternalLink>
-                  .
+                  , about 10 minutes west of the JW Marriott.
                 </li>
                 <li>
-                  Head to{" "}
-                  <ExternalLink href="https://sfrecpark.org/destination/twin-peaks/">
-                    Twin Peaks
-                  </ExternalLink>{" "}
-                  to get incredible views of the city, mountains, and water.
-                </li>
-                <li>
-                  San Francisco&rsquo;s beaches are gray and cold, but warm up
-                  by the{" "}
-                  <ExternalLink href="https://www.nps.gov/goga/learn/management/obfireprogram.htm">
-                    fire pits on Ocean Beach
+                  If you&rsquo;re staying at the resort, treat yourself to a{" "}
+                  <ExternalLink href="https://www.marriott.com/hotels/hotel-information/fitness-spa-services/details/lasjw-jw-marriott-las-vegas-resort-and-spa/5013971/">
+                    spa day
                   </ExternalLink>
-                  .
-                </li>
-                <li>
-                  You just spent all weekend dancing on those feet and now you
-                  want to sit back and relax. For a quirky, indoor experience,
-                  we love{" "}
-                  <ExternalLink href="https://drafthouse.com/sf">
-                    Alamo Drafthouse Cinema
-                  </ExternalLink>
-                  . They create their own trailers relevant to the movie
-                  you&rsquo;re there to see, and food and drinks get delivered
-                  directly to your seat.
+                  ! Those feet could use a massage after all that dancing.
                 </li>
               </ul>
 
               <h3>The Foodie List</h3>
               <ul>
                 <li>
-                  Alisha&rsquo;s favorite sweet treat: the baklava frozen Greek
-                  yogurt at{" "}
-                  <ExternalLink href="https://www.souvla.com/">
-                    Souvla
-                  </ExternalLink>{" "}
-                  (but all the food there is delicious).
-                </li>
-                <li>
-                  Milind&rsquo;s favorite savory treats: the Mission burrito
-                  (try{" "}
-                  <ExternalLink href="https://www.yelp.com/biz/el-farolito-san-francisco-2">
-                    El Farolito
+                  Las Vegas is a food-lover&rsquo;s dream - from
+                  hole-in-the-wall spots to world-renowned restaurants, the
+                  local culinary world is rich. We are creatures of habit
+                  though, so we have been going to the same five restaurants for
+                  years:{" "}
+                  <ExternalLink href="https://www.kingandilakes.com/">
+                    King &amp; I
                   </ExternalLink>
-                  !) or the burger at{" "}
-                  <ExternalLink href="https://www.yelp.com/biz/nopa-san-francisco">
-                    Nopa
+                  ,{" "}
+                  <ExternalLink href="https://honeysalt.com/">
+                    Honey Salt
+                  </ExternalLink>
+                  ,{" "}
+                  <ExternalLink href="http://grapestreetdowntownsummerlin.com/">
+                    Grape Street Cafe
+                  </ExternalLink>
+                  ,{" "}
+                  <ExternalLink href="https://www.wynnlasvegas.com/dining/casual-dining/red-8">
+                    Red 8
+                  </ExternalLink>
+                  , and{" "}
+                  <ExternalLink href="https://www.digitalmenuclub.com/">
+                    El Dorado Cantina
                   </ExternalLink>
                   .
-                </li>
-                <li>
-                  San Francisco is known for the sourdough bread bowls with clam
-                  chowder, for which{" "}
-                  <ExternalLink href="https://boudinbakery.com/home/">
-                    Boudin Bakery
-                  </ExternalLink>{" "}
-                  is popular! For seafood aficionados, keep{" "}
-                  <ExternalLink href="https://www.yelp.com/biz/hog-island-oyster-co-san-francisco">
-                    Hog Island Oyster Co
-                  </ExternalLink>{" "}
-                  on your radar.
-                </li>
-                <li>
-                  <ExternalLink href="https://www.yelp.com/biz/salt-and-straw-san-francisco-5">
-                    Salt &amp; Straw
-                  </ExternalLink>{" "}
-                  has some delicious and exotic ice cream flavors that change
-                  monthly. In the past, we&rsquo;ve tried ice creams that
-                  include sunflower seeds, banana peanut butter, tofu pudding,
-                  and olive oil!
                 </li>
               </ul>
 
               <h3>The Short Road Trip List</h3>
               <p>
-                If you have some more time to explore the Bay Area, here are a
-                few ideas for places that are a short journey away from San
-                Mateo.
+                Head on up to{" "}
+                <ExternalLink href="https://www.gomtcharleston.com/">
+                  Mount Charleston
+                </ExternalLink>
+                , about 40 minutes away from the hotel, for a snowy escape.
               </p>
               <ul>
                 <li>
@@ -380,29 +359,12 @@ const FaqPage = () => {
                   visit).
                 </li>
                 <li>
-                  Don&rsquo;t miss the jellyfish at the{" "}
-                  <ExternalLink href="https://www.montereybayaquarium.org/">
-                    Monterey Bay Aquarium
-                  </ExternalLink>{" "}
-                  (full day trip).
-                </li>
-                <li>
-                  Hike amidst the redwoods at{" "}
-                  <ExternalLink href="https://www.nps.gov/muwo/index.htm">
-                    Muir Woods
-                  </ExternalLink>{" "}
-                  (half day trip).
-                </li>
-                <li>
-                  Soak up the sun at the{" "}
-                  <ExternalLink href="https://beachboardwalk.com/">
-                    Santa Cruz Boardwalk
-                  </ExternalLink>{" "}
-                  (full day trip). Bonus: check out the{" "}
-                  <ExternalLink href="https://www.mysteryspot.com/">
-                    Mystery Spot
-                  </ExternalLink>{" "}
-                  while you&rsquo;re down there!
+                  Rewatch Transformers for that iconic scene of{" "}
+                  <ExternalLink href="https://www.usbr.gov/lc/hooverdam/">
+                    Hoover Dam
+                  </ExternalLink>
+                  before heading out to the real one, an approximately 50-minute
+                  drive from the JW Marriott.
                 </li>
               </ul>
             </Faq>
@@ -411,7 +373,7 @@ const FaqPage = () => {
                 The best way to reach us is at <ContactEmail />. There are two
                 types of people in this world, and Alisha is the zero-inbox
                 type. Milind is the other type, but he claims he has a system.
-                Either way, we&rsquo;ll get back to you ASAP!
+                Either way, we&rsquo;ll get back to you super pronto!
               </p>
             </Faq>
           </>

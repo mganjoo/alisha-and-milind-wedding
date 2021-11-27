@@ -61,7 +61,7 @@ describe("RSVP page", function () {
 
     cy.findByText(/submit rsvp/i).click()
 
-    cy.findByText(/selections for at least one/i).should("exist")
+    cy.findByText(/make a selection/i).should("exist")
     cy.percySnapshot()
     // Make sure error state is accessible
     cy.checkA11y()
@@ -70,7 +70,7 @@ describe("RSVP page", function () {
     cy.findByLabelText(/reception/i).within(() => {
       cy.findByLabelText(invitation.knownGuests[0]).check()
     })
-    cy.findByText(/selections for at least one/i).should("not.exist")
+    cy.findByText(/make a selection/i).should("not.exist")
   })
 
   it("should preserve attendance choices when only name spellings are changed", function () {
@@ -145,11 +145,11 @@ describe("RSVP page", function () {
 
     // should prevent submission if no event is selected
     cy.findByText(/submit rsvp/i).click()
-    cy.findByText(/selections for at least one/i).should("exist")
+    cy.findByText(/make a selection/i).should("exist")
     cy.findByLabelText(/reception/i).within(() => {
       cy.findByLabelText(/attending/i).check()
     })
-    cy.findByText(/selections for at least one/i).should("not.exist")
+    cy.findByText(/make a selection/i).should("not.exist")
   })
 
   it("should adapt UI to 3 or more people", function () {

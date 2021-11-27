@@ -47,7 +47,7 @@ export const validationSchema = object()
               name: "attending-at-least-one-event",
               test: (value: Record<string, string[]>) =>
                 Object.values(value).some((v) => v.length > 0),
-              message: "Please make selections for at least one event.",
+              message: "Please make a selection.",
             })
           : schema
       }),

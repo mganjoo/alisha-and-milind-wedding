@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from "gatsby"
 export interface WeddingMetadata {
   shortRsvpDeadline: string
   rsvpDeadline: string
+  rsvpChangeDeadline: string
   bookingDeadline: string
   displayTitle: string
   weddingDate: string
@@ -22,6 +23,7 @@ export function useWeddingMetadata() {
         siteMetadata {
           shortRsvpDeadline: rsvpDeadline(formatString: "MMMM D")
           rsvpDeadline: rsvpDeadline(formatString: "MMMM D, YYYY")
+          rsvpChangeDeadline: rsvpChangeDeadline(formatString: "MMMM D, YYYY")
           bookingDeadline: bookingDeadline(formatString: "MMMM D, YYYY")
           displayTitle
           weddingDate: weddingDate(formatString: "MMMM D, YYYY")

@@ -61,15 +61,13 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
             </>
           ) : (
             <>
-              We&rsquo;ve filled out some information based on what we know.
-              Please edit or correct anything we may have missed.{" "}
               {guestKeys.length > 1 ? (
                 <>
-                  Any member of your party can submit for the whole group, and
-                  you
+                  Please correct any name as needed. Any member of your party
+                  can submit for the whole group, and you
                 </>
               ) : (
-                <>You</>
+                <>Please confirm the spelling of your name. You</>
               )}{" "}
               can always come back and edit your RSVP even after you&rsquo;ve
               submitted.
