@@ -41,7 +41,7 @@ jobs:
           CI: true
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy (production project)
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: |
           npm run deploy:prod
         working-directory: ./functions

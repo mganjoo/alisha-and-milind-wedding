@@ -2,7 +2,7 @@ name: Website tests
 on:
   push:
     branches-ignore:
-      - "master"
+      - "main"
       - "staging"
     paths:
       - "website/**"
@@ -24,8 +24,8 @@ jobs:
         if: github.event_name == 'repository_dispatch'
         uses: actions/checkout@v2
         with:
-          # Always build and run external dispatch tests on 'master' branch
-          ref: master
+          # Always build and run external dispatch tests on 'main' branch
+          ref: main
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
