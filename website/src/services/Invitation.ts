@@ -25,11 +25,9 @@ export async function fetchAndSaveInvitationByCode(
   const firestore = loadFirestore()
   const result = await firestore.findById(invitationsCollection, code)
   if (result) {
-    const data = result.data
-    if (InvitationSchema.guard(data)) {
-      await saveInvitation(data)
-      return data
-    }
+    const data = InvitationSchema.check(result.data)
+    await saveInvitation(data)
+    return data
   }
   return undefined
 }
@@ -43,10 +41,9 @@ export async function fetchAndSaveInvitationByEmail(
     email.toLowerCase()
   )
   if (result) {
-    const data = result.data
-    if (InviteeSchema.guard(data)) {
-      return fetchAndSaveInvitationByCode(data.code)
-    }
+    // Once something is returned, check (with error) if the data is valid
+    const data = InviteeSchema.check(result.data)
+    return fetchAndSaveInvitationByCode(data.code)
   }
   return undefined
 }

@@ -90,7 +90,7 @@ const TravelPage = () => {
                 For our guests who will be staying overnight at the venue,
                 please use the link below for the wedding event rate. Please
                 book your stay by <strong>{value?.bookingDeadline}</strong> to
-                guarantee room availability.
+                guarantee room availability at the special rate.
               </p>
               <div className="my-4 w-full block">
                 <ExternalLink

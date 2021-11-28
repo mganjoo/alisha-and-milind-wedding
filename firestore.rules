@@ -44,10 +44,9 @@ service cloud.firestore {
               ||
               // Must be kept up to date with values in Gatsby config
               (attending() && (
-                (itype == "f" && events.hasOnly(["puja", "haldi", "sangeet", "ceremony", "reception"]))
-                || (itype == "a" && events.hasOnly(["haldi", "sangeet", "ceremony", "reception"]))
-                || (itype == "psr" && events.hasOnly(["haldi", "sangeet", "reception"]))
-                || (itype == "pr" && events.hasOnly(["haldi", "reception"]))
+                (itype == "a" && events.hasOnly(["puja", "haldi", "sangeet", "ceremony", "reception"]))
+                || (itype == "psr" && events.hasOnly(["puja", "haldi", "sangeet", "reception"]))
+                || (itype == "pr" && events.hasOnly(["puja", "haldi", "reception"]))
                 || (itype == "w" && events.hasOnly(["sangeet", "ceremony", "reception"]))
                 || (itype == "sr" && events.hasOnly(["sangeet", "reception"]))
                 || (itype == "r" && events.hasOnly(["reception"]))

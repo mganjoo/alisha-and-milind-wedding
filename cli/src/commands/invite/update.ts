@@ -49,15 +49,14 @@ const partySchema = object()
       ),
     uniquePartyName: string().trim().required(),
     partyName: string().required().trim(),
-    puja: string().required().oneOf(["y", "n"]),
-    haldi: string().required().oneOf(["y", "n"]),
+    preEvents: string().required().oneOf(["y", "n"]),
     ceremony: string().required().oneOf(["y", "n"]),
     sangeet: string().required().oneOf(["y", "n"]),
     numGuests: number().required().integer(),
     knownGuests: array().of(string().required()),
   })
 
-type Itype = "f" | "a" | "pr" | "psr" | "w" | "sr" | "r"
+type Itype = "a" | "pr" | "psr" | "w" | "sr" | "r"
 
 interface Invitation {
   code: string
@@ -73,8 +72,7 @@ interface Party extends Invitation {
 }
 
 type SegmentIdKey =
-  | "pujaSegmentId"
-  | "haldiSegmentId"
+  | "preEventsSegmentId"
   | "sangeetSegmentId"
   | "ceremonySegmentId"
   | "receptionSegmentId"
@@ -103,11 +101,8 @@ export default class InviteUpdate extends BaseCommand {
     listId: flags.string({
       description: "Mailchimp list ID for invitees",
     }),
-    pujaSegmentId: flags.string({
-      description: "Mailchimp segment ID for Puja tag",
-    }),
-    haldiSegmentId: flags.string({
-      description: "Mailchimp segment ID for Haldi tag",
+    preEventsSegmentId: flags.string({
+      description: "Mailchimp segment ID for Pre-Events tag",
     }),
     sangeetSegmentId: flags.string({
       description: "Mailchimp segment ID for Sangeet tag",
@@ -124,24 +119,21 @@ export default class InviteUpdate extends BaseCommand {
   }
 
   parseItype(
-    puja: boolean,
-    haldi: boolean,
+    preEvents: boolean,
     sangeet: boolean,
     ceremony: boolean
   ): Itype | undefined {
-    if (puja && haldi && sangeet && ceremony) {
-      return "f"
-    } else if (!puja && haldi && sangeet && ceremony) {
+    if (preEvents && sangeet && ceremony) {
       return "a"
-    } else if (!puja && haldi && sangeet && !ceremony) {
+    } else if (preEvents && sangeet && !ceremony) {
       return "psr"
-    } else if (!puja && haldi && !sangeet && !ceremony) {
+    } else if (preEvents && !sangeet && !ceremony) {
       return "pr"
-    } else if (!puja && !haldi && sangeet && ceremony) {
+    } else if (!preEvents && sangeet && ceremony) {
       return "w"
-    } else if (!puja && !haldi && sangeet && !ceremony) {
+    } else if (!preEvents && sangeet && !ceremony) {
       return "sr"
-    } else if (!puja && !haldi && !sangeet && !ceremony) {
+    } else if (!preEvents && !sangeet && !ceremony) {
       return "r"
     } else {
       return undefined
@@ -207,15 +199,14 @@ export default class InviteUpdate extends BaseCommand {
           knownGuests,
           ...rest
         }) => {
-          const puja = !!yn(rest.puja)
-          const haldi = !!yn(rest.haldi)
+          const preEvents = !!yn(rest.preEvents)
           const sangeet = !!yn(rest.sangeet)
           const ceremony = !!yn(rest.ceremony)
-          const itype = this.parseItype(puja, haldi, sangeet, ceremony)
+          const itype = this.parseItype(preEvents, sangeet, ceremony)
           if (!itype) {
             this.error(
-              `Could not generate itype for invitation: puja = ${puja},` +
-                ` haldi = ${haldi}, sangeet = ${sangeet}, ceremony = ${ceremony}`
+              `Could not generate itype for invitation: preEvents = ${preEvents},` +
+                ` sangeet = ${sangeet}, ceremony = ${ceremony}`
             )
           }
           return {
@@ -331,25 +322,19 @@ export default class InviteUpdate extends BaseCommand {
 
     await writeTags(
       this.mailchimp,
-      (party) => party.itype === "f",
-      "pujaSegmentId"
-    )
-    await writeTags(
-      this.mailchimp,
-      (party) => ["f", "a", "psr", "pr"].includes(party.itype),
-      "haldiSegmentId"
+      (party) => ["a", "psr", "pr"].includes(party.itype),
+      "preEventsSegmentId"
     )
     await writeTags(
       this.mailchimp,
       (party) =>
         party.itype !== undefined &&
-        ["f", "a", "w", "psr", "sr"].includes(party.itype),
+        ["a", "w", "psr", "sr"].includes(party.itype),
       "sangeetSegmentId"
     )
     await writeTags(
       this.mailchimp,
-      (party) =>
-        party.itype !== undefined && ["f", "a", "w"].includes(party.itype),
+      (party) => party.itype !== undefined && ["a", "w"].includes(party.itype),
       "ceremonySegmentId"
     )
     await writeTags(this.mailchimp, () => true, "receptionSegmentId")

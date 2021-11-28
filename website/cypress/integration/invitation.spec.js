@@ -27,13 +27,13 @@ describe("invitation tests", function () {
 
   describe("load code page", function () {
     it("should load an invitation correctly", function () {
-      cy.visit(`/r/invitation/${invitation.code}`)
+      cy.visit(`/s/invitation/${invitation.code}`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
       cy.percySnapshot()
     })
 
     it("should load a cached invitation when possible", function () {
-      cy.visit(`/r/invitation/${invitation.code}`)
+      cy.visit(`/s/invitation/${invitation.code}`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
       cy.visit(`/invitation`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
@@ -42,21 +42,21 @@ describe("invitation tests", function () {
     })
 
     it("should load another invitation when a new code is provided", function () {
-      cy.visit(`/r/invitation/${invitation.code}`)
+      cy.visit(`/s/invitation/${invitation.code}`)
       cy.findByText(new RegExp(invitation.partyName, "i")).should("exist")
-      cy.visit(`/r/invitation/${invitation2.code}`)
+      cy.visit(`/s/invitation/${invitation2.code}`)
       cy.findByText(new RegExp(invitation2.partyName, "i")).should("exist")
     })
 
     it("should redirect to home page correctly", function () {
-      cy.visit(`/r/home/${invitation.code}`)
+      cy.visit(`/s/home/${invitation.code}`)
       cy.findByText(/see you soon in vegas/i).should("exist")
       cy.visit(`/schedule`)
       cy.findAllByText(/you can find more information/i).should("exist")
     })
 
     it("should show login page when a code is not found", function () {
-      cy.visit(`/r/invitation/bla`)
+      cy.visit(`/s/invitation/bla`)
       cy.findByLabelText(/email address/i).should("exist")
     })
   })

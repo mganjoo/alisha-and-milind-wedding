@@ -60,8 +60,6 @@ test environments.
 
 - `DISABLE_DEMO_PAGES`: When set to `"1"`, disables building any demo pages in
   `pages-demo/`.
-- `GATSBY_SAVE_THE_DATE_REDIRECT`: When set to `"1"`, redirects to / after
-  submitting save the date form.
 - `GATSBY_DISABLE_FULL_SITE`: When set to `"1"`, disables display of the full
   website.
 - `GA_TRACKING_ID`: Tracking code for Google Analytics. If unset, the website
@@ -82,7 +80,6 @@ regression tests set up using [Percy](https://percy.io).
 
 Cypress configuration variables:
 
-- `ENABLE_DEMO_TESTS`: Enable tests for demo pages when set to true.
 - `SEED_URL`: Variable to use for seeding data for tests. This corresponds to
   function `seedInvitations`.
 

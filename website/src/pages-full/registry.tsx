@@ -1,11 +1,16 @@
 import React, { useEffect } from "react"
 import NavLayout from "../components/layout/NavLayout"
 import SEO from "../components/meta/SEO"
+import Authenticated from "../components/partials/Authenticated"
 import ExternalLink from "../components/ui/ExternalLink"
 import Loading from "../components/ui/Loading"
 import PageHeading from "../components/ui/PageHeading"
 
-const RegistryPage = () => {
+interface ZolaWrapperArgs {
+  zolaKey: string
+}
+
+const ZolaWrapper: React.FC<ZolaWrapperArgs> = ({ zolaKey }) => {
   useEffect(() => {
     let script = document.createElement("script")
     script.src = "https://widget.zola.com/js/widget.js"
@@ -17,6 +22,25 @@ const RegistryPage = () => {
     }
   }, [])
   return (
+    <div
+      className="text-center zola-registry-embed"
+      data-registry-key={zolaKey}
+    >
+      <div className="mb-4">
+        <Loading />
+      </div>
+      <ExternalLink
+        className="c-button c-button-primary c-button-comfortable shadow-md"
+        href={`https://www.zola.com/registry/${zolaKey}`}
+      >
+        Visit our wedding registry on Zola
+      </ExternalLink>
+    </div>
+  )
+}
+
+const RegistryPage = () => {
+  return (
     <NavLayout>
       <SEO
         title="Registry"
@@ -24,20 +48,9 @@ const RegistryPage = () => {
         description="Information about our wedding registry."
       />
       <PageHeading>Registry</PageHeading>
-      <div
-        className="text-center zola-registry-embed"
-        data-registry-key="alishaandmilind"
-      >
-        <div className="mb-4">
-          <Loading />
-        </div>
-        <ExternalLink
-          className="c-button c-button-primary c-button-comfortable shadow-md"
-          href="https://www.zola.com/registry/alishaandmilind"
-        >
-          Visit our wedding registry on Zola
-        </ExternalLink>
-      </div>
+      <Authenticated>
+        <ZolaWrapper zolaKey="alishaandmilind" />
+      </Authenticated>
     </NavLayout>
   )
 }

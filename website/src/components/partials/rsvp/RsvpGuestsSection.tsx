@@ -101,7 +101,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           type="textarea"
           rows={3}
           label="Comments"
-          placeholder="Any comments or questions for us? (optional)"
+          placeholder="(Optional) Any comments or questions for us? Feel free to drop any song requests for our DJ here!"
         />
       </section>
     )

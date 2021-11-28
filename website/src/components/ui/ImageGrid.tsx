@@ -45,7 +45,10 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
       {images.map((image, i) => (
         <div
           key={image.id}
-          className={classNames(image_wrapper, "c-link-focus-outline")}
+          className={classNames(
+            image_wrapper,
+            "c-link-focus-outline active:outline-none focus:outline-none"
+          )}
           onClick={() => handleClick(i)}
           onKeyPress={(e) => handleKeyPress(e, i)}
           role="button"
@@ -62,7 +65,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             }
           />
           {image.caption && (
-            <div className="text-center font-sans text-sm py-2 bg-background-night text-primary-night print:text-secondary print:bg-transparent">
+            <div className="text-center font-sans text-sm py-2 bg-gray-800 text-primary-night dark:bg-gray-700 print:text-secondary print:bg-transparent">
               {image.caption}
             </div>
           )}

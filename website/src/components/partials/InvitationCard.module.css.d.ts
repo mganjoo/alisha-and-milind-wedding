@@ -1,5 +1,4 @@
 declare const styles: {
-  readonly full_area: string
   readonly flippable: string
   readonly front: string
   readonly back: string

@@ -162,7 +162,7 @@ const FaqPage = () => {
                     shirt, slacks, jacket
                   </li>
                   <li>
-                    Western formal: long skirt, gown, suit and tie, tuxedo
+                    Western formal: maxi skirt, gown, suit and tie, tuxedo
                   </li>
                 </ul>
                 <p>A couple of other notes:</p>
@@ -171,7 +171,7 @@ const FaqPage = () => {
                     There will be lots of dancing so choose your footwear
                     accordingly! If that means ditching shoes under the table at
                     some point in the night to really make the open dance floor
-                    count, that&rsquo;s fine by us!
+                    count, that&rsquo;s fine by us!{" "}
                     <Emoji symbol="💃🏾" label="dancing emoji" />
                   </li>
                   <li>
@@ -333,14 +333,15 @@ const FaqPage = () => {
                     <ExternalLink href="https://www.marriott.com/hotels/hotel-information/fitness-spa-services/details/lasjw-jw-marriott-las-vegas-resort-and-spa/5013971/">
                       spa day
                     </ExternalLink>
-                    ! Those feet could use a massage after all that dancing.
+                    ! Those feet could use a good massage after all that
+                    dancing.
                   </li>
                 </ul>
 
                 <h3>The Foodie List</h3>
                 <ul>
                   <li>
-                    Las Vegas is a food-lover&rsquo;s dream - from
+                    Las Vegas is a food-lover&rsquo;s dream &mdash; from
                     hole-in-the-wall spots to world-renowned restaurants, the
                     local culinary world is rich. We are creatures of habit
                     though, so we have been frequenting the same five
