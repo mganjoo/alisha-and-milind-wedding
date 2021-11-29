@@ -1,22 +1,6 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-const yn = require("yn")
-
-const fullSiteRedirectPages = yn(process.env.GATSBY_DISABLE_FULL_SITE)
-  ? ["/schedule", "/travel", "/story", "/video", "/faq", "/registry", "/rsvp"]
-  : []
-
-exports.createPages = ({ actions }) => {
-  const { createRedirect } = actions
-  fullSiteRedirectPages.forEach((page) => {
-    createRedirect({
-      fromPath: page,
-      toPath: "/",
-      redirectInBrowser: true,
-    })
-  })
-}
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
