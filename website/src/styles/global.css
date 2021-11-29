@@ -71,6 +71,10 @@
   & button {
     @apply font-bold underline;
   }
+
+  & strong {
+    @apply font-bold;
+  }
 }
 
 .c-article > p,

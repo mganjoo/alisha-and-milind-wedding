@@ -17,6 +17,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
   return (
     <WeddingMetadataContext.Provider value={metadata}>
       <Helmet>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
         <link
           rel="icon"
@@ -24,14 +25,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
           sizes="32x32"
           href="/favicon-32x32.png"
         />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="mask-icon" href="/favicon-outline.svg" color="#1a202c" />
-        <meta name="msapplication-TileColor" content="#ffc40d" />
+        <link rel="mask-icon" href="/favicon-outline.svg" color="#000000" />
         <meta name="robots" content="noindex" />
         <body
           className={classnames(

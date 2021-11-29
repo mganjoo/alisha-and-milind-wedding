@@ -55,11 +55,14 @@ const RsvpPage = () => {
                     accordingly.
                   </p>
                   <Alert isInfo>
-                    We ask our guests to please RSVP only if they are or will be
-                    fully vaccinated by the start of the event. For those who
-                    are unable to receive the vaccine, we kindly request a
-                    negative COVID test within a 48-hour period of attending any
-                    wedding event.
+                    We ask our guests to please RSVP{" "}
+                    <strong>
+                      only if they are or will be fully vaccinated by the start
+                      of the event.
+                    </strong>{" "}
+                    For those who are unable to receive the vaccine, we kindly
+                    request a negative COVID test within a 48-hour period of
+                    attending any wedding event.
                   </Alert>
                   <div className="flex justify-center my-6">
                     <Link

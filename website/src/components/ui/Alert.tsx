@@ -33,7 +33,7 @@ const Alert: React.FC<AlertProps> = ({ children, action, isInfo }) => {
       className={classnames(
         "block mb-6 px-3 py-2 border border-l-4 text-left font-sans text-sm shadow-md dark:border-transparent print:bg-transparent print:border-subtle print:text-primary-print",
         isInfo
-          ? "bg-amber-200 border-amber-500 text-amber-900 dark:bg-gray-600 dark:text-gray-100"
+          ? "bg-amber-200 border-amber-500 text-amber-900 dark:bg-amber-700 dark:text-gray-100"
           : "bg-red-200 border-red-400 text-red-900 dark:brightness-90 dark:bg-rose-700 dark:text-rose-100",
         "c-alert-wrapper"
       )}
