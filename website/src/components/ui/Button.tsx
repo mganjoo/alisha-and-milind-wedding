@@ -1,8 +1,7 @@
 import classnames from "classnames"
 import React from "react"
 
-type ButtonPurpose = "submit" | "primary" | "secondary" | "tertiary"
-type ButtonFit = "comfortable" | "compact"
+type ButtonPurpose = "submit" | "primary" | "secondary"
 
 function getPurposeClass(purpose: ButtonPurpose) {
   switch (purpose) {
@@ -11,17 +10,6 @@ function getPurposeClass(purpose: ButtonPurpose) {
       return "c-button-primary"
     case "secondary":
       return "c-button-secondary"
-    case "tertiary":
-      return "c-button-tertiary"
-  }
-}
-
-function getFitClass(fit: ButtonFit) {
-  switch (fit) {
-    case "comfortable":
-      return "c-button-comfortable"
-    case "compact":
-      return "c-button-compact"
   }
 }
 
@@ -34,20 +22,17 @@ export interface ButtonProps
     "type"
   > {
   purpose?: ButtonPurpose
-  fit?: ButtonFit
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   purpose,
-  fit,
   className,
   ...otherProps
 }) => (
   <button
     className={classnames(
-      "c-button",
-      getFitClass(fit || "comfortable"),
+      "c-button c-button-comfortable",
       getPurposeClass(purpose || "primary"),
       className
     )}

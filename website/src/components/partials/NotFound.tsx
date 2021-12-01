@@ -22,7 +22,7 @@ const NotFound: React.FC = () => {
       <main className="flex p-3 mx-auto justify-center items-center max-w-lg min-h-screen">
         <div className="c-shadow-box">
           <h1 className="text-3xl font-sans mb-2">Oops!</h1>
-          <div className="c-body-text-container">
+          <div className="c-article-text-container">
             <p>
               We couldn&rsquo;t find that page. No worries: we can continue our
               celebrations on the <Link to="/">homepage</Link>!

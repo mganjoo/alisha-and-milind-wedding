@@ -47,7 +47,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
           key={image.id}
           className={classNames(
             image_wrapper,
-            "c-link-focus-outline active:outline-none focus:outline-none"
+            "c-link-focus active:outline-none focus:outline-none"
           )}
           onClick={() => handleClick(i)}
           onKeyPress={(e) => handleKeyPress(e, i)}

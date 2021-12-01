@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
       <div className="relative">
         <div className="py-3 text-center sm:pt-4 sm:pb-2">
           <h1 className="font-display text-2xl sm:text-3xl">
-            <Link to="/" className="px-1 c-link-focus-outline">
+            <Link to="/" className="px-1 c-link-focus">
               {displayTitle}
             </Link>
           </h1>
@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
         </div>
         <div className="absolute top-0 right-0 mx-2 h-full flex items-center sm:hidden print:hidden">
           <button
-            className="p-2 flex flex-col items-center justify-center c-link-focus-outline h-bg-colors"
+            className="p-2 flex flex-col items-center justify-center c-link-focus h-bg-colors"
             type="button"
             ref={menuButtonRef}
             onClick={() => setDropdownVisible(!dropdownVisible)}

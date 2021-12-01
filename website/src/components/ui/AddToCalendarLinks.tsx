@@ -1,6 +1,5 @@
 import { Menu, MenuButton, MenuList, MenuLink } from "@reach/menu-button"
 import React from "react"
-import { useUID } from "react-uid"
 import {
   CalendarEvent,
   ical,
@@ -122,36 +121,12 @@ const eventTypes: CalendarType[] = [
 interface AddToCalendarProps {
   event: CalendarEvent
   label: string
-  dropdown?: boolean
 }
 
-const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({
-  event,
-  label,
-  dropdown,
-}) => {
-  const id = `addToCalendar-${useUID()}`
-  return !dropdown ? (
-    <section aria-labelledby={id} className="flex flex-col items-center">
-      <h2 className="mb-2 text-sm font-sans font-semibold" id={id}>
-        {label}
-      </h2>
-      <ul className="flex flex-wrap justify-center">
-        {eventTypes.map((eventType) => (
-          <li className="mx-2 mt-1 mb-2" key={eventType}>
-            {
-              <ExternalLink
-                className="c-button c-button-tertiary c-button-compact flex items-center"
-                {...getLinkProps(event, eventType)}
-              />
-            }
-          </li>
-        ))}
-      </ul>
-    </section>
-  ) : (
+const AddToCalendarLinks: React.FC<AddToCalendarProps> = ({ event, label }) => {
+  return (
     <Menu>
-      <MenuButton className="c-inline-button">
+      <MenuButton className="c-button-inline c-link-focus">
         {label}
         <Symbol symbol="chevron-down" className="ml-1" size="s" inline />
       </MenuButton>

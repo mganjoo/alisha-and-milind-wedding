@@ -1,145 +1,134 @@
 @tailwind base;
-
 @tailwind components;
-
-.h-bg-colors {
-  @apply bg-background  dark:bg-background-night print:bg-background-print;
-}
-
-.h-fg-colors {
-  @apply text-primary  dark:text-primary-night print:text-primary-print;
-}
-
-.c-button {
-  @apply text-sm font-sans disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-70;
-}
-
-.c-button-primary,
-.c-button-secondary {
-  @apply rounded-br-lg focus:ring-offset-2 hover:bg-accent-hover dark:hover:bg-accent-hover-night;
-}
-
-.c-button-primary {
-  @apply bg-button-primary text-white dark:bg-button-primary-night print:bg-transparent print:text-primary print:border-primary print:border;
-}
-
-.c-button-secondary {
-  @apply border border-button-secondary text-button-secondary hover:border-accent-hover dark:border-button-secondary-night dark:text-button-secondary-night dark:hover:border-accent-hover-night hover:text-white active:text-white print:text-secondary print:border-secondary;
-}
-
-.c-button-tertiary {
-  @apply border border-secondary text-secondary rounded-lg dark:text-secondary-night dark:border-secondary-night focus:ring-offset-2 hover:bg-secondary hover:text-secondary-night dark:hover:bg-secondary-night dark:hover:text-secondary print:border-primary-print print:text-primary-print active:bg-tertiary active:text-secondary-night active:border-tertiary dark:active:bg-tertiary-night dark:active:text-secondary dark:active:border-tertiary-night;
-}
-
-.c-button-comfortable {
-  @apply px-3 py-2;
-}
-
-.c-button-compact {
-  @apply px-3 py-1;
-}
-
-.c-link-focus-outline,
-.c-inline-button {
-  @apply focus-visible:outline-none focus-visible:ring focus-visible:ring-opacity-90 focus-visible:ring-accent-focus dark:focus-visible:ring-accent-focus-night dark:focus-visible:ring-opacity-100;
-}
-
-.c-inline-button {
-  @apply flex font-sans text-sm py-1 px-2 items-center font-semibold hover:text-accent-hover dark:hover:text-accent-hover-night dark:font-bold;
-}
-
-.c-form-description {
-  @apply font-serif mb-6 text-secondary dark:text-secondary-night print:text-primary-print;
-}
-
-.c-form-element-border {
-  @apply border-subtle dark:border-transparent focus:border-accent dark:focus:border-transparent;
-}
-
-.c-button-primary,
-.c-button-secondary,
-.c-button-tertiary,
-.c-form-element-border,
-.c-alert-wrapper a,
-.c-alert-wrapper button {
-  /* Focus outlines for buttons and other form elements */
-  @apply focus:outline-none focus:ring focus:ring-form-focus focus:ring-opacity-50 focus:ring-offset-background dark:focus:ring-form-focus-night dark:focus:ring-opacity-100 dark:focus:ring-offset-background-night;
-}
-
-.c-alert-wrapper {
-  & a,
-  & button {
-    @apply font-bold underline;
-  }
-
-  & strong {
-    @apply font-bold;
-  }
-}
-
-.c-article > p,
-.c-body-text-container > p,
-.c-article > dl > dd,
-.c-article > ul > li {
-  @apply font-serif text-lg;
-}
-
-.c-article > p > a,
-.c-body-text-container > p > a,
-.c-article > dl > dd > a,
-.c-article > ul > li > a {
-  @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus-visible:outline-none focus-visible:bg-accent-focus focus-visible:text-primary dark:focus-visible:bg-accent-focus-night;
-}
-
-.c-article > p,
-.c-body-text-container > p,
-.c-article > dl > dd {
-  @apply mb-5;
-}
-
-.c-article {
-  @apply mb-8;
-
-  & > h2,
-  & > h3 {
-    @apply font-sans print:text-heading-print;
-  }
-
-  & > h2 {
-    @apply mb-3 text-2xl text-heading-primary font-semibold dark:text-heading-primary-night;
-  }
-
-  & > h3 {
-    @apply mt-2 mb-2 text-lg text-heading-secondary font-semibold dark:text-heading-secondary-night dark:font-bold;
-  }
-
-  & > dl {
-    @apply my-4;
-
-    & > dt {
-      @apply font-semibold font-sans text-heading-secondary dark:text-heading-secondary-night dark:font-bold print:text-heading-print;
-    }
-  }
-
-  & strong {
-    @apply font-semibold dark:font-bold;
-  }
-
-  & > ul {
-    @apply -mt-1 mb-5 pl-6;
-
-    & > li {
-      @apply list-disc list-outside mb-2;
-    }
-  }
-}
-
-.c-narrow-body {
-  @apply max-w-xl mx-auto print:max-w-none;
-}
-
-.c-shadow-box {
-  @apply p-6 bg-background border border-subtle rounded-lg shadow-lg dark:border-subtle-night dark:bg-background-secondary-night print:bg-background-print;
-}
-
 @tailwind utilities;
+
+@layer components {
+  .h-bg-colors {
+    @apply bg-background  dark:bg-background-night print:bg-background-print;
+  }
+
+  .h-fg-colors {
+    @apply text-primary  dark:text-primary-night print:text-primary-print;
+  }
+
+  .c-button {
+    @apply text-sm font-sans rounded-br-lg disabled:opacity-50 disabled:cursor-not-allowed focus:ring-offset-2 hover:bg-accent-hover dark:hover:bg-accent-hover-night dark:disabled:opacity-70;
+  }
+
+  .c-button-primary {
+    @apply bg-button-primary text-white dark:bg-button-primary-night print:bg-transparent print:text-primary print:border-primary print:border;
+  }
+
+  .c-button-secondary {
+    @apply border border-button-secondary text-button-secondary hover:border-accent-hover dark:border-button-secondary-night dark:text-button-secondary-night dark:hover:border-accent-hover-night hover:text-white active:text-white print:text-secondary print:border-secondary;
+  }
+
+  .c-button-comfortable {
+    @apply px-3 py-2;
+  }
+
+  .c-button-compact {
+    @apply px-3 py-1;
+  }
+
+  .c-button-inline {
+    @apply flex font-sans text-sm py-1 px-2 items-center font-semibold hover:text-accent-hover dark:hover:text-accent-hover-night dark:font-bold;
+  }
+
+  .c-link-focus {
+    @apply focus-visible:outline-none focus-visible:ring focus-visible:ring-opacity-90 focus-visible:ring-accent-focus dark:focus-visible:ring-accent-focus-night dark:focus-visible:ring-opacity-100;
+  }
+
+  .c-form-description {
+    @apply font-serif mb-6 text-secondary dark:text-secondary-night print:text-primary-print;
+  }
+
+  .c-form-element-border {
+    @apply border-subtle dark:border-transparent focus:border-accent dark:focus:border-transparent;
+  }
+
+  .c-narrow-body {
+    @apply max-w-xl mx-auto print:max-w-none;
+  }
+
+  .c-shadow-box {
+    @apply p-6 bg-background border border-subtle rounded-lg shadow-lg dark:border-subtle-night dark:bg-background-secondary-night print:bg-background-print;
+  }
+
+  .c-button-primary,
+  .c-button-secondary,
+  .c-form-element-border,
+  .c-alert-wrapper a,
+  .c-alert-wrapper button {
+    /* Focus outlines for buttons and other form elements */
+    @apply focus:outline-none focus:ring focus:ring-form-focus focus:ring-opacity-50 focus:ring-offset-background dark:focus:ring-form-focus-night dark:focus:ring-opacity-100 dark:focus:ring-offset-background-night;
+  }
+
+  .c-alert-wrapper {
+    & a,
+    & button {
+      @apply font-bold underline;
+    }
+
+    & strong {
+      @apply font-bold;
+    }
+  }
+
+  .c-article > p,
+  .c-body-text-container > p,
+  .c-article > dl > dd,
+  .c-article > ul > li {
+    @apply font-serif text-lg;
+  }
+
+  .c-article > p > a,
+  .c-body-text-container > p > a,
+  .c-article > dl > dd > a,
+  .c-article > ul > li > a {
+    @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus-visible:outline-none focus-visible:bg-accent-focus focus-visible:text-primary dark:focus-visible:bg-accent-focus-night;
+  }
+
+  .c-article > p,
+  .c-body-text-container > p,
+  .c-article > dl > dd {
+    @apply mb-5;
+  }
+
+  .c-article {
+    @apply mb-8;
+
+    & > h2,
+    & > h3 {
+      @apply font-sans print:text-heading-print;
+    }
+
+    & > h2 {
+      @apply mb-3 text-2xl text-heading-primary font-semibold dark:text-heading-primary-night;
+    }
+
+    & > h3 {
+      @apply mt-2 mb-2 text-lg text-heading-secondary font-semibold dark:text-heading-secondary-night dark:font-bold;
+    }
+
+    & > dl {
+      @apply my-4;
+
+      & > dt {
+        @apply font-semibold font-sans text-heading-secondary dark:text-heading-secondary-night dark:font-bold print:text-heading-print;
+      }
+    }
+
+    & strong {
+      @apply font-semibold dark:font-bold;
+    }
+
+    & > ul {
+      @apply -mt-1 mb-5 pl-6;
+
+      & > li {
+        @apply list-disc list-outside mb-2;
+      }
+    }
+  }
+}

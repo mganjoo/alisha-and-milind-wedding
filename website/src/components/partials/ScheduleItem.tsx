@@ -87,10 +87,12 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
                 endTime: event.frontmatter.endDate,
                 url: addressUrl,
               }}
-              dropdown
             />
             {addressUrl && (
-              <ExternalLink href={addressUrl} className="c-inline-button">
+              <ExternalLink
+                href={addressUrl}
+                className="c-button-inline c-link-focus"
+              >
                 Open Map
               </ExternalLink>
             )}
