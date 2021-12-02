@@ -35,7 +35,10 @@ const RsvpInfo: React.FC<RsvpInfoProps> = ({ handleEditRsvp }) => {
             size="l"
           />
           <div className="mx-2 text-center">
-            <h2 className="font-display mb-1 text-2xl" id="rsvp-info-name">
+            <h2
+              className="font-sans font-semibold mb-1 text-2xl"
+              id="rsvp-info-name"
+            >
               {invitation.partyName}
             </h2>
             <p

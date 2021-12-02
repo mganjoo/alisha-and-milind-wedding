@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({ links }) => {
     <header className="sticky top-0 z-10 border-b h-bg-colors border-subtle sm:static sm:z-0 dark:border-subtle-night print:static">
       <div className="relative">
         <div className="py-3 text-center sm:pt-4 sm:pb-2">
-          <h1 className="font-display text-2xl sm:text-3xl">
+          <h1 className="font-script font-bold text-3xl sm:text-4xl">
             <Link to="/" className="px-1 c-link-focus">
               {displayTitle}
             </Link>

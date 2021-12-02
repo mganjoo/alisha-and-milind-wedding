@@ -90,8 +90,7 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
         {values.attending === "yes" && (
           <SingleCheckbox
             name="declaration"
-            groupLabel="COVID declaration"
-            groupLabelType="aria"
+            groupLabel="COVID acknowledgment"
             disabled={values.attending !== "yes"}
             optionLabel={
               `${invitation.numGuests > 1 ? "We" : "I"} understand that ${

@@ -52,10 +52,9 @@
     "shortid": "2.2.16",
     "smooth-scroll-into-view-if-needed": "1.1.32",
     "tailwindcss": "2.2.19",
-    "typeface-arizonia": "1.1.13",
     "typeface-eb-garamond": "1.1.13",
-    "typeface-playfair-display": "1.1.13",
     "typeface-raleway": "1.1.13",
+    "typeface-tangerine": "1.1.13",
     "typescript": "4.5.2",
     "yn": "4.0.0",
     "yup": "0.32.11"

@@ -1,5 +1,5 @@
 .section_heading {
-  @apply font-display mb-1 text-xl;
+  @apply font-sans mb-1 text-xl;
 }
 
 .section_subheading {

@@ -116,8 +116,7 @@ module.exports = {
       fontFamily: {
         sans: ["Raleway", ...defaultTheme.fontFamily.sans],
         serif: ["EB Garamond", ...defaultTheme.fontFamily.serif],
-        display: ["Playfair Display", ...defaultTheme.fontFamily.serif],
-        script: ["Arizonia", ...defaultTheme.fontFamily.serif],
+        script: ["Tangerine", ...defaultTheme.fontFamily.serif],
       },
       backgroundImage: {
         "hero-pattern":
