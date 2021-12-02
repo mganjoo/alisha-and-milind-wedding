@@ -23,7 +23,7 @@ const LabelledOption = React.forwardRef<HTMLInputElement, LabelledOptionProps>(
           ref={ref}
           {...otherProps}
         />
-        <span className={classnames("ml-2", { "font-semibold": bold })}>
+        <span className={classnames("ml-3", { "font-semibold": bold })}>
           {label}
         </span>
       </label>

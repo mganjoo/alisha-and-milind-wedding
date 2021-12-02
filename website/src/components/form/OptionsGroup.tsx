@@ -2,7 +2,6 @@ import classnames from "classnames"
 import { useField } from "formik"
 import React, { useMemo, useCallback } from "react"
 import { useRegisteredRef } from "../../utils/RegisterNodes"
-import ControlledLabelledOption from "./ControlledLabelledOption"
 import InputGroup from "./InputGroup"
 import LabelledOption from "./LabelledOption"
 
@@ -20,6 +19,20 @@ interface OptionsGroupProps {
   showSelectAll?: boolean
   selectAllLabel?: string
 }
+interface ControlledLabelledOptionProps {
+  name: string
+  type: "radio" | "checkbox"
+  label: string
+  value: string
+}
+
+const ControlledLabelledOption = React.forwardRef<
+  HTMLInputElement,
+  ControlledLabelledOptionProps
+>(({ label, name, type, value }, ref) => {
+  const [field] = useField<any>({ name, type, value })
+  return <LabelledOption {...field} label={label} type={type} ref={ref} />
+})
 
 const OptionsGroup: React.FC<OptionsGroupProps> = ({
   name,

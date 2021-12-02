@@ -64,9 +64,10 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
       ...touched,
       guests: setNestedObjectValues(values.guests, true),
       attending: true,
+      declaration: true,
     })
     validateForm().then((errors) => {
-      if (!errors.guests && !errors.attending) {
+      if (!errors.guests && !errors.attending && !errors.declaration) {
         setValues({
           ...values,
           attendees: resetAttendeesState(

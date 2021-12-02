@@ -4,6 +4,7 @@ import React, { useContext } from "react"
 import { RsvpFormValues } from "../../../interfaces/RsvpFormValues"
 import LabelledTextField from "../../form/LabelledTextField"
 import OptionsGroup from "../../form/OptionsGroup"
+import SingleCheckbox from "../../form/SingleCheckbox"
 import TextInputGroup from "../../form/TextInputGroup"
 import { InvitationContext } from "../Authenticated"
 import { section_heading, section_subheading } from "./RsvpForm.module.css"
@@ -29,7 +30,7 @@ const attendingOptions = [
 const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
   (_props, ref) => {
     const { invitation } = useContext(InvitationContext)
-    const { initialValues, values } = useFormikContext<RsvpFormValues>()
+    const { values } = useFormikContext<RsvpFormValues>()
     const guestKeys = Object.keys(values.guests)
 
     return (
@@ -86,22 +87,29 @@ const RsvpGuestsSection = React.forwardRef<HTMLHeadingElement>(
           label="Will you be attending?"
           options={attendingOptions}
         />
-        {initialValues.attending !== values.attending &&
-          values.attending === "yes" && (
-            <div
-              role="status"
-              className="mb-4 font-sans text-center text-sm text-accent-text italic dark:text-accent-text-night"
-            >
-              Yay! One more step: confirm attendance for specific events on the
-              next page.
-            </div>
-          )}
+        {values.attending === "yes" && (
+          <SingleCheckbox
+            name="declaration"
+            groupLabel="COVID declaration"
+            groupLabelType="aria"
+            disabled={values.attending !== "yes"}
+            optionLabel={
+              `${invitation.numGuests > 1 ? "We" : "I"} understand that ${
+                invitation.numGuests > 1 ? "we" : "I"
+              } must be fully ` +
+              `vaccinated or have a negative COVID test within 48 hours of attending ` +
+              `the wedding, and ${
+                invitation.numGuests > 1 ? "are" : "am"
+              } willing to provide verification.`
+            }
+          />
+        )}
         <LabelledTextField
           name="comments"
           type="textarea"
           rows={3}
-          label="Comments and song requests"
-          placeholder="(Optional) Any comments or questions for us? Feel free to drop any song requests for our DJ here!"
+          label="Comments and song requests (optional)"
+          placeholder="Any comments or questions for us? Feel free to drop any song requests for our DJ here!"
         />
       </section>
     )

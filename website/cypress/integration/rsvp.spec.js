@@ -41,6 +41,7 @@ describe("RSVP page", function () {
     cy.findByText(/next: specific events/i).click()
     cy.findByText(/at least one name is required/i).should("exist")
     cy.findByText(/please confirm your attendance/i).should("exist")
+    cy.findByText(/please acknowledge the covid policy/i).should("not.exist")
     cy.percySnapshot()
     // Make sure error state is accessible
     cy.checkA11y()
@@ -49,6 +50,18 @@ describe("RSVP page", function () {
     cy.findByLabelText(/name of 1st guest/i).type("Jack Jones")
     cy.findByText(/at least one name is required/i).should("not.exist")
     cy.findByLabelText(/yes/i).check()
+    cy.findByText(/please acknowledge the covid policy/i).should("exist")
+    cy.findByLabelText(/covid test within 48 hours/i).check()
+    cy.findByText(/please confirm your attendance/i).should("not.exist")
+  })
+
+  it("should prevent moving forward if covid policy is not accepted", function () {
+    openInvitation("test2")
+    cy.findByLabelText(/yes/i).check()
+    cy.findByText(/next: specific events/i).click()
+    cy.findByText(/please acknowledge the covid policy/i).should("exist")
+    cy.percySnapshot()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/please confirm your attendance/i).should("not.exist")
   })
 
@@ -57,6 +70,7 @@ describe("RSVP page", function () {
     const { invitation } = openInvitation("test2")
 
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findByText(/submit rsvp/i).click()
@@ -78,6 +92,7 @@ describe("RSVP page", function () {
     const { invitation } = openInvitation("test3")
 
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findByLabelText(/reception/i).within(() => {
@@ -103,6 +118,7 @@ describe("RSVP page", function () {
     const { invitation } = openInvitation("test3")
 
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findByLabelText(/reception/i).within(() => {
@@ -135,6 +151,7 @@ describe("RSVP page", function () {
 
     cy.findByLabelText("Name").should("have.value", invitation.knownGuests[0])
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findByLabelText(/reception/i).within(() => {
@@ -157,6 +174,7 @@ describe("RSVP page", function () {
     openInvitation("test3")
 
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findAllByText(/all guests are attending/i).should("exist")
@@ -167,6 +185,7 @@ describe("RSVP page", function () {
     openInvitation("test32")
 
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findAllByText(/both guests are attending/i).should("exist")
@@ -177,6 +196,7 @@ describe("RSVP page", function () {
     const { invitation } = openInvitation("test2")
 
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findByLabelText(/reception/i).within(() => {
@@ -194,6 +214,7 @@ describe("RSVP page", function () {
     // names should be pre-filled, so just clicking RSVP is sufficient
     cy.findByLabelText(/no, will celebrate/i).check()
     cy.findByLabelText(/comments/i).type("Lorem ipsum dolor")
+    cy.findByLabelText(/negative covid test/i).should("not.exist")
 
     cy.findByText(/submit rsvp/i).click()
     cy.findByText(/not attending/i).should("exist")
@@ -208,6 +229,10 @@ describe("RSVP page", function () {
     )
     cy.findByLabelText(/no, will celebrate/i).should("be.checked")
     cy.findByLabelText(/comments/i).should("have.value", "Lorem ipsum dolor")
+
+    // If we now select Yes for attending, COVID shouldn't be checked
+    cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).should("not.be.checked")
   })
 
   it("should submit a yes response correctly", function () {
@@ -218,7 +243,7 @@ describe("RSVP page", function () {
       .clear()
       .type("Jack Jones")
     cy.findByLabelText(/yes/i).check()
-    cy.findByText(/one more step/i).should("exist")
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByLabelText(/comments/i).type("Lorem ipsum dolor")
     cy.findByText(/next: specific events/i).click()
 
@@ -248,6 +273,7 @@ describe("RSVP page", function () {
     cy.findByText(/edit rsvp/i).click()
     cy.findByLabelText(/2nd guest/i).should("have.value", "Jack Jones")
     cy.findByLabelText(/yes, excited to attend/i).should("be.checked")
+    cy.findByLabelText(/covid test within 48 hours/i).should("be.checked")
     cy.findByLabelText(/comments/i).should("have.value", "Lorem ipsum dolor")
     cy.findByText(/next: specific events/i).click()
     cy.findByLabelText(/haldi/i).within(() => {
@@ -277,6 +303,7 @@ describe("RSVP page", function () {
     openInvitation("test32")
 
     cy.findByLabelText(/yes/i).check()
+    cy.findByLabelText(/covid test within 48 hours/i).check()
     cy.findByText(/next: specific events/i).click()
 
     cy.findAllByLabelText("Virat Kohli").check()
