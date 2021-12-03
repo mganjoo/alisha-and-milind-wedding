@@ -1,2 +1,2 @@
-User-agent: CuteStat
+User-agent: *
 Disallow: /
