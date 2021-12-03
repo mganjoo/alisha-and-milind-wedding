@@ -4,5 +4,5 @@ http://save-the-date.alishaandmilind.wedding/* https://www.alishaandmilind.weddi
 https://save-the-date.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
 http://staging.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
 https://staging.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
-/r /s
+/r/* /s/:splat 301!
 /load c=:code /s/invitation/:code 301

@@ -20,6 +20,5 @@ elif [ "$DEPLOY_ID" != "" ] && [ "$GITHUB_TRIGGER_TOKEN" != "" ]; then
 
   eval ${curl_command/<GITHUB_TRIGGER_TOKEN>/$GITHUB_TRIGGER_TOKEN}
 else
-  echo "Either DEPLOY_ID or GITHUB_TRIGGER_TOKEN environment variable was not provided to GitHub trigger job"
-  exit 1
+  echo "Either DEPLOY_ID or GITHUB_TRIGGER_TOKEN environment variable was not provided to GitHub trigger job; skipping"
 fi

@@ -85,10 +85,6 @@ module.exports = {
         path: `${__dirname}/src/events`,
       },
     },
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/s/*`] },
-    },
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,

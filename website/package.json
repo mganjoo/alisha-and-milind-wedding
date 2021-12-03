@@ -19,11 +19,10 @@
     "gatsby": "4.2.0",
     "gatsby-background-image": "1.5.3",
     "gatsby-plugin-catch-links": "4.2.0",
-    "gatsby-plugin-create-client-paths": "4.2.0",
     "gatsby-plugin-google-gtag": "4.2.0",
     "gatsby-plugin-image": "2.2.0",
     "gatsby-plugin-manifest": "4.2.0",
-    "gatsby-plugin-netlify": "4.0.0-next.0",
+    "gatsby-plugin-netlify": "3.14.0",
     "gatsby-plugin-offline": "5.2.0",
     "gatsby-plugin-page-creator": "4.2.0",
     "gatsby-plugin-postcss": "5.2.0",
@@ -60,6 +59,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
+    "@netlify/plugin-gatsby": "2.0.0-zz-beta.0",
     "@percy/cli": "1.0.0-beta.70",
     "@percy/cypress": "3.1.1",
     "@testing-library/cypress": "8.0.2",

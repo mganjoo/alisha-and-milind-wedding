@@ -12,7 +12,6 @@
     "url": "https://github.com/mganjoo/alisha-and-milind-wedding/issues"
   },
   "devDependencies": {
-    "@netlify/plugin-gatsby": "2.0.0-zz-beta.0",
     "husky": "7.0.4",
     "lerna": "4.0.0",
     "lint-staged": "12.1.2",

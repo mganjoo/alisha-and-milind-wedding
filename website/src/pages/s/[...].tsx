@@ -1,8 +1,8 @@
 import { Router } from "@gatsbyjs/reach-router"
 import React from "react"
-import BaseLayout from "../components/layout/BaseLayout"
-import SEO from "../components/meta/SEO"
-import CodeLoader from "../components/partials/CodeLoader"
+import BaseLayout from "../../components/layout/BaseLayout"
+import SEO from "../../components/meta/SEO"
+import CodeLoader from "../../components/partials/CodeLoader"
 
 const Route: React.FC = () => {
   return (
