@@ -12,11 +12,15 @@
   @apply h-full max-h-[24rem] sm:min-w-[16rem] print:max-h-full print:mx-4;
 }
 
-.image img {
+.captioned_image img {
   /* Explicitly replicate rounding on Safari
    * https://stackoverflow.com/questions/17202128/rounded-cornes-border-radius-safari-issue
    */
   @apply rounded-t-lg print:rounded-none;
+}
+
+.uncaptioned_image img {
+  @apply rounded-lg print:rounded-none;
 }
 
 .modal_caption {

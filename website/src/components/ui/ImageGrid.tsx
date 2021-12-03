@@ -7,6 +7,8 @@ import {
   image as image_style,
   image_wrapper,
   modal_caption,
+  captioned_image,
+  uncaptioned_image,
 } from "./ImageGrid.module.css"
 import Symbol from "./Symbol"
 
@@ -57,7 +59,10 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
           <GatsbyImage
             image={image.image}
             alt={image.alt}
-            className={image_style}
+            className={classNames(
+              image_style,
+              image.caption ? captioned_image : uncaptioned_image
+            )}
             imgStyle={
               image.objectPosition
                 ? { objectPosition: image.objectPosition }
