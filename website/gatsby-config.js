@@ -1,7 +1,6 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-const yn = require("yn")
 const sharedConstants = require("./shared-constants")
 
 const longTitle = "Alisha & Milind Wedding"
@@ -22,24 +21,26 @@ const googleAnalyticsPlugin = process.env.GA_TRACKING_ID
     ]
   : []
 
-const demoPagePlugin = yn(process.env.DISABLE_DEMO_PAGES)
-  ? []
-  : [
-      {
-        resolve: `gatsby-plugin-page-creator`,
-        options: {
-          path: `${__dirname}/src/pages-demo`,
+const demoPagePlugin =
+  process.env.DISABLE_DEMO_PAGES === "1"
+    ? []
+    : [
+        {
+          resolve: `gatsby-plugin-page-creator`,
+          options: {
+            path: `${__dirname}/src/pages-demo`,
+          },
         },
-      },
-    ]
+      ]
 
 const otherPagePlugin = [
   {
     resolve: `gatsby-plugin-page-creator`,
     options: {
-      path: yn(process.env.GATSBY_DISABLE_FULL_SITE)
-        ? `${__dirname}/src/pages-guard`
-        : `${__dirname}/src/pages-full`,
+      path:
+        process.env.GATSBY_DISABLE_FULL_SITE === "1"
+          ? `${__dirname}/src/pages-guard`
+          : `${__dirname}/src/pages-full`,
     },
   },
 ]

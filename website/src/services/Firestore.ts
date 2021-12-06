@@ -10,7 +10,6 @@ import {
   Firestore as TFirestore,
   Timestamp,
 } from "firebase/firestore"
-import yn from "yn"
 
 export interface QueryResult {
   data: DocumentData
@@ -80,17 +79,18 @@ function observeAndRethrow(error: Error): any {
   throw error
 }
 
-const firebaseConfig = yn(process.env.GATSBY_USE_PROD_FIREBASE)
-  ? {
-      apiKey: process.env.GATSBY_PROD_FIREBASE_API_KEY,
-      authDomain: process.env.GATSBY_PROD_FIREBASE_AUTH_DOMAIN,
-      projectId: process.env.GATSBY_PROD_FIREBASE_PROJECT_ID,
-    }
-  : {
-      apiKey: process.env.GATSBY_FIREBASE_API_KEY,
-      authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
-      projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
-    }
+const firebaseConfig =
+  process.env.GATSBY_USE_PROD_FIREBASE === "1"
+    ? {
+        apiKey: process.env.GATSBY_PROD_FIREBASE_API_KEY,
+        authDomain: process.env.GATSBY_PROD_FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.GATSBY_PROD_FIREBASE_PROJECT_ID,
+      }
+    : {
+        apiKey: process.env.GATSBY_FIREBASE_API_KEY,
+        authDomain: process.env.GATSBY_FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.GATSBY_FIREBASE_PROJECT_ID,
+      }
 
 export function loadFirestore() {
   const apps = getApps()

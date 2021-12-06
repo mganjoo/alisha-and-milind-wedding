@@ -4,7 +4,6 @@ import fs from "fs-extra"
 import Papa from "papaparse"
 import _ from "lodash"
 import { cli } from "cli-ux"
-import yn from "yn"
 import { getApp } from "firebase-admin/app"
 import { getFirestore } from "firebase-admin/firestore"
 import { object, string, number, array, InferType } from "yup"
@@ -76,6 +75,16 @@ type SegmentIdKey =
   | "sangeetSegmentId"
   | "ceremonySegmentId"
   | "receptionSegmentId"
+
+function yn(value: string | undefined) {
+  if (value === undefined) {
+    return false
+  } else if (/^(?:y|yes)$/i.test(value)) {
+    return true
+  } else {
+    return false
+  }
+}
 
 export default class InviteUpdate extends BaseCommand {
   static description =
@@ -199,9 +208,9 @@ export default class InviteUpdate extends BaseCommand {
           knownGuests,
           ...rest
         }) => {
-          const preEvents = !!yn(rest.preEvents)
-          const sangeet = !!yn(rest.sangeet)
-          const ceremony = !!yn(rest.ceremony)
+          const preEvents = yn(rest.preEvents)
+          const sangeet = yn(rest.sangeet)
+          const ceremony = yn(rest.ceremony)
           const itype = this.parseItype(preEvents, sangeet, ceremony)
           if (!itype) {
             this.error(

@@ -6,7 +6,6 @@ import { google } from "googleapis"
 import { Credentials } from "google-auth-library"
 import * as dayjs from "dayjs"
 import * as utc from "dayjs/plugin/utc"
-import * as yn from "yn"
 import Mailchimp = require("mailchimp-api-v3")
 
 dayjs.extend(utc)
@@ -46,8 +45,11 @@ const MailchimpTagIdAttending = functions.config().mailchimp.tag_id.attending
 const MailchimpTagIdNotAttending =
   functions.config().mailchimp.tag_id.not_attending
 
+/**
+ * - project.is_prod = whether this is a prod project ("1" if true)
+ */
 const ProjectIsProd =
-  functions.config().project && yn(functions.config().project.is_prod)
+  functions.config().project && functions.config().project.is_prod === "1"
 
 // Redirect URI after authentication is complete. Defined by `oauthCallback` Cloud Function.
 const RedirectUri = `https://${ProjectId}.firebaseapp.com/oauthCallback`
