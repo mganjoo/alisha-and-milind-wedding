@@ -1,6 +1,6 @@
 import BaseCommand from "../../util/base-command"
 import cli from "cli-ux"
-import { flags } from "@oclif/command"
+import { Flags } from "@oclif/core"
 import shortid from "shortid"
 
 export default class InviteGenCodes extends BaseCommand {
@@ -13,11 +13,11 @@ export default class InviteGenCodes extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    spreadsheetId: flags.string({
+    spreadsheetId: Flags.string({
       description: "ID of Google Spreadsheet for existing contacts",
       required: true,
     }),
-    range: flags.string({
+    range: Flags.string({
       description:
         "Range of existing table spanning 2 columns. The first column is where IDs will be written; the second column is used to determine how many IDs to write (e.g. 'Guest Parties!A:B')",
       required: true,
@@ -25,7 +25,7 @@ export default class InviteGenCodes extends BaseCommand {
   }
 
   async run() {
-    const { flags } = this.parse(InviteGenCodes)
+    const { flags } = await this.parse(InviteGenCodes)
 
     await this.initializeServices({ sheets: true })
 

@@ -1,5 +1,5 @@
 import BaseCommand from "../../util/base-command"
-import { flags } from "@oclif/command"
+import { Flags } from "@oclif/core"
 import fs from "fs-extra"
 import Papa from "papaparse"
 import _ from "lodash"
@@ -97,32 +97,32 @@ export default class InviteUpdate extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    parties: flags.string({
+    parties: Flags.string({
       description:
         "CSV containing party information from A+M wedding spreadsheet",
       required: true,
     }),
-    emails: flags.string({
+    emails: Flags.string({
       description:
         "CSV containing email information from A+M wedding spreadsheet",
       required: true,
     }),
-    listId: flags.string({
+    listId: Flags.string({
       description: "Mailchimp list ID for invitees",
     }),
-    preEventsSegmentId: flags.string({
+    preEventsSegmentId: Flags.string({
       description: "Mailchimp segment ID for Pre-Events tag",
     }),
-    sangeetSegmentId: flags.string({
+    sangeetSegmentId: Flags.string({
       description: "Mailchimp segment ID for Sangeet tag",
     }),
-    ceremonySegmentId: flags.string({
+    ceremonySegmentId: Flags.string({
       description: "Mailchimp segment ID for Ceremony tag",
     }),
-    receptionSegmentId: flags.string({
+    receptionSegmentId: Flags.string({
       description: "Mailchimp segment ID for Reception tag",
     }),
-    dryRun: flags.boolean({
+    dryRun: Flags.boolean({
       description: "Do not write records to any services",
     }),
   }
@@ -150,7 +150,7 @@ export default class InviteUpdate extends BaseCommand {
   }
 
   async run() {
-    const { flags } = this.parse(InviteUpdate)
+    const { flags } = await this.parse(InviteUpdate)
     const config = await this.loadConfig()
 
     await this.initializeServices({ mailchimp: true, firebase: true })

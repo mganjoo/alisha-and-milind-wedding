@@ -1,4 +1,4 @@
-import { Command, flags } from "@oclif/command"
+import { Command, Flags } from "@oclif/core"
 import shortid from "shortid"
 import { cli } from "cli-ux"
 
@@ -6,8 +6,8 @@ export default class Shortid extends Command {
   static description = "Generate a set of shortids"
 
   static flags = {
-    help: flags.help({ char: "h" }),
-    number: flags.integer({
+    help: Flags.help({ char: "h" }),
+    number: Flags.integer({
       char: "n",
       description: "number of IDs to generate",
       default: 1,
@@ -17,7 +17,7 @@ export default class Shortid extends Command {
   static args = [{ name: "file" }]
 
   async run() {
-    const { flags } = this.parse(Shortid)
+    const { flags } = await this.parse(Shortid)
 
     const number = flags.number
 

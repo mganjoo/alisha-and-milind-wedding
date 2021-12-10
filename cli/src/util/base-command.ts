@@ -1,4 +1,4 @@
-import Command, { flags } from "@oclif/command"
+import { Command, Flags } from "@oclif/core"
 import chalk from "chalk"
 import { initializeApp, cert, applicationDefault } from "firebase-admin/app"
 import fs from "fs-extra"
@@ -22,16 +22,15 @@ interface Config {
 export default abstract class BaseCommand extends Command {
   // Flags shareable by all Firebase commands
   static flags = {
-    help: flags.help({ char: "h" }),
-    firebase: flags.string({
+    firebase: Flags.string({
       char: "f",
       description: "path to Firebase service account credentials",
     }),
-    google: flags.string({
+    google: Flags.string({
       char: "g",
       description: "path to Google API credentials JSON",
     }),
-    mailchimp: flags.string({
+    mailchimp: Flags.string({
       char: "m",
       description: "Mailchimp API key",
     }),
@@ -77,7 +76,7 @@ export default abstract class BaseCommand extends Command {
     firebase?: boolean
     mailchimp?: boolean
   }) {
-    const { flags } = this.parse(this.constructor as typeof BaseCommand)
+    const { flags } = await this.parse(this.constructor as typeof BaseCommand)
 
     if (options.firebase) {
       cli.action.start("initializing Firebase")

@@ -1,4 +1,4 @@
-import { flags } from "@oclif/command"
+import { Flags } from "@oclif/core"
 import BaseCommand from "../../util/base-command"
 import cli from "cli-ux"
 import { getContacts } from "../../util/contacts"
@@ -16,14 +16,14 @@ export default class ContactsExport extends BaseCommand {
   static flags = {
     ...BaseCommand.flags,
     ...cli.table.flags(),
-    after: flags.string({
+    after: Flags.string({
       description:
         "ID of document cursor (results will be retrieved after this document)",
     }),
   }
 
   async run() {
-    const { flags } = this.parse(ContactsExport)
+    const { flags } = await this.parse(ContactsExport)
 
     await this.initializeServices({ firebase: true })
 
@@ -39,7 +39,7 @@ export default class ContactsExport extends BaseCommand {
           email: {},
           created: {},
         },
-        { ...flags, sort: flags.sort || "created" }
+        { ...flags, sort: flags.sort }
       )
     } catch (err) {
       this.log("Error getting documents", err)

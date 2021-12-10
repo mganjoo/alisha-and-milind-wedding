@@ -1,4 +1,4 @@
-import { flags } from "@oclif/command"
+import { Flags } from "@oclif/core"
 import BaseCommand from "../../util/base-command"
 import cli from "cli-ux"
 import { getRsvpSummaries, getGuestsByEvent } from "../../util/rsvps"
@@ -16,13 +16,13 @@ export default class RsvpExport extends BaseCommand {
   static flags = {
     ...BaseCommand.flags,
     ...cli.table.flags(),
-    event: flags.string({
+    event: Flags.string({
       description: "Name of event to produce list of names",
     }),
   }
 
   async run() {
-    const { flags } = this.parse(RsvpExport)
+    const { flags } = await this.parse(RsvpExport)
 
     await this.initializeServices({ firebase: true })
 
