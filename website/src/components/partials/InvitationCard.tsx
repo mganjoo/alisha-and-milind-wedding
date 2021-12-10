@@ -194,7 +194,7 @@ const InvitationCardInner: React.FC<InvitationCardInnerProps> = ({
                 styles.front_base
               )}
             >
-              <p className="font-script text-2xl tracking-wide text-yellow-200 text-center sm:text-3xl">
+              <p className="font-script text-2xl tracking-wide text-amber-200 text-center sm:text-3xl">
                 {invitation.partyName}
               </p>
             </div>

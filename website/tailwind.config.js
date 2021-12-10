@@ -3,48 +3,35 @@ const defaultTheme = require("tailwindcss/defaultTheme")
 const sharedConstants = require("./shared-constants")
 
 module.exports = {
-  mode: "jit",
   theme: {
-    colors: {
-      current: "currentColor",
-      transparent: "transparent",
-      black: colors.black,
-      orange: colors.orange,
-      amber: colors.amber,
-      white: colors.white,
-      gray: colors.warmGray,
-      red: colors.red,
-      rose: colors.rose,
-      green: colors.green,
-      yellow: colors.yellow,
-    },
     extend: {
       colors: {
+        gray: colors.stone,
         // Main text, etc
         primary: {
-          DEFAULT: colors.warmGray["900"],
-          night: colors.warmGray["100"],
+          DEFAULT: colors.stone["900"],
+          night: colors.stone["100"],
           print: colors.black,
         },
         secondary: {
-          DEFAULT: colors.warmGray["800"],
-          night: colors.warmGray["200"],
+          DEFAULT: colors.stone["800"],
+          night: colors.stone["200"],
         },
         tertiary: {
-          DEFAULT: colors.warmGray["700"],
-          night: colors.warmGray["300"],
+          DEFAULT: colors.stone["700"],
+          night: colors.stone["300"],
         },
         // Main background color
         background: {
           DEFAULT: sharedConstants.offWhite,
-          night: colors.warmGray["900"],
-          "secondary-night": colors.warmGray["800"],
+          night: colors.stone["900"],
+          "secondary-night": colors.stone["800"],
           print: colors.white,
         },
         // Borders, etc
         subtle: {
-          DEFAULT: colors.warmGray["400"],
-          night: colors.warmGray["700"],
+          DEFAULT: colors.stone["400"],
+          night: colors.stone["700"],
         },
         // Headers
         heading: {
@@ -53,8 +40,8 @@ module.exports = {
             night: colors.orange["400"],
           },
           secondary: {
-            DEFAULT: colors.warmGray["700"],
-            night: colors.warmGray["200"],
+            DEFAULT: colors.stone["700"],
+            night: colors.stone["200"],
           },
           print: colors.black,
         },
@@ -128,12 +115,8 @@ module.exports = {
         "exclamation-night":
           "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23dc2626'%3E%3Cpath d='M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 5h2v6H9V5zm0 8h2v2H9v-2z'/%3E%3C/svg%3E\")",
       },
-      screens: {
-        print: { raw: "print" },
-      },
     },
   },
   plugins: [require("@tailwindcss/forms")],
-  darkMode: "media",
-  purge: ["./src/**/*.{tsx, module.css}"],
+  content: ["./src/**/*.{tsx, module.css}"],
 }
