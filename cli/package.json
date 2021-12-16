@@ -14,7 +14,7 @@
   "dependencies": {
     "@oclif/command": "1.8.15",
     "@oclif/config": "1.18.2",
-    "@oclif/plugin-help": "3.2.19",
+    "@oclif/plugin-help": "5.1.10",
     "chalk": "4.1.2",
     "cli-ux": "6.0.6",
     "dayjs": "1.10.7",
