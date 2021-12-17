@@ -5,7 +5,7 @@ import React from "react"
 import Header from "../ui/Header"
 import WeddingLogo from "../ui/WeddingLogo"
 import BaseLayout from "./BaseLayout"
-import { hero } from "./NavLayout.module.css"
+import "./NavLayout.module.css"
 
 interface NavLayoutProps {
   heroImage?: IGatsbyImageData
@@ -42,7 +42,7 @@ const NavLayout: React.FC<NavLayoutProps> = ({
             <GatsbyImage
               image={heroImage}
               alt={alt || ""}
-              className={classNames("p-cover", hero)}
+              className="p-cover max-w-xl mx-auto w-full max-h-[24rem] print:hidden"
               imgStyle={objectPosition ? { objectPosition } : undefined}
             />
           </div>

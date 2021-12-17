@@ -4,14 +4,6 @@
   --image-modal-y-padding: 2vh;
 }
 
-.image_wrapper {
-  @apply mx-4 my-4 rounded-lg overflow-hidden flex flex-col flex-auto print:rounded-none print:w-64 print:flex-none print:mx-auto;
-}
-
-.image {
-  @apply h-full max-h-[24rem] sm:min-w-[16rem] print:max-h-full print:mx-4;
-}
-
 .captioned_image img {
   /* Explicitly replicate rounding on Safari
    * https://stackoverflow.com/questions/17202128/rounded-cornes-border-radius-safari-issue
@@ -21,18 +13,6 @@
 
 .uncaptioned_image img {
   @apply rounded-lg print:rounded-none;
-}
-
-.modal_caption {
-  @apply text-primary-night absolute inset-x-0 bottom-0 px-2 py-3 font-sans text-center text-sm bg-background-night bg-opacity-75;
-}
-
-.close_button_wrapper {
-  @apply absolute top-0 right-0 text-white z-10 m-2;
-
-  & > button {
-    @apply bg-background-secondary-night border-subtle-night hover:text-accent-hover-night;
-  }
 }
 
 [data-reach-dialog-overlay] {

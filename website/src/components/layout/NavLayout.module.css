@@ -1,10 +1,5 @@
 @import "@reach/skip-nav/styles.css";
 
-.hero {
-  @apply max-w-xl mx-auto w-full print:hidden;
-  max-height: 24rem;
-}
-
 [data-reach-skip-link] {
   @apply font-sans text-sm rounded-lg;
 }

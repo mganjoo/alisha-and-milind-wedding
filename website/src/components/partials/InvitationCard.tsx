@@ -281,12 +281,7 @@ const InvitationCard: React.FC<InvitationCardProps> = ({
   return (
     <Div100vh className="flex w-screen h-screen justify-center items-center overflow-hidden print:hidden">
       <Helmet>
-        <body
-          className={classNames(
-            "text-primary overflow-hidden print:overflow-visible dark:text-primary-night",
-            styles.page_bg
-          )}
-        ></body>
+        <body className={styles.page_bg}></body>
       </Helmet>
       {testMode ? (
         <InvitationCardInner {...otherProps} />

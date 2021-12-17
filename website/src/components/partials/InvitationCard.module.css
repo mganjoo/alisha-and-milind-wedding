@@ -99,5 +99,5 @@
 }
 
 .page_bg {
-  @apply bg-background bg-hero-pattern dark:bg-background-night dark:bg-hero-pattern-night print:bg-transparent print:bg-none print:content-[url('../../images/invitation/invitation-print.jpg')];
+  @apply text-primary overflow-hidden bg-background bg-hero-pattern dark:bg-background-night dark:bg-hero-pattern-night dark:text-primary-night print:bg-transparent print:bg-none print:content-[url('../../images/invitation/invitation-print.jpg')] print:overflow-visible;
 }

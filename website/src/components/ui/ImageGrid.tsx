@@ -2,14 +2,7 @@ import { DialogOverlay, DialogContent } from "@reach/dialog"
 import classNames from "classnames"
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image"
 import React, { useState } from "react"
-import {
-  close_button_wrapper,
-  image as image_style,
-  image_wrapper,
-  modal_caption,
-  captioned_image,
-  uncaptioned_image,
-} from "./ImageGrid.module.css"
+import { captioned_image, uncaptioned_image } from "./ImageGrid.module.css"
 import Symbol from "./Symbol"
 
 interface Image {
@@ -47,10 +40,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
       {images.map((image, i) => (
         <div
           key={image.id}
-          className={classNames(
-            image_wrapper,
-            "c-link-focus active:outline-none focus:outline-none"
-          )}
+          className="mx-4 my-4 rounded-lg overflow-hidden flex flex-col flex-auto print:rounded-none print:w-64 print:flex-none print:mx-auto c-link-focus active:outline-none focus:outline-none"
           onClick={() => handleClick(i)}
           onKeyPress={(e) => handleKeyPress(e, i)}
           role="button"
@@ -60,7 +50,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             image={image.image}
             alt={image.alt}
             className={classNames(
-              image_style,
+              "h-full max-h-[24rem] sm:min-w-[16rem] print:max-h-full print:mx-4",
               image.caption ? captioned_image : uncaptioned_image
             )}
             imgStyle={
@@ -83,10 +73,10 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
               dialogImage.fullCaption || dialogImage.caption || dialogImage.alt
             }
           >
-            <div className={close_button_wrapper}>
+            <div className="absolute top-0 right-0 text-white z-10 m-2">
               <button
                 aria-label="Close"
-                className="p-2 focus:outline-none focus:ring focus:ring-accent-focus-night"
+                className="p-2 bg-background-secondary-night border-subtle-night hover:text-accent-hover-night focus:outline-none focus:ring focus:ring-accent-focus-night"
                 onClick={close}
               >
                 <Symbol symbol="close" size="m" />
@@ -99,7 +89,10 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
               imgStyle={{ objectFit: "contain" }}
             />
             {dialogImage.fullCaption && (
-              <p className={modal_caption} id="caption-dialog">
+              <p
+                className="text-primary-night absolute inset-x-0 bottom-0 px-2 py-3 font-sans text-center text-sm bg-background-night bg-opacity-75"
+                id="caption-dialog"
+              >
                 {dialogImage.fullCaption}
               </p>
             )}
