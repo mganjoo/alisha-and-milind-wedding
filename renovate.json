@@ -1,6 +1,6 @@
 {
   "extends": ["config:js-app", "group:allNonMajor", "schedule:weekly"],
-  "enabled": true,
+  "enabled": false,
   "ignoreDeps": ["chalk"],
   "major": {
     "dependencyDashboardApproval": true
