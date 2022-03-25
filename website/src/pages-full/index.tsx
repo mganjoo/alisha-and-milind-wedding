@@ -28,8 +28,8 @@ const IndexPage = () => {
       <div className="c-narrow-body">
         <div className="c-article">
           <p>
-            After a year and a half of life on Zoom, we are so excited to
-            finally be able to celebrate with you in person in Las Vegas!
+            After two years of experiencing life through Zoom, we are so excited
+            to finally be able to celebrate with you in person in Las Vegas!
           </p>
           <p>
             Here is where you will find the most up-to-date information about
@@ -47,7 +47,7 @@ const IndexPage = () => {
         <div>
           <Link
             to="/rsvp"
-            className="c-button c-button-primary c-button-comfortable inline-block"
+            className="inline-block c-button c-button-primary c-button-comfortable"
           >
             RSVP
           </Link>

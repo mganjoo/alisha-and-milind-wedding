@@ -53,10 +53,10 @@ module.exports = {
     siteUrl: `https://alishaandmilind.wedding`, // No trailing slash!
     contactEmail: `alisha.and.milind@gmail.com`,
     displayTitle: `Alisha & Milind`,
-    weddingDate: `2022-01-22`,
-    bookingDeadline: `2021-12-21`,
-    rsvpDeadline: `2021-12-31`,
-    rsvpChangeDeadline: `2022-01-15`,
+    weddingDate: `2022-05-28`,
+    bookingDeadline: `2022-04-28`,
+    rsvpDeadline: `2022-05-01`,
+    rsvpChangeDeadline: `2022-05-21`,
     location: `Las Vegas, NV`,
     mainVenue: [
       "JW Marriott Las Vegas Resort & Spa",

@@ -1,8 +1,8 @@
 ---
 shortName: puja
 title: Puja
-date: "2022-01-19T11:00:00"
-endDate: "2022-01-19T14:00:00"
+date: "2022-05-25T18:00:00"
+endDate: "2022-05-25T19:00:00"
 location: "***REMOVED***"
 preEvent: true
 attire: "Indian or Western casual"

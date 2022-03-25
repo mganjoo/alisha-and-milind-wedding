@@ -72,7 +72,7 @@ const FaqPage = () => {
                   value each and every one of you dearly, so please know that we
                   fully understand if this arrangement is not within your
                   comfort level, particularly given that many folks may be
-                  travelling in for the event.
+                  traveling in for the event.
                 </p>
                 <p>
                   We will continue to track guidance from the{" "}
@@ -211,11 +211,10 @@ const FaqPage = () => {
               />
               <Faq question="What will the weather be like this time of year?">
                 <p>
-                  Las Vegas may be a desert but don&rsquo;t let that dry climate
-                  fool you &mdash; it gets chilly in the winter. (Just
-                  don&rsquo;t ask our Chicago and Michigan families for a second
-                  opinion!) You can expect lows in the mid 30s °F (3-5 °C) and
-                  highs in the low 50s °F (10-12 °C).
+                  We hope to beat the intense heat of Vegas summers, but we
+                  anticipate it will still be quite warm at the end of May.
+                  Temperatures tend to range from 85 to 95 °F (30 to 35 °C)
+                  around this time of year.
                 </p>
               </Faq>
               <Faq question="Are you accepting gifts?">

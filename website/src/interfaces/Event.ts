@@ -14,6 +14,7 @@ export interface WeddingEventMarkdown {
     preEvent: boolean
     attire: string
     plainText: string
+    venueUrl?: string
     subLocations?: {
       name: string
       location: string
@@ -57,6 +58,7 @@ export function useEvents() {
               preEvent
               attire
               plainText
+              venueUrl
               subLocations {
                 name
                 location

@@ -87,7 +87,7 @@ const StoryPage = () => {
             psychology internship and has now returned back to San Francisco.
             Milind has been hard at work diligently raising his chess Elo rating
             (someone binged The Queen&rsquo;s Gambit), and maintaining his
-            670-day (and counting) NYT Crossword streak.
+            780-day (and counting) NYT Crossword streak.
           </p>
           <ImageGrid
             images={[

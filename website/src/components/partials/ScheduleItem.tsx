@@ -53,16 +53,18 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
         : metadata.mainVenue
       ).join(", ")
     : undefined
-  const addressUrl = event.frontmatter.preEvent
-    ? metadata?.preEventsVenueUrl
-    : metadata?.mainVenueUrl
+  const addressUrl =
+    event.frontmatter.venueUrl ||
+    (event.frontmatter.preEvent
+      ? metadata?.preEventsVenueUrl
+      : metadata?.mainVenueUrl)
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
-        <h2 className="text-heading-primary font-sans text-2xl font-semibold mb-2 dark:text-heading-primary-night print:text-heading-print">
+        <h2 className="mb-2 font-sans text-2xl font-semibold text-heading-primary dark:text-heading-primary-night print:text-heading-print">
           {event.frontmatter.name}
         </h2>
-        <div className="pl-2 border-l border-accent w-full md:pl-0 md:border-0 dark:border-accent-night print:border-subtle">
+        <div className="w-full pl-2 border-l border-accent md:pl-0 md:border-0 dark:border-accent-night print:border-subtle">
           <ScheduleInfoRow>
             <ScheduleInfoItem label="Date" symbol="calendar">
               {event.frontmatter.longDateOnly}
@@ -122,7 +124,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
           className="c-body-text-container"
           dangerouslySetInnerHTML={{ __html: event.html }}
         />
-        <div className="c-body-text-container -mb-4">
+        <div className="-mb-4 c-body-text-container">
           <p>
             <span className="font-semibold dark:font-bold">Attire</span>:{" "}
             {event.frontmatter.attire}
