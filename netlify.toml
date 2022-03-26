@@ -20,7 +20,6 @@
 
 [context.production.environment]
   DISABLE_DEMO_PAGES = "1"
-  GATSBY_DISABLE_FULL_SITE = "1"
   GATSBY_USE_PROD_FIREBASE = "1"
   GATSBY_GA_BRANCH = "main"
 
