@@ -232,7 +232,7 @@ const FaqPage = () => {
               <Faq question="Is it okay to take photos or videos during the event?">
                 <p>
                   Absolutely! Our social media hashtag is{" "}
-                  <strong>#AlishaWonAMil</strong>. Certainly no pressure to
+                  <strong>{value?.hashtag}</strong>. Certainly no pressure to
                   capture, though &mdash; we spend plenty of time in front of
                   screens these days. We will share our photographer&rsquo;s
                   shots with you as well.

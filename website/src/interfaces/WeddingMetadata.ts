@@ -10,6 +10,7 @@ export interface WeddingMetadata {
   displayTitle: string
   weddingDate: string
   contactEmail: string
+  hashtag: string
   siteUrl: string
   location: string
   mainVenue: string[]
@@ -40,6 +41,7 @@ export function useWeddingMetadata() {
           preEventsVenue
           preEventsVenueUrl
           contactEmail
+          hashtag
           siteUrl
           location
         }

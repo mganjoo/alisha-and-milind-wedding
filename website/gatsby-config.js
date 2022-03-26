@@ -58,6 +58,7 @@ module.exports = {
     rsvpDeadline: `2022-05-01`,
     rsvpChangeDeadline: `2022-05-21`,
     location: `Las Vegas, NV`,
+    hashtag: `#AlishaWonAMilAgain`,
     mainVenue: [
       "JW Marriott Las Vegas Resort & Spa",
       "221 N Rampart Blvd",
