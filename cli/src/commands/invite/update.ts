@@ -55,7 +55,7 @@ const partySchema = object()
     knownGuests: array().of(string().required()),
   })
 
-type Itype = "a" | "pr" | "psr" | "w" | "sr" | "r"
+type Itype = "a" | "pr" | "psr" | "w" | "ow" | "sr" | "r"
 
 interface Invitation {
   code: string
@@ -140,6 +140,8 @@ export default class InviteUpdate extends BaseCommand {
       return "pr"
     } else if (!preEvents && sangeet && ceremony) {
       return "w"
+    } else if (!preEvents && !sangeet && ceremony) {
+      return "ow"
     } else if (!preEvents && sangeet && !ceremony) {
       return "sr"
     } else if (!preEvents && !sangeet && !ceremony) {
@@ -343,7 +345,8 @@ export default class InviteUpdate extends BaseCommand {
     )
     await writeTags(
       this.mailchimp,
-      (party) => party.itype !== undefined && ["a", "w"].includes(party.itype),
+      (party) =>
+        party.itype !== undefined && ["a", "w", "ow"].includes(party.itype),
       "ceremonySegmentId"
     )
     await writeTags(this.mailchimp, () => true, "receptionSegmentId")

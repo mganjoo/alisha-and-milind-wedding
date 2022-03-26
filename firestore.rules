@@ -48,6 +48,7 @@ service cloud.firestore {
                 || (itype == "psr" && events.hasOnly(["puja", "haldi", "sangeet", "reception"]))
                 || (itype == "pr" && events.hasOnly(["puja", "haldi", "reception"]))
                 || (itype == "w" && events.hasOnly(["sangeet", "ceremony", "reception"]))
+                || (itype == "ow" && events.hasOnly(["ceremony", "reception"]))
                 || (itype == "sr" && events.hasOnly(["sangeet", "reception"]))
                 || (itype == "r" && events.hasOnly(["reception"]))
               ))

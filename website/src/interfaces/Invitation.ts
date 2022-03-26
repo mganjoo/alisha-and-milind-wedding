@@ -17,6 +17,7 @@ import { WeddingEventMarkdown } from "./Event"
  * psr   y     y      y        n          y
  * pr    y     y      n        n          y
  * w     n     n      y        y          y
+ * ow    n     n      n        y          y
  * sr    n     n      y        n          y
  * r     n     n      n        n          y
  */
@@ -25,6 +26,7 @@ const ITypeSchema = Union(
   Literal("psr"),
   Literal("pr"),
   Literal("w"),
+  Literal("ow"),
   Literal("sr"),
   Literal("r")
 )
@@ -77,7 +79,7 @@ export function isRsvpable(
   } else if (event.frontmatter.shortName === "sangeet") {
     return codeMatches(["a", "psr", "w", "sr"])
   } else if (event.frontmatter.shortName === "ceremony") {
-    return codeMatches(["a", "w"])
+    return codeMatches(["a", "w", "ow"])
   } else {
     return true
   }
