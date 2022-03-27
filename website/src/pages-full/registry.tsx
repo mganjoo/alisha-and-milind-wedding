@@ -30,7 +30,7 @@ const ZolaWrapper: React.FC<ZolaWrapperArgs> = ({ zolaKey }) => {
         <Loading />
       </div>
       <ExternalLink
-        className="c-button c-button-primary c-button-comfortable shadow-md"
+        className="shadow-md c-button c-button-primary c-button-comfortable"
         href={`https://www.zola.com/registry/${zolaKey}`}
       >
         Visit our wedding registry on Zola

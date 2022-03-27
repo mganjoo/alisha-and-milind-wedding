@@ -53,14 +53,14 @@ const TravelPage = () => {
         {(value) => (
           <Authenticated>
             <section
-              className="c-shadow-box mb-8 sm:flex sm:items-center"
+              className="mb-8 c-shadow-box sm:flex sm:items-center"
               aria-labelledby="venue-heading"
               aria-describedby="venue-description"
             >
-              <div className="font-sans text-lg mb-4 sm:mb-0 sm:w-1/2 sm:flex sm:flex-col sm:items-center">
+              <div className="mb-4 font-sans text-lg sm:mb-0 sm:w-1/2 sm:flex sm:flex-col sm:items-center">
                 <div>
                   <h2
-                    className="text-xl font-semibold mb-1 dark:font-bold"
+                    className="mb-1 text-xl font-semibold dark:font-bold"
                     id="venue-heading"
                   >
                     Venue
@@ -92,8 +92,8 @@ const TravelPage = () => {
                 book your stay by <strong>{value?.bookingDeadline}</strong> to
                 guarantee room availability at the special rate.
               </p>
-              <div className="my-4 w-full block">
-                <p className="c-button c-button-primary c-button-comfortable inline-block shadow-lg bg-opacity-50">
+              <div className="block w-full my-4">
+                <p className="inline-block bg-opacity-50 shadow-lg c-button c-button-primary c-button-comfortable grayscale">
                   Coming soon
                 </p>
               </div>

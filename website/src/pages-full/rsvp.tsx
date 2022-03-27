@@ -68,7 +68,7 @@ const RsvpPage = () => {
                     <Link
                       to="/invitation"
                       state={{ fromRsvp: true } as InvitationNavigationState}
-                      className="c-button c-button-secondary c-button-comfortable shadow-md"
+                      className="shadow-md c-button c-button-secondary c-button-comfortable"
                     >
                       View your invitation
                     </Link>
