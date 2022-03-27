@@ -109,7 +109,7 @@ const TravelPage = () => {
                 For our friends and family flying in for the festivities, the
                 closest airport is{" "}
                 <ExternalLink href="https://www.las-vegas-airport.com/">
-                  Las Vegas McCarran International Airport (LAS)
+                  Harry Reid International Airport (LAS)
                 </ExternalLink>
                 , which is about 16 miles from the hotel.
               </p>
