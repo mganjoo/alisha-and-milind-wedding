@@ -29,7 +29,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
         <meta name="robots" content="noindex" />
         <body
           className={classnames(
-            "h-bg-colors h-fg-colors selection:bg-orange-200 dark:selection:bg-orange-600",
+            "h-bg-colors h-fg-colors selection:bg-orange-200 dark:selection:bg-orange-600 dark:selection:text-white",
             additionalBodyClassName
           )}
         ></body>

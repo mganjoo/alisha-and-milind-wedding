@@ -33,8 +33,8 @@ const TextInputGroup: React.FC<TextInputGroupProps> = ({
   ) : (
     <InputGroup label={label} errorMessage={errorMessage}>
       {fieldKeys.map((fieldKey, i) => (
-        <label key={fieldKey} className="my-3 flex items-center">
-          <span className="flex mr-2 w-6 h-6 items-center justify-center font-sans text-xs bg-secondary-night border border-subtle text-primary rounded-full dark:border-transparent">
+        <label key={fieldKey} className="flex items-center my-3">
+          <span className="flex items-center justify-center w-6 h-6 mr-2 font-sans text-xs border rounded-full bg-secondary-night border-subtle text-primary dark:border-transparent">
             {i + 1}
           </span>
           <TextInput
