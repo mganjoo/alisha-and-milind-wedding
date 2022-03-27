@@ -108,7 +108,7 @@ const TravelPage = () => {
               <p>
                 For our friends and family flying in for the festivities, the
                 closest airport is{" "}
-                <ExternalLink href="https://www.las-vegas-airport.com/">
+                <ExternalLink href="https://www.harryreidairport.com/">
                   Harry Reid International Airport (LAS)
                 </ExternalLink>
                 , which is about 16 miles from the hotel.
