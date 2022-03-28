@@ -38,8 +38,7 @@ service cloud.firestore {
         }
         function validEvents(events, itype) {
           return
-            events is list
-            && (
+            (
               (!attending() && events.size() == 0)
               ||
               // Must be kept up to date with values in Gatsby config
@@ -56,11 +55,7 @@ service cloud.firestore {
         }
         function validGuest(i, itype) {
           return
-            guests()[i] is map
-            && guests()[i].keys().size() == 2
-            && guests()[i].keys().hasAll(["name", "events"])
-            && guests()[i].name is string
-            && guests()[i].name.trim().size() != 0
+            guests()[i].name.trim().size() != 0
             && validEvents(guests()[i].events, itype);
         }
         function validGuests(numInvitedGuests, itype) {
@@ -74,10 +69,8 @@ service cloud.firestore {
             && (guestsCount() < 6 || validGuest(5, itype))
             && (guestsCount() < 7 || validGuest(6, itype))
             && (guestsCount() < 8 || validGuest(7, itype))
-            && (guestsCount() < 9 || validGuest(8, itype))
-            && (guestsCount() < 10 || validGuest(9, itype))
-            && (guestsCount() < 11 || validGuest(10, itype));
-            // should bump this if we ever have more than 11 guests in a party.
+            && (guestsCount() < 9 || validGuest(8, itype));
+            // should bump this if we ever have more than 9 guests in a party.
         }
         function validGuestsFromInvitation(invitation) {
           return validGuests(
