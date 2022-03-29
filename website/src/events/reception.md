@@ -2,7 +2,7 @@
 shortName: "reception"
 title: "Reception"
 date: "2022-05-28T17:30:00"
-endDate: "2022-05-28T00:00:00"
+endDate: "2022-05-29T00:00:00"
 location: JW Marriott Las Vegas, Marquis Ballroom
 attire: Indian festive or Western formal
 subLocations:
