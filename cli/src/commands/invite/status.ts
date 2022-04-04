@@ -86,7 +86,7 @@ export default class InviteStatus extends BaseCommand {
         .map(([code, statuses]) => ({
           code,
           partyName: statuses[0].partyName,
-          names: statuses.map((s) => s.name).join(", "),
+          recipients: statuses.map((s) => s.email).join("; "),
         }))
     } else if (args.type === "opened") {
       results = Object.entries(statusesByInvitationCode)
@@ -94,7 +94,9 @@ export default class InviteStatus extends BaseCommand {
         .map(([code, statuses]) => ({
           code,
           partyName: statuses[0].partyName,
-          names: statuses.map((s) => `${s.name}: ${s.openCount}`).join(", "),
+          recipients: statuses
+            .map((s) => `${s.email}: ${s.openCount}`)
+            .join("; "),
         }))
     } else {
       this.error("invalid type for status display")
@@ -106,7 +108,7 @@ export default class InviteStatus extends BaseCommand {
         {
           code: {},
           partyName: { header: "Party Name" },
-          names: { header: "Recipients" },
+          recipients: {},
         },
         { ...flags, sort: flags.sort || "code" }
       )
