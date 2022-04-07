@@ -253,7 +253,7 @@ const FaqPage = () => {
                   for first-time visitors. But for our family and friends who
                   are spending some extra time in the area (or want to bookmark
                   this for a later trip!), here is the Alisha &amp; Milind
-                  edition of our favorite things to do in the (Vegas) Valley.
+                  edition of our favorite family-friendly things to do.
                 </p>
                 <h3>The Strip (duh!)</h3>
                 <ul>
@@ -294,7 +294,7 @@ const FaqPage = () => {
                     </ExternalLink>
                     . And of course there&rsquo;s that{" "}
                     <ExternalLink href="https://bellagio.mgmresorts.com/en/entertainment/fountains-of-bellagio.html">
-                      iconic fountain
+                      iconic water show
                     </ExternalLink>{" "}
                     featured in many a Vegas movie!
                   </li>
@@ -375,7 +375,7 @@ const FaqPage = () => {
                     <ExternalLink href="https://www.gomtcharleston.com/">
                       Mount Charleston
                     </ExternalLink>
-                    , about 40 minutes away from the hotel, for a snowy escape.
+                    , about 40 minutes away from the hotel, for a cool escape.
                   </li>
                   <li>
                     Rewatch Transformers for that iconic scene of{" "}
