@@ -86,7 +86,7 @@
   .c-body-text-container > p > a,
   .c-article > dl > dd > a,
   .c-article > ul > li > a {
-    @apply border-b border-primary border-dotted font-semibold dark:border-primary-night hover:text-accent-text hover:border-accent-text dark:hover:text-accent-text-night dark:hover:border-accent-text-night focus-visible:outline-none focus-visible:bg-accent-focus focus-visible:text-primary dark:focus-visible:bg-accent-focus-night;
+    @apply underline decoration-primary decoration-dotted underline-offset-4 font-semibold dark:decoration-primary-night hover:text-accent-text hover:decoration-accent-text dark:hover:text-accent-text-night dark:hover:decoration-accent-text-night focus-visible:outline-none focus-visible:bg-accent-focus focus-visible:text-primary dark:focus-visible:bg-accent-focus-night;
   }
 
   .c-article > p,
