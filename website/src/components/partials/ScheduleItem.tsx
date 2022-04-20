@@ -53,11 +53,9 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
         : metadata.mainVenue
       ).join(", ")
     : undefined
-  const addressUrl =
-    event.frontmatter.venueUrl ||
-    (event.frontmatter.preEvent
-      ? metadata?.preEventsVenueUrl
-      : metadata?.mainVenueUrl)
+  const addressUrl = event.frontmatter.preEvent
+    ? metadata?.preEventsVenueUrl
+    : metadata?.mainVenueUrl
   return (
     <div className="mb-12 md:flex md:items-center">
       <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">

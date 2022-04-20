@@ -8,17 +8,17 @@ attire: Indian festive or Western daytime formal
 subLocations:
   - {
       name: Assemble for baraat,
-      date: "2022-05-28T09:15:00",
+      date: "2022-05-28T09:00:00",
       location: "Palms Tower Parking Lot",
     }
   - {
       name: Baraat starts,
-      date: "2022-05-28T09:30:00",
+      date: "2022-05-28T09:15:00",
       location: "Palms Tower Parking Lot",
     }
   - {
       name: "Ceremony",
-      date: "2022-05-28T10:30:00",
+      date: "2022-05-28T10:00:00",
       location: "Marquis Ballroom",
     }
   - { name: "Lunch", date: "2022-05-28T12:00:00", location: "Marquis Ballroom" }
