@@ -93,9 +93,12 @@ const TravelPage = () => {
                 guarantee room availability at the special rate.
               </p>
               <div className="block w-full my-4">
-                <p className="inline-block bg-opacity-50 shadow-lg c-button c-button-primary c-button-comfortable grayscale">
-                  Coming soon
-                </p>
+                <ExternalLink
+                  href="https://book.passkey.com/e/50325597"
+                  className="inline-block c-button c-button-primary c-button-comfortable"
+                >
+                  Book a room at the special rate
+                </ExternalLink>
               </div>
             </section>
             <section

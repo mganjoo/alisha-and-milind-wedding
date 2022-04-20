@@ -51,9 +51,9 @@ const RegistryPage = () => {
       <Authenticated>
         <div className="c-article">
           <p>
-            We will update this page with a link to our registry soon, and will
-            also keep a box for cards at the reception. We humbly request no
-            boxed gifts at the event.
+            Here&rsquo;s a link to our registry! We will also keep a box for
+            cards at the reception, but we humbly request no boxed gifts at the
+            event.
           </p>
         </div>
         <ZolaWrapper zolaKey="alishaandmilind" />
