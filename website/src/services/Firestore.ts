@@ -46,7 +46,6 @@ function makeFirestore(firebaseInstance: FirebaseApp): Firestore {
       data: Record<string, any>,
       docRef?: (db: TFirestore) => DocumentReference
     ) => {
-      console.log(`Adding: `, data)
       const db = getFirestore(firebaseInstance)
       const coll = docRef
         ? collection(docRef(db), collectionName)
@@ -56,10 +55,7 @@ function makeFirestore(firebaseInstance: FirebaseApp): Firestore {
         ...data,
       }
       return addDoc(coll, docWithTimestamp)
-        .then((docRef) => {
-          console.log(`Document added: ${docRef.id}`)
-          return docWithTimestamp
-        })
+        .then(() => docWithTimestamp)
         .catch(observeAndRethrow)
     },
     findById: async (collectionName: string, id: string) => {
