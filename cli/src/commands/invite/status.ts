@@ -77,7 +77,21 @@ export default class InviteStatus extends BaseCommand {
     )
     cli.action.stop()
 
-    const statusesByInvitationCode = _.groupBy(statuses, "code")
+    const statusesWithDedupedEmails = Object.entries(
+      _.groupBy(statuses, "email")
+    ).map(([email, statuses]) =>
+      statuses.reduce((left, right) => ({
+        code: right.code,
+        name: right.name,
+        partyName: right.partyName,
+        email,
+        openCount: left.openCount + right.openCount,
+      }))
+    )
+    const statusesByInvitationCode = _.groupBy(
+      statusesWithDedupedEmails,
+      "code"
+    )
 
     let results: Record<string, unknown>[] | undefined = undefined
     if (args.type === "unopened") {
