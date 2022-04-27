@@ -1,7 +1,7 @@
 ---
 shortName: puja
 title: Puja
-date: "2022-05-25T18:00:00"
+date: "2022-05-25T17:30:00"
 endDate: "2022-05-25T19:00:00"
 location: "***REMOVED***"
 preEvent: true

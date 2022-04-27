@@ -55,7 +55,7 @@ module.exports = {
     displayTitle: `Alisha & Milind`,
     weddingDate: `2022-05-28`,
     bookingDeadline: `2022-04-28`,
-    rsvpDeadline: `2022-05-01`,
+    rsvpDeadline: `2022-05-10`,
     rsvpChangeDeadline: `2022-05-21`,
     location: `Las Vegas, NV`,
     hashtag: `#AlishaWonAMilAgain`,

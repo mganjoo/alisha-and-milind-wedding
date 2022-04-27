@@ -1,7 +1,7 @@
 ---
 shortName: haldi
 title: Haldi
-date: "2022-05-26T11:00:00"
+date: "2022-05-26T10:00:00"
 endDate: "2022-05-26T13:00:00"
 location: "***REMOVED***"
 preEvent: true
