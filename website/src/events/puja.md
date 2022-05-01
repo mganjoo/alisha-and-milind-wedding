@@ -7,7 +7,7 @@ location: "***REMOVED***"
 preEvent: true
 attire: "Indian or Western casual"
 plainText: >
-  We will kick off the wedding celebrations with puja at the Saxena home to bless the marriage. Lunch will follow the puja.
+  We will kick off the wedding celebrations with puja at the Saxena home to bless the marriage. Dinner will follow the puja.
 ---
 
-We will kick off the wedding celebrations with puja at the Saxena home to bless the marriage. Lunch will follow the puja.
+We will kick off the wedding celebrations with puja at the Saxena home to bless the marriage. Dinner will follow the puja.

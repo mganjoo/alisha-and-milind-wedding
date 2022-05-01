@@ -23,7 +23,7 @@ subLocations:
     }
   - { name: "Lunch", date: "2022-05-28T11:30:00", location: "Marquis Ballroom" }
 plainText: >
-  Join us for the baraat, which is the outdoor wedding procession. The baraat will be followed by the indoor religious ceremony, then lunch.
+  Join us for the baraat, which is the outdoor wedding procession. We will meet at the Palms Tower Parking Lot (circle 45 on this map: https://bit.ly/3kqL79A). The baraat will be followed by the indoor religious ceremony, then lunch.
 ---
 
-We are off to an early start! Grab some coffee and light refreshments that will be awaiting you at the meeting spot for the _baraat_, or wedding procession. The baraat will be followed by the _milni_ ceremony, where Alisha’s family will greet Milind’s family. The indoor religious ceremony will then commence, followed by lunch.
+We are off to an early start! We will meet at the Palms Tower parking lot (circle 45 on [this map](https://bit.ly/3kqL79A)) for the _baraat_, or wedding procession. The baraat will be followed by the _milni_ ceremony, where Alisha’s family will greet Milind’s family. The indoor religious ceremony will then commence, followed by lunch.
