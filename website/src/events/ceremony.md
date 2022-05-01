@@ -1,19 +1,19 @@
 ---
 shortName: "ceremony"
 title: "Ceremony"
-date: "2022-05-28T09:30:00"
-endDate: "2022-05-28T13:00:00"
+date: "2022-05-28T08:45:00"
+endDate: "2022-05-28T12:30:00"
 location: JW Marriott Las Vegas, Marquis Ballroom
 attire: Indian festive or Western daytime formal
 subLocations:
   - {
       name: Assemble for baraat,
-      date: "2022-05-28T09:00:00",
+      date: "2022-05-28T08:45:00",
       location: "Palms Tower Parking Lot",
     }
   - {
       name: Baraat starts,
-      date: "2022-05-28T09:15:00",
+      date: "2022-05-28T09:00:00",
       location: "Palms Tower Parking Lot",
     }
   - {
@@ -21,7 +21,7 @@ subLocations:
       date: "2022-05-28T10:00:00",
       location: "Marquis Ballroom",
     }
-  - { name: "Lunch", date: "2022-05-28T12:00:00", location: "Marquis Ballroom" }
+  - { name: "Lunch", date: "2022-05-28T11:30:00", location: "Marquis Ballroom" }
 plainText: >
   Join us for the baraat, which is the outdoor wedding procession. The baraat will be followed by the indoor religious ceremony, then lunch.
 ---

@@ -68,7 +68,7 @@ const ScheduleItem: React.FC<ScheduleItemProps> = ({ event }) => {
               {event.frontmatter.longDateOnly}
             </ScheduleInfoItem>
             <ScheduleInfoItem label="Time" symbol="time">
-              {event.frontmatter.timeOnly}
+              {event.frontmatter.timeOnly}-{event.frontmatter.endTimeOnly}
             </ScheduleInfoItem>
           </ScheduleInfoRow>
           <ScheduleInfoRow>

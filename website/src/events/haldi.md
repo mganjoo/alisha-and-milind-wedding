@@ -2,7 +2,7 @@
 shortName: haldi
 title: Haldi
 date: "2022-05-26T10:00:00"
-endDate: "2022-05-26T13:00:00"
+endDate: "2022-05-26T14:00:00"
 location: "***REMOVED***"
 preEvent: true
 attire: "Indian or Western casual (optional: shades of yellow or green)"

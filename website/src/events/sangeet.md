@@ -2,7 +2,7 @@
 shortName: "sangeet"
 title: "Welcome Dinner"
 date: "2022-05-27T19:00:00"
-endDate: "2022-05-28T00:00:00"
+endDate: "2022-05-27T22:00:00"
 location: JW Marriott Las Vegas, The Lawn
 attire: Indian festive or Western semi-formal
 plainText: >
