@@ -3,7 +3,7 @@ shortName: "ceremony"
 title: "Ceremony"
 date: "2022-05-28T08:45:00"
 endDate: "2022-05-28T12:30:00"
-location: JW Marriott Las Vegas, Marquis Ballroom
+location: JW Marriott Las Vegas, Valencia Ballroom
 attire: Indian festive or Western daytime formal
 subLocations:
   - {
@@ -19,9 +19,13 @@ subLocations:
   - {
       name: "Ceremony",
       date: "2022-05-28T10:00:00",
-      location: "Marquis Ballroom",
+      location: "Valencia Ballroom",
     }
-  - { name: "Lunch", date: "2022-05-28T11:30:00", location: "Marquis Ballroom" }
+  - {
+      name: "Lunch",
+      date: "2022-05-28T11:30:00",
+      location: "Valencia Ballroom",
+    }
 plainText: >
   Join us for the baraat, which is the outdoor wedding procession. We will meet at the Palms Tower Parking Lot (circle 45 on this map: https://bit.ly/3kqL79A). The baraat will be followed by the indoor religious ceremony, then lunch.
 ---

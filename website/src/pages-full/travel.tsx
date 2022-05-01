@@ -139,7 +139,8 @@ const TravelPage = () => {
               <p>
                 If you are checking into the hotel, the registration desk is
                 closest to <strong>Spa Tower</strong>. If you are joining us for
-                the event directly, head on over to <strong>Palm Tower</strong>.
+                the event directly, head on over to <strong>Palms Tower</strong>
+                .
               </p>
               <p>
                 Do not hesitate to reach out to us (
