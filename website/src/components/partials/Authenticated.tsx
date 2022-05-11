@@ -35,9 +35,13 @@ export interface InvitationContextWrapper {
    * Force a reload from cache (no change to current invitation if unsuccessful).
    *
    * Optionally forces refetch from server if invitation was last fetched `olderThanSecs` seconds ago.
+   * Optionally loads from `forcedInvitation` if set.
    * Propagates errors on fetch failure.
    */
-  reloadSaved: (olderThanSecs?: number) => Promise<void>
+  reloadSaved: (args?: {
+    olderThanSecs?: number
+    forcedInvitation?: Invitation
+  }) => Promise<void>
 }
 
 // Used only to seed the context for cases when there is no provider
@@ -54,7 +58,10 @@ export function makeDummyInvitationContextWrapper(
 ): InvitationContextWrapper {
   return {
     invitation: invitation,
-    reloadSaved: (_olderThanSecs?: number) => Promise.resolve(),
+    reloadSaved: (_args?: {
+      olderThanSecs?: number
+      forcedInvitation?: Invitation
+    }) => Promise.resolve(),
   }
 }
 
@@ -90,12 +97,20 @@ const Authenticated: React.FC = ({ children }) => {
   }
 
   const loadInvitation = useMemo(
-    () => async (olderThanSecs?: number) => {
-      const loaded = await loadSavedInvitation(olderThanSecs)
-      if (loaded) {
-        setInvitation(loaded)
-      }
-    },
+    () =>
+      async (args?: {
+        olderThanSecs?: number
+        forcedInvitation?: Invitation
+      }) => {
+        if (args?.forcedInvitation) {
+          setInvitation(args.forcedInvitation)
+        } else {
+          const loaded = await loadSavedInvitation(args?.olderThanSecs)
+          if (loaded) {
+            setInvitation(loaded)
+          }
+        }
+      },
     []
   )
 
@@ -129,7 +144,7 @@ const Authenticated: React.FC = ({ children }) => {
             aria-describedby="authenticated-description"
             className="max-w-sm mx-auto"
           >
-            <div className="c-shadow-box mx-4 my-6">
+            <div className="mx-4 my-6 c-shadow-box">
               <BaseForm>
                 {!isSubmitting && showAlert && (
                   <Alert>

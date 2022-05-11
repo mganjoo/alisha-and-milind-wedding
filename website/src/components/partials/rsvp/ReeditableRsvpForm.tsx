@@ -13,7 +13,7 @@ const ReeditableRsvpForm: React.FC = () => {
   const [refetchStatus, setRefetchStatus] = useState<RefetchStatus>("fetching")
   const refetch = useCallback(
     () =>
-      reloadSaved(90)
+      reloadSaved({ olderThanSecs: 90 })
         .then(() => {
           setRefetchStatus("fetched")
         })

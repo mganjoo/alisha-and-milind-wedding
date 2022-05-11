@@ -143,8 +143,8 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ onDone }) => {
   const submitRsvp = useMemo(
     () => async (values: RsvpFormValues) => {
       try {
-        await addRsvp(invitation, toRsvp(values))
-        await reloadSaved()
+        const newInvitation = await addRsvp(invitation, toRsvp(values))
+        await reloadSaved({ forcedInvitation: newInvitation })
         onDone(true)
       } catch {
         setSubmitError(true)
