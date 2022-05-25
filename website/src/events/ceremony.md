@@ -1,19 +1,19 @@
 ---
 shortName: "ceremony"
 title: "Ceremony"
-date: "2022-05-28T08:45:00"
+date: "2022-05-28T09:00:00"
 endDate: "2022-05-28T12:30:00"
 location: JW Marriott Las Vegas, Valencia Ballroom
 attire: Indian festive or Western daytime formal
 subLocations:
   - {
       name: Assemble for baraat,
-      date: "2022-05-28T08:45:00",
+      date: "2022-05-28T09:00:00",
       location: "Palms Tower Parking Lot",
     }
   - {
       name: Baraat starts,
-      date: "2022-05-28T09:00:00",
+      date: "2022-05-28T09:15:00",
       location: "Palms Tower Parking Lot",
     }
   - {
