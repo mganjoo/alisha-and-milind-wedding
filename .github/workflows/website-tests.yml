@@ -1,17 +1,18 @@
 name: Website tests
-on:
-  push:
-    branches-ignore:
-      - "main"
-      - "staging"
-    paths:
-      - "website/**"
-      - ".github/workflows/website-tests.yml"
-      - "package.json"
-      - "package-lock.json"
-  repository_dispatch: {}
-  schedule:
-    - cron: "25 19 * * 2,5"
+on: workflow_dispatch
+# on:
+#   push:
+#     branches-ignore:
+#       - "main"
+#       - "staging"
+#     paths:
+#       - "website/**"
+#       - ".github/workflows/website-tests.yml"
+#       - "package.json"
+#       - "package-lock.json"
+#   repository_dispatch: {}
+#   schedule:
+#     - cron: "25 19 * * 2,5"
 jobs:
   test:
     name: Run tests

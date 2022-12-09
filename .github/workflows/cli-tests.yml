@@ -1,9 +1,10 @@
 name: CLI tests
-on:
-  push:
-    paths:
-      - "cli/**"
-      - ".github/workflows/cli-tests.yml"
+on: workflow_dispatch
+# on:
+#   push:
+#     paths:
+#       - "cli/**"
+#       - ".github/workflows/cli-tests.yml"
 jobs:
   deploy:
     name: Run tests
