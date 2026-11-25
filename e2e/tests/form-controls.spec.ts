@@ -1,12 +1,6 @@
 import { expect, type Locator, test } from "@playwright/test"
 import { inviteeForCode } from "../support/fixtures.js"
 
-/**
- * Checked checkboxes and radios must render filled (the forms plugin's fill:
- * background = currentColor plus a tick/dot image). Full-page screenshots
- * can't catch this: a few 16px controls are far below their tolerance.
- * Regression for Tailwind 4 utilities overriding the plugin's :checked fill.
- */
 async function fill(control: Locator) {
   return control.evaluate((el) => {
     const style = getComputedStyle(el)

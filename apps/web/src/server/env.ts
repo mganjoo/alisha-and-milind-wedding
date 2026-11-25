@@ -32,12 +32,6 @@ export function jsonResponse(result: ApiResult<unknown>): Response {
   })
 }
 
-/**
- * Decodes a route path segment such as `:code`. Clients encode it with
- * encodeURIComponent (invitation codes may contain reserved characters like
- * `:`), but Astro hands it to the route still percent-encoded. Returns
- * undefined for a malformed escape, which routes treat as "not found".
- */
 export function decodePathParam(raw: string | undefined): string | undefined {
   if (raw === undefined) return undefined
   try {

@@ -20,8 +20,6 @@ const LabelledOption = ({
         type={type}
         className={clsx(
           "c-form-element-border bg-form-background text-accent dark:text-accent-night dark:bg-form-background-night",
-          // Tailwind 4 puts utilities in a layer above the forms plugin, so
-          // bg-form-background would override the plugin's checked fill.
           "checked:bg-current checked:border-transparent dark:checked:bg-current dark:checked:border-transparent"
         )}
         {...otherProps}

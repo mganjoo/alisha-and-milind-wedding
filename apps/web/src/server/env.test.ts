@@ -3,7 +3,6 @@ import { decodePathParam } from "./env"
 
 describe("decodePathParam", () => {
   it("decodes what the client's encodeURIComponent produced", () => {
-    // A real 2022 invitation code contains a colon.
     expect(decodePathParam(encodeURIComponent("t:M3AxoQSl"))).toBe("t:M3AxoQSl")
     expect(decodePathParam("t%3AM3AxoQSl")).toBe("t:M3AxoQSl")
   })
