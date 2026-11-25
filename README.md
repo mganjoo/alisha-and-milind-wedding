@@ -153,31 +153,44 @@ wrangler d1 execute DB --remote --command \
 The site is one Cloudflare Worker (static assets + `/api/*`) with a D1
 database, live at the `workers.dev` address in `SITE_HOST`. It is a **demo**:
 the data is fake and gets wiped on every deploy. (A real deployment would need
-the old rules back: backward-compatible migrations and a canary, not a reset.
-Until then, CI already holds migrations to the expand/contract rules; see
-[Schema changes](#schema-changes).)
+its own database for candidates instead of a reset; migrations already follow
+the expand/contract rules, see [Schema changes](#schema-changes).)
 
 **Automatically:** every merge to `main` runs the CI tests and, if they pass,
 deploys (`.github/workflows/ci.yml`, GitHub environment `demo`). Pull requests
 run the tests only.
 
 **What a deploy does** (`scripts/deploy.sh`, the same locally and in CI):
+verify first, then promote. A failing build never serves traffic.
 
 1. Creates the D1 database if needed and applies migrations.
-2. Builds with the production config and records the currently live version
-   id.
-3. Deploys straight to 100% (`wrangler deploy`; there are no preview URLs).
-4. Sets the Worker secret `TEST_API_TOKEN` (`wrangler secret put`). It enables
-   the token-guarded `/api/test/*` endpoints on the demo; requests must send it
-   in `x-test-token`. Locally the script generates one into
-   `.secrets/deploy.env` if missing. It is never in `wrangler.jsonc` or the
-   build (the script refuses a build whose output contains it).
-5. Runs the full Playwright suite against `https://$SITE_HOST` with
-   `E2E_RESET=1`: the global setup calls `POST /api/test/reset`, which deletes
-   every row and reseeds the fixtures.
-6. If the suite fails, runs `wrangler rollback <recorded version id>` and exits
-   non-zero. (The data stays reset; the code goes back.) CI uploads the
-   Playwright report.
+2. Builds with the production config (the script refuses a build whose output
+   contains the test API token).
+3. Stages the Worker secret `TEST_API_TOKEN` (`wrangler versions secret put`,
+   a new version that isn't deployed). It enables the token-guarded
+   `/api/test/*` endpoints; requests must send it in `x-test-token`. Locally
+   the script generates one into `.secrets/deploy.env` if missing. It is never
+   in `wrangler.jsonc` or the build.
+4. Uploads the build as a **candidate version that serves no traffic**
+   (`wrangler versions upload --preview-alias candidate`), reachable at
+   `candidate-am-wedding.<subdomain>.workers.dev`, and waits until it accepts
+   the token.
+5. Runs the full Playwright suite against the candidate with `E2E_RESET=1`:
+   the global setup calls `POST /api/test/reset`, which deletes every row and
+   reseeds the fixtures. (All versions share the one demo database, so the live
+   site's fake data is reset too.)
+6. If the suite passes, promotes that exact version to 100%
+   (`wrangler versions deploy <id>@100%`) and checks it is the one serving. If
+   it fails, nothing is promoted: the live version keeps serving and the
+   script exits non-zero (CI uploads the Playwright report).
+
+The very first deploy (no Worker yet) can't upload a version, so it deploys
+straight to live and then runs the suite. To go back to an earlier version by
+hand: `npx wrangler rollback` (in the toolbox, from `apps/web`).
+
+Preview URLs are public but unlisted and expose **every stored version**, so
+never deploy private data. (The Worker was deleted and recreated in Nov 2026
+to purge versions from before the privacy scrub.)
 
 `e2e/tests/deployed.spec.ts` holds the checks that only apply to a deployed
 build; it skips itself on local URLs.

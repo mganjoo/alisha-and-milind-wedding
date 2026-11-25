@@ -9,10 +9,12 @@
   "name": "am-wedding",
   "compatibility_date": "2026-11-01",
   "observability": { "enabled": true },
-  // No preview URLs: old versions (one served a build with a private address)
-  // must not stay reachable. The demo is deployed straight to 100%.
+  // Preview URLs: scripts/deploy.sh tests each candidate version at
+  // candidate-am-wedding.<subdomain>.workers.dev before promoting it. They are
+  // public but unlisted, and expose every stored version: never deploy private
+  // data (the Worker was recreated in Nov 2026 to purge versions that had it).
   "workers_dev": true,
-  "preview_urls": false,
+  "preview_urls": true,
   "d1_databases": [
     {
       "binding": "DB",

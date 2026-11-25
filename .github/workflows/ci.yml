@@ -7,7 +7,7 @@ name: CI
 # deliberate contract step.
 # Pushes to main (i.e. merges): the same tests, then a deploy of the demo to
 # Cloudflare: reset and reseed its fake data, run the full e2e suite against
-# the live site, and roll back to the previous version if that fails.
+# a candidate version that serves no traffic, and promote it only if it passes.
 on:
   pull_request:
     # labeled/unlabeled: re-run when `breaking-migration` is added or removed.
@@ -115,7 +115,7 @@ jobs:
             ../base/e2e/test-results
 
   deploy:
-    name: Deploy the demo, run e2e against it (rollback on failure)
+    name: Deploy the demo (test a candidate version, then promote)
     needs: test
     # Deploys only where the `demo` environment is configured: environment
     # secrets can't be read in a job-level `if`, so the first step checks them
@@ -159,7 +159,7 @@ jobs:
         if: steps.configured.outputs.ready == 'true'
         run: $COMPOSE build e2e
 
-      - name: Migrate, deploy, reset the demo data, run e2e (rolls back on failure)
+      - name: Migrate, upload a candidate, run e2e on it, promote if it passes
         if: steps.configured.outputs.ready == 'true'
         run: scripts/deploy.sh
 

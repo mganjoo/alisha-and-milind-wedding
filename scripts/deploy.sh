@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 #
-# Deploy the demo site (Cloudflare Worker + static assets + D1 database): ship
-# the build, reset and reseed the demo database through the token-guarded test
-# API, run the FULL Playwright suite against the live site, and roll back to
-# the previously deployed version if it fails. The data is fake, so there is no
-# canary and no production traffic to protect.
+# Deploy the demo site (Cloudflare Worker + static assets + D1 database) by
+# verifying, then promoting: upload the build as a version that serves no
+# traffic, reset and reseed the demo database through the token-guarded test
+# API, run the FULL Playwright suite against that version's preview URL, and
+# only if it passes switch 100% of traffic to that exact version. A failure
+# leaves the live version untouched. (The demo data is fake and shared by all
+# versions, so resetting it during the run is fine.)
 #
 # Credentials come from the environment (CI secrets) or, locally, from
 # .secrets/deploy.env (written by scripts/deploy-setup.sh; this script adds
 # TEST_API_TOKEN there if missing). Everything runs in the project's Docker
 # toolbox; nothing is installed on the host.
 #
-#   scripts/deploy.sh       # migrate, deploy, reset + reseed, e2e, rollback on failure
+#   scripts/deploy.sh       # migrate, upload candidate, reset + reseed, e2e on it, promote
 #
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -88,59 +90,105 @@ if grep -rqFf <(printf '%s' "$TEST_API_TOKEN") apps/web/dist; then
   exit 1
 fi
 
-echo "▸ Record the live version (rollback target)"
+echo "▸ Is a version live yet?"
 # It is a first deploy only if Cloudflare says the Worker does not exist
 # (wrangler: "This Worker does not exist on your account. [code: 10007]") or
 # the Worker has no versions. ANY other failure (expired token, network, rate
-# limit, a changed wrangler output format) aborts: carrying on would deploy
-# with no rollback target.
+# limit, a changed wrangler output format) aborts.
 status_err=$(mktemp)
+out_file=apps/web/.wrangler/deploy-output.ndjson
 trap 'rm -f "$status_err"' EXIT
-previous=""
+live=""
 if status_json=$(run npx wrangler deployments status --json 2>"$status_err"); then
-  if ! previous=$(python3 -c '
+  if ! live=$(python3 -c '
 import json, sys
 versions = json.load(sys.stdin)["versions"]
 print(max(versions, key=lambda v: v["percentage"])["version_id"] if versions else "")' <<<"$status_json"); then
-    echo "Cannot read the live Worker version from 'wrangler deployments status --json'; refusing to deploy without a rollback target." >&2
+    echo "Cannot read the live Worker version from 'wrangler deployments status --json'; refusing to deploy." >&2
     exit 1
   fi
-elif grep -q 'code: 10007' "$status_err"; then
-  previous=""
-else
+elif ! grep -q 'code: 10007' "$status_err"; then
   cat "$status_err" >&2
-  echo "Cannot determine the live Worker version ('wrangler deployments status' failed, and not because the Worker is missing); refusing to deploy without a rollback target." >&2
+  echo "Cannot determine the live Worker version ('wrangler deployments status' failed, and not because the Worker is missing); refusing to deploy." >&2
   exit 1
 fi
-if [[ -n "$previous" ]]; then
-  echo "  live version $previous"
+message="${DEPLOY_MESSAGE:-$(git rev-parse --short HEAD)}"
+
+if [[ -z "$live" ]]; then
+  # Nothing is serving yet, so there is nothing to protect: deploy directly.
+  # (`wrangler versions upload` can't create a Worker; the first one needs
+  # `wrangler deploy`.)
+  echo "  none: first deploy, straight to live"
+  run npx wrangler deploy --message "$message" >/dev/null
+  # A Worker secret, never in wrangler.jsonc or the build; the value goes in on
+  # stdin. Here it deploys immediately as a new version of the same code.
+  printf '%s' "$TEST_API_TOKEN" | run npx wrangler secret put TEST_API_TOKEN >/dev/null
+  target="https://$SITE_HOST"
 else
-  echo "  no live version: this is the first deploy (nothing to roll back to)"
+  echo "  live version $live"
+  echo "▸ Stage the test API secret (new version, not deployed)"
+  printf '%s' "$TEST_API_TOKEN" |
+    run npx wrangler versions secret put TEST_API_TOKEN --message "$message (secret)" >/dev/null
+  echo "▸ Upload the candidate version (serves no traffic)"
+  rm -f "$out_file"
+  run env WRANGLER_OUTPUT_FILE_PATH="/repo/$out_file" \
+    npx wrangler versions upload --preview-alias candidate --message "$message" >/dev/null
+  read -r candidate target < <(python3 - "$out_file" <<'PY'
+import json, sys
+version, url = "", ""
+for line in open(sys.argv[1]):
+    entry = json.loads(line)
+    if entry.get("type") == "version-upload":
+        version = entry.get("version_id") or version
+        url = entry.get("preview_alias_url") or entry.get("preview_url") or url
+print(version, url)
+PY
+)
+  [[ -n "${candidate:-}" && -n "${target:-}" ]] || {
+    echo "Couldn't read the candidate version id / preview URL from wrangler." >&2
+    exit 1
+  }
+  echo "  candidate $candidate at $target"
 fi
 
-echo "▸ Deploy"
-run npx wrangler deploy --message "${DEPLOY_MESSAGE:-$(git rev-parse --short HEAD)}" >/dev/null
+echo "▸ Wait for $target to accept the test API token"
+# A freshly set secret / uploaded version takes a few seconds to reach the
+# edge; resetting succeeds (204) once it has. The suite resets again anyway.
+for attempt in $(seq 1 30); do
+  code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+    -H "x-test-token: $TEST_API_TOKEN" -H 'content-type: application/json' \
+    -d '{}' "$target/api/test/reset" || true)
+  [[ "$code" == 204 ]] && break
+  [[ $attempt == 30 ]] && {
+    echo "$target never accepted the test API token (last status $code)" >&2
+    exit 1
+  }
+  sleep 3
+done
+echo "  ready"
 
-echo "▸ Test API secret"
-# A Worker secret, never in wrangler.jsonc or the build. The value goes in on
-# stdin, not on a command line. It has to follow the deploy: wrangler refuses
-# secret changes while the latest version isn't the deployed one (which is the
-# case after a rollback), and it takes effect as a new version of this code.
-printf '%s' "$TEST_API_TOKEN" | run npx wrangler secret put TEST_API_TOKEN >/dev/null
-
-echo "▸ Reset and reseed the demo database, then run the full e2e suite on https://$SITE_HOST"
+echo "▸ Reset and reseed the demo database, then run the full e2e suite on $target"
 if ! "${COMPOSE[@]}" run --rm -T --no-deps \
-  -e BASE_URL="https://$SITE_HOST" -e TEST_API_TOKEN -e E2E_RESET=1 \
+  -e BASE_URL="$target" -e TEST_API_TOKEN -e E2E_RESET=1 \
   -e PUBLIC_CF_ANALYTICS_TOKEN="${PUBLIC_CF_ANALYTICS_TOKEN:-}" \
   -w /repo/e2e e2e npx playwright test; then
-  if [[ -z "$previous" ]]; then
-    echo "▸ The e2e suite failed; no previous version to roll back to" >&2
-    exit 1
+  if [[ -z "$live" ]]; then
+    echo "▸ The e2e suite failed on the first deploy (it is live; nothing to fall back to)" >&2
+  else
+    echo "▸ The e2e suite failed: candidate $candidate NOT promoted; $live keeps serving" >&2
   fi
-  echo "▸ The e2e suite failed: rolling back to $previous" >&2
-  run npx wrangler rollback "$previous" --yes \
-    --message "Rollback: e2e failed after ${DEPLOY_MESSAGE:-$(git rev-parse --short HEAD)}" >/dev/null
-  run npx wrangler deployments status >&2
   exit 1
+fi
+
+if [[ -n "$live" ]]; then
+  echo "▸ Promote $candidate to 100%"
+  run npx wrangler versions deploy "$candidate@100%" --yes --message "$message" >/dev/null
+  serving=$(run npx wrangler deployments status --json | python3 -c '
+import json, sys
+print(max(json.load(sys.stdin)["versions"], key=lambda v: v["percentage"])["version_id"])')
+  [[ "$serving" == "$candidate" ]] || {
+    echo "Promotion check failed: serving $serving, expected $candidate" >&2
+    exit 1
+  }
 fi
 echo "Done: https://$SITE_HOST"
