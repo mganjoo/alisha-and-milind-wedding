@@ -1,0 +1,36 @@
+---
+import heroImage from "../../images/main-hero.jpg"
+import NavLayout from "../../layouts/NavLayout.astro"
+---
+
+<NavLayout
+  title="Home"
+  image="/meta-main-hero.jpg"
+  description="Welcome to our wedding website! Here you will find the most up-to-date information about the wedding weekend, including event schedule and travel details."
+  heroImage={heroImage}
+  alt="Milind leading Alisha by the hand on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey flowy dress."
+>
+  <div class="c-narrow-body">
+    <div class="c-article">
+      <p>
+        After two years of experiencing life through Zoom, we are so excited to finally be able to celebrate with you
+        in person in Las Vegas!
+      </p>
+      <p>
+        Here is where you will find the most up-to-date information about the wedding, including the event schedule
+        and travel details.
+      </p>
+      <p>
+        We can&rsquo;t wait to see you soon in Vegas!
+        <br />
+        <br />
+        Love,
+        <br />
+        Alisha &amp; Milind
+      </p>
+    </div>
+    <div>
+      <a href="/rsvp" class="inline-block c-button c-button-primary c-button-comfortable">RSVP</a>
+    </div>
+  </div>
+</NavLayout>

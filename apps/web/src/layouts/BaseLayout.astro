@@ -1,0 +1,75 @@
+---
+/**
+ * Document shell: <head> (was react-helmet + SEO.tsx + gatsby-plugin-manifest)
+ * and the themed <body>.
+ */
+import "@fontsource-variable/eb-garamond"
+import "@fontsource-variable/eb-garamond/wght-italic.css"
+import "@fontsource-variable/raleway"
+import "@fontsource-variable/raleway/wght-italic.css"
+import "@fontsource/tangerine/400.css"
+import "@fontsource/tangerine/700.css"
+import "../styles/global.css"
+import clsx from "clsx"
+import { site } from "../lib/metadata"
+
+interface Props {
+  title: string
+  description?: string
+  /** Path of a social preview image in /public, e.g. "/meta-main-hero.jpg". */
+  image?: string
+  bodyClass?: string
+}
+
+const { title, description, image, bodyClass } = Astro.props
+const metaDescription = description || site.description
+const metaImage = image ? `${site.siteUrl}${image}` : ""
+// Cloudflare Web Analytics (cookieless). Only built in when the deploy sets the
+// site token, so local and test builds never load the beacon.
+const analyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{`${title}: ${site.title}`}</title>
+    <meta name="description" content={metaDescription} />
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={metaImage} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:site_name" content={site.title} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content={site.author} />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="mask-icon" href="/favicon-outline.svg" color="#000000" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#fffcf7" />
+    <link rel="apple-touch-icon" sizes="96x96" href="/am-square-96x96.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/am-square-192x192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/am-square-512x512.png" />
+    {
+      analyticsToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: analyticsToken })}
+        />
+      )
+    }
+  </head>
+  <body
+    class={clsx(
+      "h-bg-colors h-fg-colors selection:bg-orange-200 dark:selection:bg-orange-600 dark:selection:text-white",
+      bodyClass
+    )}
+  >
+    <slot />
+  </body>
+</html>

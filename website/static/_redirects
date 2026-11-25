@@ -1,8 +1,0 @@
-http://savethedate.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
-https://savethedate.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
-http://save-the-date.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
-https://save-the-date.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
-http://staging.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
-https://staging.alishaandmilind.wedding/* https://www.alishaandmilind.wedding/:splat 301!
-/r/* /s/:splat 301!
-/load c=:code /s/invitation/:code 301

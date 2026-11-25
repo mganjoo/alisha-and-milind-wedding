@@ -1,0 +1,26 @@
+---
+import FaqPage from "../../components/partials/FaqPage"
+import PageHeading from "../../components/ui/PageHeading"
+import clothes1 from "../../images/faq-clothes-1.jpg"
+import clothes2 from "../../images/faq-clothes-2.jpg"
+import clothes3 from "../../images/faq-clothes-3.jpg"
+import clothes4 from "../../images/faq-clothes-4.jpg"
+import NavLayout from "../../layouts/NavLayout.astro"
+import { pictureData } from "../../lib/picture"
+
+const images = {
+  clothes1: await pictureData(clothes1, { width: 800 }),
+  clothes2: await pictureData(clothes2, { width: 800 }),
+  clothes3: await pictureData(clothes3, { width: 800 }),
+  clothes4: await pictureData(clothes4, { width: 800 }),
+}
+---
+
+<NavLayout
+  title="FAQ"
+  image="/meta-faq-hero.jpg"
+  description="Answers to some common questions about RSVP, attire, and what to do in the Bay Area."
+>
+  <PageHeading>Frequently Asked Questions</PageHeading>
+  <FaqPage client:load images={images} />
+</NavLayout>

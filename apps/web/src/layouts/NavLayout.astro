@@ -1,0 +1,86 @@
+---
+/** Header + optional hero image + content + footer (was NavLayout.tsx). */
+import "../components/layout/NavLayout.css"
+import { Picture } from "astro:assets"
+import type { ImageMetadata } from "astro"
+import clsx from "clsx"
+import Header from "../components/ui/Header.astro"
+import WeddingLogo from "../components/ui/WeddingLogo"
+import { metadata } from "../lib/metadata"
+import { pictureFormats } from "../lib/picture"
+import BaseLayout from "./BaseLayout.astro"
+
+interface Props {
+  title: string
+  description?: string
+  image?: string
+  heroImage?: ImageMetadata
+  alt?: string
+  objectPosition?: string
+  hideBackToTop?: boolean
+}
+
+const { heroImage, alt, objectPosition, hideBackToTop, ...seo } = Astro.props
+
+const links = [
+  { text: "Schedule", to: "/schedule" },
+  { text: "Travel & Hotel", to: "/travel" },
+  { text: "Our Story", to: "/story" },
+  { text: "Video", to: "/video" },
+  { text: "FAQ", to: "/faq" },
+  { text: "Registry", to: "/registry" },
+  { text: "RSVP", to: "/rsvp" },
+]
+---
+
+<BaseLayout {...seo}>
+  <a href="#reach-skip-nav" data-reach-skip-link="">Skip to content</a>
+  <Header links={links} currentPath={Astro.url.pathname} />
+  <main>
+    <div id="reach-skip-nav" data-reach-skip-nav-content=""></div>
+    {
+      heroImage && (
+        <div class="flex justify-center border-b h-bg-colors bg-hero-pattern border-subtle dark:bg-hero-pattern-night dark:border-subtle-night print:bg-transparent print:border-b-0">
+          <Picture
+            src={heroImage}
+            alt={alt || ""}
+            width={672}
+            layout="constrained"
+            formats={pictureFormats}
+            fallbackFormat="jpg"
+            pictureAttributes={{
+              class: "p-cover relative block mx-auto w-full max-w-xl max-h-96 overflow-hidden print:hidden",
+            }}
+            class="block w-full h-auto max-h-96 object-cover"
+            style={{ aspectRatio: `${heroImage.width} / ${heroImage.height}`, objectPosition }}
+          />
+        </div>
+      )
+    }
+    <div class={clsx("max-w-4xl mx-auto px-8 pt-6 pb-8 sm:px-6", { "mt-4": !heroImage })}>
+      <slot />
+    </div>
+  </main>
+  <footer class="flex flex-col items-center pb-8 font-serif text-secondary dark:text-secondary-night print:text-secondary">
+    {
+      !hideBackToTop && (
+        <button
+          class="hidden c-button-inline c-link-focus sm:block print:hidden"
+          type="button"
+          onclick="window.scrollTo({ top: 0 })"
+        >
+          Back to top
+        </button>
+      )
+    }
+    <hr
+      class="inline-block w-10 mt-4 mb-1 border-subtle dark:border-subtle-night print:border-subtle"
+      aria-hidden="true"
+    />
+    <div class="my-2">
+      <WeddingLogo />
+    </div>
+    <p class="text-sm">Created with love by Milind &amp; Alisha</p>
+    <p class="text-sm">{metadata.hashtag}</p>
+  </footer>
+</BaseLayout>

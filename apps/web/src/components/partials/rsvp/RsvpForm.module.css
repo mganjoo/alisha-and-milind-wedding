@@ -1,0 +1,9 @@
+@reference "../../../styles/global.css";
+
+.section_heading {
+  @apply font-sans mb-1 text-xl;
+}
+
+.section_subheading {
+  @apply font-sans text-sm italic text-accent-text dark:text-accent-text-night;
+}

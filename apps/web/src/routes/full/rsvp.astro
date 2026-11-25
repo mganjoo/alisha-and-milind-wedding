@@ -1,0 +1,22 @@
+---
+import RsvpPage from "../../components/partials/rsvp/RsvpPage"
+import PageHeading from "../../components/ui/PageHeading"
+import heroImage from "../../images/rsvp-hero.jpg"
+import NavLayout from "../../layouts/NavLayout.astro"
+import { loadEvents } from "../../lib/events"
+
+const events = await loadEvents()
+---
+
+<NavLayout
+  title="RSVP"
+  image="/meta-rsvp-hero.jpg"
+  description="We hope to see you at our wedding! Please RSVP on this page."
+  heroImage={heroImage}
+  alt="Picture of Milind and Alisha holding hands, with their backs to the camera, running on the beach at sunset. Milind is in a black blazer and trousers, and Alisha is in a grey dress."
+>
+  <PageHeading>RSVP</PageHeading>
+  <div class="c-narrow-body">
+    <RsvpPage client:load events={events} />
+  </div>
+</NavLayout>

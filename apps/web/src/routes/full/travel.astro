@@ -1,0 +1,17 @@
+---
+import TravelPage from "../../components/partials/TravelPage"
+import PageHeading from "../../components/ui/PageHeading"
+import heroImage from "../../images/travel-hero.jpg"
+import NavLayout from "../../layouts/NavLayout.astro"
+---
+
+<NavLayout
+  title={"Travel & Hotel"}
+  image="/meta-travel-hero.jpg"
+  description="Venue information, recommended airport and details about the hotel block."
+  heroImage={heroImage}
+  alt="Alisha and Milind in front of a red sandstone backdrop. Alisha is pointing at something in the distance and Milind looking on."
+>
+  <PageHeading>Travel &amp; Hotel</PageHeading>
+  <TravelPage client:load />
+</NavLayout>

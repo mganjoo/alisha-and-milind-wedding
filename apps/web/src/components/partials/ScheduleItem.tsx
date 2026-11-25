@@ -1,0 +1,143 @@
+import { type PropsWithChildren, useContext } from "react"
+import type { WeddingEventMarkdown } from "../../interfaces/Event"
+import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
+import AddToCalendarLinks from "../ui/AddToCalendarLinks"
+import ExternalLink from "../ui/ExternalLink"
+import SymbolIcon, { type SymbolName } from "../ui/Symbol"
+
+interface ScheduleItemProps {
+  event: WeddingEventMarkdown
+}
+
+const ScheduleInfoRow = ({ children }: PropsWithChildren) => (
+  <div className="flex flex-wrap items-center md:justify-center">
+    {children}
+  </div>
+)
+
+interface ScheduleInfoItemProps {
+  symbol: SymbolName
+  label: string
+}
+
+const ScheduleInfoItem = ({
+  children,
+  symbol,
+  label,
+}: PropsWithChildren<ScheduleInfoItemProps>) => (
+  <span className="flex items-center mx-2 mb-2 font-sans text-sm text-secondary dark:text-secondary-night print:text-primary-print">
+    <SymbolIcon
+      symbol={symbol}
+      className="mr-2"
+      size="s"
+      label={label}
+      inline
+    />
+    {children}
+  </span>
+)
+
+function makeDescription(event: WeddingEventMarkdown) {
+  const subEventDescription = event.frontmatter.subLocations
+    ? `${event.frontmatter.subLocations
+        .map(
+          (location) =>
+            `* ${location.name}: ${location.location} at ${location.time}`
+        )
+        .join("\n")}\n\n`
+    : event.frontmatter.location
+      ? `Location: ${event.frontmatter.location}\n\n`
+      : ""
+  return `${subEventDescription}${event.frontmatter.plainText}\nAttire: ${event.frontmatter.attire}`
+}
+
+const ScheduleItem = ({ event }: ScheduleItemProps) => {
+  const metadata = useContext(WeddingMetadataContext)
+  const addressLine = metadata
+    ? (event.frontmatter.preEvent
+        ? metadata.preEventsVenue
+        : metadata.mainVenue
+      ).join(", ")
+    : undefined
+  const addressUrl = event.frontmatter.preEvent
+    ? metadata?.preEventsVenueUrl
+    : metadata?.mainVenueUrl
+  return (
+    <div className="mb-12 md:flex md:items-center">
+      <div className="mb-2 md:mb-0 md:w-2/5 md:flex md:flex-col md:items-center">
+        <h2 className="mb-2 font-sans text-2xl font-semibold text-heading-primary dark:text-heading-primary-night print:text-heading-print">
+          {event.frontmatter.name}
+        </h2>
+        <div className="w-full pl-2 border-l border-accent md:pl-0 md:border-0 dark:border-accent-night print:border-subtle">
+          <ScheduleInfoRow>
+            <ScheduleInfoItem label="Date" symbol="calendar">
+              {event.frontmatter.longDateOnly}
+            </ScheduleInfoItem>
+            <ScheduleInfoItem label="Time" symbol="time">
+              {event.frontmatter.timeOnly}-{event.frontmatter.endTimeOnly}
+            </ScheduleInfoItem>
+          </ScheduleInfoRow>
+          <ScheduleInfoRow>
+            <ScheduleInfoItem label="Venue" symbol="location">
+              {event.frontmatter.location || addressLine}
+            </ScheduleInfoItem>
+          </ScheduleInfoRow>
+          <div className="flex py-1 md:justify-center print:hidden">
+            <AddToCalendarLinks
+              label="Add to calendar"
+              event={{
+                title: `${event.frontmatter.name}: Alisha and Milind's Wedding`,
+                location: addressLine,
+                description: makeDescription(event),
+                startTime: event.frontmatter.startDate,
+                endTime: event.frontmatter.endDate,
+                url: addressUrl,
+              }}
+            />
+            {addressUrl && (
+              <ExternalLink
+                href={addressUrl}
+                className="c-button-inline c-link-focus"
+              >
+                Open Map
+              </ExternalLink>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="md:pl-4 md:py-4 md:w-3/5 md:border-l md:border-accent md:dark:border-accent-night print:border-subtle">
+        {event.frontmatter.subLocations && (
+          <div className="my-4 md:mt-0">
+            {event.frontmatter.subLocations.map((location) => (
+              <ScheduleInfoItem
+                key={location.name}
+                label="Event"
+                symbol="location"
+              >
+                <span>
+                  <span className="font-semibold dark:font-bold">
+                    {location.name}
+                  </span>
+                  : {location.location} at {location.time}
+                </span>
+              </ScheduleInfoItem>
+            ))}
+          </div>
+        )}
+        <div
+          className="c-body-text-container"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: event.html is rendered from our own Markdown at build time
+          dangerouslySetInnerHTML={{ __html: event.html }}
+        />
+        <div className="-mb-4 c-body-text-container">
+          <p>
+            <span className="font-semibold dark:font-bold">Attire</span>:{" "}
+            {event.frontmatter.attire}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default ScheduleItem

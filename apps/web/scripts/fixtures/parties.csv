@@ -1,0 +1,9 @@
+code,uniquePartyName,partyName,numGuests,knownGuest1,knownGuest2,knownGuest3,knownGuest4,knownGuest5,knownGuest6,knownGuest7,knownGuest8,knownGuest9,knownGuest10,knownGuest11,preEvents,ceremony,sangeet
+test32,Kohli-Sharma,Virat Kohli & Anushka Sharma,3,Virat Kohli,Anushka Sharma,,,,,,,,,,n,n,y
+testr2,Kalyana-Anand,Richa Kalyana & Grishma Anand,2,Richa Kalyana,Grishma Anand,,,,,,,,,,n,n,n
+testr1,Vishal,Ramachandra Vishal,1,Ramachandra Vishal,,,,,,,,,,,n,n,n
+atest2,Gupta (Jill),Jack & Jill Gupta,2,Jack Gupta,Jill Gupta,,,,,,,,,,y,y,y
+testvisual,Nair,Priya Nair & Family,2,Priya Nair,Arjun Nair,,,,,,,,,,y,y,y
+testrsvpapi,Iyer,Meera Iyer,1,Meera Iyer,,,,,,,,,,,n,n,n
+,Rao,Anjali Rao & Family,4,Anjali Rao,Vikram Rao,,,,,,,,,,y,n,y
+,D'Souza,Leah D'Souza,1,,,,,,,,,,,,y,n,n

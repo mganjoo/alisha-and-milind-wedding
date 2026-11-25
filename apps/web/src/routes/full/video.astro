@@ -1,0 +1,14 @@
+---
+import VideoPage from "../../components/partials/VideoPage"
+import PageHeading from "../../components/ui/PageHeading"
+import NavLayout from "../../layouts/NavLayout.astro"
+---
+
+<NavLayout
+  title="Video"
+  image="/meta-video-hero.jpg"
+  description="We felt like being vloggers for exactly one day and decided to play a game to share with you all. Hope you enjoy!"
+>
+  <PageHeading>Video: The Alisha &amp; Milind Face-off</PageHeading>
+  <VideoPage client:load />
+</NavLayout>

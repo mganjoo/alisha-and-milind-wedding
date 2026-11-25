@@ -1,0 +1,18 @@
+---
+import styles from "../../components/partials/InvitationCard.module.css"
+import InvitationPage from "../../components/partials/InvitationPage"
+import letter from "../../images/invitation/invitation.jpg"
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import { pictureData } from "../../lib/picture"
+
+const letterImage = await pictureData(letter, {
+  width: 1050,
+  sizes: "(min-width: 1024px) 1000px, 100vw",
+})
+---
+
+<BaseLayout title="Welcome" image="/meta-main-hero.jpg" bodyClass={styles.page_bg}>
+  <main>
+    <InvitationPage client:load letter={letterImage} />
+  </main>
+</BaseLayout>

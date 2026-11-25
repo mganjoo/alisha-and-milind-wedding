@@ -1,0 +1,12 @@
+name,email,cleanedName,skip,uniquePartyName
+Anushka Sharma,anushka.sharma@example.com,,,Kohli-Sharma
+Richa Kalyana,richa.kalyana@example.com,,,Kalyana-Anand
+Ramachandra Vishal,ramachandra.vishal@example.com,,,Vishal
+Jill Gupta,jill.gupta@example.com,,,Gupta (Jill)
+Jack Gupta,jack.gupta@example.com,,,Gupta (Jill)
+Priya Nair,priya.nair@example.com,,,Nair
+Meera Iyer,Meera.Iyer@example.com,,,Iyer
+anjali rao,anjali.rao@example.com,Anjali Rao,,Rao
+Anjali Rao,anjali.rao@example.com,,y,Rao
+Leah D'Souza,leah.dsouza@example.com,,,D'Souza
+Sam Lee,sam.lee@example.com,,,

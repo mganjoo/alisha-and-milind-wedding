@@ -1,0 +1,47 @@
+// Cloudflare Worker for the site: static assets (the prerendered Astro pages)
+// plus the on-demand `/api/*` endpoints backed by D1.
+//
+// Build-time environment selection: `CLOUDFLARE_ENV=test pnpm build` bakes the
+// `test` environment below into dist/server/wrangler.json (used by the e2e
+// harness); a plain `pnpm build` uses the top-level (production) config.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "am-wedding",
+  "compatibility_date": "2026-11-01",
+  "observability": { "enabled": true },
+  // No preview URLs: old versions (one served a build with a private address)
+  // must not stay reachable. The demo is deployed straight to 100%.
+  "workers_dev": true,
+  "preview_urls": false,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "am-wedding",
+      // Placeholder: replace with the id printed by `wrangler d1 create am-wedding`.
+      "database_id": "0a99a3d9-63e7-4dd3-ba5f-dd4680d36446",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "RSVP_NOTIFY_EMAIL": "alisha.and.milind+rsvps@gmail.com"
+  },
+  "env": {
+    // Local e2e harness only. Never deploy this environment.
+    "test": {
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "am-wedding-test",
+          "database_id": "00000000-0000-0000-0000-000000000001",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "vars": {
+        "RSVP_NOTIFY_EMAIL": "alisha.and.milind+rsvps@example.com",
+        // Enables /api/test/* (seeding, reset and backend assertions). On the
+        // deployed demo it is a Worker secret (`wrangler secret put`), never here.
+        "TEST_API_TOKEN": "local-e2e-only"
+      }
+    }
+  }
+}

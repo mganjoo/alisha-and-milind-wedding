@@ -1,36 +1,21 @@
 {
   "name": "alisha-and-milind-wedding",
   "private": true,
-  "version": "0.1.0",
-  "author": "Milind Ganjoo <milind.ganjoo@gmail.com>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mganjoo/alisha-and-milind-wedding"
-  },
-  "bugs": {
-    "url": "https://github.com/mganjoo/alisha-and-milind-wedding/issues"
-  },
-  "devDependencies": {
-    "husky": "7.0.4",
-    "lerna": "4.0.0",
-    "lint-staged": "12.1.4",
-    "prettier": "2.5.1"
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=24"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "prebootstrap": "npm install",
-    "bootstrap:ci": "lerna bootstrap --ci",
-    "prebootstrap:ci": "npm ci",
-    "format": "prettier --write .",
-    "start:website": "npm --prefix website run develop",
-    "check:types": "lerna run --concurrency 1 --stream check:types",
-    "check:lint": "lerna run check:lint",
-    "prepare": "husky install"
+    "dev": "pnpm --filter @am-wedding/web dev",
+    "build": "pnpm --filter @am-wedding/web build",
+    "check": "biome check . && pnpm -r --if-present check:types",
+    "format": "biome format --write .",
+    "test:unit": "pnpm -r --if-present test:unit",
+    "test:e2e": "pnpm --filter @am-wedding/e2e test"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,md,yml}": [
-      "prettier --write"
-    ]
+  "devDependencies": {
+    "@biomejs/biome": "2.6.9",
+    "typescript": "5.9.3"
   }
 }

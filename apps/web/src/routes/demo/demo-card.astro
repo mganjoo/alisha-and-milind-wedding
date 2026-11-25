@@ -1,0 +1,16 @@
+---
+import DemoCard from "../../components/partials/DemoCard"
+import styles from "../../components/partials/InvitationCard.module.css"
+import letter from "../../images/invitation/invitation.jpg"
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import { pictureData } from "../../lib/picture"
+
+const letterImage = await pictureData(letter, {
+  width: 1050,
+  sizes: "(min-width: 1024px) 1000px, 100vw",
+})
+---
+
+<BaseLayout title="Demo card" bodyClass={styles.page_bg}>
+  <DemoCard client:load letter={letterImage} />
+</BaseLayout>

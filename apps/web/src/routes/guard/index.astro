@@ -1,0 +1,55 @@
+---
+/**
+ * "Guard" home page (DISABLE_FULL_SITE=1): the 2020 cancellation notice over a
+ * full-bleed photo (an <img> covering the section; was gatsby-background-image).
+ */
+import { Picture } from "astro:assets"
+import heroImage from "../../images/main-hero-large.jpg"
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import { pictureFormats } from "../../lib/picture"
+
+const description =
+  "Due to the COVID-19 pandemic, we have decided to cancel our planned wedding celebrations in October. We’re still figuring out our next steps, and we hope to celebrate in person with you some day soon!"
+---
+
+<BaseLayout title="Home" image="/meta-main-hero.jpg" description={description}>
+  <h1 class="sr-only">Alisha &amp; Milind Wedding</h1>
+  <main>
+    <div class="relative min-h-screen">
+      {/* h-full! beats Astro's unlayered responsive-image rule
+          (:where([data-astro-image]) { height: auto }), which otherwise
+          overrides Tailwind's layered utilities. */}
+      <Picture
+        src={heroImage}
+        alt=""
+        layout="full-width"
+        formats={pictureFormats}
+        fallbackFormat="jpg"
+        loading="eager"
+        fetchpriority="high"
+        class="absolute inset-0 w-full h-full! object-cover"
+      />
+      <div class="relative min-h-screen flex justify-center items-center">
+        <div
+          class="p-6 font-serif text-lg bg-background-night/75 text-primary-night sm:mx-auto sm:max-w-sm sm:rounded-md sm:bg-background-night/50"
+        >
+          <p>
+            Dear family and friends,
+            <br />
+            <br />
+            Due to the COVID-19 pandemic, we have decided to cancel our planned wedding celebrations in October. We&rsquo;re
+            still figuring out our next steps, and we hope to celebrate in person with you some day soon.
+            <br />
+            <br />
+            Stay safe!
+            <br />
+            <br />
+            Love,
+            <br />
+            Alisha &amp; Milind
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

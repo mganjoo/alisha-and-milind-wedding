@@ -1,0 +1,125 @@
+import type { PropsWithChildren } from "react"
+import { WeddingMetadataContext } from "../../utils/WeddingMetadataContext"
+import ExternalLink from "../ui/ExternalLink"
+import IframeContainer from "../ui/IframeContainer"
+import SymbolIcon, { type SymbolName } from "../ui/Symbol"
+import Authenticated from "./Authenticated"
+import ContactEmail from "./ContactEmail"
+
+interface HeadingSymbolProps {
+  symbol: SymbolName
+  id: string
+}
+
+const HeadingSymbol = ({
+  symbol,
+  id,
+  children,
+}: PropsWithChildren<HeadingSymbolProps>) => (
+  <h2 className="flex items-center" id={id}>
+    <SymbolIcon symbol={symbol} className="mr-2" size="m" inline />
+    {children}
+  </h2>
+)
+
+const TravelPage = () => (
+  <WeddingMetadataContext.Consumer>
+    {(value) => (
+      <Authenticated>
+        <section
+          className="mb-8 c-shadow-box sm:flex sm:items-center"
+          aria-labelledby="venue-heading"
+          aria-describedby="venue-description"
+        >
+          <div className="mb-4 font-sans text-lg sm:mb-0 sm:w-1/2 sm:flex sm:flex-col sm:items-center">
+            <div>
+              <h2
+                className="mb-1 text-xl font-semibold dark:font-bold"
+                id="venue-heading"
+              >
+                Venue
+              </h2>
+              <div id="venue-description">
+                {value?.mainVenue.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="sm:w-1/2">
+            <IframeContainer
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3220.6179385788037!2d-115.2933054847275!3d36.175850780081944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8bf8c790d8827%3A0x784fdcab011408d2!2sJW%20Marriott%20Las%20Vegas%20Resort%20%26%20Spa!5e0!3m2!1sen!2sus!4v1636839408497!5m2!1sen!2sus"
+              width={400}
+              height={300}
+              title={`Wedding Venue: ${value?.mainVenue[0]}`}
+              containerClassName="bg-background text-primary dark:bg-background-night dark:text-primary-night"
+            />
+          </div>
+        </section>
+        <section className="c-article" aria-labelledby="hotel-block">
+          <HeadingSymbol symbol="location-hotel" id="hotel-block">
+            Hotel block
+          </HeadingSymbol>
+          <p>
+            For our guests who will be staying overnight at the venue, please
+            use the link below for the wedding event rate. Please book your stay
+            by <strong>{value?.bookingDeadline}</strong> to guarantee room
+            availability at the special rate.
+          </p>
+          <div className="block w-full my-4">
+            <ExternalLink
+              href="https://book.passkey.com/e/50325597"
+              className="inline-block c-button c-button-primary c-button-comfortable"
+            >
+              Book a room at the special rate
+            </ExternalLink>
+          </div>
+        </section>
+        <section className="c-article" aria-labelledby="recommended-airport">
+          <HeadingSymbol symbol="airplane" id="recommended-airport">
+            Recommended airport: LAS
+          </HeadingSymbol>
+          <p>
+            For our friends and family flying in for the festivities, the
+            closest airport is{" "}
+            <ExternalLink href="https://www.harryreidairport.com/">
+              Harry Reid International Airport (LAS)
+            </ExternalLink>
+            , which is about 16 miles from the hotel.
+          </p>
+          <p>
+            App-based car services including Lyft and Uber are readily available
+            between LAS and JW Marriott. Fares typically range between $30-40
+            each way for rideshares. Estimated taxi fare is around $60 each way.
+          </p>
+          <p>
+            To easily get to the hotel registration desk, you would want to be
+            dropped off at <strong>Spa Tower</strong>.
+          </p>
+        </section>
+        <section className="c-article" aria-labelledby="driving-in">
+          <HeadingSymbol symbol="travel-car" id="driving-in">
+            Driving in
+          </HeadingSymbol>
+          <p>
+            The JW Marriott is located on N Rampart Blvd, off US 95. Valet
+            parking (complimentary for overnight guests) and self-parking
+            (complimentary for all) is available at the venue.
+          </p>
+          <p>
+            If you are checking into the hotel, the registration desk is closest
+            to <strong>Spa Tower</strong>. If you are joining us for the event
+            directly, head on over to <strong>Palms Tower</strong>.
+          </p>
+          <p>
+            Do not hesitate to reach out to us (
+            <ContactEmail />) if any questions come up about travel or booking
+            your stay!
+          </p>
+        </section>
+      </Authenticated>
+    )}
+  </WeddingMetadataContext.Consumer>
+)
+
+export default TravelPage

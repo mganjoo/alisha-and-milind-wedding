@@ -1,5 +1,0 @@
-.button_wrapper {
-  & > button {
-    @apply flex-auto mx-2 mb-4;
-  }
-}
