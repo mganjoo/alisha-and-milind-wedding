@@ -31,3 +31,14 @@ export function jsonResponse(result: ApiResult<unknown>): Response {
     },
   })
 }
+
+export function decodePathParam(raw: string | undefined): string | undefined {
+  if (raw === undefined) return undefined
+  try {
+    return decodeURIComponent(raw)
+  } catch {
+    return undefined
+  }
+}
+
+export const notFound: ApiResult<never> = { status: 404, error: "not found" }

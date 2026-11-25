@@ -18,7 +18,10 @@ const LabelledOption = ({
     <label className="inline-flex items-center py-1">
       <input
         type={type}
-        className="c-form-element-border bg-form-background text-accent dark:text-accent-night dark:bg-form-background-night"
+        className={clsx(
+          "c-form-element-border bg-form-background text-accent dark:text-accent-night dark:bg-form-background-night",
+          "checked:bg-current checked:border-transparent dark:checked:bg-current dark:checked:border-transparent"
+        )}
         {...otherProps}
       />
       <span className={clsx("ml-3", { "font-semibold": bold })}>{label}</span>
