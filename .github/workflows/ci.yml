@@ -117,7 +117,9 @@ jobs:
   deploy:
     name: Deploy the demo, run e2e against it (rollback on failure)
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Only the public repo deploys the demo (not forks, not the private
+    # history repo, which has no demo environment).
+    if: github.repository == 'mganjoo/alisha-and-milind-wedding' && github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     environment:
