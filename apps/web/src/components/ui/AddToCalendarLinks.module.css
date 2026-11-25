@@ -1,0 +1,19 @@
+@reference "../../styles/global.css";
+
+.popover {
+  @apply border border-subtle dark:border-subtle-night;
+}
+
+.menu {
+  @apply py-2 text-sm font-sans border-subtle bg-white text-primary outline-none whitespace-nowrap dark:border-subtle-night dark:bg-black dark:text-primary-night;
+}
+
+.item {
+  @apply flex px-4 py-1 cursor-pointer no-underline outline-none;
+  color: inherit;
+  font: inherit;
+}
+
+.item[data-focused] {
+  @apply bg-heading-primary dark:bg-heading-primary-night;
+}

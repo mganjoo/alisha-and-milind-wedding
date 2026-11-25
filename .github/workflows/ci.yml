@@ -1,0 +1,173 @@
+name: CI
+
+# Pull requests: lint, types, unit and end-to-end tests, plus a check that
+# merged migrations and drizzle snapshots are unchanged (always on). Pull requests that touch
+# apps/web/migrations/ also run the base branch's e2e against the new schema
+# (migration-compat); the `breaking-migration` label skips only that, for a
+# deliberate contract step.
+# Pushes to main (i.e. merges): the same tests, then a deploy of the demo to
+# Cloudflare: reset and reseed its fake data, run the full e2e suite against
+# a candidate version that serves no traffic, and promote it only if it passes.
+on:
+  pull_request:
+    # labeled/unlabeled: re-run when `breaking-migration` is added or removed.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  COMPOSE: docker compose -f docker/compose.yml
+
+jobs:
+  test:
+    name: Lint, unit, API/SQL and e2e tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # the migration lint diffs against the base branch
+
+      - name: Merged migrations are immutable
+        if: github.event_name == 'pull_request'
+        run: |
+          scripts/check-migrations.test.sh
+          scripts/check-migrations.sh "origin/${{ github.base_ref }}"
+
+      - name: Build the toolbox image
+        run: $COMPOSE build e2e
+
+      - name: Install dependencies
+        run: $COMPOSE run --rm -T --no-deps e2e pnpm install --frozen-lockfile
+
+      - name: Lint and type-check
+        run: $COMPOSE run --rm -T --no-deps e2e pnpm check
+
+      - name: Apply D1 migrations to a fresh local database
+        run: $COMPOSE run --rm -T --no-deps -w /repo/apps/web e2e pnpm exec wrangler d1 migrations apply DB --local --persist-to .wrangler/ci-migrations
+
+      - name: Unit tests (web, import script, API and SQL on a local D1)
+        run: $COMPOSE run --rm -T --no-deps e2e pnpm test:unit
+
+      - name: End-to-end tests (production build on the local Worker runtime + D1)
+        run: |
+          $COMPOSE up -d --wait web-preview
+          $COMPOSE run --rm -T -e BASE_URL=http://web-preview:9000 -w /repo/e2e e2e npx playwright test
+
+      - name: Guard-mode page (DISABLE_FULL_SITE=1)
+        run: |
+          DISABLE_FULL_SITE=1 $COMPOSE up -d --force-recreate --wait web-preview
+          $COMPOSE run --rm -T -e BASE_URL=http://web-preview:9000 -e SITE_MODE=guard -w /repo/e2e e2e npx playwright test tests/visual.spec.ts
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-report
+          path: |
+            e2e/report
+            e2e/test-results
+
+  # During a deploy the OLD code runs against the NEW schema. Run the base
+  # branch's own e2e suite on its own build with this PR's migrations applied.
+  migration-compat:
+    name: Old code on the new schema (migrations changed)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Did the migrations change?
+        id: changed
+        run: |
+          if [ -z "$(git ls-tree -d "${{ github.event.pull_request.base.sha }}" -- apps/web/migrations)" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::The base branch has no migrations (first schema): nothing to stay compatible with"
+          elif git diff --quiet "${{ github.event.pull_request.base.sha }}...HEAD" -- apps/web/migrations; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::apps/web/migrations unchanged: skipping the compatibility check"
+          elif ${{ contains(github.event.pull_request.labels.*.name, 'breaking-migration') }}; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Label breaking-migration: skipping the old-code compatibility check"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Base branch e2e against this PR's migrations
+        if: steps.changed.outputs.run == 'true'
+        run: scripts/check-migration-compat.sh "${{ github.event.pull_request.base.sha }}" ../base
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-report-migration-compat
+          path: |
+            ../base/e2e/report
+            ../base/e2e/test-results
+
+  deploy:
+    name: Deploy the demo (test a candidate version, then promote)
+    needs: test
+    # Deploys only where the `demo` environment is configured: environment
+    # secrets can't be read in a job-level `if`, so the first step checks them
+    # and the rest is skipped (job stays green) when any is missing, e.g. in
+    # forks or the private history repo.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: demo
+      url: https://${{ vars.SITE_HOST }}
+    concurrency:
+      group: deploy-demo
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      TEST_API_TOKEN: ${{ secrets.TEST_API_TOKEN }}
+      SITE_HOST: ${{ vars.SITE_HOST }}
+      PUBLIC_CF_ANALYTICS_TOKEN: ${{ vars.PUBLIC_CF_ANALYTICS_TOKEN }}
+      DEPLOY_MESSAGE: ${{ github.sha }}
+    steps:
+      - name: Is the demo environment configured?
+        id: configured
+        run: |
+          missing=""
+          for v in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID TEST_API_TOKEN SITE_HOST; do
+            [ -n "${!v}" ] || missing="$missing $v"
+          done
+          if [ -n "$missing" ]; then
+            echo "::notice::Deploy not configured (missing:$missing in the demo environment): skipping"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v5
+        if: steps.configured.outputs.ready == 'true'
+
+      - name: Build the toolbox image
+        if: steps.configured.outputs.ready == 'true'
+        run: $COMPOSE build e2e
+
+      - name: Migrate, upload a candidate, run e2e on it, promote if it passes
+        if: steps.configured.outputs.ready == 'true'
+        run: scripts/deploy.sh
+
+      - name: Upload Playwright report
+        if: failure() && steps.configured.outputs.ready == 'true'
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-report-demo
+          path: |
+            e2e/report
+            e2e/test-results

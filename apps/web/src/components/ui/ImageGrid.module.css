@@ -1,0 +1,33 @@
+@reference "../../styles/global.css";
+
+:root {
+  --image-modal-y-padding: 2vh;
+}
+
+.captioned_image img {
+  /* Explicitly replicate rounding on Safari
+   * https://stackoverflow.com/questions/17202128/rounded-cornes-border-radius-safari-issue
+   */
+  @apply rounded-t-lg print:rounded-none;
+}
+
+.uncaptioned_image img {
+  @apply rounded-lg print:rounded-none;
+}
+
+/* Replicates @reach/dialog's overlay */
+.overlay {
+  @apply z-20 print:hidden;
+  background: hsla(0, 0%, 0%, 0.33);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+}
+
+.content {
+  @apply max-w-3xl w-full p-0 bg-black relative h-[calc(100vh-2*var(--image-modal-y-padding))] my-[var(--image-modal-y-padding)] mx-auto;
+  outline: none;
+}

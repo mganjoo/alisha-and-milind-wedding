@@ -1,0 +1,588 @@
+{
+  "id": "cb1e3a3e-f48f-40f6-94a8-963acfa4c9bc",
+  "prevId": "f0294313-34f5-4806-a841-319656405759",
+  "version": "6",
+  "dialect": "sqlite",
+  "tables": {
+    "contacts": {
+      "name": "contacts",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "contacts_not_rejected": {
+          "name": "contacts_not_rejected",
+          "value": "\"contacts\".\"name\" <> '__reject_submission__'"
+        },
+        "contacts_created_at_positive": {
+          "name": "contacts_created_at_positive",
+          "value": "\"contacts\".\"created_at\" > 0"
+        },
+        "contacts_name_type": {
+          "name": "contacts_name_type",
+          "value": "typeof(\"contacts\".\"name\") = 'text'"
+        },
+        "contacts_email_type": {
+          "name": "contacts_email_type",
+          "value": "typeof(\"contacts\".\"email\") = 'text'"
+        },
+        "contacts_created_at_type": {
+          "name": "contacts_created_at_type",
+          "value": "typeof(\"contacts\".\"created_at\") = 'integer'"
+        }
+      }
+    },
+    "events": {
+      "name": "events",
+      "columns": {
+        "event": {
+          "name": "event",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "events_event_type": {
+          "name": "events_event_type",
+          "value": "typeof(\"events\".\"event\") = 'text'"
+        }
+      }
+    },
+    "invitations": {
+      "name": "invitations",
+      "columns": {
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "party_name": {
+          "name": "party_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "num_guests": {
+          "name": "num_guests",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "known_guests": {
+          "name": "known_guests",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'[]'"
+        },
+        "itype": {
+          "name": "itype",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "inactive": {
+          "name": "inactive",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "first_viewed_at": {
+          "name": "first_viewed_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_viewed_at": {
+          "name": "last_viewed_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "invitations_itype_itypes_itype_fk": {
+          "name": "invitations_itype_itypes_itype_fk",
+          "tableFrom": "invitations",
+          "columnsFrom": ["itype"],
+          "tableTo": "itypes",
+          "columnsTo": ["itype"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "invitations_code_nonempty": {
+          "name": "invitations_code_nonempty",
+          "value": "length(\"invitations\".\"code\") > 0"
+        },
+        "invitations_num_guests_range": {
+          "name": "invitations_num_guests_range",
+          "value": "\"invitations\".\"num_guests\" > 0 AND \"invitations\".\"num_guests\" < 15"
+        },
+        "invitations_known_guests_array": {
+          "name": "invitations_known_guests_array",
+          "value": "json_valid(\"invitations\".\"known_guests\") AND json_type(\"invitations\".\"known_guests\") = 'array'"
+        },
+        "invitations_inactive_boolean": {
+          "name": "invitations_inactive_boolean",
+          "value": "\"invitations\".\"inactive\" IN (0, 1)"
+        },
+        "invitations_viewed_positive": {
+          "name": "invitations_viewed_positive",
+          "value": "(\"invitations\".\"first_viewed_at\" IS NULL OR \"invitations\".\"first_viewed_at\" > 0) AND (\"invitations\".\"last_viewed_at\" IS NULL OR \"invitations\".\"last_viewed_at\" > 0)"
+        },
+        "invitations_code_type": {
+          "name": "invitations_code_type",
+          "value": "typeof(\"invitations\".\"code\") = 'text'"
+        },
+        "invitations_party_name_type": {
+          "name": "invitations_party_name_type",
+          "value": "typeof(\"invitations\".\"party_name\") = 'text'"
+        },
+        "invitations_num_guests_type": {
+          "name": "invitations_num_guests_type",
+          "value": "typeof(\"invitations\".\"num_guests\") = 'integer'"
+        },
+        "invitations_known_guests_type": {
+          "name": "invitations_known_guests_type",
+          "value": "typeof(\"invitations\".\"known_guests\") = 'text'"
+        },
+        "invitations_itype_type": {
+          "name": "invitations_itype_type",
+          "value": "typeof(\"invitations\".\"itype\") = 'text'"
+        },
+        "invitations_inactive_type": {
+          "name": "invitations_inactive_type",
+          "value": "typeof(\"invitations\".\"inactive\") = 'integer'"
+        },
+        "invitations_first_viewed_at_type": {
+          "name": "invitations_first_viewed_at_type",
+          "value": "typeof(\"invitations\".\"first_viewed_at\") IN ('integer', 'null')"
+        },
+        "invitations_last_viewed_at_type": {
+          "name": "invitations_last_viewed_at_type",
+          "value": "typeof(\"invitations\".\"last_viewed_at\") IN ('integer', 'null')"
+        }
+      }
+    },
+    "invitees": {
+      "name": "invitees",
+      "columns": {
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "inactive": {
+          "name": "inactive",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        }
+      },
+      "indexes": {
+        "invitees_code": {
+          "name": "invitees_code",
+          "columns": ["code"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "invitees_code_invitations_code_fk": {
+          "name": "invitees_code_invitations_code_fk",
+          "tableFrom": "invitees",
+          "columnsFrom": ["code"],
+          "tableTo": "invitations",
+          "columnsTo": ["code"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "invitees_email_lower": {
+          "name": "invitees_email_lower",
+          "value": "\"invitees\".\"email\" = lower(\"invitees\".\"email\") AND length(\"invitees\".\"email\") > 0"
+        },
+        "invitees_inactive_boolean": {
+          "name": "invitees_inactive_boolean",
+          "value": "\"invitees\".\"inactive\" IN (0, 1)"
+        },
+        "invitees_email_type": {
+          "name": "invitees_email_type",
+          "value": "typeof(\"invitees\".\"email\") = 'text'"
+        },
+        "invitees_name_type": {
+          "name": "invitees_name_type",
+          "value": "typeof(\"invitees\".\"name\") = 'text'"
+        },
+        "invitees_code_type": {
+          "name": "invitees_code_type",
+          "value": "typeof(\"invitees\".\"code\") = 'text'"
+        },
+        "invitees_inactive_type": {
+          "name": "invitees_inactive_type",
+          "value": "typeof(\"invitees\".\"inactive\") = 'integer'"
+        }
+      }
+    },
+    "itype_events": {
+      "name": "itype_events",
+      "columns": {
+        "itype": {
+          "name": "itype",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event": {
+          "name": "event",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "itype_events_itype_itypes_itype_fk": {
+          "name": "itype_events_itype_itypes_itype_fk",
+          "tableFrom": "itype_events",
+          "columnsFrom": ["itype"],
+          "tableTo": "itypes",
+          "columnsTo": ["itype"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "itype_events_event_events_event_fk": {
+          "name": "itype_events_event_events_event_fk",
+          "tableFrom": "itype_events",
+          "columnsFrom": ["event"],
+          "tableTo": "events",
+          "columnsTo": ["event"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "itype_events_itype_event_pk": {
+          "columns": ["itype", "event"],
+          "name": "itype_events_itype_event_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "itype_events_itype_type": {
+          "name": "itype_events_itype_type",
+          "value": "typeof(\"itype_events\".\"itype\") = 'text'"
+        },
+        "itype_events_event_type": {
+          "name": "itype_events_event_type",
+          "value": "typeof(\"itype_events\".\"event\") = 'text'"
+        }
+      }
+    },
+    "itypes": {
+      "name": "itypes",
+      "columns": {
+        "itype": {
+          "name": "itype",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "itypes_itype_type": {
+          "name": "itypes_itype_type",
+          "value": "typeof(\"itypes\".\"itype\") = 'text'"
+        }
+      }
+    },
+    "mail": {
+      "name": "mail",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "recipient": {
+          "name": "recipient",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "html": {
+          "name": "html",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "rsvp_id": {
+          "name": "rsvp_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sent_at": {
+          "name": "sent_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mail_rsvp_id_rsvps_id_fk": {
+          "name": "mail_rsvp_id_rsvps_id_fk",
+          "tableFrom": "mail",
+          "columnsFrom": ["rsvp_id"],
+          "tableTo": "rsvps",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "mail_recipient_type": {
+          "name": "mail_recipient_type",
+          "value": "typeof(\"mail\".\"recipient\") = 'text'"
+        },
+        "mail_subject_type": {
+          "name": "mail_subject_type",
+          "value": "typeof(\"mail\".\"subject\") = 'text'"
+        },
+        "mail_html_type": {
+          "name": "mail_html_type",
+          "value": "typeof(\"mail\".\"html\") = 'text'"
+        },
+        "mail_rsvp_id_type": {
+          "name": "mail_rsvp_id_type",
+          "value": "typeof(\"mail\".\"rsvp_id\") IN ('text', 'null')"
+        },
+        "mail_created_at_type": {
+          "name": "mail_created_at_type",
+          "value": "typeof(\"mail\".\"created_at\") = 'integer'"
+        },
+        "mail_sent_at_type": {
+          "name": "mail_sent_at_type",
+          "value": "typeof(\"mail\".\"sent_at\") IN ('integer', 'null')"
+        }
+      }
+    },
+    "rsvps": {
+      "name": "rsvps",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "attending": {
+          "name": "attending",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "guests": {
+          "name": "guests",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "comments": {
+          "name": "comments",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "rsvps_code_created": {
+          "name": "rsvps_code_created",
+          "columns": ["code", "created_at"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "rsvps_code_invitations_code_fk": {
+          "name": "rsvps_code_invitations_code_fk",
+          "tableFrom": "rsvps",
+          "columnsFrom": ["code"],
+          "tableTo": "invitations",
+          "columnsTo": ["code"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "rsvps_attending_boolean": {
+          "name": "rsvps_attending_boolean",
+          "value": "\"rsvps\".\"attending\" IN (0, 1)"
+        },
+        "rsvps_guests_nonempty_array": {
+          "name": "rsvps_guests_nonempty_array",
+          "value": "json_valid(\"rsvps\".\"guests\") AND json_type(\"rsvps\".\"guests\") = 'array' AND json_array_length(\"rsvps\".\"guests\") > 0"
+        },
+        "rsvps_created_at_positive": {
+          "name": "rsvps_created_at_positive",
+          "value": "\"rsvps\".\"created_at\" > 0"
+        },
+        "rsvps_id_type": {
+          "name": "rsvps_id_type",
+          "value": "typeof(\"rsvps\".\"id\") = 'text'"
+        },
+        "rsvps_code_type": {
+          "name": "rsvps_code_type",
+          "value": "typeof(\"rsvps\".\"code\") = 'text'"
+        },
+        "rsvps_attending_type": {
+          "name": "rsvps_attending_type",
+          "value": "typeof(\"rsvps\".\"attending\") = 'integer'"
+        },
+        "rsvps_guests_type": {
+          "name": "rsvps_guests_type",
+          "value": "typeof(\"rsvps\".\"guests\") = 'text'"
+        },
+        "rsvps_comments_type": {
+          "name": "rsvps_comments_type",
+          "value": "typeof(\"rsvps\".\"comments\") IN ('text', 'null')"
+        },
+        "rsvps_created_at_type": {
+          "name": "rsvps_created_at_type",
+          "value": "typeof(\"rsvps\".\"created_at\") = 'integer'"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

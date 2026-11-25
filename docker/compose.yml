@@ -1,0 +1,51 @@
+# Test harness. Run from the repo root, e.g.:
+#   docker compose -f docker/compose.yml build e2e
+#   docker compose -f docker/compose.yml up -d --wait web-preview
+#   docker compose -f docker/compose.yml run --rm e2e pnpm test:e2e
+name: am-wedding
+
+services:
+  # New Astro site. `web` = dev server (fast iteration), `web-preview` = the
+  # production build run in workerd by wrangler, with a fresh local D1 (the
+  # real parity gate). Both use the wrangler `test` environment.
+  web:
+    image: am-wedding-ci
+    working_dir: /repo/apps/web
+    volumes: [..:/repo, pnpm-store:/pnpm-store]
+    environment: &web-env
+      CLOUDFLARE_ENV: test
+      DISABLE_FULL_SITE: ${DISABLE_FULL_SITE:-0}
+      ASTRO_TELEMETRY_DISABLED: "1"
+      WRANGLER_SEND_METRICS: "false"
+    command: bash -c "pnpm db:migrate:local && pnpm dev --port 4321"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:4321/"]
+      interval: 2s
+      retries: 90
+
+  web-preview:
+    image: am-wedding-ci
+    working_dir: /repo/apps/web
+    volumes: [..:/repo, pnpm-store:/pnpm-store]
+    environment: *web-env
+    command: bash -c "pnpm build && pnpm preview:test"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:9000/"]
+      interval: 3s
+      retries: 200
+
+  # Toolbox: pnpm, wrangler, Playwright. Build it first
+  # (`build e2e`); the other am-wedding-ci services reuse the image.
+  e2e:
+    build: { context: ., dockerfile: ci.Dockerfile }
+    image: am-wedding-ci
+    working_dir: /repo
+    volumes: [..:/repo, pnpm-store:/pnpm-store]
+    ipc: host
+    environment:
+      npm_config_store_dir: /pnpm-store
+      BASE_URL: ${BASE_URL:-http://web-preview:9000}
+      TEST_API_TOKEN: local-e2e-only
+
+volumes:
+  pnpm-store:

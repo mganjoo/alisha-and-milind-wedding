@@ -1,0 +1,128 @@
+[
+  {
+    "id": "test2",
+    "data": {
+      "code": "test2",
+      "partyName": "Harsh Kashyap & Vicki Mehta",
+      "numGuests": 2,
+      "knownGuests": ["Harsh Kashyap", "Vicki Mehta"],
+      "itype": "a"
+    }
+  },
+  {
+    "id": "test3",
+    "data": {
+      "code": "test3",
+      "partyName": "Terry Gordon & Family",
+      "numGuests": 3,
+      "knownGuests": ["Terry Gordon", "Rani Gordon", "Ramesh Gordon"],
+      "itype": "ow"
+    }
+  },
+  {
+    "id": "test1",
+    "data": {
+      "code": "test1",
+      "partyName": "Alex Williamson",
+      "numGuests": 1,
+      "knownGuests": ["Alex Williamson"],
+      "itype": "w"
+    }
+  },
+  {
+    "id": "test32",
+    "data": {
+      "code": "test32",
+      "partyName": "Virat Kohli & Anushka Sharma",
+      "numGuests": 3,
+      "knownGuests": ["Virat Kohli", "Anushka Sharma"],
+      "itype": "sr"
+    }
+  },
+  {
+    "id": "testr2",
+    "data": {
+      "code": "testr2",
+      "partyName": "Richa Kalyana & Grishma Anand",
+      "numGuests": 2,
+      "knownGuests": ["Richa Kalyana", "Grishma Anand"],
+      "itype": "r"
+    }
+  },
+  {
+    "id": "testr1",
+    "data": {
+      "code": "testr1",
+      "partyName": "Ramachandra Vishal",
+      "numGuests": 1,
+      "knownGuests": ["Ramachandra Vishal"],
+      "itype": "r"
+    }
+  },
+  {
+    "id": "test_inactive",
+    "data": {
+      "code": "test_inactive",
+      "partyName": "Inactive",
+      "numGuests": 1,
+      "knownGuests": ["Inactive"],
+      "inactive": true,
+      "itype": "w"
+    }
+  },
+  {
+    "id": "atest2",
+    "data": {
+      "code": "atest2",
+      "partyName": "Jack & Jill Gupta",
+      "numGuests": 2,
+      "knownGuests": ["Jack Gupta", "Jill Gupta"],
+      "itype": "a"
+    }
+  },
+  {
+    "id": "t:iHqfOorR",
+    "data": {
+      "code": "t:iHqfOorR",
+      "partyName": "The Raj Family",
+      "numGuests": 3,
+      "knownGuests": ["Vishal Raj", "Priya Raj", "Raji Raj"],
+      "itype": "a"
+    }
+  },
+  {
+    "id": "t:M3AxoQSl",
+    "data": {
+      "code": "t:M3AxoQSl",
+      "partyName": "The Suraj Family",
+      "numGuests": 4,
+      "knownGuests": [
+        "Vishal Suraj",
+        "Dadlani Suraj",
+        "Raji Suraj",
+        "Bharat Suraj"
+      ],
+      "itype": "a"
+    }
+  },
+  {
+    "id": "testvisual",
+    "data": {
+      "code": "testvisual",
+      "partyName": "Priya Nair & Family",
+      "numGuests": 2,
+      "knownGuests": ["Priya Nair", "Arjun Nair"],
+      "itype": "a"
+    }
+  },
+  {
+    "id": "testrsvpapi",
+    "data": {
+      "code": "testrsvpapi",
+      "partyName": "Meera Iyer",
+      "numGuests": 1,
+      "knownGuests": ["Meera Iyer"],
+      "itype": "r"
+    }
+  }
+]

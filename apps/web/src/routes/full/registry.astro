@@ -1,0 +1,14 @@
+---
+import RegistryPage from "../../components/partials/RegistryPage"
+import PageHeading from "../../components/ui/PageHeading"
+import NavLayout from "../../layouts/NavLayout.astro"
+---
+
+<NavLayout
+  title="Registry"
+  image="/meta-faq-hero.jpg"
+  description="Information about our wedding registry."
+>
+  <PageHeading>Registry</PageHeading>
+  <RegistryPage client:load />
+</NavLayout>

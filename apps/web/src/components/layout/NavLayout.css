@@ -1,0 +1,10 @@
+@reference "../../styles/global.css";
+
+/* Skip link theming (base visually-hidden rules live in global.css). */
+[data-reach-skip-link] {
+  @apply font-sans text-sm rounded-lg;
+}
+
+[data-reach-skip-link]:focus {
+  @apply py-2 bg-white text-primary font-semibold underline outline-hidden ring-3 ring-accent-focus dark:ring-transparent dark:bg-accent-focus-night;
+}

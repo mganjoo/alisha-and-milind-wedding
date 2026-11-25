@@ -1,4 +1,0 @@
-{
-  "packages": ["website", "cli", "functions"],
-  "version": "independent"
-}

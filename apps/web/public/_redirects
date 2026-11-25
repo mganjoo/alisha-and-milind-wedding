@@ -1,0 +1,4 @@
+# Cloudflare Workers static assets. Code links (/s/*) are served by
+# src/pages/s/[...path].ts and /load?c=<code> by src/pages/load.ts: Cloudflare's
+# _redirects can't rewrite /s/* onto a page under /s/, or match query strings.
+/r/*      /s/:splat           301

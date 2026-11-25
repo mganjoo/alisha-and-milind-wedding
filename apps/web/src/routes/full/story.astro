@@ -1,0 +1,34 @@
+---
+import StoryPage from "../../components/partials/StoryPage"
+import PageHeading from "../../components/ui/PageHeading"
+import proposal from "../../images/story-proposal.jpg"
+import chicago from "../../images/story-travel-chicago.jpg"
+import halloween from "../../images/story-travel-halloween.jpg"
+import redRock from "../../images/story-travel-red-rock.jpg"
+import sandiego from "../../images/story-travel-san-diego.jpg"
+import tahoe from "../../images/story-travel-tahoe.jpg"
+import yosemite from "../../images/story-travel-yosemite.jpg"
+import wedding from "../../images/story-wedding.jpg"
+import NavLayout from "../../layouts/NavLayout.astro"
+import { pictureData } from "../../lib/picture"
+
+const images = {
+  chicago: await pictureData(chicago, { width: 800 }),
+  yosemite: await pictureData(yosemite, { width: 800 }),
+  redRock: await pictureData(redRock, { width: 800 }),
+  sandiego: await pictureData(sandiego, { width: 800 }),
+  tahoe: await pictureData(tahoe, { width: 800 }),
+  halloween: await pictureData(halloween, { width: 800 }),
+  proposal: await pictureData(proposal, { width: 800 }),
+  wedding: await pictureData(wedding, { width: 800 }),
+}
+---
+
+<NavLayout
+  title="Our Story"
+  image="/meta-story-hero.jpg"
+  description="Get to know us as a couple and read about our engagement!"
+>
+  <PageHeading>Our Story</PageHeading>
+  <StoryPage client:load images={images} />
+</NavLayout>

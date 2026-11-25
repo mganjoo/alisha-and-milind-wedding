@@ -64,8 +64,17 @@ yarn-error.log
 # Incremental buildinfo files
 *.tsbuildinfo
 
-# Functions lib/
-functions/lib
+# migration-2026
+node_modules/
+e2e/test-results/
+e2e/report/
+.pnpm-store/
+apps/web/dist/
+apps/web/.astro/
+e2e/test-results*/
+apps/web/.wrangler/
 
-# Firebase
-.firebase
+# review artifacts
+.review/
+.secrets/
+.claude/worktrees/
