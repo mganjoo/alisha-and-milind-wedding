@@ -167,6 +167,24 @@ for attempt in $(seq 1 30); do
 done
 echo "  ready"
 
+echo "▸ Wait for $target to serve the build's static assets"
+assets=$(cd apps/web/dist/client 2>/dev/null || cd apps/web/dist; find _astro -type f \( -name '*.css' -o -name '*.js' \) | sort)
+[[ -n "$assets" ]] || { echo "No CSS/JS assets found in the build output" >&2; exit 1; }
+for attempt in $(seq 1 40); do
+  missing=0
+  while read -r asset; do
+    code=$(curl -s -o /dev/null -w '%{http_code}' "$target/$asset" || true)
+    [[ "$code" == 200 ]] || { missing=$((missing + 1)); last="$asset ($code)"; }
+  done <<<"$assets"
+  [[ $missing == 0 ]] && break
+  [[ $attempt == 40 ]] && {
+    echo "$target is still missing $missing asset(s), e.g. $last" >&2
+    exit 1
+  }
+  sleep 3
+done
+echo "  $(wc -l <<<"$assets" | tr -d ' ') assets served"
+
 echo "▸ Reset and reseed the demo database, then run the full e2e suite on $target"
 if ! "${COMPOSE[@]}" run --rm -T --no-deps \
   -e BASE_URL="$target" -e TEST_API_TOKEN -e E2E_RESET=1 \
