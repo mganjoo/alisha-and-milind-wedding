@@ -59,3 +59,25 @@ test("RSVP becomes the derived latestRsvp and queues an email; lookups are views
     )
     .toBe(true)
 })
+
+// Regression: codes may contain characters that encodeURIComponent escapes
+// (2022's codes include `:`). The client encodes the code in the API path; the
+// routes must decode it, or the RSVP fails with "problem submitting".
+test("RSVP works for an invitation whose code contains reserved URL characters", async ({
+  page,
+}) => {
+  const code = "t:M3AxoQSl"
+  const token = `run-${randomUUID()}`
+
+  await page.goto("/rsvp")
+  await page.getByLabel(/email address/i).fill(inviteeForCode(code).id)
+  await page.getByText(/submit/i).click()
+  await page.getByLabel(/no, will celebrate/i).check()
+  await page.getByLabel(/comments/i).fill(token)
+  await page.getByText(/submit rsvp/i).click()
+  await expect(page.getByText(/not attending/i)).toBeVisible()
+
+  await expect
+    .poll(async () => (await storedInvitation(code))?.latestRsvp?.comments)
+    .toBe(token)
+})
